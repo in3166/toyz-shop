@@ -1,18 +1,19 @@
 import { useRecoil } from 'hooks/state'
-import { FC, ReactNode } from 'react'
-import { Routes, Route, NavLink, Navigate, useNavigate, Outlet } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { currentUserState } from 'states/user'
 
 interface IProtectedRoute {
-  isLoggedIn: boolean
-  path?: string
+  children: JSX.Element
 }
 
-const ProtectedRoute = ({ isLoggedIn, path = '/' }: IProtectedRoute) => {
-  if (isLoggedIn) {
-    return <Navigate to='/' />
+const ProtectedRoute = ({ children }: IProtectedRoute) => {
+  const location = useLocation()
+  const [user] = useRecoil(currentUserState)
+  if (user?.id === '') {
+    return children
   }
-  return <Outlet />
+
+  return <Navigate to='/' replace state={{ from: location }} />
 }
 
 export default ProtectedRoute

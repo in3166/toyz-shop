@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import system from './system'
-import todo from './todo'
+import product from './product'
+import banner from './banner'
 
 export const store = configureStore({
   reducer: {
     system,
-    todo,
+    product,
+    banner,
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),

@@ -8,7 +8,7 @@ export interface SystemState {
 }
 
 const INITIAL_STATE: SystemState = {
-  theme: store.get('foundation.theme') || 'light',
+  theme: store.get('toyz.theme') || 'light',
 }
 
 const systemSlice = createSlice({
@@ -17,13 +17,13 @@ const systemSlice = createSlice({
   reducers: {
     setTheme: (state: SystemState, action: PayloadAction<string>) => {
       const newColorSet = action.payload
-      store.set('foundation.theme', newColorSet)
+      store.set('toyz.theme', newColorSet)
       document.documentElement.setAttribute('color-theme', newColorSet)
       state.theme = newColorSet
     },
     toggleTheme: (state: SystemState) => {
       const newColorSet = state.theme === 'light' ? 'dark' : 'light'
-      store.set('foundation.theme', newColorSet)
+      store.set('toyz.theme', newColorSet)
       document.documentElement.setAttribute('color-theme', newColorSet)
       state.theme = newColorSet
     },

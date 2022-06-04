@@ -22,7 +22,9 @@
   animation: moveRight 0.3s;
 
   button {
-    height: 100%;
+    display: flex;
+    align-items: center;
+    height: auto;
     margin-left: 10px;
 
     svg {

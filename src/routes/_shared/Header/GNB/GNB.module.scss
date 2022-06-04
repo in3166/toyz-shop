@@ -32,12 +32,16 @@
   ul {
     display: flex;
     align-items: center;
-    font-size: 17px;
+    font-size: 15px;
+
+    .logout {
+      font-size: 15px;
+    }
   }
 
   li {
     + li {
-      margin-left: 7px;
+      margin-left: 17px;
     }
   }
 
@@ -47,6 +51,19 @@
 
     &.isActive {
       font-weight: 600;
+    }
+  }
+
+  .settingIcon {
+    height: 25px;
+
+    svg {
+      width: 25px;
+      height: 25px;
+
+      path {
+        fill: rgb(112, 112, 112);
+      }
     }
   }
 }

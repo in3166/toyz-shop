@@ -14,7 +14,7 @@
   transition: all 0.3s ease 0s;
 
   &:hover {
-    border: 1px solid colors.$CARD_BORDER_HOVER;
+    // border: 1px solid colors.$CARD_BORDER_HOVER;
     opacity: 0.5;
   }
 
@@ -23,7 +23,8 @@
   }
 
   .itemImage {
-    // max-width: 252px;
+    max-height: 152px;
+    object-fit: cover;
   }
 
   .header {

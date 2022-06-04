@@ -4,21 +4,25 @@ import { MouseEvent } from 'react'
 
 import { useRecoil } from 'hooks/state'
 import styles from './card.module.scss'
-import { HeartFillIcon } from 'assets/svgs'
+import { HeartFillIcon, HeartOutlineIcon } from 'assets/svgs'
 
 interface ICardProps {
   id: string
   url: string
   description: string
+  likes: string[]
 }
 
-const Card = ({ id, url, description }: ICardProps): JSX.Element => {
+const Card = ({ id, url, description, likes }: ICardProps): JSX.Element => {
+  console.log(likes)
+  const isLiked = likes?.indexOf(id) > -1
+  console.log('isLiked: ', isLiked)
   return (
     <li className={styles.card}>
       <h3 className={styles.header}>
         <div className={styles.title}>{description}</div>
         <button type='button' className={styles.trashButton}>
-          <HeartFillIcon />
+          {isLiked ? <HeartFillIcon /> : <HeartOutlineIcon />}
         </button>
       </h3>
       <img src={url} alt={description} className={styles.itemImage} />

@@ -4,16 +4,19 @@ interface IUser {
   id: string
   name: string
   phone: string
-  address: string
+  likes: string[]
+  role: number
 }
-const initailUser = {
+
+const initialUser = {
   id: '',
   name: '',
   phone: '',
-  address: '',
+  likes: [],
   role: 0,
 }
+
 export const currentUserState = atom<IUser>({
   key: 'currentUser',
-  default: initailUser,
+  default: initialUser,
 })

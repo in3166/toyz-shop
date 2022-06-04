@@ -11,6 +11,7 @@ import DarkMode from './DarkMode'
 import DropDown from 'components/DropDown'
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'states/user'
+import { ProfileIcon, SettingIcon } from 'assets/svgs'
 
 const storedLang = store.get('language') || 'English'
 const SELECT_LIST = ['English', 'Korean']
@@ -48,12 +49,14 @@ const GNB = () => {
         ) : (
           <>
             <li>
-              <button type='button' onClick={handleClickLogout}>
+              <button type='button' onClick={handleClickLogout} className={styles.logout}>
                 {`${t('front:gnb.logout')}`}
               </button>
             </li>
             <li>
-              <div>프로필</div>
+              <button type='button' className={styles.settingIcon}>
+                {currentUser.role === 0 ? <ProfileIcon /> : <SettingIcon />}
+              </button>
             </li>
           </>
         )}

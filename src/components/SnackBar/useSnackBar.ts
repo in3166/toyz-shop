@@ -22,7 +22,6 @@ export const useSnackbar = (ms: number) => {
 
   useEffect(() => {
     return () => {
-      console.log('return L: ', timer.current)
       if (timer.current) clearTimeout(timer.current)
       setMessage({ text: '' })
     }

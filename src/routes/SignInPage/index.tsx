@@ -17,14 +17,12 @@ import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import store from 'store'
 
 const SignIn = (): JSX.Element => {
-  // const navigate = useNavigate()
   const [currentUser, setCurrentUser] = useRecoil(currentUserState)
-  // if (currentUser.id !== '') navigate('/')
 
   const t = useI18n()
-  // const [message, setMessage] = useState('')
-  const [snackBarStatus, setSnackBarStatus] = useState('')
   const inputFocusRef = useRef(null)
+  // TODO: clearTimer 필요?
+  const [snackBarStatus, setSnackBarStatus] = useState('')
   const { message, setMessage, clearTimer } = useSnackbar(5000)
 
   const {
@@ -54,22 +52,17 @@ const SignIn = (): JSX.Element => {
       handleIdBlur()
       return
     }
-    getUserDataApi(id)
-      .then((res) => {
-        if (res.length < 1) {
-          setMessage(`로그인 실패! \n (ID: 'user1'이나 'admin'을 입력해주세요.)`)
-          setSnackBarStatus('error')
-          return
-        }
-        clearTimer()
-        store.set('currentUser', res)
-        setSnackBarStatus('')
-        setMessage('로그인 성공!')
-        setCurrentUser(res)
-      })
-      .finally(() => {
-        // if (currentUser.id !== '') navigate('/')
-      })
+    getUserDataApi(id).then((res) => {
+      console.log('res: ', res)
+      if (res.length < 1) {
+        setMessage(`로그인 실패! \n (ID: 'user1'이나 'admin'을 입력해주세요.)`)
+        setSnackBarStatus('error')
+        return
+      }
+      clearTimer()
+      store.set('currentUser', res[0])
+      setCurrentUser(res[0])
+    })
   }
 
   return (
