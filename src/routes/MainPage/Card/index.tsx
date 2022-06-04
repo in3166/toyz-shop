@@ -5,40 +5,38 @@ import { MouseEvent } from 'react'
 import { useRecoil } from 'hooks/state'
 import styles from './card.module.scss'
 import { HeartFillIcon, HeartOutlineIcon } from 'assets/svgs'
+import { IProductItem } from 'types/product'
 
 interface ICardProps {
-  id: string
-  url: string
-  description: string
+  item: IProductItem
   likes: string[]
 }
 
-const Card = ({ id, url, description, likes }: ICardProps): JSX.Element => {
-  console.log(likes)
-  const isLiked = likes?.indexOf(id) > -1
-  console.log('isLiked: ', isLiked)
+const Card = ({ item, likes }: ICardProps): JSX.Element => {
+  const isLiked = likes?.indexOf(item.id) > -1
+
   return (
-    <li className={styles.card}>
+    <li className={styles.card} title={item.title}>
       <h3 className={styles.header}>
-        <div className={styles.title}>{description}</div>
+        <div className={styles.title}>{item.title}</div>
         <button type='button' className={styles.trashButton}>
           {isLiked ? <HeartFillIcon /> : <HeartOutlineIcon />}
         </button>
       </h3>
-      <img src={url} alt={description} className={styles.itemImage} />
+      <img src={item.url} alt={item.title} className={styles.itemImage} />
 
       <dl>
         <div>
-          <dt>종류</dt>
-          <dd>판매</dd>
+          <dt>소유자</dt>
+          <dd>{item.owner}</dd>
         </div>
         <div>
           <dt>가격</dt>
-          <dd>250,000 원</dd>
+          <dd>{item.price} 만원</dd>
         </div>
         <div>
           <dt>등록일</dt>
-          <dd>2022.2.21</dd>
+          <dd>{dayjs(item.date).format('YY-MM-DD')}</dd>
         </div>
       </dl>
     </li>

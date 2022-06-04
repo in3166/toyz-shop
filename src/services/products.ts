@@ -1,19 +1,34 @@
 import { axios } from 'hooks/worker'
+import { IProductAPI, IProductItem } from 'types/product'
 
 const PRODUCT_BASE_URL = 'https://api.unsplash.com'
 
-const getInitialProudcts = () => {
-  axios
-    .get(`${PRODUCT_BASE_URL}/search/photos?per_page=50`, {
-      params: {
-        client_id: process.env.REACT_APP_PEXELS_KEY,
-        page: 2,
-        query: 'toy',
-      },
+axios.interceptors.response.use((res) => {
+  if (res.data.results) {
+    const value = res.data.results
+    const temp = value.map((product: IProductAPI) => {
+      return {
+        id: product.id,
+        title: product.alt_description,
+        url: product.urls.small,
+        date: product.created_at,
+        owner: product.user.name,
+        price: product.likes,
+      }
     })
-    .then((res) => {
-      console.log(res)
-    })
-}
+    res.data = temp
+    return res
+  }
+  return []
+})
 
-export { getInitialProudcts }
+const getProudcts = (page: number) =>
+  axios.get<IProductItem[]>(`${PRODUCT_BASE_URL}/search/photos?per_page=10`, {
+    params: {
+      client_id: process.env.REACT_APP_PEXELS_KEY,
+      page,
+      query: 'toy',
+    },
+  })
+
+export { getProudcts }

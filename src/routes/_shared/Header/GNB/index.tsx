@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import styles from './GNB.module.scss'
 
 import i18n from 'utils/locale'
-import { useAppDispatch, useAppSelector, useEffect, useGA, useI18n, useState } from 'hooks'
+import { useAppDispatch, useAppSelector, useEffect, useI18n, useState } from 'hooks'
 import { getTheme, toggleTheme } from 'states/system'
 import SearchBar from './SearchBar'
 import DarkMode from './DarkMode'

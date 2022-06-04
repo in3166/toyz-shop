@@ -1,6 +1,7 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/mixins/responsive';
 @use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/animation';
 
 .main {
   min-width: 200px;
@@ -32,52 +33,7 @@
   }
 }
 
-.slider {
-  .dots {
-    bottom: 0;
-    z-index: 3;
-  }
-
-  img {
-    width: 100%;
-    height: 350px;
-    object-fit: contain;
-    background-color: #ebe7e4;
-  }
-
-  .dlContent dt {
-    width: 55px;
-  }
-
-  &::after {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    content: '';
-    background: linear-gradient(to bottom right, transparent 48%, #ebe7e4 50.25%);
-  }
-
-  .slideContent {
-    position: relative;
-  }
-
-  .description {
-    position: absolute;
-    bottom: 30px;
-    left: 10px;
-    padding: 15px;
-    color: rgb(124, 124, 124);
-    background-color: rgba(255, 255, 255, 66.4%);
-    border-radius: 7px;
-
-    dl > div {
-      display: flex;
-    }
-  }
-}
-
-.cards {
+.cardContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 10px;
@@ -92,5 +48,21 @@
 
   @include responsive.after(LD) {
     grid-gap: 60px;
+  }
+}
+
+.loading {
+  width: 100%;
+  margin: 30px 0;
+  text-align: center;
+
+  > svg {
+    width: auto;
+    height: 50px;
+    animation: rotation 1s infinite linear;
+
+    path {
+      fill: rgb(241, 155, 42);
+    }
   }
 }

@@ -23,6 +23,7 @@
   }
 
   .itemImage {
+    min-height: 152px;
     max-height: 152px;
     object-fit: cover;
   }
@@ -69,6 +70,7 @@
   dl {
     display: flex;
     flex-direction: column;
+    margin-top: 13px;
 
     div {
       @include flexbox.flexbox(between, center);

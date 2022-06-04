@@ -14,19 +14,20 @@ const INITIAL_STATE: ProductState = {
   productList: INIT_PRODUCT,
 }
 
-const systemSlice = createSlice({
-  name: 'system',
+const productSlice = createSlice({
+  name: 'product',
   initialState: INITIAL_STATE,
   reducers: {
-    setproductList: (state: ProductState, action: PayloadAction<IProductItem[]>) => {
-      state.productList = action.payload
+    setProductList: (state: ProductState, action: PayloadAction<IProductItem[]>) => {
+      console.log(action.payload)
+      state.productList = [...state.productList, ...action.payload]
     },
-    resetproductList: () => INITIAL_STATE,
+    resetProductList: () => INITIAL_STATE,
   },
 })
 
-export const { setproductList, resetproductList } = systemSlice.actions
+export const { setProductList, resetProductList } = productSlice.actions
 
-export default systemSlice.reducer
+export default productSlice.reducer
 
 export const getproductList = (state: RootState): IProductItem[] => state.product.productList

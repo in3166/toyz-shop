@@ -39,7 +39,7 @@ const INITIAL_STATE: ProductState = {
   bannerList: INIT_PRODUCT,
 }
 
-const systemSlice = createSlice({
+const bannerSlice = createSlice({
   name: 'banner',
   initialState: INITIAL_STATE,
   reducers: {
@@ -50,8 +50,8 @@ const systemSlice = createSlice({
   },
 })
 
-export const { setBannerList, resetBannerList } = systemSlice.actions
+export const { setBannerList, resetBannerList } = bannerSlice.actions
 
-export default systemSlice.reducer
+export default bannerSlice.reducer
 
 export const getBannerList = (state: RootState): IProductItem[] => state.banner.bannerList

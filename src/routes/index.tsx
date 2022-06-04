@@ -2,7 +2,7 @@ import { useMount } from 'react-use'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import styles from './routes.module.scss'
 
-import { useAppSelector, useEffect } from 'hooks'
+import { useAppDispatch, useAppSelector, useEffect } from 'hooks'
 import { getTheme } from 'states/system'
 import Header from './_shared/Header'
 import MainPage from './MainPage'
@@ -15,12 +15,14 @@ import store from 'store'
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'states/user'
 import ProtectedRoute from './_shared/ProtectedRoute'
+import { useGetProducts } from 'hooks/useGetProducts'
 
 const App = () => {
+  const dispatch = useAppDispatch()
   const theme = useAppSelector(getTheme)
   const { pathname, search } = useLocation()
   const [, setCurrentUser] = useRecoil(currentUserState)
-
+  useGetProducts(1)
   useMount(() => {
     document.documentElement.setAttribute('color-theme', theme)
   })
