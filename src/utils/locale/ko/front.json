@@ -1,9 +1,10 @@
 {
-	"city.kwangmyung": "광명시",
-	"gnb.kakao": "Kakao 지도",
-	"gnb.google": "Google 지도",
-	"gnb.buttons": "버튼들",
-	"gnb.corona": "코로나",
-	"gnb.todo": "할일",
-	"gnb.weather": "날씨"
+  "gnb.signin": "로그인",
+  "gnb.signup": "회원가입",
+  "gnb.logout": "로그아웃",
+  "signIn.title": "로그인",
+  "signIn.id": "아이디",
+  "signIn.password": "비밀번호",
+  "signIn.sigIn": "로그인",
+  "signIn.signUp": "회원가입"
 }

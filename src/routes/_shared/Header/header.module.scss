@@ -1,0 +1,46 @@
+@use '/src/styles/constants/colors';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+
+  .leftMenu {
+    display: flex;
+    align-items: center;
+
+    .menuToggle {
+      display: flex;
+      align-items: center;
+      height: 100%;
+
+      svg {
+        width: 30px;
+        height: 30px;
+
+        g {
+          fill: white;
+        }
+      }
+    }
+  }
+
+  :root[color-theme='dark'] & {
+    color: colors.$FONT_COLOR;
+    background-color: #36394c;
+
+    a,
+    button {
+      color: colors.$FONT_COLOR;
+    }
+
+    .task {
+      background-color: colors.$GRAY3;
+
+      .title {
+        color: colors.$FONT_COLOR;
+      }
+    }
+  }
+}

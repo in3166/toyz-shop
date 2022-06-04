@@ -1,0 +1,92 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+@use '/src/styles/mixins/flexbox';
+
+.main {
+  min-width: 200px;
+  max-width: 100%;
+  height: 100%;
+  background-color: #ebe7e4;
+
+  :root[color-theme='dark'] & {
+    background-color: colors.$BACKGROUND_COLOR !important;
+
+    .slider {
+      img {
+        width: 100%;
+        height: 350px;
+        object-fit: contain;
+        background-color: #dad6d3 !important;
+      }
+
+      &::after {
+        background: linear-gradient(to bottom right, transparent 48%, colors.$BACKGROUND_COLOR 50.25%);
+      }
+
+      .dots {
+        button::before {
+          color: colors.$FONT_COLOR;
+        }
+      }
+    }
+  }
+}
+
+.slider {
+  .dots {
+    bottom: 0;
+    z-index: 3;
+  }
+
+  img {
+    width: 100%;
+    height: 350px;
+    object-fit: contain;
+    background-color: #ebe7e4;
+  }
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    content: '';
+    background: linear-gradient(to bottom right, transparent 48%, #ebe7e4 50.25%);
+  }
+
+  .slideContent {
+    position: relative;
+  }
+
+  .description {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    padding: 15px;
+    color: rgb(124, 124, 124);
+    background-color: rgba(255, 255, 255, 66.4%);
+    border-radius: 7px;
+
+    dl > div {
+      display: flex;
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  grid-gap: 10px;
+
+  @include responsive.after(ML) {
+    grid-gap: 30px;
+  }
+
+  @include responsive.after(SD) {
+    grid-gap: 30px;
+  }
+
+  @include responsive.after(LD) {
+    grid-gap: 50px;
+  }
+}

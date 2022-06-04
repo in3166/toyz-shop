@@ -1,0 +1,78 @@
+@use '/src/styles/constants/colors';
+
+.searchBox {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.searchInput {
+  width: 0%;
+}
+
+.searchForm {
+  width: 0;
+  padding: 5px;
+  opacity: 0;
+  transition: all 0.1s linear;
+
+  & button {
+    // color: colors.$SEARCH_FORM_BUTTON;
+  }
+}
+
+.searchFormOpen {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 200px;
+  height: 25px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 15px;
+  opacity: 1;
+
+  & ~ .title {
+    opacity: 0;
+  }
+
+  .searchInput {
+    width: 100%;
+    padding: 5px;
+    margin-right: 5px;
+    font-size: 13px;
+    border-radius: 15px;
+  }
+}
+
+.searchToggleButton {
+  width: 35px;
+  height: 17px;
+  color: colors.$GRAYA;
+  opacity: 1;
+  transition: all 0.2s linear;
+
+  svg {
+    width: 25px !important;
+  }
+}
+
+.hideToggleButton {
+  position: absolute;
+  display: none;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+
+.submitButton {
+  width: 30px;
+
+  svg {
+    width: 25px !important;
+  }
+}
+
+.hideSearchSubmitButton {
+  display: none;
+}

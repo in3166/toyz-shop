@@ -11,6 +11,7 @@ export { useSendApi } from './useSendApi'
 export { useTimeoutFn } from './useTimeoutFn'
 export { useAppDispatch } from './useAppDispatch'
 export { useAppSelector } from './useAppSelector'
+export { useOnClickOutside } from './useOnClickOutside'
 
 export function useMounted(): boolean {
   const [mounted, setMounted] = useState(false)

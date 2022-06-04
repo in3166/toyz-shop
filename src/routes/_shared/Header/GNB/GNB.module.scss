@@ -1,0 +1,52 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
+
+.gnb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px;
+  // background-color: #ffffff;
+  // border-bottom: 1px solid rgb(196, 196, 196);
+
+  // :root[color-theme='dark'] & {
+  //   color: colors.$FONT_COLOR;
+  //   background-color: colors.$BACKGROUND_COLOR;
+
+  //   a,
+  //   button {
+  //     color: colors.$FONT_COLOR;
+  //   }
+
+  //   .task {
+  //     background-color: colors.$GRAY3;
+
+  //     .title {
+  //       color: colors.$FONT_COLOR;
+  //     }
+  //   }
+  // }
+
+  ul {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+  }
+
+  li {
+    + li {
+      margin-left: 7px;
+    }
+  }
+
+  a {
+    padding: 4px;
+    color: colors.$GRAY2;
+
+    &.isActive {
+      font-weight: 600;
+    }
+  }
+}

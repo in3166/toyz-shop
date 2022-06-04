@@ -1,9 +1,10 @@
 {
-	"city.kwangmyung": "Kwangmyung",
-	"gnb.kakao": "Kakao Maps",
-	"gnb.google": "Google Maps",
-	"gnb.buttons": "Buttons",
-	"gnb.corona": "Corona",
-	"gnb.todo": "Todo",
-	"gnb.weather": "Weather"
+  "gnb.signin": "Sign In",
+  "gnb.signup": "Sign Up",
+  "gnb.logout": "Logout",
+  "signIn.title": "Sign In",
+  "signIn.id": "ID",
+  "signIn.password": "Password",
+  "signIn.sigIn": "Sign In",
+  "signIn.signUp": "Sign Up"
 }
