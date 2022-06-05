@@ -13,36 +13,55 @@ import SignIn from './SignInPage'
 import SignUp from './SignUpPage'
 import store from 'store'
 import { useRecoil } from 'hooks/state'
-import { currentUserState } from 'states/user'
+import { currentUserState, initialSettingUser } from 'states/user'
 import ProtectedRoute from './_shared/ProtectedRoute'
 import { useGetProducts } from 'hooks/useGetProducts'
+import { menuState } from 'states/sidebar'
+import { cx } from 'styles'
+import { getUserDataApi } from 'services/user'
+import ItemDetailPage from './ItemDetailPage'
+import LikesPage from './ItemListPage/Likes'
 
 const App = () => {
-  const dispatch = useAppDispatch()
+  const [visibleSideBar] = useRecoil(menuState)
   const theme = useAppSelector(getTheme)
-  const { pathname, search } = useLocation()
-  const [, setCurrentUser] = useRecoil(currentUserState)
-  useGetProducts(1)
+  // const { pathname, search } = useLocation()
+  const [user, setCurrentUser] = useRecoil(currentUserState)
+
   useMount(() => {
     document.documentElement.setAttribute('color-theme', theme)
+    const storedUser = store.get('currentUser')
+    if (storedUser && storedUser?.key !== '') setCurrentUser(storedUser)
+    else setCurrentUser(initialSettingUser)
   })
 
-  useEffect(() => {
-    const user = store.get('currentUser')
-    if (user && user?.id !== '') setCurrentUser(user)
-  }, [pathname, search, setCurrentUser])
+  // useEffect(() => {}, [pathname, search, setCurrentUser])
 
   return (
     <div className={styles.appWrapper}>
       <Sidebar />
-      <div className={styles.app}>
+      <div className={cx(styles.app, { [styles.full]: !visibleSideBar })}>
         <Header />
         <Routes>
           <Route path='/' element={<MainPage />} />
+
+          <Route
+            path='/likes'
+            element={
+              <ProtectedRoute required user={user}>
+                <LikesPage user={user} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path='item'>
+            <Route path=':id' element={<ItemDetailPage />} />
+          </Route>
+
           <Route
             path='signin'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute required={false} user={user}>
                 <SignIn />
               </ProtectedRoute>
             }
@@ -51,14 +70,11 @@ const App = () => {
           <Route
             path='signup'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute required={false} user={user}>
                 <SignUp />
               </ProtectedRoute>
             }
           />
-          <Route path='items' element={<MainPage />}>
-            <Route path=':id' element={<MainPage />} />
-          </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

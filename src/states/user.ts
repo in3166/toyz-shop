@@ -1,22 +1,11 @@
 import { atom } from 'hooks/state/index'
+import { IDBUser } from 'types/user'
 
-interface IUser {
-  id: string
-  name: string
-  phone: string
-  likes: string[]
-  role: number
-}
+export const initialSettingUser = { data: { id: '', likes: [], phone: '', role: 0 }, key: '' }
 
-const initialUser = {
-  id: '',
-  name: '',
-  phone: '',
-  likes: [],
-  role: 0,
-}
+const initialUser = undefined
 
-export const currentUserState = atom<IUser>({
+export const currentUserState = atom<IDBUser>({
   key: 'currentUser',
   default: initialUser,
 })

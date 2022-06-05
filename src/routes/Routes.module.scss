@@ -1,5 +1,6 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/constants/levels';
+@use '/src/styles/mixins/responsive';
 
 .appWrapper {
   position: relative;
@@ -11,6 +12,11 @@
   :root[color-theme='dark'] & {
     // color: colors.$FONT_COLOR;
     background-color: colors.$BACKGROUND_COLOR;
+
+    .app {
+      color: #ebe7e4;
+      background-color: colors.$BACKGROUND_COLOR;
+    }
 
     a,
     button {
@@ -35,4 +41,15 @@
   width: calc(100% - levels.$SIDEBAR_WIDTH);
   max-width: calc(100% - levels.$SIDEBAR_WIDTH);
   height: 100%;
+  background-color: #ebe7e4;
+
+  @include responsive.mobileOnly {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.full {
+  width: 100%;
+  max-width: 100%;
 }

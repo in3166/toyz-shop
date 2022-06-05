@@ -6,12 +6,10 @@ import useFormInput from '../../hooks/useFormInput'
 import { validateSiginInInput } from './validateState'
 import { FormEvent, useRef, useState } from 'react'
 import i18n from 'utils/locale'
-import { useI18n, useMount } from 'hooks'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useI18n } from 'hooks'
 import SnackBar from 'components/SnackBar'
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'states/user'
-import { useQuery } from 'react-query'
 import { getUserDataApi } from 'services/user'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import store from 'store'
@@ -48,12 +46,10 @@ const SignIn = (): JSX.Element => {
     if (!idIsValid || !passwordIsValid) {
       setMessage('ID나 Password가 올바르지 않습니다.')
       setSnackBarStatus('warning')
-      handlePasswordBlur()
-      handleIdBlur()
       return
     }
+
     getUserDataApi(id).then((res) => {
-      console.log('res: ', res)
       if (res.length < 1) {
         setMessage(`로그인 실패! \n (ID: 'user1'이나 'admin'을 입력해주세요.)`)
         setSnackBarStatus('error')

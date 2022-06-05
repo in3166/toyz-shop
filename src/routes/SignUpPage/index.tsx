@@ -7,12 +7,16 @@ import { validateSiginInInput } from './validateState'
 import { FormEvent, useRef, useState } from 'react'
 import i18n from 'utils/locale'
 import { useI18n, useMount } from 'hooks'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import SnackBar from 'components/SnackBar'
+import { addUserApi } from 'services/user'
+import { useSnackbar } from 'components/SnackBar/useSnackBar'
 
 const SignUp = (): JSX.Element => {
   const t = useI18n()
-  const [message, setMessage] = useState('')
+  const [snackBarStatus, setSnackBarStatus] = useState('')
+  const { message, setMessage, clearTimer } = useSnackbar(5000)
+  const navigate = useNavigate()
 
   const inputFocusRef = useRef(null)
   const {
@@ -33,9 +37,43 @@ const SignUp = (): JSX.Element => {
     inputBlurHandler: handlePasswordBlur,
   } = useFormInput({ validateFunction: validateSiginInInput, initialValue: '' })
 
+  const {
+    value: phone,
+    reset: resetPhone,
+    valueIsValid: phoneIsValid,
+    hasError: phoneHasError,
+    valueChangeHandler: handlePhoneChange,
+    inputBlurHandler: handlePhoneBlur,
+  } = useFormInput({ validateFunction: validateSiginInInput, initialValue: '' })
+
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault()
-    console.log(id, password)
+    if (!idIsValid || !passwordIsValid || !phoneIsValid) {
+      setMessage('입력 정보가 올바르지 않습니다.')
+      setSnackBarStatus('warning')
+      return
+    }
+
+    const newUser = {
+      id,
+      phone,
+      pw: password,
+      role: 0,
+      likes: [],
+    }
+
+    addUserApi(newUser)
+      .then(() => {
+        setMessage('회원가입 성공!')
+        setSnackBarStatus('')
+        setTimeout(() => {
+          navigate('/siginin')
+        }, 1000)
+      })
+      .catch((err) => {
+        setMessage(`회원가입 실패: ${err}`)
+        setSnackBarStatus('error')
+      })
   }
 
   return (
@@ -50,27 +88,15 @@ const SignUp = (): JSX.Element => {
         <form onSubmit={handleOnSubmit}>
           <InputText
             type='text'
-            formTitle='이름'
-            value={id}
-            onChange={handleIdChange}
-            reset={resetId}
-            onBlur={handleIdBlur}
-            hasError={idHasError}
-            placeholder='이름을 입력하세요'
-            inputFocusRef={inputFocusRef}
-          />
-
-          <InputText
-            type='text'
-            formTitle='아이디'
+            formTitle='ID'
             value={id}
             onChange={handleIdChange}
             reset={resetId}
             onBlur={handleIdBlur}
             hasError={idHasError}
             placeholder='아이디를 입력하세요'
+            inputFocusRef={inputFocusRef}
           />
-
           <InputText
             type='password'
             formTitle='비밀번호'
@@ -83,23 +109,23 @@ const SignUp = (): JSX.Element => {
           />
 
           <InputText
-            type='password'
-            formTitle='비밀번호 확인'
-            value={password}
-            onChange={handlePasswordChange}
-            reset={resetPassword}
-            onBlur={handlePasswordBlur}
-            hasError={passwordHasError}
-            placeholder='비밀번호를 입력하세요.'
+            type='text'
+            formTitle='전화번호'
+            value={phone}
+            onChange={handlePhoneChange}
+            reset={resetPhone}
+            onBlur={handlePhoneBlur}
+            hasError={phoneHasError}
+            placeholder='전화번호를 입력하세요.'
           />
 
           <footer className={styles.footer}>
-            <button type='button' className={styles.signUpButton}>
+            <button type='submit' className={styles.signUpButton}>
               회원가입
             </button>
           </footer>
         </form>
-        {message && <SnackBar message={message} status='warning' setMessage={setMessage} />}
+        {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
       </div>
     </main>
   )

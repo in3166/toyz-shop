@@ -1,3 +1,5 @@
+@use '/src/styles/constants/colors';
+
 .slider {
   .dots {
     bottom: 0;
@@ -22,6 +24,25 @@
     height: 60px;
     content: '';
     background: linear-gradient(to bottom right, transparent 48%, #ebe7e4 50.25%);
+  }
+
+  :root[color-theme='dark'] & {
+    img {
+      width: 100%;
+      height: 350px;
+      object-fit: contain;
+      background-color: #dad6d3 !important;
+    }
+
+    &::after {
+      background: linear-gradient(to bottom right, transparent 48%, colors.$BACKGROUND_COLOR 50.25%);
+    }
+
+    .dots {
+      button::before {
+        color: colors.$FONT_COLOR;
+      }
+    }
   }
 
   .slideContent {

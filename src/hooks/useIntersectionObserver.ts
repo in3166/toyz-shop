@@ -1,9 +1,7 @@
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useState } from 'react'
 import { getProudcts } from 'services/products'
 import { setProductList } from 'states/product'
-import { useRecoil } from './state'
 import { useAppDispatch } from './useAppDispatch'
-import { useGetProducts } from './useGetProducts'
 
 interface Args extends IntersectionObserverInit {
   freezeOnceVisible?: boolean
@@ -23,7 +21,10 @@ export function useIntersectionObserver(
     ([entries]) => {
       if (entries.isIntersecting) {
         setIsLoading(true)
+
         const pageNumber = currentPage + 1
+        setCurrentPage(pageNumber)
+
         setTimeout(() => {
           getProudcts(pageNumber)
             .then((res) => {
@@ -31,7 +32,6 @@ export function useIntersectionObserver(
             })
             .finally(() => {
               setIsLoading(false)
-              setCurrentPage(pageNumber)
             })
         }, 900)
       }

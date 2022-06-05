@@ -8,10 +8,14 @@ const INIT_PRODUCT: IProductItem[] = []
 
 export interface ProductState {
   productList: IProductItem[]
+  currentPage: number
+  likesList: IProductItem[]
 }
 
 const INITIAL_STATE: ProductState = {
   productList: INIT_PRODUCT,
+  currentPage: 1,
+  likesList: INIT_PRODUCT,
 }
 
 const productSlice = createSlice({
@@ -19,15 +23,19 @@ const productSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setProductList: (state: ProductState, action: PayloadAction<IProductItem[]>) => {
-      console.log(action.payload)
       state.productList = [...state.productList, ...action.payload]
+    },
+    setLikesList: (state: ProductState, action: PayloadAction<IProductItem[]>) => {
+      state.likesList = [...state.productList, ...action.payload]
     },
     resetProductList: () => INITIAL_STATE,
   },
 })
 
-export const { setProductList, resetProductList } = productSlice.actions
+export const { setProductList, resetProductList, setLikesList } = productSlice.actions
 
 export default productSlice.reducer
 
-export const getproductList = (state: RootState): IProductItem[] => state.product.productList
+export const getProductList = (state: RootState): IProductItem[] => state.product.productList
+
+export const getLikesList = (state: RootState): IProductItem[] => state.product.likesList

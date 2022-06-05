@@ -1,23 +1,25 @@
 import { useRef, useState } from 'react'
-import styles from './mainPage.module.scss'
-import Container from 'components/Container'
-import Card from './Card'
-import { useAppSelector } from 'hooks'
-import { IProductItem } from 'types/product'
 
+import { IProductItem } from 'types/product'
+import { useAppSelector } from 'hooks'
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'states/user'
-import { getproductList } from 'states/product'
-import Banner from './Banner'
+import { getProductList } from 'states/product'
 import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
+
+import Card from './Card'
+import Banner from './Banner'
+import Container from 'components/Container'
 import { LoadingSpinner } from 'assets/svgs'
+import styles from './mainPage.module.scss'
+import { currentPageState } from 'states/page'
 
 const MainPage = (): JSX.Element => {
-  const productList: IProductItem[] = useAppSelector(getproductList)
-  const [currentPage, setCurrentPage] = useState(1)
+  const productList: IProductItem[] = useAppSelector(getProductList)
   const [isLoading, setIsLoading] = useState(false)
 
   const [user] = useRecoil(currentUserState)
+  const [currentPage, setCurrentPage] = useRecoil(currentPageState)
 
   const ref = useRef<HTMLDivElement | null>(null)
   const setTarget = useIntersectionObserver(
@@ -34,10 +36,11 @@ const MainPage = (): JSX.Element => {
       <Container>
         <ul className={styles.cardContainer}>
           {productList.map((value) => {
-            return <Card key={value.id} item={value} likes={user.likes} />
+            return <Card key={value.id} item={value} likes={user?.data?.likes} />
           })}
           {!isLoading && <li ref={setTarget} className={styles.scrollTargetLi} />}
         </ul>
+
         {isLoading && (
           <div className={styles.loading}>
             <LoadingSpinner />

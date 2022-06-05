@@ -1,12 +1,18 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/constants/levels';
+@use '/src/styles/mixins/responsive';
+
+.hideSidebar {
+  width: 0 !important;
+  min-width: 0 !important;
+}
 
 .aside {
-  // display: none;
   width: levels.$SIDEBAR_WIDTH;
   min-width: levels.$SIDEBAR_WIDTH;
   min-height: 100vh;
-  padding: 5px;
+  // display: none;
+  overflow: auto;
   color: #fafafb;
   text-align: center;
   // border-right: 1px rgb(255, 255, 255) solid;
@@ -16,7 +22,41 @@
     margin-top: 120px;
 
     li {
-      margin-bottom: 50px;
+      cursor: pointer;
+
+      > a {
+        display: flex;
+        align-items: center;
+        height: 60px;
+        padding: 10px 15px;
+        letter-spacing: 2px;
+
+        &:hover {
+          background-color: #212631;
+        }
+
+        &:link {
+          color: #fafafb;
+          text-decoration: none;
+        }
+
+        &:visited {
+          color: #fafafb;
+          text-decoration: none;
+        }
+
+        &:hover {
+          color: #fafafb;
+          text-decoration: none;
+        }
+      }
+
+      .isActive {
+        width: 100%;
+        font-weight: 700;
+        color: #fafafb;
+        background-color: #1e2431;
+      }
     }
   }
 
@@ -66,4 +106,17 @@
       }
     }
   }
+}
+
+@include responsive.mobileOnly {
+  .aside {
+    width: 0;
+    min-width: 0;
+    padding: 0;
+  }
+}
+
+.openSidebar {
+  width: levels.$SIDEBAR_WIDTH;
+  min-width: levels.$SIDEBAR_WIDTH;
 }

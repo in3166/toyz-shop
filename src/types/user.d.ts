@@ -1,7 +1,11 @@
 export interface IUser {
   id: string
   role: number
-  pw: string
   phone: string
   likes: string[]
+}
+
+export interface IDBUser {
+  data: IUser
+  key: string
 }

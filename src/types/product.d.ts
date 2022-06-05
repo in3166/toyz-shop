@@ -15,7 +15,7 @@ export interface IProductAPI {
   alt_description: string
   urls: IUrls
   likes: number
-  user: IUser
+  user: IProductUser
 }
 
 export interface IUrls {
@@ -27,7 +27,7 @@ export interface IUrls {
   small_s3: string
 }
 
-export interface IUser {
+export interface IProductUser {
   id: string
   name: string
 }

@@ -10,7 +10,7 @@ import SearchBar from './SearchBar'
 import DarkMode from './DarkMode'
 import DropDown from 'components/DropDown'
 import { useRecoil } from 'hooks/state'
-import { currentUserState } from 'states/user'
+import { currentUserState, initialSettingUser } from 'states/user'
 import { ProfileIcon, SettingIcon } from 'assets/svgs'
 
 const storedLang = store.get('language') || 'English'
@@ -19,9 +19,10 @@ const SELECT_LIST = ['English', 'Korean']
 const GNB = () => {
   const t = useI18n()
   const [currentLanguage, setCurrentLanguage] = useState(storedLang)
-  const [currentUser, , resetCurrentUser] = useRecoil(currentUserState)
+  const [currentUser, setCurrentUser, resetCurrentUser] = useRecoil(currentUserState)
+
   const handleClickLogout = () => {
-    resetCurrentUser()
+    setCurrentUser(initialSettingUser)
     store.remove('currentUser')
   }
 
@@ -33,7 +34,7 @@ const GNB = () => {
   return (
     <nav className={styles.gnb}>
       <ul className={styles.rightMenu}>
-        {currentUser?.id === '' ? (
+        {!currentUser || currentUser?.data?.id === '' ? (
           <>
             <li>
               <NavLink to='/signin' className={({ isActive }) => cx({ [styles.isActive]: isActive })}>
@@ -55,7 +56,7 @@ const GNB = () => {
             </li>
             <li>
               <button type='button' className={styles.settingIcon}>
-                {currentUser.role === 0 ? <ProfileIcon /> : <SettingIcon />}
+                {currentUser?.data?.role === 0 ? <ProfileIcon /> : <SettingIcon />}
               </button>
             </li>
           </>

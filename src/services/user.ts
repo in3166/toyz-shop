@@ -1,28 +1,35 @@
-import { IUser } from '../types/user.d'
-import { axios } from 'hooks/worker'
-import { firebaseDB } from './firebase'
-import { push, ref, limitToLast, get, onValue, orderByChild, query, remove, equalTo } from '@firebase/database'
+import { IDBUser, IUser } from 'types/user'
+import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { db } from './firebase'
 
-const getUserLocate = ref(firebaseDB, `users/`)
-const getProductLocate = ref(firebaseDB, `products/`)
+const userRef = collection(db, 'user')
+
+// const getUserLocate = ref(firebaseDB, `users/`)
+// const getProductLocate = ref(firebaseDB, `products/`)
+// const q = query(collection(db, 'cities'), where('capital', '==', true))
 
 export const getAllUserDataApi = async () => {
-  const response = await get(getUserLocate)
-  return response.val()
-}
-
-export const getUserDataApi = async (id: string) => {
-  const response = await get(getUserLocate)
-  const result = await response.val()
-  const filter = result.filter((user: IUser) => {
-    console.log(user)
-    return user.id === id
+  getDocs(userRef).then((res) => {
+    console.log(res.docs)
+    const users = res.docs.map((docs) => ({ data: docs.data(), id: docs.id }))
   })
-  console.log(filter)
-  return filter
 }
 
-export const getProductDataApi = async () => {
-  const response = await get(getProductLocate)
-  return response.val()
+export const getUserDataApi = (id: string) => {
+  console.log(id)
+  return getDocs(userRef).then((res) => {
+    const users = res.docs.map((docs) => ({ data: docs.data(), key: docs.id })).filter((user) => user.data.id === id)
+    return users as IDBUser[]
+  })
+}
+
+export const addUserApi = async (newUser: IUser) => {
+  return addDoc(userRef, newUser).then((res) => {
+    console.log('new user:L ', res)
+  })
+}
+
+export const updateUserLikes = async (id: string, likes: string[]) => {
+  const docRef = doc(db, 'user', id)
+  return updateDoc(docRef, { likes })
 }
