@@ -1,4 +1,5 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .header {
   display: flex;
@@ -7,6 +8,7 @@
   padding: 10px;
 
   .leftMenu {
+    position: relative;
     display: flex;
     align-items: center;
 
@@ -20,7 +22,7 @@
         height: 30px;
 
         g {
-          fill: white;
+          fill: colors.$GRAY3;
         }
       }
     }
@@ -40,6 +42,14 @@
 
       .title {
         color: colors.$FONT_COLOR;
+      }
+    }
+
+    .menuToggle {
+      svg {
+        g {
+          fill: colors.$WHITE;
+        }
       }
     }
   }

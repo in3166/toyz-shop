@@ -1,6 +1,9 @@
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useState } from 'react'
 import { getProudcts } from 'services/products'
+import { currentPageState } from 'states/page'
 import { setProductList } from 'states/product'
+import { IProductItem } from 'types/product'
+import { useRecoil } from './state'
 import { useAppDispatch } from './useAppDispatch'
 
 interface Args extends IntersectionObserverInit {
@@ -9,12 +12,12 @@ interface Args extends IntersectionObserverInit {
 
 export function useIntersectionObserver(
   elementRef: RefObject<Element>,
-  { threshold = 0, root = null, rootMargin = '0%' }: Args,
+  { threshold = 0 }: Args,
   setIsLoading: Dispatch<SetStateAction<boolean>>,
-  currentPage: number,
-  setCurrentPage: Dispatch<SetStateAction<number>>
+  setProducts: Dispatch<SetStateAction<IProductItem[]>>
 ) {
   const dispatch = useAppDispatch()
+  const [currentPage, setCurrentPage] = useRecoil(currentPageState)
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null)
 
   const onIntersect: IntersectionObserverCallback = useCallback(
@@ -28,7 +31,8 @@ export function useIntersectionObserver(
         setTimeout(() => {
           getProudcts(pageNumber)
             .then((res) => {
-              dispatch(setProductList(res.data))
+              // dispatch(setProductList(res.data))
+              setProducts((prev) => [...prev, ...res.data])
             })
             .finally(() => {
               setIsLoading(false)
@@ -36,17 +40,17 @@ export function useIntersectionObserver(
         }, 900)
       }
     },
-    [currentPage, dispatch, setCurrentPage, setIsLoading]
+    [currentPage, setCurrentPage, setIsLoading, setProducts]
   )
 
   useEffect(() => {
     if (!target) return undefined
 
-    const observer: IntersectionObserver = new IntersectionObserver(onIntersect, { root, rootMargin, threshold })
+    const observer: IntersectionObserver = new IntersectionObserver(onIntersect, { threshold })
     observer.observe(target)
 
     return () => observer.unobserve(target)
-  }, [elementRef, root, rootMargin, threshold, onIntersect, target])
+  }, [threshold, onIntersect, target])
 
   return setTarget
 }

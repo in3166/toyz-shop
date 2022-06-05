@@ -2,5 +2,5 @@ import { atom } from 'hooks/state/index'
 
 export const currentPageState = atom<number>({
   key: 'currentPage',
-  default: 0,
+  default: 1,
 })

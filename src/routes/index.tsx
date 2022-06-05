@@ -1,8 +1,7 @@
-import { useMount } from 'react-use'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import styles from './routes.module.scss'
 
-import { useAppDispatch, useAppSelector, useEffect } from 'hooks'
+import { useAppDispatch, useAppSelector, useEffect, useMount } from 'hooks'
 import { getTheme } from 'states/system'
 import Header from './_shared/Header'
 import MainPage from './MainPage'
@@ -18,7 +17,7 @@ import ProtectedRoute from './_shared/ProtectedRoute'
 import { useGetProducts } from 'hooks/useGetProducts'
 import { menuState } from 'states/sidebar'
 import { cx } from 'styles'
-import { getUserDataApi } from 'services/user'
+import { getUserDataDB } from 'services/user'
 import ItemDetailPage from './ItemDetailPage'
 import LikesPage from './ItemListPage/Likes'
 
@@ -27,6 +26,7 @@ const App = () => {
   const theme = useAppSelector(getTheme)
   // const { pathname, search } = useLocation()
   const [user, setCurrentUser] = useRecoil(currentUserState)
+  const { data } = useGetProducts(1)
 
   useMount(() => {
     document.documentElement.setAttribute('color-theme', theme)
@@ -35,7 +35,7 @@ const App = () => {
     else setCurrentUser(initialSettingUser)
   })
 
-  // useEffect(() => {}, [pathname, search, setCurrentUser])
+  if (!user || !data || data?.length < 1) return null
 
   return (
     <div className={styles.appWrapper}>
@@ -43,7 +43,7 @@ const App = () => {
       <div className={cx(styles.app, { [styles.full]: !visibleSideBar })}>
         <Header />
         <Routes>
-          <Route path='/' element={<MainPage />} />
+          <Route path='/' element={<MainPage items={data} />} />
 
           <Route
             path='/likes'

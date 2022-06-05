@@ -3,7 +3,7 @@
   padding: 35px;
   margin: 50px;
   background-color: whitesmoke;
-  border: 1px solid rgb(61, 61, 61);
+  // border: 1px solid rgb(61, 61, 61);
   border-radius: 10px;
 
   header {
@@ -19,7 +19,7 @@
 
     .signUpButton {
       font-size: 13px;
-      color: rgb(223, 223, 223);
+      color: rgb(27, 27, 27);
 
       &:hover {
         color: rgb(182, 182, 182);
@@ -43,6 +43,11 @@
     input::placeholder {
       font-size: small;
       color: rgb(118, 118, 118);
+    }
+
+    .signUpButton {
+      font-size: 13px;
+      color: rgb(207, 207, 207);
     }
   }
 }

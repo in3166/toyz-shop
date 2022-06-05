@@ -1,8 +1,10 @@
+import { IProductItem } from './product.d'
+
 export interface IUser {
   id: string
   role: number
   phone: string
-  likes: string[]
+  likes: IProductItem[]
 }
 
 export interface IDBUser {

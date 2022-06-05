@@ -10,7 +10,7 @@ import { useI18n } from 'hooks'
 import SnackBar from 'components/SnackBar'
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'states/user'
-import { getUserDataApi } from 'services/user'
+import { getUserDataDB } from 'services/user'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import store from 'store'
 
@@ -49,7 +49,7 @@ const SignIn = (): JSX.Element => {
       return
     }
 
-    getUserDataApi(id).then((res) => {
+    getUserDataDB(id).then((res) => {
       if (res.length < 1) {
         setMessage(`로그인 실패! \n (ID: 'user1'이나 'admin'을 입력해주세요.)`)
         setSnackBarStatus('error')

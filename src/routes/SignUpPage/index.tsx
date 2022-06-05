@@ -9,7 +9,7 @@ import i18n from 'utils/locale'
 import { useI18n, useMount } from 'hooks'
 import { NavLink, useNavigate } from 'react-router-dom'
 import SnackBar from 'components/SnackBar'
-import { addUserApi } from 'services/user'
+import { addUserDB } from 'services/user'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
 
 const SignUp = (): JSX.Element => {
@@ -62,7 +62,7 @@ const SignUp = (): JSX.Element => {
       likes: [],
     }
 
-    addUserApi(newUser)
+    addUserDB(newUser)
       .then(() => {
         setMessage('회원가입 성공!')
         setSnackBarStatus('')
