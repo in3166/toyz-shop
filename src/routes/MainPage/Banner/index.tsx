@@ -1,13 +1,13 @@
+import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import dayjs from 'dayjs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import { IProductItem } from 'types/product'
-import { useAppSelector } from 'hooks'
+import { useAppSelector, useI18n } from 'hooks'
 import { getBannerList } from 'states/banner'
 import styles from './banner.module.scss'
-import { Link } from 'react-router-dom'
 
 const slideSettings = {
   dots: true,
@@ -21,6 +21,7 @@ const slideSettings = {
 }
 
 const Banner = () => {
+  const t = useI18n()
   const bannerList: IProductItem[] = useAppSelector(getBannerList)
 
   return (
@@ -33,19 +34,19 @@ const Banner = () => {
               <Link className={styles.description} to={`/item/${value.id}`} state={value}>
                 <dl>
                   <div className={styles.dlContent}>
-                    <dt>Title: </dt>
+                    <dt>{`${t('front:title')}`}: </dt>
                     <dd>{value.title}</dd>
                   </div>
                   <div className={styles.dlContent}>
-                    <dt>Price: </dt>
+                    <dt>{`${t('front:price')}`}: </dt>
                     <dd>{value.price} 만원</dd>
                   </div>
                   <div className={styles.dlContent}>
-                    <dt>Owner: </dt>
+                    <dt>{`${t('front:owner')}`}: </dt>
                     <dd>{value.owner}</dd>
                   </div>
                   <div className={styles.dlContent}>
-                    <dt>Date: </dt>
+                    <dt>{`${t('front:date')}`}: </dt>
                     <dd>{dayjs(value.date).format('YYYY-MM-DD')}</dd>
                   </div>
                 </dl>

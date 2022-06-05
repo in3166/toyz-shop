@@ -6,7 +6,10 @@
   display: flex;
   flex-direction: column;
   min-width: 203px;
+  min-height: 390px;
+  max-height: 490px;
   padding: 16px;
+  overflow: scroll;
   cursor: pointer;
   background-color: colors.$WHITE;
   border-radius: 10px;

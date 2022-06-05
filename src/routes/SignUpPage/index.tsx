@@ -1,21 +1,21 @@
-import styles from './signUp.module.scss'
-import Container from 'components/Container'
-import { SignUpIcon } from 'assets/svgs'
-import InputText from '../../components/InputText'
-import useFormInput from '../../hooks/useFormInput'
-import { validateSiginInInput } from './validateState'
 import { FormEvent, useRef, useState } from 'react'
-import i18n from 'utils/locale'
-import { useI18n, useMount } from 'hooks'
-import { NavLink, useNavigate } from 'react-router-dom'
-import SnackBar from 'components/SnackBar'
+import { useNavigate } from 'react-router-dom'
+
+import { useI18n } from 'hooks'
+import useFormInput from '../../hooks/useFormInput'
 import { addUserDB } from 'services/user'
+
+import { validateSiginUpInput } from './validateState'
+import SnackBar from 'components/SnackBar'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
+import InputText from '../../components/InputText'
+import { SignUpIcon } from 'assets/svgs'
+import styles from './signUp.module.scss'
 
 const SignUp = (): JSX.Element => {
   const t = useI18n()
   const [snackBarStatus, setSnackBarStatus] = useState('')
-  const { message, setMessage, clearTimer } = useSnackbar(5000)
+  const { message, setMessage } = useSnackbar(5000)
   const navigate = useNavigate()
 
   const inputFocusRef = useRef(null)
@@ -26,7 +26,7 @@ const SignUp = (): JSX.Element => {
     hasError: idHasError,
     valueChangeHandler: handleIdChange,
     inputBlurHandler: handleIdBlur,
-  } = useFormInput({ validateFunction: validateSiginInInput, initialValue: '' })
+  } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
 
   const {
     value: password,
@@ -35,7 +35,7 @@ const SignUp = (): JSX.Element => {
     hasError: passwordHasError,
     valueChangeHandler: handlePasswordChange,
     inputBlurHandler: handlePasswordBlur,
-  } = useFormInput({ validateFunction: validateSiginInInput, initialValue: '' })
+  } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
 
   const {
     value: phone,
@@ -44,7 +44,7 @@ const SignUp = (): JSX.Element => {
     hasError: phoneHasError,
     valueChangeHandler: handlePhoneChange,
     inputBlurHandler: handlePhoneBlur,
-  } = useFormInput({ validateFunction: validateSiginInInput, initialValue: '' })
+  } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
 
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -88,40 +88,40 @@ const SignUp = (): JSX.Element => {
         <form onSubmit={handleOnSubmit}>
           <InputText
             type='text'
-            formTitle='ID'
+            formTitle={`${t('front:signUp.titleID')}`}
             value={id}
             onChange={handleIdChange}
             reset={resetId}
             onBlur={handleIdBlur}
             hasError={idHasError}
-            placeholder='아이디를 입력하세요'
+            placeholder={`${t('front:signUp.placeholderID')}`}
             inputFocusRef={inputFocusRef}
           />
           <InputText
             type='password'
-            formTitle='비밀번호'
+            formTitle={`${t('front:signUp.titlePW')}`}
             value={password}
             onChange={handlePasswordChange}
             reset={resetPassword}
             onBlur={handlePasswordBlur}
             hasError={passwordHasError}
-            placeholder='비밀번호를 입력하세요.'
+            placeholder={`${t('front:signUp.placeholderPW')}`}
           />
 
           <InputText
             type='text'
-            formTitle='전화번호'
+            formTitle={`${t('front:signUp.titlePhone')}`}
             value={phone}
             onChange={handlePhoneChange}
             reset={resetPhone}
             onBlur={handlePhoneBlur}
             hasError={phoneHasError}
-            placeholder='전화번호를 입력하세요.'
+            placeholder={`${t('front:signUp.placeholderPhone')}`}
           />
 
           <footer className={styles.footer}>
             <button type='submit' className={styles.signUpButton}>
-              회원가입
+              {`${t('front:signUp.button')}`}
             </button>
           </footer>
         </form>

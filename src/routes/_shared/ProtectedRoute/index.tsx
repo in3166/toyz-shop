@@ -1,8 +1,5 @@
-import { useRecoil } from 'hooks/state'
-import { Navigate, useLocation } from 'react-router-dom'
-import { currentUserState } from 'states/user'
-import { IProductUser } from 'types/product'
-import { IDBUser, IUser } from 'types/user'
+import { Navigate } from 'react-router-dom'
+import { IDBUser } from 'types/user'
 
 interface IProtectedRoute {
   children: JSX.Element
@@ -11,7 +8,6 @@ interface IProtectedRoute {
 }
 
 const ProtectedRoute = ({ children, required, user }: IProtectedRoute) => {
-  const location = useLocation()
   if (!user) return null
 
   if (required) {

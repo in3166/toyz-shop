@@ -5,6 +5,21 @@
   "signIn.title": "로그인",
   "signIn.id": "아이디",
   "signIn.password": "비밀번호",
-  "signIn.sigIn": "로그인",
-  "signIn.signUp": "회원가입"
+  "signIn.signIn": "로그인",
+  "signIn.signUp": "회원가입",
+  "signIn.titleID": "아이디",
+  "signIn.titlePW": "비밀번호",
+  "signIn.placeholderID": "아이디를 입력하세요.",
+  "signIn.placeholderPW": "비밀번호를 입력하세요.",
+  "signUp.titleID": "아이디",
+  "signUp.titlePW": "비밀번호",
+  "signUp.titlePhone": "전화번호",
+  "signUp.placeholderID": "아이디를 입력하세요.",
+  "signUp.placeholderPW": "비밀번호를 입력하세요.",
+  "signUp.placeholderPhone": "전화번호를 입력하세요.",
+  "signUp.button": "회원가입",
+  "title": "제목",
+  "price": "가격",
+  "owner": "소유자",
+  "date": "등록일"
 }

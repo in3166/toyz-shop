@@ -1,7 +1,8 @@
-import { MoonIcon, SunIcon } from 'assets/svgs'
-import { useAppDispatch, useAppSelector } from 'hooks'
 import { useState } from 'react'
+import { useAppDispatch, useAppSelector } from 'hooks'
 import { getTheme, toggleTheme } from 'states/system'
+
+import { MoonIcon, SunIcon } from 'assets/svgs'
 import { cx } from 'styles'
 import styles from './darkMode.module.scss'
 

@@ -8,10 +8,10 @@
   display: flex;
   width: 100%;
   max-width: 100%;
+  overflow: hidden;
   background-color: colors.$MAIN_COLOR;
 
   :root[color-theme='dark'] & {
-    // color: colors.$FONT_COLOR;
     background-color: colors.$BACKGROUND_COLOR;
 
     .app {

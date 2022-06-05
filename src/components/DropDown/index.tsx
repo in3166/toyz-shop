@@ -1,9 +1,9 @@
 import { Dispatch, MouseEvent, SetStateAction, useState } from 'react'
 
-import { DownArrow } from 'assets/svgs'
+import { useOnClickOutside } from 'hooks'
 import { cx } from 'styles'
 import styles from './dropDown.module.scss'
-import { useOnClickOutside } from 'hooks'
+import { DownArrow } from 'assets/svgs'
 
 interface IDropDownProps {
   currentLanguage: string

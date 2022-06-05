@@ -1,5 +1,5 @@
-function validateSiginInInput(value: string) {
+function validateSiginUpInput(value: string) {
   return value.length > 0
 }
 
-export { validateSiginInInput }
+export { validateSiginUpInput }

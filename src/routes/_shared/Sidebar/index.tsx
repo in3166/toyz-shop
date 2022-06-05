@@ -1,9 +1,9 @@
+import { useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import { debounce } from 'lodash'
 
 import { LogoImage } from 'assets/svgs'
 import { useRecoil } from 'hooks/state'
-import { useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
 import { menuState } from 'states/sidebar'
 import { cx } from 'styles'
 import styles from './sidebar.module.scss'
@@ -14,7 +14,7 @@ const Sidebar = (): JSX.Element => {
   const handleResize = debounce(() => {
     if (window.innerWidth <= 768) setVisibleSideBar(false)
     else setVisibleSideBar(true)
-  }, 200)
+  }, 150)
 
   useEffect(() => {
     window.addEventListener('resize', handleResize)

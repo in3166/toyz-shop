@@ -1,9 +1,9 @@
 import { ChangeEvent, RefObject } from 'react'
 
+import { useMount } from 'hooks'
 import { InputCancelIcon } from 'assets/svgs'
 import { cx } from 'styles'
 import styles from './inputText.module.scss'
-import { useMount } from 'hooks'
 
 interface IInputFormProps {
   formTitle: string

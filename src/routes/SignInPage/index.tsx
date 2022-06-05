@@ -1,25 +1,25 @@
-import styles from './signIn.module.scss'
-import Container from 'components/Container'
-import { SignInIcon } from 'assets/svgs'
-import InputText from '../../components/InputText'
-import useFormInput from '../../hooks/useFormInput'
-import { validateSiginInInput } from './validateState'
 import { FormEvent, useRef, useState } from 'react'
-import i18n from 'utils/locale'
-import { useI18n } from 'hooks'
-import SnackBar from 'components/SnackBar'
-import { useRecoil } from 'hooks/state'
-import { currentUserState } from 'states/user'
-import { getUserDataDB } from 'services/user'
-import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import store from 'store'
 
+import useFormInput from '../../hooks/useFormInput'
+import { useI18n } from 'hooks'
+import { useRecoil } from 'hooks/state'
+import { currentUserState } from 'states/user'
+import { validateSiginInInput } from './validateState'
+import { getUserDataDB } from 'services/user'
+
+import SnackBar from 'components/SnackBar'
+import { useSnackbar } from 'components/SnackBar/useSnackBar'
+import InputText from '../../components/InputText'
+import { SignInIcon } from 'assets/svgs'
+import styles from './signIn.module.scss'
+
 const SignIn = (): JSX.Element => {
-  const [currentUser, setCurrentUser] = useRecoil(currentUserState)
+  const [, setCurrentUser] = useRecoil(currentUserState)
 
   const t = useI18n()
   const inputFocusRef = useRef(null)
-  // TODO: clearTimer 필요?
+
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const { message, setMessage, clearTimer } = useSnackbar(5000)
 
@@ -73,30 +73,30 @@ const SignIn = (): JSX.Element => {
         <form onSubmit={handleOnSubmit}>
           <InputText
             type='text'
-            formTitle='아이디'
+            formTitle={`${t('front:signIn.titleID')}`}
             value={id}
             onChange={handleIdChange}
             reset={resetId}
             onBlur={handleIdBlur}
             hasError={idHasError}
-            placeholder='아이디를 입력하세요'
+            placeholder={`${t('front:signIn.placeholderID')}`}
             inputFocusRef={inputFocusRef}
           />
 
           <InputText
             type='password'
-            formTitle='비밀번호'
+            formTitle={`${t('front:signIn.titlePW')}`}
             value={password}
             onChange={handlePasswordChange}
             reset={resetPassword}
             onBlur={handlePasswordBlur}
             hasError={passwordHasError}
-            placeholder='비밀번호를 입력하세요.'
+            placeholder={`${t('front:signIn.placeholderPW')}`}
           />
 
           <footer className={styles.footer}>
             <button type='submit' className={styles.signInButton}>
-              로그인
+              {`${t('front:signIn.signIn')}`}
             </button>
           </footer>
         </form>

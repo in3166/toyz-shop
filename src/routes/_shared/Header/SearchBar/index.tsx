@@ -1,20 +1,13 @@
-import { useRef, useState, ChangeEvent, FormEvent, useCallback, RefObject } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useErrorHandler } from 'react-error-boundary'
-import { useRecoil } from 'hooks/state'
+import { useRef, useState, ChangeEvent, FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 
+import { useAppDispatch, useOnClickOutside } from 'hooks'
+import { searchProduct } from 'states/product'
+import { SearchIcon } from 'assets/svgs'
 import { cx } from 'styles'
 import styles from './searchBar.module.scss'
-import { useAppDispatch, useOnClickOutside } from 'hooks'
-import { SearchIcon } from 'assets/svgs'
-import { searchProduct } from 'states/product'
 
-interface ISearchBarProps {
-  // listRef?: RefObject<HTMLElement>
-}
-
-const SearchBar = ({}: ISearchBarProps) => {
-  const { pathname } = useLocation()
+const SearchBar = () => {
   const navigate = useNavigate()
   const [searchText, setSearchText] = useState('')
   const [toggleSearchBar, setToggleSearchBar] = useState(false)

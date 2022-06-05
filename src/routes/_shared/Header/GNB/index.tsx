@@ -1,17 +1,16 @@
 import store from 'store'
 import cx from 'classnames'
 import { NavLink } from 'react-router-dom'
-import styles from './GNB.module.scss'
 
-import i18n from 'utils/locale'
-import { useAppDispatch, useAppSelector, useEffect, useI18n, useState } from 'hooks'
-import { getTheme, toggleTheme } from 'states/system'
-import SearchBar from './SearchBar'
-import DarkMode from './DarkMode'
-import DropDown from 'components/DropDown'
+import { useEffect, useI18n, useState } from 'hooks'
 import { useRecoil } from 'hooks/state'
 import { currentUserState, initialSettingUser } from 'states/user'
+import i18n from 'utils/locale'
+
+import DropDown from 'components/DropDown'
+import DarkMode from './DarkMode'
 import { ProfileIcon, SettingIcon } from 'assets/svgs'
+import styles from './GNB.module.scss'
 
 const storedLang = store.get('language') || 'English'
 const SELECT_LIST = ['English', 'Korean']
@@ -19,7 +18,7 @@ const SELECT_LIST = ['English', 'Korean']
 const GNB = () => {
   const t = useI18n()
   const [currentLanguage, setCurrentLanguage] = useState(storedLang)
-  const [currentUser, setCurrentUser, resetCurrentUser] = useRecoil(currentUserState)
+  const [currentUser, setCurrentUser] = useRecoil(currentUserState)
 
   const handleClickLogout = () => {
     setCurrentUser(initialSettingUser)

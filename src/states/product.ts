@@ -32,7 +32,7 @@ const productSlice = createSlice({
     },
     resetProductList: () => INITIAL_STATE,
     searchProduct: (state: ProductState, action: PayloadAction<string>) => {
-      state.searchList = state.productList.filter((value) => value.title.includes(action.payload))
+      state.searchList = state.productList.filter((value) => value?.title?.includes(action.payload))
     },
   },
 })

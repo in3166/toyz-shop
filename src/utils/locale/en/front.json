@@ -5,6 +5,21 @@
   "signIn.title": "Sign In",
   "signIn.id": "ID",
   "signIn.password": "Password",
-  "signIn.sigIn": "Sign In",
-  "signIn.signUp": "Sign Up"
+  "signIn.signIn": "SIGN IN",
+  "signIn.signUp": "Sign Up",
+  "signIn.titleID": "ID",
+  "signIn.titlePW": "Password",
+  "signIn.placeholderID": "Input your ID",
+  "signIn.placeholderPW": "Input your Password",
+  "signUp.titleID": "ID",
+  "signUp.titlePW": "Password",
+  "signUp.titlePhone": "Phone",
+  "signUp.placeholderID": "Input your ID",
+  "signUp.placeholderPW": "Input your Password",
+  "signUp.placeholderPhone": "Input your Phone number",
+  "signUp.button": "SIGN UP",
+  "title": "Title",
+  "price": "Price",
+  "owner": "Owner",
+  "date": "Date"
 }

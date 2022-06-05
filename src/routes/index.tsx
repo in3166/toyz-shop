@@ -1,8 +1,14 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
-import styles from './routes.module.scss'
+import { Routes, Route } from 'react-router-dom'
+import store from 'store'
 
-import { useAppDispatch, useAppSelector, useEffect, useMount } from 'hooks'
+import { useAppSelector, useMount } from 'hooks'
+import { useRecoil } from 'hooks/state'
 import { getTheme } from 'states/system'
+import { currentUserState, initialSettingUser } from 'states/user'
+import { menuState } from 'states/sidebar'
+
+import ProtectedRoute from './_shared/ProtectedRoute'
+import ItemDetailPage from './ItemDetailPage'
 import Header from './_shared/Header'
 import MainPage from './MainPage'
 import Sidebar from './_shared/Sidebar'
@@ -10,24 +16,15 @@ import NotFound from './_shared/NotFound'
 import Footer from './_shared/Footer'
 import SignIn from './SignInPage'
 import SignUp from './SignUpPage'
-import store from 'store'
-import { useRecoil } from 'hooks/state'
-import { currentUserState, initialSettingUser } from 'states/user'
-import ProtectedRoute from './_shared/ProtectedRoute'
-import { useGetProducts } from 'hooks/useGetProducts'
-import { menuState } from 'states/sidebar'
-import { cx } from 'styles'
-import { getUserDataDB } from 'services/user'
-import ItemDetailPage from './ItemDetailPage'
 import LikesPage from './LikesPage'
 import SearchPage from './SearchPage'
+import { cx } from 'styles'
+import styles from './routes.module.scss'
 
 const App = () => {
   const [visibleSideBar] = useRecoil(menuState)
   const theme = useAppSelector(getTheme)
-  // const { pathname, search } = useLocation()
   const [user, setCurrentUser] = useRecoil(currentUserState)
-  // const { data } = useGetProducts(1)
 
   useMount(() => {
     document.documentElement.setAttribute('color-theme', theme)

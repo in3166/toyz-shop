@@ -1,9 +1,9 @@
-import { IDBUser } from 'types/user'
-import Container from 'components/Container'
-import SearchCard from './SearchCard'
-import styles from './searchPage.module.scss'
 import { useAppSelector } from 'hooks'
-import { getSearchList, searchProduct } from 'states/product'
+import { getSearchList } from 'states/product'
+
+import SearchCard from './SearchCard'
+import Container from 'components/Container'
+import styles from './searchPage.module.scss'
 
 const SearchPage = () => {
   const data = useAppSelector(getSearchList)

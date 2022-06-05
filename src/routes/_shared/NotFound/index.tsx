@@ -1,6 +1,6 @@
 import styles from './notFound.module.scss'
 
-const NotFound = (): JSX.Element => {
+const NotFound = () => {
   return <div className={styles.notFound}>404 Not Found</div>
 }
 

@@ -1,6 +1,6 @@
 import { IDBUser } from 'types/user'
-import Container from 'components/Container'
 import LikesCard from './LikesCard'
+import Container from 'components/Container'
 import styles from './likesPage.module.scss'
 
 interface ILikesPageProps {

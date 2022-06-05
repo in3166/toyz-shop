@@ -6,15 +6,16 @@
   display: flex;
   flex-direction: column;
   min-width: 203px;
+  min-height: 390px;
+  max-height: 390px;
   padding: 16px;
+  overflow: scroll;
   cursor: pointer;
   background-color: colors.$WHITE;
-  // border: 1px solid colors.$CARD_BORDER;
   border-radius: 10px;
   transition: all 0.3s ease 0s;
 
   &:hover {
-    // border: 1px solid colors.$CARD_BORDER_HOVER;
     opacity: 0.5;
   }
 

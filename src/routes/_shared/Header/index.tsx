@@ -1,9 +1,8 @@
-import { LogoImage, MenuBar } from 'assets/svgs'
 import { useRecoil } from 'hooks/state'
-import { NavLink } from 'react-router-dom'
 import { menuState } from 'states/sidebar'
 import GNB from './GNB'
-import SearchBar from './GNB/SearchBar'
+import { MenuBar } from 'assets/svgs'
+import SearchBar from './SearchBar'
 import styles from './header.module.scss'
 
 const Header = (): JSX.Element => {

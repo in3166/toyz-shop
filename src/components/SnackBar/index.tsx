@@ -1,6 +1,6 @@
+import { cx } from 'styles'
 import styles from './snackBar.module.scss'
 import { CloseIcon } from 'assets/svgs'
-import { cx } from 'styles'
 
 interface ISnackBarProps {
   message: string

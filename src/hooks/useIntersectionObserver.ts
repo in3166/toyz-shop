@@ -1,9 +1,8 @@
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useState } from 'react'
 import { getProudcts } from 'services/products'
+import { useRecoil } from './state'
 import { currentPageState } from 'states/page'
 import { setProductList } from 'states/product'
-import { IProductItem } from 'types/product'
-import { useRecoil } from './state'
 import { useAppDispatch } from './useAppDispatch'
 
 interface Args extends IntersectionObserverInit {
