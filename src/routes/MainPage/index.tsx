@@ -14,16 +14,24 @@ import { LoadingSpinner } from 'assets/svgs'
 import styles from './mainPage.module.scss'
 import { currentPageState } from 'states/page'
 import { useGetProducts } from 'hooks/useGetProducts'
-
-const MainPage = ({ items }: { items: IProductItem[] }) => {
+// /{ items  }: { items: IProductItem[] }
+const MainPage = () => {
   const ref = useRef<HTMLDivElement | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const products = useAppSelector(getProductList)
+  // const [products, setProducts] = useState<IProductItem[]>(items)
 
-  const [products, setProducts] = useState<IProductItem[]>(items)
+  const setTarget = useIntersectionObserver(ref, { rootMargin: '10px', threshold: 0 }, setIsLoading)
 
-  const setTarget = useIntersectionObserver(ref, { rootMargin: '10px', threshold: 0 }, setIsLoading, setProducts)
+  // if (products.length < 1) return null
 
-  if (products.length < 1) return null
+  const scrollDetecor = !isLoading && <li ref={setTarget} className={styles.scrollTargetLi} />
+
+  const loading = isLoading && (
+    <div className={styles.loading}>
+      <LoadingSpinner />
+    </div>
+  )
 
   return (
     <main className={styles.main}>
@@ -34,13 +42,8 @@ const MainPage = ({ items }: { items: IProductItem[] }) => {
             return <Card key={value.id} item={value} />
           })}
         </ul>
-        {!isLoading && <li ref={setTarget} className={styles.scrollTargetLi} />}
-
-        {isLoading && (
-          <div className={styles.loading}>
-            <LoadingSpinner />
-          </div>
-        )}
+        {scrollDetecor}
+        {loading}
       </Container>
     </main>
   )

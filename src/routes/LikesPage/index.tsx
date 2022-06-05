@@ -7,7 +7,7 @@ interface ILikesPageProps {
   user: IDBUser
 }
 const LikesPage = ({ user }: ILikesPageProps) => {
-  const { data, key } = user
+  const { data } = user
 
   if (!data || data.id === 'admin' || data.id === '') return <div className={styles.empty}>You need to log in.</div>
 

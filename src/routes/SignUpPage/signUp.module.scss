@@ -1,9 +1,10 @@
+@use '/src/styles/constants/colors';
+
 .formWrapper {
   width: 50%;
   padding: 35px;
   margin: 50px;
-  background-color: whitesmoke;
-  // border: 1px solid rgb(61, 61, 61);
+  background-color: colors.$SIGN_BACKGROUND;
   border-radius: 10px;
 
   header {
@@ -19,35 +20,39 @@
 
     .signUpButton {
       font-size: 13px;
-      color: rgb(27, 27, 27);
+      color: colors.$SIGN_BUTTON;
 
       &:hover {
-        color: rgb(182, 182, 182);
+        color: colors.$SIGN_BUTTON_HOVER;
       }
     }
   }
 
   :root[color-theme='dark'] & {
-    color: rgb(205, 205, 205) !important;
-    background-color: #2a3042 !important;
+    color: colors.$SIGN_DARK_FONT !important;
+    background-color: colors.$SIGN_DARK_BACKGROUND !important;
 
     label,
     input {
-      color: rgb(240, 236, 236) !important;
+      color: colors.$SIGN_DARK_INPUT !important;
     }
 
     path {
-      fill: white;
+      fill: colors.$GRAYE;
     }
 
     input::placeholder {
       font-size: small;
-      color: rgb(118, 118, 118);
+      color: colors.$SIGN_DARK_PLACEHOLDER;
     }
 
     .signUpButton {
       font-size: 13px;
-      color: rgb(207, 207, 207);
+      color: colors.$SIGN_DARK_INPUT;
+
+      &:hover {
+        color: colors.$GRAYA;
+      }
     }
   }
 }

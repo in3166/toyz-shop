@@ -1,0 +1,30 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+
+.main {
+  width: 100%;
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 10px;
+
+  @include responsive.after(ML) {
+    grid-gap: 40px;
+  }
+
+  @include responsive.after(SD) {
+    grid-gap: 50px;
+  }
+
+  @include responsive.after(LD) {
+    grid-gap: 60px;
+  }
+}
+
+.empty {
+  margin: 150px;
+  font-size: 25px;
+  font-weight: 700;
+}

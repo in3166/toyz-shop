@@ -6,6 +6,7 @@
   justify-content: space-between;
   width: 100%;
   padding: 10px;
+  background-color: colors.$HEADER_BACKGROUND_COLOR;
 
   .leftMenu {
     position: relative;
@@ -30,7 +31,7 @@
 
   :root[color-theme='dark'] & {
     color: colors.$FONT_COLOR;
-    background-color: #36394c;
+    background-color: colors.$HEADER_DARK_BACKGROUND_COLOR;
 
     a,
     button {

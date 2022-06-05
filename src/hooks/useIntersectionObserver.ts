@@ -13,8 +13,8 @@ interface Args extends IntersectionObserverInit {
 export function useIntersectionObserver(
   elementRef: RefObject<Element>,
   { threshold = 0 }: Args,
-  setIsLoading: Dispatch<SetStateAction<boolean>>,
-  setProducts: Dispatch<SetStateAction<IProductItem[]>>
+  setIsLoading: Dispatch<SetStateAction<boolean>>
+  // setProducts: Dispatch<SetStateAction<IProductItem[]>>
 ) {
   const dispatch = useAppDispatch()
   const [currentPage, setCurrentPage] = useRecoil(currentPageState)
@@ -31,8 +31,8 @@ export function useIntersectionObserver(
         setTimeout(() => {
           getProudcts(pageNumber)
             .then((res) => {
-              // dispatch(setProductList(res.data))
-              setProducts((prev) => [...prev, ...res.data])
+              dispatch(setProductList(res.data))
+              // setProducts((prev) => [...prev, ...res.data])
             })
             .finally(() => {
               setIsLoading(false)
@@ -40,7 +40,7 @@ export function useIntersectionObserver(
         }, 900)
       }
     },
-    [currentPage, setCurrentPage, setIsLoading, setProducts]
+    [currentPage, dispatch, setCurrentPage, setIsLoading]
   )
 
   useEffect(() => {

@@ -29,14 +29,15 @@ const Sidebar = (): JSX.Element => {
     >
       <div className={styles.logo}>
         <NavLink to='/' className={styles.logo}>
-          <LogoImage /> Toyz
+          <LogoImage />
+          Toyz
         </NavLink>
       </div>
       <nav className={styles.nav}>
         <ul>
           <li>
             <NavLink to='/' className={({ isActive }) => cx({ [styles.isActive]: isActive })}>
-              Market Place
+              MarketPlace
             </NavLink>
           </li>
           <li>

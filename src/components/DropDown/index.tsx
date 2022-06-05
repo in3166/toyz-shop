@@ -1,5 +1,4 @@
-import store from 'store'
-import { Dispatch, MouseEvent, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, MouseEvent, SetStateAction, useState } from 'react'
 
 import { DownArrow } from 'assets/svgs'
 import { cx } from 'styles'
@@ -15,8 +14,6 @@ interface IDropDownProps {
 
 const DropDown = ({ currentLanguage, selectList, setCurrentSelect, size }: IDropDownProps) => {
   const [isOpenSelect, setIsOpenSelect] = useState(false)
-  const [isCategorySelect, setIsCategorySelect] = useState(false)
-  const [categoryColor, setCategoryColor] = useState('')
 
   const handleVisibleOptions = () => {
     setIsOpenSelect((prev) => !prev)
@@ -33,24 +30,9 @@ const DropDown = ({ currentLanguage, selectList, setCurrentSelect, size }: IDrop
   }
   const dropDownRef = useOnClickOutside(handleOnClose)
 
-  // useEffect(() => {
-  //   if (selectName === 'firstCategory' || selectName === 'secondCategory') {
-  //     setIsCategorySelect(true)
-  //     if (selectName === 'firstCategory') {
-  //       setCategoryColor('#4fadf7')
-  //     }
-  //     if (selectName === 'secondCategory') {
-  //       setCategoryColor('#85da47')
-  //     }
-  //   }
-  // }, [selectName])
-
   return (
     <div className={cx(styles.select, styles[size], { [styles.isOpenSelect]: isOpenSelect })} ref={dropDownRef}>
       <button type='button' className={cx(styles.selected, styles[size])} onClick={handleVisibleOptions}>
-        {/* {isCategorySelect && (
-          <div className={styles.categoryIndicator} style={{ backgroundColor: `${categoryColor}` }} />
-        )} */}
         {currentLanguage}
         <DownArrow className={cx(styles.downArrowIcon, { [styles.selectMenuOpen]: isOpenSelect })} />
       </button>

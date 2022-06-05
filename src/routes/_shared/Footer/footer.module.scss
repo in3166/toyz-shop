@@ -1,20 +1,23 @@
 @use '/src/styles/constants/levels';
+@use '/src/styles/mixins/responsive';
+@use '/src/styles/constants/colors';
 
 .footer {
   position: absolute;
   bottom: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: calc(100% - levels.$SIDEBAR_WIDTH);
   height: 35px;
   font-size: 13px;
+  color: colors.$GRAY6;
   text-align: center;
-  background-color: rgb(250, 250, 250);
+  background-color: colors.$GRAYE;
 
   :root[color-theme='dark'] & {
-    color: rgb(205, 205, 205);
-    background-color: #36394c;
+    color: colors.$GRAYD;
+    background-color: colors.$HEADER_DARK_BACKGROUND_COLOR;
   }
 }

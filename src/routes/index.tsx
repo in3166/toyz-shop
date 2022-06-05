@@ -19,14 +19,15 @@ import { menuState } from 'states/sidebar'
 import { cx } from 'styles'
 import { getUserDataDB } from 'services/user'
 import ItemDetailPage from './ItemDetailPage'
-import LikesPage from './ItemListPage/Likes'
+import LikesPage from './LikesPage'
+import SearchPage from './SearchPage'
 
 const App = () => {
   const [visibleSideBar] = useRecoil(menuState)
   const theme = useAppSelector(getTheme)
   // const { pathname, search } = useLocation()
   const [user, setCurrentUser] = useRecoil(currentUserState)
-  const { data } = useGetProducts(1)
+  // const { data } = useGetProducts(1)
 
   useMount(() => {
     document.documentElement.setAttribute('color-theme', theme)
@@ -35,7 +36,7 @@ const App = () => {
     else setCurrentUser(initialSettingUser)
   })
 
-  if (!user || !data || data?.length < 1) return null
+  if (!user) return null
 
   return (
     <div className={styles.appWrapper}>
@@ -43,10 +44,11 @@ const App = () => {
       <div className={cx(styles.app, { [styles.full]: !visibleSideBar })}>
         <Header />
         <Routes>
-          <Route path='/' element={<MainPage items={data} />} />
+          <Route path='/' element={<MainPage />} />
+          <Route path='search' element={<SearchPage />} />
 
           <Route
-            path='/likes'
+            path='likes'
             element={
               <ProtectedRoute required user={user}>
                 <LikesPage user={user} />

@@ -7,7 +7,7 @@
   min-width: 200px;
   max-width: 100%;
   height: 100%;
-  background-color: #ebe7e4;
+  background-color: colors.$MAIN_COLOR;
 
   :root[color-theme='dark'] & {
     background-color: colors.$BACKGROUND_COLOR !important;
@@ -43,7 +43,7 @@
     animation: rotation 1s infinite linear;
 
     path {
-      fill: rgb(241, 155, 42);
+      fill: colors.$FONT_COLOR;
     }
   }
 }

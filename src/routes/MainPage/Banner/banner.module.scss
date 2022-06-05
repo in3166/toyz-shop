@@ -10,7 +10,7 @@
     width: 100%;
     height: 350px;
     object-fit: contain;
-    background-color: #ebe7e4;
+    background-color: colors.$MAIN_COLOR;
   }
 
   .dlContent dt {
@@ -23,7 +23,7 @@
     width: 100%;
     height: 60px;
     content: '';
-    background: linear-gradient(to bottom right, transparent 48%, #ebe7e4 50.25%);
+    background: linear-gradient(to bottom right, transparent 48%, colors.$MAIN_COLOR 50.25%);
   }
 
   :root[color-theme='dark'] & {

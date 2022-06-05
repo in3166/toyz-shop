@@ -9,10 +9,12 @@
   padding: 16px;
   cursor: pointer;
   background-color: colors.$WHITE;
+  // border: 1px solid colors.$CARD_BORDER;
   border-radius: 10px;
   transition: all 0.3s ease 0s;
 
   &:hover {
+    // border: 1px solid colors.$CARD_BORDER_HOVER;
     opacity: 0.5;
   }
 
@@ -38,11 +40,11 @@
       color: colors.$GRAYA;
     }
 
-    .likeButton {
+    .trashButton {
       position: relative;
       width: auto;
       height: auto;
-      padding: 5px;
+      padding: 0;
 
       svg {
         max-width: 15px;
@@ -52,8 +54,8 @@
       &:hover {
         &::after {
           position: absolute;
-          top: 0;
-          right: 0;
+          top: -5px;
+          right: -5px;
           display: inline-block;
           width: 25px;
           height: 25px;

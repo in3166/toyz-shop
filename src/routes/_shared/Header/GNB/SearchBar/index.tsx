@@ -5,8 +5,9 @@ import { useRecoil } from 'hooks/state'
 
 import { cx } from 'styles'
 import styles from './searchBar.module.scss'
-import { useOnClickOutside } from 'hooks'
+import { useAppDispatch, useOnClickOutside } from 'hooks'
 import { SearchIcon } from 'assets/svgs'
+import { searchProduct } from 'states/product'
 
 interface ISearchBarProps {
   // listRef?: RefObject<HTMLElement>
@@ -17,13 +18,9 @@ const SearchBar = ({}: ISearchBarProps) => {
   const navigate = useNavigate()
   const [searchText, setSearchText] = useState('')
   const [toggleSearchBar, setToggleSearchBar] = useState(false)
-
-  // const [, setCurrentPage, resetCurrentPage] = useRecoil(currentPageState)
-  // const [, setMovies, resetMovies] = useRecoil(moviesState)
-  // const [, setError, resetError] = useRecoil(errorMovieState)
+  const dispatch = useAppDispatch()
 
   const focusRef = useRef<HTMLInputElement>(null)
-  const handleError = useErrorHandler()
 
   const handleChangeSearchText = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.currentTarget.value)
@@ -43,6 +40,8 @@ const SearchBar = ({}: ISearchBarProps) => {
 
   const handleSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    dispatch(searchProduct(searchText))
+    navigate('/search')
   }
 
   return (
