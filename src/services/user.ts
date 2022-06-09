@@ -5,17 +5,21 @@ import { db } from './firebase'
 
 const userRef = collection(db, 'user')
 
-export const getAllUserDataDB = async () => {
-  getDocs(userRef).then((res) => {
-    const users = res.docs.map((docs) => ({ data: docs.data(), id: docs.id }))
+export const getAllUserDataDB = () => {
+  return getDocs(userRef).then((res): IDBUser[] => {
+    const users = res.docs
+      .map((docs) => ({ data: docs.data() as IUser, key: docs.id }))
+      .filter((user) => user.data.role === 0)
     return users
   })
 }
 
 export const getUserDataDB = (id: string) => {
   return getDocs(userRef).then((res) => {
-    const users = res.docs.map((docs) => ({ data: docs.data(), key: docs.id })).filter((user) => user.data.id === id)
-    return users as IDBUser[]
+    const users = res.docs
+      .map((docs) => ({ data: docs.data() as IUser, key: docs.id }))
+      .filter((user) => user.data.id === id)
+    return users
   })
 }
 

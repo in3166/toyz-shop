@@ -9,7 +9,8 @@ interface ILikesPageProps {
 const LikesPage = ({ user }: ILikesPageProps) => {
   const { data } = user
 
-  if (!data || data.id === 'admin' || data.id === '') return <div className={styles.empty}>You need to log in.</div>
+  if (data.id === 'admin') return <div className={styles.empty}>You are admin.</div>
+  if (!data || data.id === '') return <div className={styles.empty}>You need to log in.</div>
 
   const userLikes = data?.likes
   if (userLikes.length < 1) return <div className={styles.empty}>No Items.</div>

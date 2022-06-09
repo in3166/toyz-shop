@@ -53,7 +53,15 @@ const GNB = () => {
         </li>
         <li>
           <button type='button' className={styles.settingIcon}>
-            {currentUser?.data?.role === 0 ? <ProfileIcon /> : <SettingIcon />}
+            {currentUser?.data?.role === 0 ? (
+              <NavLink to='/setting/user'>
+                <ProfileIcon />
+              </NavLink>
+            ) : (
+              <NavLink to='/setting/admin'>
+                <SettingIcon />
+              </NavLink>
+            )}
           </button>
         </li>
       </>

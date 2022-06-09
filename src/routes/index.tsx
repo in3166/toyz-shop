@@ -20,6 +20,8 @@ import LikesPage from './LikesPage'
 import SearchPage from './SearchPage'
 import { cx } from 'styles'
 import styles from './routes.module.scss'
+import AdminSetting from './SettingPage/AdminSetting'
+import UserSetting from './SettingPage/UserSetting'
 
 const App = () => {
   const [visibleSideBar] = useRecoil(menuState)
@@ -74,6 +76,25 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
+          <Route path='setting'>
+            <Route
+              path='admin'
+              element={
+                <ProtectedRoute required user={user}>
+                  <AdminSetting />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='user'
+              element={
+                <ProtectedRoute required user={user}>
+                  <UserSetting />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

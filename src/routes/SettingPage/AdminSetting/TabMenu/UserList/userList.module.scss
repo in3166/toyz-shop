@@ -1,0 +1,53 @@
+@use '/src/styles/constants/colors';
+
+.userTable {
+  display: table;
+  width: 100%;
+  padding: 5px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  text-align: center;
+
+  &::-webkit-scrollbar {
+    height: 7px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 7px; /* 스크롤바의 길이 */
+    background: #c0c0c0; /* 스크롤바의 색상 */
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(199, 199, 199, 10%);  /* 스크롤바 뒷 배경 색상 */
+  }
+
+  thead {
+    font-weight: 500;
+    border-bottom: 1px colors.$GRAY2 solid;
+
+    th {
+      padding: 10px;
+      color: colors.$GRAY2;
+    }
+  }
+
+  tbody {
+    color: colors.$TD_FONT_COLOR;
+
+    td {
+      padding: 10px;
+
+      button {
+        padding: 10px 16px;
+        color: colors.$TD_BUTTON_FONT;
+        border-radius: 15px;
+
+        &:hover {
+          color: colors.$GRAYE;
+          background-color: colors.$TD_BUTTON_HOVER;
+        }
+      }
+    }
+  }
+}

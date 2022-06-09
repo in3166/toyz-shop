@@ -29,6 +29,15 @@ const SignUp = (): JSX.Element => {
   } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
 
   const {
+    value: name,
+    reset: resetName,
+    valueIsValid: nameIsValid,
+    hasError: nameHasError,
+    valueChangeHandler: handleNameChange,
+    inputBlurHandler: handleNameBlur,
+  } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
+
+  const {
     value: password,
     reset: resetPassword,
     valueIsValid: passwordIsValid,
@@ -56,6 +65,7 @@ const SignUp = (): JSX.Element => {
 
     const newUser = {
       id,
+      name,
       phone,
       pw: password,
       role: 0,
@@ -96,6 +106,16 @@ const SignUp = (): JSX.Element => {
             hasError={idHasError}
             placeholder={`${t('front:signUp.placeholderID')}`}
             inputFocusRef={inputFocusRef}
+          />
+          <InputText
+            type='text'
+            formTitle={`${t('front:signUp.titleName')}`}
+            value={name}
+            onChange={handleNameChange}
+            reset={resetName}
+            onBlur={handleNameBlur}
+            hasError={nameHasError}
+            placeholder={`${t('front:signUp.placeholderName')}`}
           />
           <InputText
             type='password'
