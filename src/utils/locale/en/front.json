@@ -21,5 +21,10 @@
   "title": "Title",
   "price": "Price",
   "owner": "Owner",
-  "date": "Date"
+  "date": "Date",
+  "buyModal.header": "Buy Item",
+  "buyModal.title": "Title",
+  "buyModal.price": "Price",
+  "buyModal.buyButton": "Buy",
+  "buyModal.closeButton": "Cancel"
 }

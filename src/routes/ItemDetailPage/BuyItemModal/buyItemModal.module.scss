@@ -5,6 +5,8 @@
 .header {
   @include flexbox.flexbox(between, center);
   padding: 15px;
+  margin-bottom: 15px;
+  font-weight: 500;
 
   .title {
     font-size: 17px;
