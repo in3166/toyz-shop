@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { debounce } from 'lodash'
 
@@ -12,8 +12,7 @@ const Sidebar = (): JSX.Element => {
   const [visibleSideBar, setVisibleSideBar] = useRecoil(menuState)
 
   const handleResize = debounce(() => {
-    if (window.innerWidth <= 768) setVisibleSideBar(false)
-    else setVisibleSideBar(true)
+    setVisibleSideBar(window.innerWidth > 768)
   }, 150)
 
   useEffect(() => {

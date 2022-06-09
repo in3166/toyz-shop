@@ -36,7 +36,7 @@ const DropDown = ({ currentLanguage, selectList, setCurrentSelect, size }: IDrop
         {currentLanguage}
         <DownArrow className={cx(styles.downArrowIcon, { [styles.selectMenuOpen]: isOpenSelect })} />
       </button>
-      <ul>
+      <ul className={styles.selectBox}>
         {isOpenSelect &&
           selectList.map((value) => {
             return (

@@ -10,6 +10,7 @@ const DarkMode = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const theme = useAppSelector(getTheme)
   const [value, setValue] = useState(theme === 'dark')
+
   const clickToggleHandler = () => {
     setValue((prev) => !prev)
     dispatch(toggleTheme())
