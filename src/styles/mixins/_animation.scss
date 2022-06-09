@@ -22,3 +22,13 @@
     transform: translateX(50px);
   }
 }
+
+@keyframes openModal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

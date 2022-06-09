@@ -30,40 +30,43 @@ const GNB = () => {
     store.set('language', currentLanguage)
   }, [currentLanguage])
 
+  const rightMenu =
+    currentUser?.data?.id === '' ? (
+      <>
+        <li>
+          <NavLink to='/signin' className={({ isActive }) => cx({ [styles.isActive]: isActive })}>
+            {`${t('front:gnb.signin')}`}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to='/signup' className={({ isActive }) => cx({ [styles.isActive]: isActive })}>
+            {`${t('front:gnb.signup')}`}
+          </NavLink>
+        </li>
+      </>
+    ) : (
+      <>
+        <li>
+          <button type='button' onClick={handleClickLogout} className={styles.logout}>
+            {`${t('front:gnb.logout')}`}
+          </button>
+        </li>
+        <li>
+          <button type='button' className={styles.settingIcon}>
+            {currentUser?.data?.role === 0 ? <ProfileIcon /> : <SettingIcon />}
+          </button>
+        </li>
+      </>
+    )
+
   return (
     <nav className={styles.gnb}>
       <ul className={styles.rightMenu}>
-        {!currentUser || currentUser?.data?.id === '' ? (
-          <>
-            <li>
-              <NavLink to='/signin' className={({ isActive }) => cx({ [styles.isActive]: isActive })}>
-                {`${t('front:gnb.signin')}`}
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to='/signup' className={({ isActive }) => cx({ [styles.isActive]: isActive })}>
-                {`${t('front:gnb.signup')}`}
-              </NavLink>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <button type='button' onClick={handleClickLogout} className={styles.logout}>
-                {`${t('front:gnb.logout')}`}
-              </button>
-            </li>
-            <li>
-              <button type='button' className={styles.settingIcon}>
-                {currentUser?.data?.role === 0 ? <ProfileIcon /> : <SettingIcon />}
-              </button>
-            </li>
-          </>
-        )}
+        {rightMenu}
         <li>
           <DarkMode />
         </li>
-        <li>
+        <li className={styles.lang}>
           <DropDown
             currentLanguage={currentLanguage}
             selectList={SELECT_LIST}
