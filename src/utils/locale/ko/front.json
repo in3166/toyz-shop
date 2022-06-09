@@ -21,5 +21,10 @@
   "title": "제목",
   "price": "가격",
   "owner": "소유자",
-  "date": "등록일"
+  "date": "등록일",
+  "buyModal.header": "상품 구매",
+  "buyModal.title": "제목",
+  "buyModal.price": "가격",
+  "buyModal.buyButton": "구매",
+  "buyModal.closeButton": "취소"
 }
