@@ -28,5 +28,9 @@
   "buyModal.title": "제목",
   "buyModal.price": "가격",
   "buyModal.buyButton": "구매",
-  "buyModal.closeButton": "취소"
+  "buyModal.closeButton": "취소",
+  "removeUserModal.header": "유저 삭제",
+  "removeUserModal.content": "정말 삭제하시겠습니까?",
+  "removeUserModal.confirmButton": "삭제",
+  "removeUserModal.closeButton": "취소"
 }

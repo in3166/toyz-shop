@@ -30,6 +30,7 @@ const GNB = () => {
     store.set('language', currentLanguage)
   }, [currentLanguage])
 
+  // TODO: ?
   const rightMenu =
     currentUser?.data?.id === '' ? (
       <>

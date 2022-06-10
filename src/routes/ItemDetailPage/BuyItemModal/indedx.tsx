@@ -1,6 +1,4 @@
 import Modal from 'components/Modal'
-import SnackBar from 'components/SnackBar'
-import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import { useI18n } from 'hooks'
 import { useCallback } from 'react'
 import styles from './buyItemModal.module.scss'

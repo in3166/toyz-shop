@@ -77,7 +77,7 @@ const SignUp = (): JSX.Element => {
         setMessage('회원가입 성공!')
         setSnackBarStatus('')
         setTimeout(() => {
-          navigate('/siginin')
+          navigate('/signin')
         }, 1000)
       })
       .catch((err) => {

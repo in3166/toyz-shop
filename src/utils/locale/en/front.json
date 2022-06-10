@@ -28,5 +28,9 @@
   "buyModal.title": "Title",
   "buyModal.price": "Price",
   "buyModal.buyButton": "Buy",
-  "buyModal.closeButton": "Cancel"
+  "buyModal.closeButton": "Cancel",
+  "removeUserModal.header": "Remove User",
+  "removeUserModal.content": "Are you sure?",
+  "removeUserModal.confirmButton": "Remove",
+  "removeUserModal.closeButton": "Cancel"
 }

@@ -130,6 +130,12 @@
   - 메인 페이지에서 아래로 스크롤할 경우 다음 아이템 목록을 불러와 출력합니다.
   - `IntersectionObserver` API를 사용하였고 Custom Hook으로 분리하여 구현했습니다.
 
+### Admin Page
+- 유저 테이블
+  - `useQeury`을 사용할 때 'qeury Funtion'안에서 `setState`를 해주면 해당 페이지에 다시 왔을 때 유저 목록을 불러오지 못했다.
+  - 같은 키의 요청일 경우 `staleTime`이 지나지 않으면 해당 함수를 다시 실행하지 않고 캐싱된 결과를 반환해 준다.
+  - 해결: 반환된 `data`를 `useEffect`를 사용하여 저장했다.
+
 <br>
 
 ## 느낀 점

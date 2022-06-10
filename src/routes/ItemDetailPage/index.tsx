@@ -21,9 +21,11 @@ const ItemDetailPage = () => {
   const handleOpenModal = () => {
     setOpenModal(true)
   }
+
   const handleCloseModal = () => {
     setOpenModal(false)
   }
+
   return (
     <Container color='white'>
       <header className={styles.header}>상세 페이지</header>

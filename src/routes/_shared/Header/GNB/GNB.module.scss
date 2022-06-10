@@ -46,6 +46,12 @@
         fill: colors.$GRAY6;
       }
     }
+
+    &:hover {
+      path {
+        fill: colors.$GRAY3;
+      }
+    }
   }
 
   @include responsive.mobileOnly {

@@ -1,11 +1,11 @@
-import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore'
 import { IDBUser, IUser } from 'types/user'
 import { IProductItem } from 'types/product'
 import { db } from './firebase'
 
 const userRef = collection(db, 'user')
 
-export const getAllUserDataDB = () => {
+export const getAllUserDataDB = async () => {
   return getDocs(userRef).then((res): IDBUser[] => {
     const users = res.docs
       .map((docs) => ({ data: docs.data() as IUser, key: docs.id }))
@@ -25,6 +25,10 @@ export const getUserDataDB = (id: string) => {
 
 export const addUserDB = async (newUser: IUser) => {
   return addDoc(userRef, newUser)
+}
+
+export const removeUserDB = async (id: string) => {
+  return deleteDoc(doc(userRef, id))
 }
 
 export const updateUserDBLikes = async (id: string, likes: IProductItem[]) => {
