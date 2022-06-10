@@ -24,7 +24,15 @@ export const getUserDataDB = (id: string) => {
 }
 
 export const addUserDB = async (newUser: IUser) => {
-  return addDoc(userRef, newUser)
+  return getAllUserDataDB()
+    .then((res) => {
+      const index = res.findIndex((user) => user.data.id === newUser.id)
+      if (index !== -1) throw new Error('ID 중복')
+      return addDoc(userRef, newUser)
+    })
+    .catch((err) => {
+      throw err
+    })
 }
 
 export const removeUserDB = async (id: string) => {

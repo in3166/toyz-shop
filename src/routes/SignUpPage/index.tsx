@@ -81,7 +81,7 @@ const SignUp = (): JSX.Element => {
         }, 1000)
       })
       .catch((err) => {
-        setMessage(`회원가입 실패: ${err}`)
+        setMessage(`${err}`)
         setSnackBarStatus('error')
       })
   }
