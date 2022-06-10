@@ -13,9 +13,9 @@ const UserList = () => {
   const [openModal, setOpenModal] = useState(false)
   const [selectedID, setSelectedID] = useState<string>('')
   const { message, setMessage } = useSnackbar(3000)
-  console.log(users)
+
   const { isLoading, data } = useQuery(
-    ['getAllUserDataDB'],
+    ['getAllUserDataDB', users.length],
     () =>
       getAllUserDataDB().then((res: IDBUser[]) => {
         return res

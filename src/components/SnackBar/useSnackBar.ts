@@ -8,16 +8,17 @@ export const useSnackbar = (ms: number) => {
   const setSnackbarMessage = (text: string) => {
     setMessage({ text })
   }
-
   const clearTimer = () => {
     if (timer.current) clearTimeout(timer.current)
   }
 
   useUpdateEffect(() => {
     if (timer.current) clearTimeout(timer.current)
-    timer.current = setTimeout(() => {
-      setMessage({ text: '' })
-    }, ms + 100)
+    if (message.text !== '') {
+      timer.current = setTimeout(() => {
+        setMessage({ text: '' })
+      }, ms + 100)
+    }
   }, [message])
 
   useEffect(() => {
