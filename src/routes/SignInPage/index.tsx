@@ -79,7 +79,7 @@ const SignIn = (): JSX.Element => {
             reset={resetId}
             onBlur={handleIdBlur}
             hasError={idHasError}
-            placeholder={`${t('front:signIn.placeholderID')}`}
+            errorMessage={`${t('front:signIn.errorMessageID')}`}
             inputFocusRef={inputFocusRef}
           />
 
@@ -91,7 +91,7 @@ const SignIn = (): JSX.Element => {
             reset={resetPassword}
             onBlur={handlePasswordBlur}
             hasError={passwordHasError}
-            placeholder={`${t('front:signIn.placeholderPW')}`}
+            errorMessage={`${t('front:signIn.errorMessagePW')}`}
           />
 
           <footer className={styles.footer}>

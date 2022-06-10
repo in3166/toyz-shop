@@ -13,13 +13,13 @@ interface IInputFormProps {
   reset: () => void
   hasError: boolean
   type: string
-  placeholder: string
+  errorMessage: string
   inputFocusRef?: RefObject<HTMLInputElement>
 }
 
 const InputText = ({
   type,
-  placeholder,
+  errorMessage,
   formTitle,
   value,
   onBlur,
@@ -48,11 +48,10 @@ const InputText = ({
         onBlur={onBlur}
         onChange={onChange}
         className={styles.inputText}
-        placeholder={placeholder}
         ref={inputFocusRef}
       />
       <InputCancelIcon className={cx({ [styles.iconHidden]: value === '' })} onClick={handleResetOnclick} />
-      {hasError && <p className={styles.errorMessage}>{placeholder}</p>}
+      {hasError && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   )
 }

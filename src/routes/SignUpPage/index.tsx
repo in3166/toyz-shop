@@ -5,7 +5,7 @@ import { useI18n } from 'hooks'
 import useFormInput from '../../hooks/useFormInput'
 import { addUserDB } from 'services/user'
 
-import { validateSiginUpInput } from './validateState'
+import { validateId, validateName, validatePassword, validatePhoneNumber } from './validateState'
 import SnackBar from 'components/SnackBar'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import InputText from '../../components/InputText'
@@ -26,7 +26,7 @@ const SignUp = (): JSX.Element => {
     hasError: idHasError,
     valueChangeHandler: handleIdChange,
     inputBlurHandler: handleIdBlur,
-  } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
+  } = useFormInput({ validateFunction: validateId, initialValue: '' })
 
   const {
     value: name,
@@ -35,7 +35,7 @@ const SignUp = (): JSX.Element => {
     hasError: nameHasError,
     valueChangeHandler: handleNameChange,
     inputBlurHandler: handleNameBlur,
-  } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
+  } = useFormInput({ validateFunction: validateName, initialValue: '' })
 
   const {
     value: password,
@@ -44,7 +44,7 @@ const SignUp = (): JSX.Element => {
     hasError: passwordHasError,
     valueChangeHandler: handlePasswordChange,
     inputBlurHandler: handlePasswordBlur,
-  } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
+  } = useFormInput({ validateFunction: validatePassword, initialValue: '' })
 
   const {
     value: phone,
@@ -53,11 +53,11 @@ const SignUp = (): JSX.Element => {
     hasError: phoneHasError,
     valueChangeHandler: handlePhoneChange,
     inputBlurHandler: handlePhoneBlur,
-  } = useFormInput({ validateFunction: validateSiginUpInput, initialValue: '' })
+  } = useFormInput({ validateFunction: validatePhoneNumber, initialValue: '' })
 
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (!idIsValid || !passwordIsValid || !phoneIsValid) {
+    if (!idIsValid || !passwordIsValid || !phoneIsValid || !nameIsValid) {
       setMessage('입력 정보가 올바르지 않습니다.')
       setSnackBarStatus('warning')
       return
@@ -104,18 +104,8 @@ const SignUp = (): JSX.Element => {
             reset={resetId}
             onBlur={handleIdBlur}
             hasError={idHasError}
-            placeholder={`${t('front:signUp.placeholderID')}`}
+            errorMessage={`${t('front:signUp.errorMessageID')}`}
             inputFocusRef={inputFocusRef}
-          />
-          <InputText
-            type='text'
-            formTitle={`${t('front:signUp.titleName')}`}
-            value={name}
-            onChange={handleNameChange}
-            reset={resetName}
-            onBlur={handleNameBlur}
-            hasError={nameHasError}
-            placeholder={`${t('front:signUp.placeholderName')}`}
           />
           <InputText
             type='password'
@@ -125,9 +115,18 @@ const SignUp = (): JSX.Element => {
             reset={resetPassword}
             onBlur={handlePasswordBlur}
             hasError={passwordHasError}
-            placeholder={`${t('front:signUp.placeholderPW')}`}
+            errorMessage={`${t('front:signUp.errorMessagePW')}`}
           />
-
+          <InputText
+            type='text'
+            formTitle={`${t('front:signUp.titleName')}`}
+            value={name}
+            onChange={handleNameChange}
+            reset={resetName}
+            onBlur={handleNameBlur}
+            hasError={nameHasError}
+            errorMessage={`${t('front:signUp.errorMessageName')}`}
+          />
           <InputText
             type='text'
             formTitle={`${t('front:signUp.titlePhone')}`}
@@ -136,7 +135,7 @@ const SignUp = (): JSX.Element => {
             reset={resetPhone}
             onBlur={handlePhoneBlur}
             hasError={phoneHasError}
-            placeholder={`${t('front:signUp.placeholderPhone')}`}
+            errorMessage={`${t('front:signUp.errorMessagePhone')}`}
           />
 
           <footer className={styles.footer}>
