@@ -3,35 +3,30 @@ import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import store from 'store'
 
-import { IProductItem } from 'types/product'
 import { useI18n } from 'hooks'
-import { useRecoil } from 'hooks/state'
-import { currentUserState } from 'states/user'
-import { updateUserDBLikes } from 'services/user'
-import { HeartFillIcon, HeartOutlineIcon } from 'assets/svgs'
+import { IProductItem } from 'types/product'
 import styles from './card.module.scss'
-
-function getTempLikes(items: IProductItem[], like: boolean, item: IProductItem) {
-  if (like) {
-    return items.filter((value) => value.id !== item.id)
-  }
-  return [...items, item]
-}
+import { HeartFillIcon, HeartOutlineIcon } from 'assets/svgs'
+import { IDBUser } from 'types/user'
+import { SetterOrUpdater } from 'recoil'
+import { updateUserDBLikes } from 'services/user'
+import { getTempLikes } from './getTempLikes'
 
 interface ICardProps {
   item: IProductItem
+  user?: IDBUser
+  setUser?: SetterOrUpdater<IDBUser>
 }
 
-const Card = ({ item }: ICardProps): JSX.Element => {
+const Card = ({ item, user, setUser }: ICardProps) => {
   const t = useI18n()
-  const [user, setUser] = useRecoil(currentUserState)
-
-  const isLiked = user?.data?.likes?.filter((value) => value.id === item.id).length > 0
+  const isLiked = user ? user.data.likes.filter((value) => value.id === item.id).length > 0 : false
   const [like, setLike] = useState(isLiked)
 
   const handleClickLike = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    if (!user || user.data.id === '' || user.data.id === 'admin') return
+    if (!user || !setUser) return
+    if (user.data.id === '' || user.data.id === 'admin') return
     store.remove('currentUser')
 
     setLike((prev) => !prev)
@@ -54,6 +49,7 @@ const Card = ({ item }: ICardProps): JSX.Element => {
             {like ? <HeartFillIcon /> : <HeartOutlineIcon />}
           </button>
         </h3>
+
         <img src={item.url} alt={item.title} className={styles.itemImage} />
 
         <dl>

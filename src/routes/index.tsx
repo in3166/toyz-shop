@@ -53,7 +53,7 @@ const App = () => {
               path='likes'
               element={
                 <ProtectedRoute required user={user}>
-                  <LikesPage user={user} />
+                  <LikesPage />
                 </ProtectedRoute>
               }
             />

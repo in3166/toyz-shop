@@ -14,7 +14,6 @@ export function useIntersectionObserver(
   elementRef: RefObject<Element>,
   { threshold = 0 }: Args,
   setIsLoading: Dispatch<SetStateAction<boolean>>
-  // setProducts: Dispatch<SetStateAction<IProductItem[]>>
 ) {
   const dispatch = useAppDispatch()
   const handleError = useErrorHandler()
@@ -33,7 +32,6 @@ export function useIntersectionObserver(
           getProudcts(pageNumber)
             .then((res) => {
               dispatch(setProductList(res.data))
-              // setProducts((prev) => [...prev, ...res.data])
             })
             .catch((err) => {
               handleError(err)

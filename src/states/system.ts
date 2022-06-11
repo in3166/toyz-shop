@@ -34,6 +34,4 @@ export const { setTheme, toggleTheme } = systemSlice.actions
 
 export default systemSlice.reducer
 
-// Selector =====================
-
 export const getTheme = (state: RootState): string => state.system.theme

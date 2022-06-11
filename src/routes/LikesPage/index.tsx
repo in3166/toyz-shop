@@ -1,12 +1,13 @@
 import { IDBUser } from 'types/user'
+import { useRecoil } from 'hooks/state'
+import { currentUserState } from 'states/user'
+
 import Container from 'components/Container'
-import LikesCard from './LikesCard'
+import Card from 'components/Card'
 import styles from './likesPage.module.scss'
 
-interface ILikesPageProps {
-  user: IDBUser
-}
-const LikesPage = ({ user }: ILikesPageProps) => {
+const LikesPage = () => {
+  const [user, setUser] = useRecoil(currentUserState)
   const { data } = user
 
   if (data.id === 'admin') return <div className={styles.empty}>You are admin.</div>
@@ -20,7 +21,7 @@ const LikesPage = ({ user }: ILikesPageProps) => {
       <Container>
         <ul className={styles.cardContainer}>
           {userLikes.map((value) => {
-            return <LikesCard key={value.id} item={value} />
+            return <Card key={value.id} item={value} user={user} setUser={setUser} />
           })}
         </ul>
       </Container>

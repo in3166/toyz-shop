@@ -149,7 +149,9 @@
 
 <br>
 
-### Setting 페이지
+### User Setting Page
+- 회원 정보를 조회하고 수정할 수 있습니다.
+
 ### Admin Setting Page
 - 탭 메뉴를 통해 유저 목록과 거래 차트를 볼 수 있습니다.
 
