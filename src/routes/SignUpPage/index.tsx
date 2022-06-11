@@ -2,13 +2,13 @@ import { FormEvent, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useI18n } from 'hooks'
-import useFormInput from '../../hooks/useFormInput'
+import useFormInput from 'hooks/useFormInput'
 import { addUserDB } from 'services/user'
 
-import { validateId, validateName, validatePassword, validatePhoneNumber } from './validateSignUpState'
 import SnackBar from 'components/SnackBar'
+import InputText from 'components/InputText'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
-import InputText from '../../components/InputText'
+import { validateId, validateName, validatePassword, validatePhoneNumber } from './validateSignUpState'
 import { SignUpIcon } from 'assets/svgs'
 import styles from './signUp.module.scss'
 

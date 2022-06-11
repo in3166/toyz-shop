@@ -4,6 +4,7 @@ import { useRecoil } from './state'
 import { currentPageState } from 'states/page'
 import { setProductList } from 'states/product'
 import { useAppDispatch } from './useAppDispatch'
+import { useErrorHandler } from 'react-error-boundary'
 
 interface Args extends IntersectionObserverInit {
   freezeOnceVisible?: boolean
@@ -16,6 +17,7 @@ export function useIntersectionObserver(
   // setProducts: Dispatch<SetStateAction<IProductItem[]>>
 ) {
   const dispatch = useAppDispatch()
+  const handleError = useErrorHandler()
   const [currentPage, setCurrentPage] = useRecoil(currentPageState)
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null)
 
@@ -33,13 +35,16 @@ export function useIntersectionObserver(
               dispatch(setProductList(res.data))
               // setProducts((prev) => [...prev, ...res.data])
             })
+            .catch((err) => {
+              handleError(err)
+            })
             .finally(() => {
               setIsLoading(false)
             })
         }, 900)
       }
     },
-    [currentPage, dispatch, setCurrentPage, setIsLoading]
+    [currentPage, dispatch, handleError, setCurrentPage, setIsLoading]
   )
 
   useEffect(() => {

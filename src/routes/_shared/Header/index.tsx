@@ -1,8 +1,8 @@
 import { useRecoil } from 'hooks/state'
 import { menuState } from 'states/sidebar'
 import GNB from './GNB'
-import { MenuBar } from 'assets/svgs'
 import SearchBar from './SearchBar'
+import { MenuBar } from 'assets/svgs'
 import styles from './header.module.scss'
 
 const Header = (): JSX.Element => {

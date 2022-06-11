@@ -1,15 +1,4 @@
-import { useState } from 'react'
-import {
-  VictoryTheme,
-  VictoryChart,
-  VictoryLine,
-  VictoryScatter,
-  VictoryTooltip,
-  VictoryLegend,
-  VictoryLabel,
-} from 'victory'
-
-import styles from './tradeChart.module.scss'
+import { VictoryTheme, VictoryChart, VictoryLine, VictoryScatter, VictoryTooltip, VictoryLegend } from 'victory'
 
 const data = [
   { x: '22-06-06', y: 150 },
@@ -21,7 +10,6 @@ const data = [
 ]
 
 const TradeChart = () => {
-  const [chartData, setchartData] = useState(data)
   return (
     <div>
       <VictoryChart theme={VictoryTheme.grayscale}>
@@ -30,10 +18,10 @@ const TradeChart = () => {
             data: { stroke: '#c43a31' },
             parent: { border: '1px solid #ccc' },
           }}
-          data={chartData}
+          data={data}
         />
         <VictoryScatter
-          data={chartData}
+          data={data}
           size={3}
           labels={({ datum }) => datum.y}
           labelComponent={<VictoryTooltip />}

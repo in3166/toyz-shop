@@ -4,11 +4,11 @@ import dayjs from 'dayjs'
 
 import { IProductItem } from 'types/product'
 import { useI18n } from 'hooks'
-import Container from 'components/Container'
-import styles from './itemDetailPage.module.scss'
-import BuyItemModal from './BuyItemModal/indedx'
 import SnackBar from 'components/SnackBar'
+import Container from 'components/Container'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
+import BuyItemModal from './BuyItemModal/indedx'
+import styles from './itemDetailPage.module.scss'
 
 const ItemDetailPage = () => {
   const t = useI18n()

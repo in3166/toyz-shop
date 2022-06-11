@@ -1,16 +1,16 @@
 import { FormEvent, useRef, useState } from 'react'
 import store from 'store'
 
-import useFormInput from '../../hooks/useFormInput'
 import { useI18n } from 'hooks'
 import { useRecoil } from 'hooks/state'
+import useFormInput from 'hooks/useFormInput'
 import { currentUserState } from 'states/user'
-import { validateSiginInInput } from './validateSignInState'
 import { getUserDataDB } from 'services/user'
 
 import SnackBar from 'components/SnackBar'
+import InputText from 'components/InputText'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
-import InputText from '../../components/InputText'
+import { validateSiginInInput } from './validateSignInState'
 import { SignInIcon } from 'assets/svgs'
 import styles from './signIn.module.scss'
 

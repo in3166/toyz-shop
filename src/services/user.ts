@@ -42,7 +42,6 @@ export const removeUserDB = async (id: string) => {
 export const updateUserDBInfo = async (id: string, key: string, pw: string, name: string, phone: string) => {
   return getUserDataDB(id)
     .then((res) => {
-      console.log('res: ', res)
       if (res?.length < 1) throw new Error('No user!')
       if (res[0]?.data?.pw !== pw) throw new Error('Password is not correct!')
       const docRef = doc(db, 'user', key)

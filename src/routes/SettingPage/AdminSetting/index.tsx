@@ -4,14 +4,16 @@ import TradeChart from './TabMenu/TradeChart'
 import UserList from './TabMenu/UserList'
 import { cx } from 'styles'
 import styles from './adminSetting.module.scss'
-
-const MENU_LISTS = [
-  ['User List', <UserList key='userlist' />],
-  ['Trading Chart', <TradeChart key='tradechart' />],
-]
-const width = 100 / MENU_LISTS.length
+import { useI18n } from 'hooks'
 
 const AdminSetting = () => {
+  const t = useI18n()
+  const MENU_LISTS = [
+    [t('front:adminSetting.userTab'), <UserList key='userlist' />],
+    [t('front:adminSetting.chartTab'), <TradeChart key='tradechart' />],
+  ]
+  const width = 100 / MENU_LISTS.length
+
   const [value, setValue] = useState(0)
   const [SlideStyle, setSlideStyle] = useState({ width: `${width}%` })
 

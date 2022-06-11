@@ -4,7 +4,7 @@
   position: relative;
   width: 80%;
   padding: 30px;
-  margin: 20px;
+  margin: 30px 0 50px;
   overflow: hidden;
   background: rgb(243, 243, 243);
   border-radius: 10px;
@@ -12,6 +12,7 @@
   h2 {
     font-size: large;
     font-weight: 500;
+    color: colors.$GRAY3;
   }
 
   footer {

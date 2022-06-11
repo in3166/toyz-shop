@@ -1,10 +1,10 @@
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { debounce } from 'lodash'
 
-import { LogoImage } from 'assets/svgs'
 import { useRecoil } from 'hooks/state'
 import { menuState } from 'states/sidebar'
+import { LogoImage } from 'assets/svgs'
 import { cx } from 'styles'
 import styles from './sidebar.module.scss'
 

@@ -33,5 +33,11 @@
   "removeUserModal.content": "Are you sure?",
   "removeUserModal.confirmButton": "Remove",
   "removeUserModal.closeButton": "Cancel",
-  "userInfo.title": "User Info"
+  "userInfo.title": "User Info",
+  "adminSetting.userTab": "User List",
+  "adminSetting.chartTab": "Trading Chart",
+  "adminSetting.userList.id": "ID",
+  "adminSetting.userList.name": "Name",
+  "adminSetting.userList.phone": "Phone Number",
+  "adminSetting.userList.withdrawal": "Withdrawal"
 }

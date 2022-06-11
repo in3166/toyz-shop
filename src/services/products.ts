@@ -1,5 +1,5 @@
-import { axios } from 'hooks/worker'
 import { IProductAPI, IProductItem } from 'types/product'
+import { axios } from 'hooks/worker'
 
 const PRODUCT_BASE_URL = 'https://api.unsplash.com'
 

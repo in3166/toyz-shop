@@ -46,11 +46,19 @@
 
     td {
       padding: 10px;
+      text-align: center;
 
       button {
+        display: flex;
         padding: 7px 16px;
+        margin: auto;
         color: colors.$TD_BUTTON_FONT;
         border-radius: 10px;
+
+        .trashIcon {
+          width: 15px;
+          height: auto;
+        }
 
         &:hover {
           color: colors.$GRAYE;

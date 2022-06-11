@@ -1,14 +1,18 @@
-import { LoadingSpinner } from 'assets/svgs'
-import SnackBar from 'components/SnackBar'
-import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import { MouseEvent, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { getAllUserDataDB } from 'services/user'
+
 import { IDBUser } from 'types/user'
+import { useI18n } from 'hooks'
+import { getAllUserDataDB } from 'services/user'
+
 import RemoveUserModal from './RemoveUserModal'
+import SnackBar from 'components/SnackBar'
+import { useSnackbar } from 'components/SnackBar/useSnackBar'
+import { LoadingSpinner, TrashIcon } from 'assets/svgs'
 import styles from './userList.module.scss'
 
 const UserList = () => {
+  const t = useI18n()
   const [users, setUsers] = useState<IDBUser[]>([])
   const [openModal, setOpenModal] = useState(false)
   const [selectedID, setSelectedID] = useState<string>('')
@@ -52,10 +56,10 @@ const UserList = () => {
       <table className={styles.userTable}>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Withdrawal</th>
+            <th>{`${t('front:adminSetting.userList.id')}`}</th>
+            <th>{`${t('front:adminSetting.userList.name')}`}</th>
+            <th>{`${t('front:adminSetting.userList.phone')}`}</th>
+            <th>{`${t('front:adminSetting.userList.withdrawal')}`}</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +71,7 @@ const UserList = () => {
                 <td>{value.data.phone}</td>
                 <td>
                   <button type='button' data-id={value.key} onClick={handleRemoveButton}>
-                    탈퇴
+                    <TrashIcon className={styles.trashIcon} />
                   </button>
                 </td>
               </tr>

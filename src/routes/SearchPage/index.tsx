@@ -1,8 +1,8 @@
 import { useAppSelector } from 'hooks'
 import { getSearchList } from 'states/product'
 
-import SearchCard from './SearchCard'
 import Container from 'components/Container'
+import SearchCard from './SearchCard'
 import styles from './searchPage.module.scss'
 
 const SearchPage = () => {

@@ -17,7 +17,7 @@
   "signUp.titlePhone": "전화번호",
   "signUp.errorMessageID": "아이디는 3글자 이상이어야 합니다.",
   "signUp.errorMessageName": "이름은 2글자 이상이어야 합니다.",
-  "signUp.errorMessagePW": "비밀번호는 문자와 숫자를 포함하고 6글자 이상이어야 합니다.",
+  "signUp.errorMessagePW": "비밀번호는 6글자 이상이어야 하며 문자와 숫자를 포함해야 합니다.",
   "signUp.errorMessagePhone": "전화번호는 '-'를 포함해야합니다. (000-0000-0000)",
   "signUp.button": "회원가입",
   "title": "제목",
@@ -33,5 +33,11 @@
   "removeUserModal.content": "정말 삭제하시겠습니까?",
   "removeUserModal.confirmButton": "삭제",
   "removeUserModal.closeButton": "취소",
-  "userInfo.title": "사용자 정보"
+  "userInfo.title": "사용자 정보",
+  "adminSetting.userTab": "사용자 목록",
+  "adminSetting.chartTab": "거래 차트",
+  "adminSetting.userList.id": "아이디",
+  "adminSetting.userList.name": "이름",
+  "adminSetting.userList.phone": "전화번호",
+  "adminSetting.userList.withdrawal": "탈퇴"
 }

@@ -1,13 +1,15 @@
-import InputText from 'components/InputText'
-import SnackBar from 'components/SnackBar'
-import { useSnackbar } from 'components/SnackBar/useSnackBar'
+import { FormEvent, useRef, useState } from 'react'
+
 import { useI18n } from 'hooks'
 import { useRecoil } from 'hooks/state'
 import useFormInput from 'hooks/useFormInput'
-import { FormEvent, useRef, useState } from 'react'
-import { validateName, validatePassword, validatePhoneNumber } from 'routes/SignUpPage/validateSignUpState'
 import { updateUserDBInfo } from 'services/user'
 import { currentUserState } from 'states/user'
+import { validateName, validatePassword, validatePhoneNumber } from 'routes/SignUpPage/validateSignUpState'
+
+import InputText from 'components/InputText'
+import SnackBar from 'components/SnackBar'
+import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import styles from './userSetting.module.scss'
 
 const UserSetting = () => {
@@ -57,7 +59,7 @@ const UserSetting = () => {
     }
 
     updateUserDBInfo(currentUser.data.id, currentUser.key, password, name, phone)
-      .then((res) => {
+      .then(() => {
         setSnackBarStatus('')
         setMessage('유저 정보 수정 완료!')
       })
@@ -93,7 +95,6 @@ const UserSetting = () => {
           hasError={phoneHasError}
           errorMessage={`${t('front:signUp.errorMessagePhone')}`}
         />
-
         <InputText
           type='password'
           formTitle={`${t('front:signUp.titlePW')}`}
@@ -104,10 +105,12 @@ const UserSetting = () => {
           hasError={passwordHasError}
           errorMessage={`${t('front:signUp.errorMessagePW')}`}
         />
+
         <footer>
           <button type='submit'>수정</button>
         </footer>
       </form>
+
       {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
     </article>
   )

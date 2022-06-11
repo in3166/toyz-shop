@@ -1,6 +1,6 @@
-import Modal from 'components/Modal'
-import { useI18n } from 'hooks'
 import { useCallback } from 'react'
+import { useI18n } from 'hooks'
+import Modal from 'components/Modal'
 import styles from './buyItemModal.module.scss'
 
 interface IBuyItemModalProps {
