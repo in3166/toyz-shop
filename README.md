@@ -37,7 +37,7 @@
 - firebase
 - react-slick
 - slick-carousel
-- victory.js
+- victory
 - react-error-boundary
 <br>
 
@@ -53,6 +53,7 @@
 ├─assets
 │  └─svgs
 ├─components
+│  ├─Card
 │  ├─Container
 │  ├─DropDown
 │  ├─InputText
@@ -65,12 +66,9 @@
 │  ├─ItemDetailPage
 │  │  └─BuyItemModal
 │  ├─LikesPage
-│  │  └─LikesCard
 │  ├─MainPage
-│  │  ├─Banner
-│  │  └─Card
+│  │  └─Banner
 │  ├─SearchPage
-│  │  └─SearchCard
 │  ├─SettingPage
 │  │  ├─AdminSetting
 │  │  │  └─TabMenu
