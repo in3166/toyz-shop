@@ -32,5 +32,6 @@
   "removeUserModal.header": "유저 삭제",
   "removeUserModal.content": "정말 삭제하시겠습니까?",
   "removeUserModal.confirmButton": "삭제",
-  "removeUserModal.closeButton": "취소"
+  "removeUserModal.closeButton": "취소",
+  "userInfo.title": "사용자 정보"
 }

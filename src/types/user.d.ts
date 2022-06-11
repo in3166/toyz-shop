@@ -6,6 +6,7 @@ export interface IUser {
   role: number
   phone: string
   likes: IProductItem[]
+  pw: string
 }
 
 export interface IDBUser {

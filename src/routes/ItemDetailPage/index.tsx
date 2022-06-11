@@ -31,7 +31,7 @@ const ItemDetailPage = () => {
       <header className={styles.header}>상세 페이지</header>
       <main className={styles.main}>
         <div className={styles.image}>
-          <img src={data.url} alt='item pic' />
+          <img src={data.url} alt='items' />
         </div>
 
         <div>

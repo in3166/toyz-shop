@@ -9,6 +9,7 @@
   margin: 50px 0;
 
   .formTitle {
+    margin-bottom: 5px;
     font-size: 15px;
     color: colors.$INPUT_TEXT;
   }
@@ -32,6 +33,10 @@
   .inputText {
     padding: 5px;
     border-bottom: 1px solid colors.$INPUT_BORDER;
+  }
+
+  .readOnlyInput {
+    background-color: colors.$GRAYE;
   }
 }
 

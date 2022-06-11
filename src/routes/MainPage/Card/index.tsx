@@ -11,6 +11,13 @@ import { updateUserDBLikes } from 'services/user'
 import { HeartFillIcon, HeartOutlineIcon } from 'assets/svgs'
 import styles from './card.module.scss'
 
+function getTempLikes(items: IProductItem[], like: boolean, item: IProductItem) {
+  if (like) {
+    return items.filter((value) => value.id !== item.id)
+  }
+  return [...items, item]
+}
+
 interface ICardProps {
   item: IProductItem
 }
@@ -27,24 +34,9 @@ const Card = ({ item }: ICardProps): JSX.Element => {
     if (!user || user.data.id === '' || user.data.id === 'admin') return
     store.remove('currentUser')
 
-    if (like) {
-      setLike(false)
-      setUser((prev) => {
-        const tempLikes = prev.data.likes.filter((val) => val.id !== item.id)
-        updateUserDBLikes(user.key, tempLikes).then(() => {
-          const newUser = { data: { ...user.data, likes: tempLikes }, key: user.key }
-          store.set('currentUser', newUser)
-        })
-        const tempData = { ...prev.data }
-        tempData.likes = tempLikes
-        return { data: { ...tempData }, key: prev.key }
-      })
-      return
-    }
-
-    setLike(true)
+    setLike((prev) => !prev)
     setUser((prev) => {
-      const tempLikes = [...prev.data.likes, item]
+      const tempLikes = getTempLikes(prev.data.likes, like, item)
       updateUserDBLikes(user.key, tempLikes).then(() => {
         const newUser = { data: { ...user.data, likes: tempLikes }, key: user.key }
         store.set('currentUser', newUser)

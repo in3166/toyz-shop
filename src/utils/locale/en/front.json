@@ -32,5 +32,6 @@
   "removeUserModal.header": "Remove User",
   "removeUserModal.content": "Are you sure?",
   "removeUserModal.confirmButton": "Remove",
-  "removeUserModal.closeButton": "Cancel"
+  "removeUserModal.closeButton": "Cancel",
+  "userInfo.title": "User Info"
 }

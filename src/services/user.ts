@@ -14,7 +14,7 @@ export const getAllUserDataDB = async () => {
   })
 }
 
-export const getUserDataDB = (id: string) => {
+export const getUserDataDB = async (id: string) => {
   return getDocs(userRef).then((res) => {
     const users = res.docs
       .map((docs) => ({ data: docs.data() as IUser, key: docs.id }))
@@ -39,7 +39,21 @@ export const removeUserDB = async (id: string) => {
   return deleteDoc(doc(userRef, id))
 }
 
-export const updateUserDBLikes = async (id: string, likes: IProductItem[]) => {
-  const docRef = doc(db, 'user', id)
+export const updateUserDBInfo = async (id: string, key: string, pw: string, name: string, phone: string) => {
+  return getUserDataDB(id)
+    .then((res) => {
+      console.log('res: ', res)
+      if (res?.length < 1) throw new Error('No user!')
+      if (res[0]?.data?.pw !== pw) throw new Error('Password is not correct!')
+      const docRef = doc(db, 'user', key)
+      return updateDoc(docRef, { name, phone })
+    })
+    .catch((err) => {
+      throw err
+    })
+}
+
+export const updateUserDBLikes = async (key: string, likes: IProductItem[]) => {
+  const docRef = doc(db, 'user', key)
   return updateDoc(docRef, { likes })
 }

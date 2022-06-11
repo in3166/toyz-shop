@@ -8,13 +8,14 @@ import styles from './inputText.module.scss'
 interface IInputFormProps {
   formTitle: string
   value: string
-  onBlur: () => void
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  reset: () => void
-  hasError: boolean
+  onBlur?: () => void
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  reset?: () => void
+  hasError?: boolean
   type: string
-  errorMessage: string
+  errorMessage?: string
   inputFocusRef?: RefObject<HTMLInputElement>
+  read?: boolean
 }
 
 const InputText = ({
@@ -27,9 +28,10 @@ const InputText = ({
   reset,
   hasError,
   inputFocusRef,
+  read,
 }: IInputFormProps) => {
   const handleResetOnclick = () => {
-    reset()
+    if (reset) reset()
   }
 
   useMount(() => {
@@ -47,10 +49,11 @@ const InputText = ({
         value={value}
         onBlur={onBlur}
         onChange={onChange}
-        className={styles.inputText}
+        className={cx(styles.inputText, { [styles.readOnlyInput]: read })}
         ref={inputFocusRef}
+        readOnly={read}
       />
-      <InputCancelIcon className={cx({ [styles.iconHidden]: value === '' })} onClick={handleResetOnclick} />
+      {!read && <InputCancelIcon className={cx({ [styles.iconHidden]: value === '' })} onClick={handleResetOnclick} />}
       {hasError && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   )

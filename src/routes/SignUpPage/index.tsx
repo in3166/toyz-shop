@@ -5,7 +5,7 @@ import { useI18n } from 'hooks'
 import useFormInput from '../../hooks/useFormInput'
 import { addUserDB } from 'services/user'
 
-import { validateId, validateName, validatePassword, validatePhoneNumber } from './validateState'
+import { validateId, validateName, validatePassword, validatePhoneNumber } from './validateSignUpState'
 import SnackBar from 'components/SnackBar'
 import { useSnackbar } from 'components/SnackBar/useSnackBar'
 import InputText from '../../components/InputText'
@@ -58,8 +58,8 @@ const SignUp = (): JSX.Element => {
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!idIsValid || !passwordIsValid || !phoneIsValid || !nameIsValid) {
-      setMessage('입력 정보가 올바르지 않습니다.')
       setSnackBarStatus('warning')
+      setMessage('입력 정보가 올바르지 않습니다.')
       return
     }
 
@@ -74,15 +74,15 @@ const SignUp = (): JSX.Element => {
 
     addUserDB(newUser)
       .then(() => {
-        setMessage('회원가입 성공!')
         setSnackBarStatus('')
+        setMessage('회원가입 성공!')
         setTimeout(() => {
           navigate('/signin')
         }, 1000)
       })
       .catch((err) => {
-        setMessage(`${err}`)
         setSnackBarStatus('error')
+        setMessage(`${err}`)
       })
   }
 

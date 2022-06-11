@@ -5,7 +5,7 @@ import useFormInput from '../../hooks/useFormInput'
 import { useI18n } from 'hooks'
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'states/user'
-import { validateSiginInInput } from './validateState'
+import { validateSiginInInput } from './validateSignInState'
 import { getUserDataDB } from 'services/user'
 
 import SnackBar from 'components/SnackBar'
@@ -21,7 +21,7 @@ const SignIn = (): JSX.Element => {
   const inputFocusRef = useRef(null)
 
   const [snackBarStatus, setSnackBarStatus] = useState('')
-  const { message, setMessage, clearTimer } = useSnackbar(5000)
+  const { message, setMessage } = useSnackbar(5000)
 
   const {
     value: id,
@@ -44,18 +44,17 @@ const SignIn = (): JSX.Element => {
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!idIsValid || !passwordIsValid) {
-      setMessage('ID나 Password가 올바르지 않습니다.')
       setSnackBarStatus('warning')
+      setMessage('ID나 Password가 올바르지 않습니다.')
       return
     }
 
     getUserDataDB(id).then((res) => {
       if (res.length < 1) {
-        setMessage(`로그인 실패! \n (ID: 'user1'이나 'admin'을 입력해주세요.)`)
         setSnackBarStatus('error')
+        setMessage(`로그인 실패! \n (ID: 'user1'이나 'admin'을 입력해주세요.)`)
         return
       }
-      clearTimer()
       store.set('currentUser', res[0])
       setCurrentUser(res[0])
     })
