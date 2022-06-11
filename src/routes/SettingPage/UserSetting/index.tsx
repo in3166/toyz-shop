@@ -1,4 +1,5 @@
 import { FormEvent, useRef, useState } from 'react'
+import store from 'store'
 
 import { useI18n } from 'hooks'
 import { useRecoil } from 'hooks/state'
@@ -18,7 +19,7 @@ const UserSetting = () => {
 
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const { message, setMessage } = useSnackbar(5000)
-  const [currentUser] = useRecoil(currentUserState)
+  const [currentUser, setCurrentUser] = useRecoil(currentUserState)
 
   const {
     value: name,
@@ -60,6 +61,12 @@ const UserSetting = () => {
 
     updateUserDBInfo(currentUser.data.id, currentUser.key, password, name, phone)
       .then(() => {
+        store.remove('currentUser')
+        setCurrentUser((prev) => {
+          const newUser = { ...prev, data: { ...prev.data, name, phone } }
+          store.set('currentUser', newUser)
+          return newUser
+        })
         setSnackBarStatus('')
         setMessage('유저 정보 수정 완료!')
       })
