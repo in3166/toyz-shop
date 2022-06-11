@@ -26,7 +26,7 @@ const RemoveUserModal = ({ onClose, id, setMessage, setUsers }: IRemoveUserModal
       .finally(() => {
         onClose()
       })
-  }, [id, onClose, setMessage])
+  }, [id, onClose, setMessage, setUsers])
 
   return (
     <Modal onCancel={onClose}>

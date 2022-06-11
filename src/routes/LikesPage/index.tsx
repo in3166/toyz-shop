@@ -1,4 +1,3 @@
-import { IDBUser } from 'types/user'
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'states/user'
 
