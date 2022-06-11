@@ -20,7 +20,8 @@ interface ICardProps {
 
 const Card = ({ item, user, setUser }: ICardProps) => {
   const t = useI18n()
-  const isLiked = user ? user.data.likes.filter((value) => value.id === item.id).length > 0 : false
+  const isLiked =
+    user && user.data.role === 0 ? user.data.likes.filter((value) => value.id === item.id).length > 0 : false
   const [like, setLike] = useState(isLiked)
 
   const handleClickLike = (e: MouseEvent<HTMLButtonElement>) => {
