@@ -1,4 +1,4 @@
-# 프리온보딩 프론트엔드 개인과제
+# 장난감 쇼핑몰 서비스
 ## 배포
 - https://wob-assignment-yu-in-jong.netlify.app
 - ID: user1, admin
