@@ -4,7 +4,6 @@ import { IProductItem } from 'types/product'
 import { db } from './firebase'
 
 const userRef = collection(db, 'user')
-
 export const getAllUserDataDB = async () => {
   return getDocs(userRef).then((res): IDBUser[] => {
     const users = res.docs

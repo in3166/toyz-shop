@@ -6,9 +6,9 @@ import banner from './banner'
 
 export const store = configureStore({
   reducer: {
-    system,
     product,
     banner,
+    system,
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
