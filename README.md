@@ -2,7 +2,7 @@
 
 ## 배포
 
-- [사이트 링크](https://wob-assignment-yu-in-jong.netlify.app)
+- [링크](https://wob-assignment-yu-in-jong.netlify.app)
 - ID: user1, admin
 <br>
 
@@ -43,6 +43,9 @@
 - slick-carousel
 - victory
 - react-error-boundary
+- react-testing-library
+- msw
+
 <br>
 
 - Eslint
@@ -199,16 +202,23 @@
 <br>
 
 - 무한 스크롤을 구현하던 중 스크롤을 내려서 데이터를 가져올 때 호출이 너무 여러 번 가는 경우가 존재했다.
+<<<<<<< HEAD
+  - 부모 컴포넌트에서 `user` 데이터를 받아 오는데 `user`의 데이터가 없는 경우 다시 렌더링 되어 `if(!user) return null`을 추가했다.
+=======
   - 부모 컴포넌트에서 `user` 데이터를 받아 오는데 `user`의 데이터가 없는 경우 다시 렌더링 되어 `if(!user) return null`을 추가했습니다.
+>>>>>>> 5f97ca00f62380af6329d18f81f596a0e6af1d3e
 <br>
 
 - 관리자 설정 페이지에서 `useQeury`을 사용할 때 'qeury Funtion'안에서 `setState`를 해주면 해당 페이지에 다시 왔을 때 유저 목록을 불러오지 못하는 오류가 발생했다.
-  - 같은 키의 요청일 경우 `staleTime`이 지나지 않으면 해당 함수를 다시 실행하지 않고 캐싱된 결과를 반환해 준다.
-    - 해결: 반환된 `data`를 `useEffect`를 사용하여 저장했습니다.
+  - 같은 키의 요청일 경우 `staleTime`이 지나지 않으면 해당 함수를 다시 실행하지 않고 캐싱된 결과를 반환해준다.
+    - 해결: 반환된 `data`를 `useEffect`를 사용하여 저장했다.
 
   - 삭제 시 다른 페이지를 갔다 되돌아 오면 삭제된 리스트가 뜨지 않는 문제가 발생했다.
     - 해결: key에 `users` state의 `length`를 추가했다.
 <br>
+<<<<<<< HEAD
+=======
 
 - 이번 개인과제를 하면서 아직도 코드를 깔끔하고 효율적으로 짜는게 너무 어렵다고 느꼈습니다.
   - 재사용할 컴포넌트나 함수들을 잘 분리하여 사용하기 위해 더 고민해봐야 할 것 같습니다.
+>>>>>>> 5f97ca00f62380af6329d18f81f596a0e6af1d3e
