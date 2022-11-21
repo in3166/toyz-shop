@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from 'react'
 import type { RenderOptions } from '@testing-library/react'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { render as rtlRender } from '@testing-library/react'
 import { configureStore } from '@reduxjs/toolkit'
 import type { PreloadedState } from '@reduxjs/toolkit'
@@ -51,5 +50,4 @@ export function renderWithProviders(
   return { store, ...rtlRender(ui, { wrapper: Wrapper, ...renderOptions }) }
 }
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 export * from '@testing-library/react'
