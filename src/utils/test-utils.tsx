@@ -4,7 +4,9 @@ import { render as rtlRender } from '@testing-library/react'
 import { configureStore } from '@reduxjs/toolkit'
 import type { PreloadedState } from '@reduxjs/toolkit'
 import { I18nextProvider } from 'react-i18next'
+import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { RecoilRoot } from 'recoil'
 
 import type { store as AppStore, RootState } from '../states'
 // As a basic setup, import your same slice reducers
@@ -12,8 +14,6 @@ import productsReducer from '../states/product'
 import bannerReducer from '../states/banner'
 import systemReducer from '../states/system'
 import i18n from './locale'
-import { RecoilRoot } from 'recoil'
-import { BrowserRouter } from 'react-router-dom'
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.

@@ -1,11 +1,15 @@
 {
+  "plugins": ["testing-library", "jest-dom"],
   "extends": [
     "airbnb",
     "airbnb/hooks",
     "react-app",
+    "react-app/jest",
     "prettier",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
   ],
   "env": {
     "browser": true,

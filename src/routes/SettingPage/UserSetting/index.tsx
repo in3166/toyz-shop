@@ -6,7 +6,7 @@ import { useRecoil } from 'hooks/state'
 import useFormInput from 'hooks/useFormInput'
 import { updateUserDBInfo } from 'services/user'
 import { currentUserState } from 'states/user'
-import { validateName, validatePassword, validatePhoneNumber } from 'routes/SignUpPage/validateSignUpState'
+import { validateName, validatePassword, validatePhoneNumber } from 'utils/validates/validateInput'
 
 import InputText from 'components/InputText'
 import SnackBar from 'components/SnackBar'

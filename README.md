@@ -45,6 +45,8 @@
 - react-error-boundary
 - react-testing-library
 - msw
+- redux-mock-store
+- jest-plugin-context
 
 <br>
 
