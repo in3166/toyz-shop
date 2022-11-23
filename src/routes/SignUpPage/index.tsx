@@ -16,10 +16,10 @@ const SignUp = (): JSX.Element => {
   const { message, setMessage } = useSnackbar(5000)
   const navigate = useNavigate()
 
-  const id = useFormInput({ validateFunction: validateId, initialValue: '' })
-  const name = useFormInput({ validateFunction: validateName, initialValue: '' })
-  const password = useFormInput({ validateFunction: validatePassword, initialValue: '' })
-  const phone = useFormInput({ validateFunction: validatePhoneNumber, initialValue: '' })
+  const id = useFormInput({ validateFunction: validateId })
+  const name = useFormInput({ validateFunction: validateName })
+  const password = useFormInput({ validateFunction: validatePassword })
+  const phone = useFormInput({ validateFunction: validatePhoneNumber })
 
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault()

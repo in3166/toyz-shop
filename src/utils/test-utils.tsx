@@ -3,8 +3,9 @@ import type { RenderOptions } from '@testing-library/react'
 import { render as rtlRender } from '@testing-library/react'
 import { configureStore } from '@reduxjs/toolkit'
 import type { PreloadedState } from '@reduxjs/toolkit'
-import { I18nextProvider } from 'react-i18next'
 import { BrowserRouter } from 'react-router-dom'
+import { ErrorBoundary } from 'react-error-boundary'
+import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
 
@@ -14,6 +15,7 @@ import productsReducer from '../states/product'
 import bannerReducer from '../states/banner'
 import systemReducer from '../states/system'
 import i18n from './locale'
+import ErrorFallback from 'routes/_shared/ErrorFallback'
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -39,7 +41,9 @@ export function renderWithProviders(
       <Provider store={store}>
         <RecoilRoot>
           <BrowserRouter>
-            <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+            <I18nextProvider i18n={i18n}>
+              <ErrorBoundary FallbackComponent={ErrorFallback}>{children}</ErrorBoundary>
+            </I18nextProvider>
           </BrowserRouter>
         </RecoilRoot>
       </Provider>

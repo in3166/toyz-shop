@@ -16,8 +16,8 @@ import LoginForm from './LoginForm'
 const SignIn = (): JSX.Element => {
   const [, setCurrentUser] = useRecoil(currentUserState)
 
-  const id = useFormInput({ validateFunction: validateId, initialValue: '' })
-  const password = useFormInput({ validateFunction: validatePassword, initialValue: '' })
+  const id = useFormInput({ validateFunction: validateId })
+  const password = useFormInput({ validateFunction: validatePassword })
 
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const { message, setMessage } = useSnackbar(5000)

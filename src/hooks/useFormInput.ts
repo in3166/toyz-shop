@@ -2,10 +2,10 @@ import { ChangeEvent, MouseEvent, useCallback, useState } from 'react'
 
 interface IUseFormInputProps {
   validateFunction?: (value: string) => boolean
-  initialValue: string
+  initialValue?: string
 }
 
-const useFormInput = ({ validateFunction, initialValue }: IUseFormInputProps) => {
+const useFormInput = ({ validateFunction, initialValue = '' }: IUseFormInputProps) => {
   const [value, setValue] = useState(initialValue)
   const [isTouched, setIsTouched] = useState(false)
 
