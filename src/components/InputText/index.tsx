@@ -52,6 +52,7 @@ const InputText = ({
         className={cx(styles.inputText, { [styles.readOnlyInput]: read })}
         ref={inputFocusRef}
         readOnly={read}
+        autoComplete={`current-${formTitle}`}
       />
       {!read && <InputCancelIcon className={cx({ [styles.iconHidden]: value === '' })} onClick={handleResetOnclick} />}
       {hasError && <p className={styles.errorMessage}>{errorMessage}</p>}

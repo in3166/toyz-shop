@@ -8,6 +8,7 @@ export const useSnackbar = (ms: number) => {
   const setSnackbarMessage = (text: string) => {
     setMessage({ text })
   }
+
   const clearTimer = () => {
     if (timer.current) clearTimeout(timer.current)
   }

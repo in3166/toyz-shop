@@ -1,7 +1,12 @@
+import { user } from 'fixtures/users'
 import { rest } from 'msw'
 
 export const handlers = [
   rest.get('http://localhost:5000/users', (req, res, ctx) => {
+    return res(ctx.json(user))
+  }),
+  rest.post('http://localhost:5000/login', (req, res, ctx) => {
+    console.log(req.json())
     return res(
       ctx.json([
         {

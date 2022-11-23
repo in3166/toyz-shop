@@ -11,6 +11,7 @@ interface ISnackBarProps {
 const SnackBar = ({ message, setMessage, status }: ISnackBarProps) => {
   return (
     <div
+      role='alert'
       className={cx(
         styles.snackBar,
         { [styles.visible]: message !== '' },

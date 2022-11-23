@@ -2,7 +2,7 @@ import React, { FormEvent, useRef } from 'react'
 import { useI18n } from 'hooks'
 
 import InputText from 'components/InputText'
-import styles from './signUp.module.scss'
+import styles from '../signUp.module.scss'
 import { IFormInput } from 'types/user'
 
 interface ISignUpFormProps {

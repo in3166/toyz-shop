@@ -5,27 +5,31 @@ import { db } from './firebase'
 
 const userRef = collection(db, 'user')
 export const getAllUserDataDB = async () => {
-  return getDocs(userRef).then((res): IDBUser[] => {
-    const users = res.docs
-      .map((docs) => ({ data: docs.data() as IUser, key: docs.id }))
-      .filter((user) => user.data.role === 0)
-    return users
-  })
+  return getDocs(userRef)
+    .then((res): IDBUser[] => {
+      const users = res.docs
+        .map((docs) => ({ data: docs.data() as IUser, key: docs.id }))
+        .filter((user) => user.data.role === 0)
+      return users
+    })
+    .catch((error) => error)
 }
 
 export const getUserDataDB = async (id: string) => {
-  return getDocs(userRef).then((res) => {
-    const users = res.docs
-      .map((docs) => ({ data: docs.data() as IUser, key: docs.id }))
-      .filter((user) => user.data.id === id)
-    return users
-  })
+  return getDocs(userRef)
+    .then((res) => {
+      const users = res.docs
+        .map((docs) => ({ data: docs.data() as IUser, key: docs.id }))
+        .filter((user) => user.data.id === id)
+      return users
+    })
+    .catch((error) => error)
 }
 
 export const addUserDB = async (newUser: IUser) => {
   return getAllUserDataDB()
     .then((res) => {
-      const index = res.findIndex((user) => user.data.id === newUser.id)
+      const index = res.findIndex((user: IDBUser) => user.data.id === newUser.id)
       if (index !== -1) throw new Error('ID 중복')
       return addDoc(userRef, newUser)
     })

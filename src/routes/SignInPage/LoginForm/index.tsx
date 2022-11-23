@@ -2,7 +2,7 @@ import InputText from 'components/InputText'
 import { useI18n } from 'hooks'
 import { useRef, FormEvent } from 'react'
 import { IFormInput } from 'types/user'
-import styles from './signIn.module.scss'
+import styles from '../signIn.module.scss'
 
 interface ILoginFormProps {
   onSubmit: (e: FormEvent) => void

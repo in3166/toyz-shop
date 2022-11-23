@@ -9,6 +9,8 @@
   "signIn.signUp": "Sign Up",
   "signIn.titleID": "ID",
   "signIn.titlePW": "Password",
+  "signIn.snackBarValid": "The ID or password is not valid.",
+  "signIn.snackBarError": "Login failed! \n (Please enter 'user1' or 'admin' for ID)",
   "signIn.errorMessageID": "ID must be at least 3 characters",
   "signIn.errorMessagePW": "Password must be at least 6 characters including numbers and alphabets",
   "signUp.titleID": "ID",

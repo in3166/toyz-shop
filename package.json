@@ -26,9 +26,10 @@
   "dependencies": {
     "@firebase/database": "^0.13.0",
     "@reduxjs/toolkit": "^1.8.1",
-    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.2.1",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
     "@types/firebase": "^3.2.1",
     "@types/react-slick": "^0.23.8",
     "axios": "^0.27.2",
@@ -57,7 +58,6 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "^8.0.1",
     "@types/lodash": "^4.14.182",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",

@@ -12,8 +12,10 @@ import { validateId, validatePassword } from 'utils/validates/validateInput'
 import { SignInIcon } from 'assets/svgs'
 import styles from './signIn.module.scss'
 import LoginForm from './LoginForm'
+import { useI18n } from 'hooks'
 
 const SignIn = (): JSX.Element => {
+  const t = useI18n()
   const [, setCurrentUser] = useRecoil(currentUserState)
 
   const id = useFormInput({ validateFunction: validateId })
@@ -26,19 +28,24 @@ const SignIn = (): JSX.Element => {
     e.preventDefault()
     if (!id.valueIsValid || !password.valueIsValid) {
       setSnackBarStatus('warning')
-      setMessage('ID나 Password가 올바르지 않습니다.')
+      setMessage(`${t('front:signIn.snackBarValid')}`)
       return
     }
 
-    getUserDataDB(id.value).then((res) => {
-      if (res.length < 1) {
+    getUserDataDB(id.value)
+      .then((res) => {
+        if (res.length < 1) {
+          setSnackBarStatus('error')
+          setMessage(`${t('front:signIn.snackBarError')}`)
+          return
+        }
+        store.set('currentUser', res[0])
+        setCurrentUser(res[0])
+      })
+      .catch((error) => {
         setSnackBarStatus('error')
-        setMessage(`로그인 실패! \n (ID: 'user1'이나 'admin'을 입력해주세요.)`)
-        return
-      }
-      store.set('currentUser', res[0])
-      setCurrentUser(res[0])
-    })
+        setMessage(`Error: ${error}`)
+      })
   }
 
   return (
