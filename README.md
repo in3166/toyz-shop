@@ -2,7 +2,7 @@
 
 ## 배포
 
-- [링크](https://wob-assignment-yu-in-jong.netlify.app)
+- [페이지 링크](toyz-shop.netlify.app)
 - ID: user1, admin
 <br>
 
