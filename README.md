@@ -2,7 +2,7 @@
 
 ## 배포
 
-- [페이지 링크](toyz-shop.netlify.app)
+- [페이지 링크](https://toyz-shop.netlify.app/)
 - ID: user1, admin
 <br>
 
