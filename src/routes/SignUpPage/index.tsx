@@ -10,8 +10,10 @@ import { validateId, validateName, validatePassword, validatePhoneNumber } from 
 import { SignUpIcon } from 'assets/svgs'
 import styles from './signUp.module.scss'
 import SignUpForm from './SignUpForm'
+import { useI18n } from 'hooks'
 
 const SignUp = (): JSX.Element => {
+  const t = useI18n()
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const { message, setMessage } = useSnackbar(5000)
   const navigate = useNavigate()
@@ -25,7 +27,7 @@ const SignUp = (): JSX.Element => {
     e.preventDefault()
     if (!id.valueIsValid || !password.valueIsValid || !phone.valueIsValid || !name.valueIsValid) {
       setSnackBarStatus('warning')
-      setMessage('입력 정보가 올바르지 않습니다.')
+      setMessage(`${t('front:signUp.snackBar')}`)
       return
     }
 

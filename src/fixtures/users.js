@@ -1,17 +1,53 @@
-export const user = [
-  {
-    id: 'admin',
-    name: '김수박',
-    phone: '010-1234-1236',
-    pw: 'qlqjs123',
-    role: 1,
-  },
-  {
-    id: 'user1',
-    likes: [],
-    name: '최고수',
-    phone: '010-1234-1262',
-    pw: 'qlqjs123',
-    role: 0,
-  },
+export const signUpValue = [
+  [
+    'ID',
+    {
+      messageText: 'ID must be at least 4 characters',
+      validInputText: 'user1',
+      notValidInputText: 'us',
+    },
+  ],
+  [
+    'Name',
+    {
+      messageText: 'Name must be at least 2 characters',
+      validInputText: 'name1',
+      notValidInputText: 'n',
+    },
+  ],
+  [
+    'Password',
+    {
+      messageText: 'Password must be at least 6 characters including numbers and alphabets',
+      validInputText: 'qlqjs12',
+      notValidInputText: 'qlqj',
+    },
+  ],
+  [
+    'Phone',
+    {
+      messageText: 'Phone must be of the following format: (000-0000-0000)',
+      validInputText: '010-1234-4567',
+      notValidInputText: '0120340',
+    },
+  ],
+]
+
+export const signInValue = [
+  [
+    'ID',
+    {
+      messageText: 'ID must be at least 4 characters',
+      validInputText: 'user1',
+      notValidInputText: 'us',
+    },
+  ],
+  [
+    'Password',
+    {
+      messageText: 'Password must be at least 6 characters including numbers and alphabets',
+      validInputText: 'qlqjs12',
+      notValidInputText: 'qlqj',
+    },
+  ],
 ]

@@ -21,6 +21,7 @@
   "signUp.errorMessageName": "이름은 2글자 이상이어야 합니다.",
   "signUp.errorMessagePW": "비밀번호는 6글자 이상이어야 하며 문자와 숫자를 포함해야 합니다.",
   "signUp.errorMessagePhone": "전화번호는 '-'를 포함해야합니다. (000-0000-0000)",
+  "signUp.snackBar": "입력 값이 올바르지 않습니다.",
   "signUp.button": "회원가입",
   "title": "제목",
   "price": "가격",
