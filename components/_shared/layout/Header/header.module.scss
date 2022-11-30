@@ -1,0 +1,57 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  background-color: colors.$HEADER_BACKGROUND_COLOR;
+
+  .leftMenu {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .menuToggle {
+      display: flex;
+      align-items: center;
+      height: 100%;
+
+      svg {
+        width: 30px;
+        height: 30px;
+
+        g {
+          fill: colors.$GRAY3;
+        }
+      }
+    }
+  }
+
+  :root[color-theme='dark'] & {
+    color: colors.$FONT_COLOR;
+    background-color: colors.$HEADER_DARK_BACKGROUND_COLOR;
+
+    a,
+    button {
+      color: colors.$FONT_COLOR;
+    }
+
+    .task {
+      background-color: colors.$GRAY3;
+
+      .title {
+        color: colors.$FONT_COLOR;
+      }
+    }
+
+    .menuToggle {
+      svg {
+        g {
+          fill: colors.$WHITE;
+        }
+      }
+    }
+  }
+}

@@ -26,3 +26,5 @@ yarn-error.log*
 .vscode
 .eslintcache
 handlers.ts
+
+.next

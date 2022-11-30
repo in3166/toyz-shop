@@ -1,0 +1,123 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+@use '/styles/mixins/flexbox';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 203px;
+  min-height: 400px;
+  max-height: 400px;
+  padding: 16px;
+  overflow: scroll;
+  cursor: pointer;
+  background-color: colors.$WHITE;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &:active {
+    opacity: 0.7;
+  }
+
+  .itemImage {
+    min-height: 152px;
+    max-height: 152px;
+    object-fit: cover;
+  }
+
+  .header {
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid colors.$CARD_BODER_BOTTOM;
+    @include flexbox.flexbox(between, center);
+
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      color: colors.$GRAYA;
+    }
+
+    .likeButton {
+      position: relative;
+      width: auto;
+      height: auto;
+      padding: 5px;
+
+      svg,
+      svg image {
+        width: 15px;
+        height: auto;
+      }
+
+      &:hover {
+        &::after {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: inline-block;
+          width: 25px;
+          height: 25px;
+          content: '';
+          background-color: rgba(184, 184, 184, 28.1%);
+          border-radius: 50px;
+        }
+      }
+    }
+  }
+
+  dl {
+    display: flex;
+    flex-direction: column;
+    margin-top: 13px;
+
+    div {
+      @include flexbox.flexbox(between, center);
+      width: 100%;
+      height: 40px;
+      padding: 13px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      border-bottom: 1px solid colors.$CARD_BODER_BOTTOM;
+      -webkit-box-align: center;
+    }
+
+    dt {
+      flex: 2 2 10%;
+      color: colors.$CARD_SUB_TEXT;
+    }
+
+    dd {
+      @include flexbox.flexbox(start, center);
+      flex: 3 2 0%;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1.2;
+      color: colors.$GRAY2;
+      -webkit-box-align: center;
+      letter-spacing: 0.6px;
+    }
+  }
+
+  .updateButton {
+    @include flexbox.flexbox;
+    box-sizing: border-box;
+    width: 90px;
+    height: 40px;
+    padding: 12px 20px;
+    margin: 15px 0 10px;
+    font-weight: bold;
+    color: colors.$GRAY2;
+    cursor: pointer;
+    background-color: colors.$WHITE;
+    border: 1px solid colors.$CARD_BORDER;
+    border-radius: 10px;
+
+    &:hover {
+      color: colors.$CARD_SUB_TEXT;
+    }
+  }
+}

@@ -1,0 +1,100 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+@use '/styles/mixins/flexbox';
+
+.searchBox {
+  z-index: 1;
+  @include flexbox.flexbox;
+  height: 100%;
+  margin: 0 15px;
+
+  :root[color-theme='dark'] & {
+    .searchToggleButton {
+      svg {
+        path {
+          fill: colors.$WHITE;
+        }
+      }
+    }
+  }
+}
+
+.searchInput {
+  width: 0%;
+}
+
+.searchForm {
+  width: 0;
+  height: 25px;
+  padding: 0;
+  opacity: 0;
+  transition: all 0.1s linear;
+}
+
+.searchFormOpen {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 200px;
+  height: 25px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 15px;
+  opacity: 1;
+
+  & ~ .title {
+    opacity: 0;
+  }
+
+  .searchInput {
+    width: 100%;
+    padding: 5px;
+    margin-right: 5px;
+    font-size: 13px;
+    border-radius: 15px;
+  }
+}
+
+.searchToggleButton {
+  @include flexbox.flexbox;
+  position: absolute;
+  width: 35px;
+  height: 100%;
+  color: colors.$GRAYA;
+  opacity: 1;
+  transition: all 0.2s linear;
+
+  svg {
+    width: 21px !important;
+
+    path {
+      fill: colors.$GRAY3;
+    }
+  }
+}
+
+.hideToggleButton {
+  position: absolute;
+  display: none;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+
+.submitButton {
+  @include flexbox.flexbox;
+  width: 30px;
+
+  svg {
+    width: 21px !important;
+  }
+}
+
+.hideSearchSubmitButton {
+  display: none;
+}
+
+@include responsive.mobileOnly {
+  .searchBox {
+    display: none;
+  }
+}

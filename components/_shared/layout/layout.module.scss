@@ -1,0 +1,53 @@
+@use '/styles/constants/colors';
+@use '/styles/constants/levels';
+@use '/styles/mixins/responsive';
+@use '/styles/mixins/flexbox';
+
+.appWrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  background-color: colors.$MAIN_COLOR;
+
+  :root[color-theme='dark'] & {
+    background-color: colors.$BACKGROUND_COLOR;
+
+    .app {
+      color: colors.$MAIN_COLOR;
+      background-color: colors.$BACKGROUND_COLOR;
+    }
+
+    .task {
+      background-color: colors.$GRAY3;
+
+      .title {
+        color: colors.$FONT_COLOR;
+      }
+    }
+  }
+}
+
+.app {
+  @include flexbox.flexbox;
+  flex-direction: column;
+  width: calc(100% - levels.$SIDEBAR_WIDTH);
+  max-width: calc(100% - levels.$SIDEBAR_WIDTH);
+  height: 100%;
+  background-color: colors.$MAIN_COLOR;
+
+  @include responsive.mobileOnly {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.full {
+  width: 100%;
+  max-width: 100%;
+}
+
+.main {
+  max-width: 100%;
+}

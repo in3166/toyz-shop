@@ -1,0 +1,80 @@
+@use '/styles/constants/colors';
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+
+  input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  background-color: colors.$GRAYA;
+  border-radius: 34px;
+  transition: 0.2s;
+
+  &::before {
+    position: absolute;
+    bottom: 3px;
+    left: 4px;
+    width: 22px;
+    height: 22px;
+    content: '';
+    background-color: colors.$WHITE;
+    border-radius: 25px;
+    transition: 0.2s;
+  }
+}
+
+input:checked + .slider::before {
+  transform: translateX(25px);
+}
+
+.textActive {
+  &.textLeft {
+    path {
+      fill: rgb(231, 165, 78) !important;
+    }
+  }
+
+  &.textRight {
+    path {
+      fill: colors.$ORANGE !important;
+    }
+  }
+}
+
+.text {
+  position: absolute;
+  top: 6px;
+  z-index: 9;
+  font-size: 5px;
+  color: colors.$GRAYE;
+  cursor: pointer;
+
+  svg,
+  svg path {
+    width: 15px;
+    height: 15px;
+    fill: colors.$GRAYE !important;
+  }
+}
+
+.textLeft {
+  left: 7px;
+}
+
+.textRight {
+  right: 7px;
+}

@@ -1,0 +1,23 @@
+@use '/styles/constants/levels';
+@use '/styles/mixins/responsive';
+@use '/styles/constants/colors';
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 35px;
+  font-size: 13px;
+  color: colors.$GRAY6;
+  text-align: center;
+  background-color: colors.$GRAYE;
+
+  :root[color-theme='dark'] & {
+    color: colors.$GRAYD;
+    background-color: colors.$HEADER_DARK_BACKGROUND_COLOR;
+  }
+}

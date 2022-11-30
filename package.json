@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -26,6 +27,7 @@
   "dependencies": {
     "@firebase/database": "^0.13.0",
     "@reduxjs/toolkit": "^1.8.1",
+    "@svgr/webpack": "^6.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/react-hooks": "^8.0.1",
@@ -40,7 +42,10 @@
     "i18next": "^21.8.0",
     "i18next-browser-languagedetector": "^6.1.4",
     "lodash": "^4.17.21",
+    "mongodb": "^4.12.1",
     "msw": "^0.49.0",
+    "next": "^13.0.5",
+    "next-i18next": "^13.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-error-boundary": "^3.1.4",
@@ -59,7 +64,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
-    "@types/node": "^16.7.13",
+    "@types/node": "^16.18.3",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/store": "^2.0.2",
