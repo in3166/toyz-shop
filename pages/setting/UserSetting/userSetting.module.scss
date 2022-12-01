@@ -1,0 +1,42 @@
+@use '/styles/constants/colors';
+
+.wrapper {
+  position: relative;
+  width: 80%;
+  padding: 30px;
+  margin: 30px 0 50px;
+  overflow: hidden;
+  background: rgb(243, 243, 243);
+  border-radius: 10px;
+
+  h2 {
+    font-size: large;
+    font-weight: 500;
+    color: colors.$GRAY3;
+  }
+
+  footer {
+    width: 100%;
+    text-align: right;
+
+    button {
+      width: 100px;
+      height: 44px;
+      padding: 5px 25px;
+      margin: 5px;
+      font-size: 15px;
+      color: colors.$GRAYD;
+      background-color: colors.$PRIMARY_BUTTON_BACKGROUND;
+      border-radius: 5px;
+
+      &:hover {
+        color: colors.$GRAYE;
+        background-color: colors.$PRIMARY_BUTTON_HOVER_BACKGROUND;
+      }
+
+      &:active {
+        background-color: colors.$PRIMARY_BUTTON_ACTIVE_BACKGROUND;
+      }
+    }
+  }
+}

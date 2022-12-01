@@ -6,6 +6,12 @@
 .hideSidebar {
   width: 0 !important;
   min-width: 0 !important;
+
+  .menuToggle {
+    position: fixed;
+    bottom: 10px;
+    left: 13px;
+  }
 }
 
 .aside {
@@ -77,6 +83,27 @@
     }
   }
 
+  .menuToggle {
+    z-index: 1000;
+    align-items: center;
+    height: 40px;
+
+    svg {
+      width: 30px;
+      height: 30px;
+
+      path {
+        fill: colors.$GRAYA;
+      }
+    }
+
+    &:hover {
+      path {
+        fill: colors.$GRAY2;
+      }
+    }
+  }
+
   :root[color-theme='dark'] & {
     color: colors.$FONT_COLOR;
     background-color: colors.$SIDE_DARK_BACKGROUND_COLOR;
@@ -107,4 +134,10 @@
 .openSidebar {
   width: levels.$SIDEBAR_WIDTH;
   min-width: levels.$SIDEBAR_WIDTH;
+
+  .menuToggle {
+    position: fixed;
+    bottom: 10px;
+    left: 193px;
+  }
 }

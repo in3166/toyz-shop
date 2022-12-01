@@ -1,25 +1,60 @@
-import { useRecoil } from 'hooks/state'
-import { menuState } from 'states/sidebar'
-import GNB from './GNB'
+import DropDown from 'components/_shared/DropDown'
 import SearchBar from './SearchBar'
-import { MenuBar } from 'public/svgs'
-import styles from './header.module.scss'
+import UserMenu from './UserMenu'
+import DarkMode from './DarkMode'
 
-const Header = (): JSX.Element => {
-  const [, setVisibleSideBar] = useRecoil(menuState)
-  const handleOpenMenu = () => {
-    setVisibleSideBar((prev) => !prev)
-  }
+import styles from './header.module.scss'
+import { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+
+const SELECT_LIST = ['English', 'Korean']
+
+interface IHeaderProps {
+  lang: string
+  isDark: boolean
+}
+
+const Header = ({ lang, isDark }: IHeaderProps): JSX.Element => {
+  const router = useRouter()
+  const [currentLanguage, setCurrentLanguage] = useState(lang === 'ko' ? 'Korean' : 'English')
+
+  useEffect(() => {
+    setCurrentLanguage(lang === 'ko' ? 'Korean' : 'English')
+  }, [lang])
+
+  const handleChangeLanguage = useCallback(
+    (language: string) => {
+      router.replace(router.pathname, router.pathname, { locale: language === 'Korean' ? 'ko' : 'en' })
+    },
+    [router]
+  )
+
+  // useEffect(() => {
+  //   handleChangeLanguage(currentLanguage)
+  // }, [currentLanguage, handleChangeLanguage])
 
   return (
     <div className={styles.header}>
       <div className={styles.leftMenu}>
-        <button type='button' onClick={handleOpenMenu} className={styles.menuToggle}>
-          <MenuBar />
-        </button>
         <SearchBar />
       </div>
-      <GNB />
+      <nav className={styles.rightMenu}>
+        <ul>
+          <UserMenu />
+          <li>
+            <DarkMode darkMode={isDark} />
+          </li>
+          <li className={styles.lang}>
+            <DropDown
+              currentValue={currentLanguage}
+              selectList={SELECT_LIST}
+              setCurrentValue={setCurrentLanguage}
+              size='small'
+              handleChangedValue={handleChangeLanguage}
+            />
+          </li>
+        </ul>
+      </nav>
     </div>
   )
 }

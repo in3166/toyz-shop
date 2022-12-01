@@ -5,6 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import MainPage from 'components/MainPage'
 import { IProductItem } from 'types/product'
+import nextI18nextConfig from 'next-i18next.config'
 
 const pro = [
   {
@@ -35,18 +36,12 @@ const pro = [
 const HomePage: NextPage<IProductItem[]> = () => {
   return <MainPage products={pro} />
 }
-const config = {
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['ko', 'en'],
-    ns: ['common'],
-    defaultNS: 'common',
-  },
-}
-export const getServerSideProps = async ({ locale }: { locale: string }) => {
+
+export const getServerSideProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], config)),
+      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+      locales,
     },
   }
 }

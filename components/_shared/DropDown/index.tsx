@@ -6,38 +6,41 @@ import styles from './dropDown.module.scss'
 import { DownArrow } from 'public/svgs'
 
 interface IDropDownProps {
-  currentLanguage: string
+  currentValue: string
   selectList: string[]
-  setCurrentSelect: Dispatch<SetStateAction<string>>
+  setCurrentValue: Dispatch<SetStateAction<string>>
   size: 'large' | 'medium' | 'small'
+  handleChangedValue?: (language: string) => void
 }
 
-const DropDown = ({ currentLanguage, selectList, setCurrentSelect, size }: IDropDownProps) => {
-  const [isOpenSelect, setIsOpenSelect] = useState(false)
+const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChangedValue }: IDropDownProps) => {
+  const [selectIsOpen, setSelectIsOpen] = useState(false)
 
   const handleVisibleOptions = () => {
-    setIsOpenSelect((prev) => !prev)
+    setSelectIsOpen((prev) => !prev)
   }
 
   const handleListClick = (e: MouseEvent<HTMLButtonElement>) => {
     const selectedValue = e.currentTarget.dataset.value
-    setCurrentSelect(selectedValue ?? selectList[0])
-    setIsOpenSelect(false)
+    setCurrentValue(selectedValue ?? selectList[0])
+    setSelectIsOpen(false)
+    if (handleChangedValue) handleChangedValue(selectedValue || 'korean')
   }
 
   const handleOnClose = () => {
-    setIsOpenSelect(false)
+    setSelectIsOpen(false)
   }
+
   const dropDownRef = useOnClickOutside(handleOnClose)
 
   return (
-    <div className={cx(styles.select, styles[size], { [styles.isOpenSelect]: isOpenSelect })} ref={dropDownRef}>
+    <div className={cx(styles.select, styles[size], { [styles.selectIsOpen]: selectIsOpen })} ref={dropDownRef}>
       <button type='button' className={cx(styles.selected, styles[size])} onClick={handleVisibleOptions}>
-        {currentLanguage}
-        <DownArrow className={cx(styles.downArrowIcon, { [styles.selectMenuOpen]: isOpenSelect })} />
+        {currentValue}
+        <DownArrow className={cx(styles.downArrowIcon, { [styles.selectMenuOpen]: selectIsOpen })} />
       </button>
       <ul className={styles.selectBox}>
-        {isOpenSelect &&
+        {selectIsOpen &&
           selectList.map((value) => {
             return (
               <li className={styles.option} key={value}>

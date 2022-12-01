@@ -1,7 +1,9 @@
 {
-  "gnb.signin": "Sign In",
-  "gnb.signup": "Sign Up",
-  "gnb.logout": "Logout",
+  "gnb": {
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "logout": "Logout"
+  },
   "signIn.title": "Sign In",
   "signIn.id": "ID",
   "signIn.password": "Password",

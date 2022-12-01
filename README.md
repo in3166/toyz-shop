@@ -28,7 +28,9 @@
 
 - React
 - Typescript
-- React-router-dom
+- next
+- next-i18next
+- i18next
 - Sass
 - Sass-loader
 - Recoil
@@ -36,9 +38,7 @@
 - Store
 - Classnames
 - Dayjs
-- i18next
 - lodash
-- firebase
 - react-slick
 - slick-carousel
 - victory
@@ -47,6 +47,8 @@
 - msw
 - redux-mock-store
 - jest-plugin-context
+- @svgr/webpack
+- mongodb
 
 <br>
 

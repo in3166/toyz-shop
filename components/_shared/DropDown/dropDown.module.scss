@@ -43,6 +43,7 @@ $ASSET_PATH: '/assets/svgs/';
     transition: all 0.2s ease-out;
 
     li {
+      width: 100%;
       margin: 0 !important;
 
       button {
@@ -70,7 +71,7 @@ $ASSET_PATH: '/assets/svgs/';
   transform: rotate(-180deg);
 }
 
-.isOpenSelect {
+.selectIsOpen {
   ul {
     display: block;
     opacity: 1;

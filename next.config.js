@@ -1,10 +1,12 @@
+const path = require('path')
+const { i18n } = require('./next-i18next.config')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['ko', 'en'],
+  i18n,
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
   webpack(config) {
     config.module.rules.push({

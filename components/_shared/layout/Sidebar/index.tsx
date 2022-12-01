@@ -3,26 +3,34 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { debounce } from 'lodash'
 
+import { useCallback, useState } from 'hooks'
 import { useRecoil } from 'hooks/state'
-import { menuState } from 'states/sidebar'
-import { LogoImage } from 'public/svgs'
+import { menuState } from 'store/sidebar'
+import { LogoImage, MenuBar } from 'public/svgs'
 import { cx } from 'styles'
 import styles from './sidebar.module.scss'
 
 const Sidebar = (): JSX.Element => {
   const router = useRouter()
-  const [visibleSideBar, setVisibleSideBar] = useRecoil(menuState)
+  const [visibleSideBar, setVisibleSideBar] = useState(true)
 
   const handleResize = debounce(() => {
     setVisibleSideBar(window.innerWidth > 768)
   }, 150)
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 766) {
+      setVisibleSideBar(false)
+    }
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
     }
   }, [handleResize])
+
+  const handleOpenMenu = () => {
+    setVisibleSideBar((prev) => !prev)
+  }
 
   return (
     <aside
@@ -48,6 +56,9 @@ const Sidebar = (): JSX.Element => {
           </li>
         </ul>
       </nav>
+      <button type='button' onClick={handleOpenMenu} className={styles.menuToggle}>
+        <MenuBar />
+      </button>
     </aside>
   )
 }

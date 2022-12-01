@@ -1,7 +1,7 @@
 import { useRef, useState, ChangeEvent, FormEvent } from 'react'
 
 import { useAppDispatch, useOnClickOutside } from 'hooks'
-import { searchProduct } from 'states/product'
+import { searchProduct } from 'store/reducer/product'
 import { SearchIcon } from 'public/svgs'
 import { cx } from 'styles'
 import styles from './searchBar.module.scss'

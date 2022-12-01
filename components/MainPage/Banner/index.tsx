@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import { IProductItem } from 'types/product'
 import { useAppSelector, useI18n } from 'hooks'
-import { getBannerList } from 'states/banner'
+import { getBannerList } from 'store/reducer/banner'
 import styles from './banner.module.scss'
 
 const slideSettings = {

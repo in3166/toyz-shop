@@ -8,11 +8,11 @@ import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
 
-import type { store as AppStore, RootState } from '../states'
+import type { store as AppStore, RootState } from '../store'
 // As a basic setup, import your same slice reducers
-import productsReducer from '../states/product'
-import bannerReducer from '../states/banner'
-import systemReducer from '../states/system'
+import productsReducer from '../store/reducer/product'
+import bannerReducer from '../store/reducer/banner'
+import systemReducer from '../store/reducer/system'
 // import i18n from '../public/locales/index.mdtsx'
 import ErrorFallback from 'components/_shared/layout/ErrorFallback'
 

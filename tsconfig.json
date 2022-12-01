@@ -25,7 +25,7 @@
   "include": [
     ".",
     "public/svgs"
-  ],
+, "../countries.ts"  ],
   "exclude": [
     "node_modules"
   ]
