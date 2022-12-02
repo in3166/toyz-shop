@@ -1,0 +1,34 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+@use '/styles/mixins/flexbox';
+@use '/styles/mixins/animation';
+
+.main {
+  width: 100%;
+  min-width: 200px;
+  max-width: 100%;
+  height: 100%;
+  background-color: colors.$MAIN_COLOR;
+
+  :root[color-theme='dark'] & {
+    background-color: colors.$BACKGROUND_COLOR !important;
+  }
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 10px;
+
+  @include responsive.after(ML) {
+    grid-gap: 40px;
+  }
+
+  @include responsive.after(SD) {
+    grid-gap: 50px;
+  }
+
+  @include responsive.after(LD) {
+    grid-gap: 60px;
+  }
+}

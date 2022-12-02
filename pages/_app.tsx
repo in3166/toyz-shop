@@ -1,26 +1,23 @@
-import { AppProps } from 'next/app'
 import { NextPage } from 'next'
+import { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
+import { appWithTranslation } from 'next-i18next'
+import { SessionProvider } from 'next-auth/react'
 
+import { useCallback, useEffect, useState } from 'react'
 import { Provider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
+import { ErrorBoundary } from 'react-error-boundary'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-
-import wrapper from '../store'
-// import i18n from 'public/locale'
-import { appWithTranslation } from 'next-i18next'
-
-import Layout from 'components/_shared/layout'
-import 'styles/index.scss'
-import Head from 'next/head'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useCallback, useEffect, useState } from 'react'
 import localStore from 'store'
-import Header from 'components/_shared/layout/Header'
-import { ErrorBoundary } from 'react-error-boundary'
-import ErrorFallback from 'components/_shared/layout/ErrorFallback'
-import { useRouter } from 'next/router'
-import nexti18Config from 'next-i18next.config'
+
+import wrapper from '../stores'
+import Layout from 'components/layout'
+import Header from 'components/layout/Header'
+import ErrorFallback from 'components/layout/ErrorFallback'
+import 'styles/index.scss'
+import nextI18nextConfig from 'next-i18next.config'
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnMount: false } },
@@ -47,6 +44,7 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
   }, [])
 
   useEffect(() => {
+    console.log('cl', router.locale)
     themeCheck()
     setLocale(router.locale ?? 'en')
   }, [darkMode, router.locale, themeCheck])
@@ -60,20 +58,18 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
       <ReactQueryDevtools />
       <Provider store={store}>
         <RecoilRoot>
-          <Head>
-            <meta name='viewport' content='width=device-width, initial-scale=1' />
-            <title>Toyz</title>
-          </Head>
-          <Layout>
-            <Header lang={locale} isDark={darkMode} />
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Component {...props} />
-            </ErrorBoundary>
-          </Layout>
+          <SessionProvider session={props.session}>
+            <Layout>
+              <Header lang={locale} isDark={darkMode} />
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Component {...props} />
+              </ErrorBoundary>
+            </Layout>
+          </SessionProvider>
         </RecoilRoot>
       </Provider>
     </QueryClientProvider>
   )
 }
 
-export default appWithTranslation(MyApp)
+export default appWithTranslation(MyApp, nextI18nextConfig)

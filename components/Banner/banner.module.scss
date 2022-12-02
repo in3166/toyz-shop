@@ -1,0 +1,68 @@
+@use '/styles/constants/colors';
+
+.slider {
+  width: 100%;
+
+  .dots {
+    bottom: 0;
+    z-index: 3;
+  }
+
+  img {
+    width: 100%;
+    height: 350px;
+    object-fit: contain;
+    background-color: colors.$MAIN_COLOR;
+  }
+
+  .dlContent dt {
+    width: 55px;
+  }
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    content: '';
+    background: linear-gradient(to bottom right, transparent 48%, colors.$MAIN_COLOR 50.25%);
+  }
+
+  :root[color-theme='dark'] & {
+    img {
+      width: 100%;
+      height: 350px;
+      object-fit: contain;
+      background-color: #dad6d3 !important;
+    }
+
+    &::after {
+      background: linear-gradient(to bottom right, transparent 48%, colors.$BACKGROUND_COLOR 50.25%);
+    }
+
+    .dots {
+      button::before {
+        color: colors.$FONT_COLOR;
+      }
+    }
+  }
+
+  .slideContent {
+    position: relative;
+  }
+
+  .description {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    padding: 15px;
+    line-height: 20px;
+    color: rgb(124, 124, 124);
+    background-color: rgba(255, 255, 255, 66.4%);
+    border-radius: 7px;
+
+    dl > div {
+      display: flex;
+    }
+  }
+}

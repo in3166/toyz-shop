@@ -1,7 +1,8 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useAppSelector } from 'hooks'
 import { useRecoil } from 'hooks/state'
-import { getSearchList } from 'store/reducer/product'
-import { currentUserState } from 'store/user'
+import { getSearchList } from 'stores/reducer/product'
+import { currentUserState } from 'stores/user'
 
 import Container from 'components/_shared/Container'
 import Card from 'components/_shared/Card'
@@ -22,6 +23,15 @@ const SearchPage = () => {
       </Container>
     </main>
   )
+}
+
+export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      locales,
+    },
+  }
 }
 
 export default SearchPage

@@ -1,0 +1,49 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+
+.signUpForm {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+
+    .signUpButton {
+      font-size: 13px;
+      font-weight: 400;
+      color: colors.$SIGN_BUTTON;
+
+      &:hover {
+        color: colors.$SIGN_BUTTON_HOVER;
+      }
+    }
+  }
+
+  :root[color-theme='dark'] & {
+    color: colors.$SIGN_DARK_FONT !important;
+    background-color: colors.$SIGN_DARK_BACKGROUND !important;
+
+    label,
+    input {
+      color: colors.$SIGN_DARK_INPUT !important;
+    }
+
+    path {
+      fill: colors.$GRAYE;
+    }
+
+    input::placeholder {
+      font-size: small;
+      color: colors.$SIGN_DARK_PLACEHOLDER;
+    }
+
+    .signUpButton {
+      font-size: 13px;
+      color: colors.$SIGN_DARK_INPUT;
+
+      &:hover {
+        color: colors.$GRAYA;
+      }
+    }
+  }
+}

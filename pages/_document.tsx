@@ -4,13 +4,11 @@ const Document = () => {
   return (
     <Html>
       <Head>
-        <meta name='description' content='Web site created using create-react-app' />
         <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
         <link rel='icon' href='/favicon.ico' />
         <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
         <link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
         <link rel='manifest' href='/manifest.json' />
-        <meta name='description' content='You can buy a wide variety of amazing toys!' />
         <meta name='msapplication-TileColor' content='#ffffff' />
         <meta name='msapplication-TileImage' content='/ms-icon-144x144.png' />
       </Head>

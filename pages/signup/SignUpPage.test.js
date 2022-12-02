@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event'
 import { fireEvent, renderWithProviders, screen, act, renderHook } from 'utils/test-utils'
-import SignUpForm from './SignUpForm'
+import SignUpForm from 'components/SignUpForm'
 import SignUpPage from './index'
 import useFormInput from 'hooks/useFormInput'
 import { signUpValue } from 'fixtures/users'

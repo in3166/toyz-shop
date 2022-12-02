@@ -1,11 +1,12 @@
 import { FormEvent, useRef, useState } from 'react'
 import store from 'store'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useI18n } from 'hooks'
 import { useRecoil } from 'hooks/state'
 import useFormInput from 'hooks/useFormInput'
 import { updateUserDBInfo } from 'services/user'
-import { currentUserState } from 'store/user'
+import { currentUserState } from 'stores/user'
 import { validateName, validatePassword, validatePhoneNumber } from 'utils/validates/validateInput'
 
 import InputText from 'components/_shared/InputText'
@@ -121,6 +122,15 @@ const UserSetting = () => {
       {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
     </article>
   )
+}
+
+export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      locales,
+    },
+  }
 }
 
 export default UserSetting

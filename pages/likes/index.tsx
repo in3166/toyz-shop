@@ -1,5 +1,6 @@
 import { useRecoil } from 'hooks/state'
-import { currentUserState } from 'store/user'
+import { currentUserState } from 'stores/user'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Container from 'components/_shared/Container'
 import Card from 'components/_shared/Card'
@@ -12,20 +13,29 @@ const LikesPage = () => {
   if (data.id === 'admin') return <div className={styles.empty}>You are admin.</div>
   if (!data || data.id === '') return <div className={styles.empty}>You need to log in.</div>
 
-  const userLikes = data?.likes
+  const userLikes = data?.likes || []
   if (userLikes.length < 1) return <div className={styles.empty}>No Items.</div>
 
   return (
     <main className={styles.main}>
       <Container>
         <ul className={styles.cardContainer}>
-          {userLikes.map((value) => {
+          {userLikes?.map((value) => {
             return <Card key={value.id} item={value} user={user} setUser={setUser} />
           })}
         </ul>
       </Container>
     </main>
   )
+}
+
+export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      locales,
+    },
+  }
 }
 
 export default LikesPage

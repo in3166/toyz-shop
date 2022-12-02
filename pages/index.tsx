@@ -1,40 +1,53 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { MongoClient } from 'mongodb'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-import MainPage from 'components/MainPage'
-import { IProductItem } from 'types/product'
 import nextI18nextConfig from 'next-i18next.config'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { MongoClient } from 'mongodb'
+
+import { IProductItem } from 'types/product'
+import Banner from 'components/Banner'
+import ProductList from 'components/ProductList'
 
 const pro = [
   {
     id: 'B7N0IjiIJYo',
-    title: 'white and black lego toy',
-    url: 'https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMzI4NzR8MHwxfHNlYXJjaHwxMXx8dG95fGVufDB8fHx8MTY1NDM0MzUwOQ&ixlib=rb-1.2.1&q=80&w=400',
-    date: '2020-03-27T23:28:57-04:00',
+    name: 'white and black lego toy',
     owner: 'Daniel K Cheung',
+    description: 'desc',
+    image: 'products/bare3.jpg',
     price: 578,
+    createdAt: '2020-03-27T23:28:57-04:00',
   },
   {
     id: 'YpNf6ATniQA',
-    title: 'blue red and yellow lego blocks',
-    url: 'https://images.unsplash.com/photo-1603558431750-dfa36513aee6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMzI4NzR8MHwxfHNlYXJjaHwxM3x8dG95fGVufDB8fHx8MTY1NDM0MzUwOQ&ixlib=rb-1.2.1&q=80&w=400',
-    date: '2020-10-24T12:54:41-04:00',
+    name: 'blue red and yellow lego blocks',
     owner: 'Nick Nice',
+    description: 'desc',
+    image: 'products/bare2.jpg',
     price: 58,
+    createdAt: '2020-10-24T12:54:41-04:00',
   },
   {
     id: 'zoyBqT7ytLU',
-    title: 'assorted-colored toys on table',
-    url: 'https://images.unsplash.com/photo-1558060370-d644479cb6f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMzI4NzR8MHwxfHNlYXJjaHwxNHx8dG95fGVufDB8fHx8MTY1NDM0MzUwOQ&ixlib=rb-1.2.1&q=80&w=400',
-    date: '2019-05-16T22:33:06-04:00',
+    name: 'assorted-colored toys on table',
     owner: 'Huy Hung Trinh',
+    description: 'desc',
+    image: 'products/bare1.jpg',
     price: 217,
+    createdAt: '2019-05-16T22:33:06-04:00',
   },
 ]
 const HomePage: NextPage<IProductItem[]> = () => {
-  return <MainPage products={pro} />
+  return (
+    <>
+      <Head>
+        <title>Toyz</title>
+        <meta name='description' content='You can buy a wide variety of amazing toys!.' />
+      </Head>
+      <Banner products={pro} />
+      <ProductList products={pro} />
+    </>
+  )
 }
 
 export const getServerSideProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
@@ -59,7 +72,7 @@ export const getServerSideProps = async ({ locale, locales }: { locale: string; 
 //   props: {
 //     products:
 //   },
-//   revalidate: 1,
+//   revalicreatedAt: 1,
 // }
 // }
 
@@ -92,12 +105,12 @@ export const getServerSideProps = async ({ locale, locales }: { locale: string; 
 //   return {
 //     props: {
 //       meetups: meetups.map((meetup) => ({
-//         title: meetup.title,
+//         name: meetup.name,
 //         address: meetup.address,
 //         image: meetup.image,
 //       })),
 //     },
-//     revalidate: 1,
+//     revalicreatedAt: 1,
 //   }
 // }
 

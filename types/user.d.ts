@@ -4,10 +4,13 @@ import { IProductItem } from './product.d'
 export interface IUser {
   id: string
   name: string
-  role: number
+  password: string
+  email: string
   phone: string
-  likes: IProductItem[]
-  pw: string
+  likes?: IProductItem[]
+  role?: number
+  createdAt?: date
+  updatedAt?: date
 }
 
 export interface IDBUser {

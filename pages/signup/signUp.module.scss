@@ -2,15 +2,24 @@
 @use '/styles/mixins/responsive';
 
 .formWrapper {
+  display: flex;
+  flex-direction: column;
   width: 50%;
+  min-width: 270px;
+  max-width: 500px;
+  height: auto;
   padding: 35px;
-  margin: 50px;
+  margin: 30px;
   background-color: colors.$SIGN_BACKGROUND;
   border-radius: 10px;
 
   header {
     font-size: 20px;
     text-align: center;
+
+    svg {
+      width: 77px;
+    }
   }
 
   .footer {
@@ -21,6 +30,7 @@
 
     .signUpButton {
       font-size: 13px;
+      font-weight: 400;
       color: colors.$SIGN_BUTTON;
 
       &:hover {
@@ -60,10 +70,4 @@
   @include responsive.mobileOnly {
     width: 85%;
   }
-}
-
-input::-ms-reveal,
-input::-ms-clear {
-  position: absolute;
-  right: 30px;
 }

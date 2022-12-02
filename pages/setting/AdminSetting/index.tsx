@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import TradeChart from './TabMenu/TradeChart'
 import UserList from './TabMenu/UserList'
@@ -54,6 +55,15 @@ const AdminSetting = () => {
       </section>
     </article>
   )
+}
+
+export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      locales,
+    },
+  }
 }
 
 export default AdminSetting

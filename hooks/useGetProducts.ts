@@ -3,7 +3,7 @@ import { getProudcts } from 'services/products'
 import { useQuery } from 'react-query'
 import { useAppDispatch } from './useAppDispatch'
 import { isNumber } from 'lodash'
-import { setProductList } from 'store/reducer/product'
+import { setProductList } from 'stores/reducer/product'
 
 export const useGetProducts = (id: number) => {
   const dispatch = useAppDispatch()

@@ -1,52 +1,42 @@
-import { useState, FormEvent } from 'react'
-import store from 'store'
-
-import { useRecoil } from 'hooks/state'
-import useFormInput from 'hooks/useFormInput'
-import { currentUserState } from 'store/user'
-import { getUserDataDB } from 'services/user'
-
-import SnackBar from 'components/_shared/SnackBar'
-import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import { validateId, validatePassword } from 'utils/validates/validateInput'
 import { SignInIcon } from 'public/svgs'
-import styles from './signIn.module.scss'
-import LoginForm from './LoginForm'
-import { useI18n } from 'hooks'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
+import { useSession, signIn, signOut } from 'next-auth/react'
+
+import SignInForm from 'components/SignInForm'
+import styles from './signIn.module.scss'
 
 const SignIn = (): JSX.Element => {
-  const t = useI18n()
-  const [, setCurrentUser] = useRecoil(currentUserState)
+  const router = useRouter()
+  const { data: session } = useSession()
+  if (session) {
+    router.push('/')
+  }
 
-  const id = useFormInput({ validateFunction: validateId })
-  const password = useFormInput({ validateFunction: validatePassword })
+  const signInHandler = async (id: string, password: string) => {
+    const res = await signIn('credentials', {
+      id,
+      password,
+      redirect: false,
+    })
 
-  const [snackBarStatus, setSnackBarStatus] = useState('')
-  const { message, setMessage } = useSnackbar(5000)
-
-  const handleOnSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    if (!id.valueIsValid || !password.valueIsValid) {
-      setSnackBarStatus('warning')
-      setMessage(`${t('common:signIn.snackBarValid')}`)
-      return
-    }
-
-    getUserDataDB(id.value)
-      .then((res) => {
-        if (res.length < 1) {
-          setSnackBarStatus('error')
-          setMessage(`${t('common:signIn.snackBarError')}`)
-          return
-        }
-        store.set('currentUser', res[0])
-        setCurrentUser(res[0])
-      })
-      .catch((error) => {
-        setSnackBarStatus('error')
-        setMessage(`Error: ${error}`)
-      })
+    // const response = await fetch(`/api/users/${id}`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ id, password }),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    //   .then(async (responseUser) => {
+    //     const data = await responseUser.json()
+    //     if (!data.success) return data.message
+    //     router.push('/')
+    //     return null
+    //   })
+    //   .catch((error) => {
+    //     return error.message
+    //   })
+    // return response
   }
 
   return (
@@ -58,9 +48,8 @@ const SignIn = (): JSX.Element => {
       </header>
 
       <div className={styles.content}>
-        <LoginForm onSubmit={handleOnSubmit} id={id} password={password} />
+        <SignInForm onSignIn={signInHandler} />
       </div>
-      {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
     </main>
   )
 }

@@ -1,10 +1,11 @@
 export interface IProductItem {
   id: string
-  title: string
-  url: string
-  date: string
+  name: string
   owner: string
+  description: string
+  image: string
   price: number
+  createdAt: date
 }
 
 export interface IProductAPI {
