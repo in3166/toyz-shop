@@ -15,6 +15,7 @@ import SettingIcon from './setting.svg'
 import ProfileIcon from './profile.svg'
 import LoadingSpinner from './spinner.svg'
 import TrashIcon from './trash.svg'
+import KakaoIcon from './kakaoTalk_logo.svg'
 
 export {
   LogoImage,
@@ -34,4 +35,5 @@ export {
   ProfileIcon,
   LoadingSpinner,
   TrashIcon,
+  KakaoIcon,
 }

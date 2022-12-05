@@ -19,7 +19,7 @@
   }
 
   svg {
-    @include position.position(absolute, 25px 10px auto auto);
+    @include position.position(absolute, 31px 10px auto auto);
     block-size: 12px;
     width: fit-content;
     cursor: pointer;

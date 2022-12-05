@@ -1,22 +1,21 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from 'lib/dbConnect'
 import User from 'lib/models/Users'
-import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
-    query: { id },
+    query: { userId },
     method,
     body,
   } = req
-
   await dbConnect()
 
   switch (method) {
     case 'GET':
       try {
-        const user = await User.findById(id)
+        const user = await User.findOne({ email: userId })
         if (!user) {
-          return res.status(400).json({ success: false, error: 'No user' })
+          return res.status(400).json({ success: false, error: { code: 10001 } })
         }
         res.status(200).json({ success: true, user })
       } catch (error) {
@@ -26,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case 'PUT':
       try {
-        const user = await User.findByIdAndUpdate(id, req.body, {
+        const user = await User.findByIdAndUpdate(userId, req.body, {
           new: true,
           runValidators: true,
         })
@@ -41,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case 'DELETE':
       try {
-        const deletedUser = await User.deleteOne({ _id: id })
+        const deletedUser = await User.deleteOne({ _id: userId })
         if (!deletedUser) {
           return res.status(400).json({ success: false })
         }
@@ -55,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const user = await User.findOne({ id: body.id })
         // console.log('user: ', user)
         if (!user) {
-          return res.status(400).json({ success: false, error: 'User not found.' })
+          return res.status(400).json({ success: false, error: { code: 10001 } })
         }
         res.status(200).json({ success: true, user })
       } catch (error) {
@@ -64,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break
 
     default:
-      res.status(400).json({ success: false })
+      res.status(400).json({ success: false, error: { code: 10000 } })
       break
   }
   return null

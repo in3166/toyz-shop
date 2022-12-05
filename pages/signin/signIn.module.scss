@@ -6,6 +6,7 @@
   flex-direction: column;
   width: 50%;
   min-width: 270px;
+  max-width: 450px;
   height: auto;
   padding: 35px;
   margin: 30px;
@@ -21,20 +22,18 @@
     }
   }
 
-  .footer {
+  .siginInFooter {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
     width: 100%;
+    margin-top: 50px;
     text-align: center;
 
-    .signInButton {
-      margin-bottom: 10px;
-      font-size: 13px;
-      font-weight: 400;
-      color: colors.$GRAY3;
+    button {
+      width: fit-content;
 
       &:hover {
-        color: colors.$GRAYD;
+        filter: brightness(0.8);
       }
     }
   }

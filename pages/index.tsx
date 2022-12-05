@@ -53,7 +53,7 @@ const HomePage: NextPage<IProductItem[]> = () => {
 export const getServerSideProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+      ...(await serverSideTranslations(locale, ['app', 'common'], nextI18nextConfig)),
       locales,
     },
   }

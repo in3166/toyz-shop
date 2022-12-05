@@ -56,7 +56,7 @@
 - @types/uuid
 - @types/bcrpt
 - next-auth
-
+- next-connect: `Express`처럼 미들웨어 형태로 코드 작성 가능
 <br>
 
 - Eslint

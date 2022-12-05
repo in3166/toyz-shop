@@ -1,36 +1,52 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { NextPageContext } from 'next/types'
+import { signIn } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import errorHandler from 'lib/errorHandler'
+import { IUser } from 'types/user'
+import SignUpForm from 'components/SignUpForm'
 import { SignUpIcon } from 'public/svgs'
 import styles from './signUp.module.scss'
-import SignUpForm from 'components/SignUpForm'
-import { IUser } from 'types/user'
 
 const SignUp: NextPage = () => {
   const router = useRouter()
 
   const addUserHandler = async (enteredUserData: IUser) => {
     enteredUserData.likes = []
+    try {
+      const response = await fetch('/api/users', {
+        method: 'PUT',
+        body: JSON.stringify(enteredUserData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
-    const response = await fetch('/api/users', {
-      method: 'POST',
-      body: JSON.stringify(enteredUserData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(async (responseUser) => {
-        const data = await responseUser.json()
-        if (!data.success) return data.message
-        router.push('/')
-        return null
+      const signUpResult = await response.json()
+      if (!signUpResult.success) {
+        const message = !signUpResult.error.message
+          ? errorHandler(signUpResult.error?.code)
+          : signUpResult.error.message
+        return { ...signUpResult.error, message }
+      }
+
+      const responseSignin = await signIn('credentials', {
+        id: enteredUserData.id,
+        password: enteredUserData.password,
+        redirect: false,
       })
-      .catch((error) => {
-        return error.message
-      })
-    return response
+
+      if (!responseSignin?.ok) {
+        return new Error(responseSignin?.error)
+      }
+      router.push('/')
+      return null
+    } catch (error) {
+      return error
+    }
   }
 
   return (
@@ -54,10 +70,12 @@ const SignUp: NextPage = () => {
   )
 }
 
-export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
+export const getStaticProps = async (context: NextPageContext) => {
+  const { locale, locales } = context
+
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale || 'ko', ['common'])),
       locales,
     },
   }

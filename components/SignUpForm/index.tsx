@@ -1,5 +1,7 @@
-import React, { FormEvent, useRef, useState } from 'react'
+import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import { useI18n } from 'hooks'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 import useFormInput from 'hooks/useFormInput'
 import { IUser } from 'types/user'
@@ -14,16 +16,17 @@ import InputText from 'components/_shared/InputText'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './signUpForm.module.scss'
+import { IMongooseError } from 'types/mongo'
 
 interface ISignUpFormProps {
-  onAddUser: (user: IUser) => Promise<Error | null>
+  onAddUser: (user: IUser) => Promise<IMongooseError | null>
 }
 
 const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
   const t = useI18n()
-
   const inputFocusRef = useRef(null)
-
+  const router = useRouter()
+  const userEmail = router.query?.email?.toString() ?? ''
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const { message, setMessage } = useSnackbar(5000)
 
@@ -31,7 +34,7 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
   const name = useFormInput({ validateFunction: validateName })
   const password = useFormInput({ validateFunction: validatePassword })
   const phone = useFormInput({ validateFunction: validatePhoneNumber })
-  const email = useFormInput({ validateFunction: validateEmail })
+  const email = useFormInput({ validateFunction: validateEmail, initialValue: userEmail || '' })
 
   const handleOnSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -45,15 +48,14 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
       id: id.value,
       name: name.value,
       password: password.value,
-      email: email.value,
+      email: userEmail || email.value,
       phone: phone.value,
     }
 
     const error = await onAddUser(newUser)
-    console.log(error)
     if (error) {
       setSnackBarStatus('error')
-      setMessage(`[Error]: ${error}`)
+      setMessage(`[${error.code || 'Error'}]: ${error.message}`)
     }
   }
 
@@ -103,12 +105,13 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
       <InputText
         type='text'
         formTitle={`${t('common:signUp.titleEmail')}`}
-        value={email.value}
+        value={userEmail || email.value}
         onChange={email.valueChangeHandler}
         reset={email.reset}
         onBlur={email.inputBlurHandler}
         hasError={email.hasError}
-        errorMessage={`${t('common:signUp.errorMessageEmail')}`}
+        read={userEmail !== ''}
+        errorMessage={(userEmail === '' && `${t('common:signUp.errorMessageEmail')}`) || ''}
       />
 
       <footer className={styles.footer}>

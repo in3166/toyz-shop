@@ -1,10 +1,9 @@
 import NextAuth from 'next-auth'
-import GithubProvider from 'next-auth/providers/github'
+import KakaoProvider from 'next-auth/providers/kakao'
+import NaverProvider from 'next-auth/providers/naver'
+import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
-
-const NEXTAUTH_URL = 'http://localhost:3000'
-const SALT_ROUND = 7
 
 const confirmPasswordHash = (plainPassword: string, hashedPassword: string) => {
   return new Promise((resolve) => {
@@ -15,7 +14,6 @@ const confirmPasswordHash = (plainPassword: string, hashedPassword: string) => {
 }
 
 export default NextAuth({
-  // Configure one or more authentication providers
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -27,7 +25,7 @@ export default NextAuth({
         }
 
         try {
-          const response = await fetch(`${NEXTAUTH_URL}/api/users/${id}`, {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`, {
             method: 'POST',
             body: JSON.stringify({ id, password }),
             headers: {
@@ -36,15 +34,13 @@ export default NextAuth({
           })
 
           const data = await response.json()
+          console.log('data: ', data)
           if (!data.success) {
-            throw new Error(data?.error)
+            throw new Error(data?.error?.code)
           }
 
           const compare = await confirmPasswordHash(password, data.user.password)
-
-          if (!compare) throw new Error('Not Correct Password.')
-          //  return { token: data.user, user: data.user }
-          console.log('data: ', data)
+          if (!compare) throw new Error('10003')
 
           delete data.user.password
           return data.user
@@ -58,51 +54,65 @@ export default NextAuth({
         }
       },
     }),
+    KakaoProvider({
+      clientId: process.env.KAKAO_CLIENT_ID || '',
+      clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
+    }),
+    NaverProvider({
+      clientId: process.env.NAVER_CLIENT_ID || '',
+      clientSecret: process.env.NAVER_CLIENT_SECRET || '',
+    }),
   ],
+  secret: process.env.NEXT_AUTH_SECRET_KEY,
   session: {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60,
     updateAge: 24 * 60 * 60,
   },
+  jwt: {
+    secret: 'secret_toyz_669',
+  },
   callbacks: {
-    async signIn(user) {
+    async signIn({ user, account, credentials }) {
       try {
-        console.log('caal: ', user)
-        // the user object is wrapped in another user object so extract it
-        // user = user.user
-        // console.log('Sign in callback', user)
-        // console.log('User id: ', user.userId)
-        // if (typeof user.userId !== typeof undefined) {
-        //   if (user.isActive === '1') {
-        //     console.log('User is active')
-        //     return user
-        //   }
-        //   console.log('User is not active')
-        //   return false
-        // }
-        // console.log('User id was undefined')
-        // return false
+        if (account?.type === 'credentials') {
+          return true
+        }
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.email}`)
+        const isUserExisted = await response.json()
+        console.log(user, account, credentials)
+        if (!isUserExisted.success) {
+          return `/signup?email=${user.email}`
+        }
         return true
       } catch (err) {
-        console.error('Signin callback error:', err)
         return false
       }
     },
-    session: async ({ session, token, user }) => {
+    session: async ({ session, token }) => {
+      console.log('session: ', session)
+      console.log('account?.token: ', token)
       session.user = token
-
       return session
     },
-    jwt: async ({ token, user }) => {
-      if (user) {
-        const newToken = { ...token, ...user }
-        return newToken
+    jwt: async ({ token, user, account }) => {
+      console.log('user: ', user, account?.type)
+      console.log('account?.type: ', account?.type)
+      if (user && account?.type === 'oauth') {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user?.email}`)
+        const data = await response.json()
+        if (data.success) return { ...token, ...data.user }
       }
+
+      if (user) {
+        return { ...token, ...user }
+      }
+
       return token
     },
   },
   pages: {
     signIn: '/signin',
-    signOut: '/',
   },
 })

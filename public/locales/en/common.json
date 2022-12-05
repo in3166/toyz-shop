@@ -4,6 +4,10 @@
     "signup": "Sign Up",
     "logout": "Logout"
   },
+  "language":{
+    "first": "English",
+    "second": "Korean"
+  },
   "signIn.title": "Sign In",
   "signIn.id": "ID",
   "signIn.password": "Password",

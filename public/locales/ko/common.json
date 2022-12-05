@@ -2,6 +2,10 @@
   "gnb.signin": "로그인",
   "gnb.signup": "회원가입",
   "gnb.logout": "로그아웃",
+  "language":{
+    "first": "한국어",
+    "second": "영어"
+  },
   "signIn.title": "로그인",
   "signIn.id": "아이디",
   "signIn.password": "비밀번호",

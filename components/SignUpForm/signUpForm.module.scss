@@ -9,12 +9,16 @@
     text-align: center;
 
     .signUpButton {
+      padding: 7px;
       font-size: 13px;
-      font-weight: 400;
+      font-weight: 500;
       color: colors.$SIGN_BUTTON;
+      background-color: colors.$SIGN_BUTTON_BACKGROUND;
+      border-radius: 100px;
 
       &:hover {
         color: colors.$SIGN_BUTTON_HOVER;
+        background-color: colors.$SIGN_BUTTON_HOVER_BACKGROUND;
       }
     }
   }
@@ -35,15 +39,6 @@
     input::placeholder {
       font-size: small;
       color: colors.$SIGN_DARK_PLACEHOLDER;
-    }
-
-    .signUpButton {
-      font-size: 13px;
-      color: colors.$SIGN_DARK_INPUT;
-
-      &:hover {
-        color: colors.$GRAYA;
-      }
     }
   }
 }

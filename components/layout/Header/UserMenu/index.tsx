@@ -13,13 +13,13 @@ const UserMenu = () => {
 
   const { data: session } = useSession()
   console.log(session)
-  const [isLoggedIn, setIsLoggedIn] = useState(session?.user || false)
+  // const [isLoggedIn, setIsLoggedIn] = useState(session?.user || false)
 
-  useEffect(() => {
-    setIsLoggedIn(session?.user || false)
-  }, [isLoggedIn, session?.user])
+  // useEffect(() => {
+  //   setIsLoggedIn(session?.user || false)
+  // }, [isLoggedIn, session?.user])
 
-  const loggedOutMenu = !isLoggedIn && (
+  const loggedOutMenu = !session && (
     <>
       <li>
         <Link href='/signin' className={router.pathname === '/signin' ? styles.isActive : ''}>
@@ -34,7 +34,7 @@ const UserMenu = () => {
     </>
   )
 
-  const loggedInMenu = isLoggedIn && (
+  const loggedInMenu = session && (
     <>
       <li>
         <button type='button' onClick={() => signOut()} className={styles.logout}>

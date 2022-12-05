@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 
 import DropDown from 'components/_shared/DropDown'
 import SearchBar from './SearchBar'
@@ -9,33 +8,29 @@ import DarkMode from './DarkMode'
 
 import styles from './header.module.scss'
 
-const SELECT_LIST = ['English', 'Korean']
-
 interface IHeaderProps {
-  lang: string
+  languageList: string[]
   isDark: boolean
 }
 
-const Header = ({ lang, isDark }: IHeaderProps): JSX.Element => {
+const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
   const router = useRouter()
-
-  const [currentLanguage, setCurrentLanguage] = useState(lang === 'ko' ? 'Korean' : 'English')
-
-  useEffect(() => {
-    console.log('cl', lang)
-    setCurrentLanguage(lang === 'ko' ? 'Korean' : 'English')
-  }, [lang])
+  const [currentLanguage, setCurrentLanguage] = useState(languageList[0])
 
   const handleChangeLanguage = useCallback(
     (language: string) => {
-      router.replace(router.pathname, router.pathname, { locale: language === 'Korean' ? 'ko' : 'en' })
+      const selectedLanguage = language === 'English' || language === '영어' ? 'en' : 'ko'
+      const path = router.query.email ? `${router.pathname}?email=${router.query.email}` : router.pathname
+      router.replace(path, path, {
+        locale: selectedLanguage,
+      })
     },
     [router]
   )
 
-  // useEffect(() => {
-  //   handleChangeLanguage(currentLanguage)
-  // }, [currentLanguage, handleChangeLanguage])
+  useEffect(() => {
+    setCurrentLanguage(languageList[0])
+  }, [languageList])
 
   return (
     <div className={styles.header}>
@@ -51,7 +46,7 @@ const Header = ({ lang, isDark }: IHeaderProps): JSX.Element => {
           <li className={styles.lang}>
             <DropDown
               currentValue={currentLanguage}
-              selectList={SELECT_LIST}
+              selectList={languageList}
               setCurrentValue={setCurrentLanguage}
               size='small'
               handleChangedValue={handleChangeLanguage}

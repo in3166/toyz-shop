@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom'
 import styles from './modal.module.scss'
 
 interface IBackDropProps {
-  onCancel: MouseEventHandler<HTMLButtonElement>
+  onCancel?: MouseEventHandler<HTMLButtonElement>
 }
 
 interface IModalProps {
-  onCancel: MouseEventHandler<HTMLButtonElement>
+  onCancel?: MouseEventHandler<HTMLButtonElement>
   children: React.ReactNode
 }
 

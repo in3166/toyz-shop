@@ -29,7 +29,6 @@ $ASSET_PATH: '/assets/svgs/';
 
   ul {
     position: absolute;
-    top: 33px;
     z-index: 4;
     width: 100%;
     height: auto;
@@ -48,7 +47,7 @@ $ASSET_PATH: '/assets/svgs/';
 
       button {
         width: 100%;
-        padding: 12px 20px;
+        padding: 7px 20px;
       }
 
       &:hover {
@@ -59,8 +58,10 @@ $ASSET_PATH: '/assets/svgs/';
 }
 
 .downArrowIcon {
+  width: 20px;
+
   &:hover {
-    cursor: pointer;
+    // cursor: pointer;
   }
   transition: transform 0.3s linear;
   transform: rotate(0deg);

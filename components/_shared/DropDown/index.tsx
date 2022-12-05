@@ -21,10 +21,11 @@ const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChang
   }
 
   const handleListClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const selectedValue = e.currentTarget.dataset.value
-    setCurrentValue(selectedValue ?? selectList[0])
+    const selectedValue = e.currentTarget.value
+    setCurrentValue(selectedValue)
     setSelectIsOpen(false)
-    if (handleChangedValue) handleChangedValue(selectedValue || 'korean')
+    console.log(currentValue !== selectedValue, 'currentValue: ', currentValue, ' /selectedValue: ', selectedValue)
+    if (currentValue !== selectedValue && handleChangedValue) handleChangedValue(selectedValue || 'korean')
   }
 
   const handleOnClose = () => {
@@ -44,7 +45,7 @@ const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChang
           selectList.map((value) => {
             return (
               <li className={styles.option} key={value}>
-                <button type='button' data-value={value} onClick={handleListClick}>
+                <button type='button' value={value} data-value={value} onClick={handleListClick}>
                   {value}
                 </button>
               </li>

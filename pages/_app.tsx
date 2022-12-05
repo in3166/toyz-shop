@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
-import { appWithTranslation } from 'next-i18next'
+import { appWithTranslation, useTranslation } from 'next-i18next'
 import { SessionProvider } from 'next-auth/react'
 import nextI18nextConfig from 'next-i18next.config'
 
@@ -25,9 +25,10 @@ const queryClient = new QueryClient({
 
 const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest)
-
+  const { t } = useTranslation()
   const router = useRouter()
-  const [locale, setLocale] = useState('en')
+
+  const LANGUAGE_LIST = [t('language.first'), t('language.second')]
 
   const [darkMode, setDarkMode] = useState(false)
   const themeCheck = useCallback(() => {
@@ -44,9 +45,7 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
   }, [])
 
   useEffect(() => {
-    console.log('cl', router.locale)
     themeCheck()
-    setLocale(router.locale ?? 'en')
   }, [darkMode, router.locale, themeCheck])
 
   useEffect(() => {
@@ -60,7 +59,7 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
         <RecoilRoot>
           <SessionProvider session={props.session}>
             <Layout>
-              <Header lang={locale} isDark={darkMode} />
+              <Header languageList={LANGUAGE_LIST} isDark={darkMode} />
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Component {...props} />
               </ErrorBoundary>

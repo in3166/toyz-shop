@@ -3,5 +3,7 @@ module.exports = {
     defaultLocale: 'ko',
     locales: ['ko', 'en'],
     localeDetection: false,
+    defaultNS: 'common',
+    ns: ['common'],
   },
 }
