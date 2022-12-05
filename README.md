@@ -338,6 +338,18 @@
   }
   ```
 
+- `catch`로 받은 error `throw` 하기
+
+```js
+catch (error) {
+  if (typeof error === 'string') {
+    throw new Error(error)
+  } else if (error instanceof Error) {
+    throw error
+  }
+}
+```
+
 <br>
 
 ## Trouble Shooting (Test)

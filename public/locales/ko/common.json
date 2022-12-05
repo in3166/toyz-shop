@@ -13,6 +13,7 @@
   "signIn.snackBarError": "로그인 실패! \n (ID에 'user1'이나 'admin'을 입력해주세요.)",
   "signIn.errorMessageID": "아이디는 3글자 이상이어야 합니다.",
   "signIn.errorMessagePW": "비밀번호는 6글자 이상이어야 하며 문자와 숫자를 포함해야 합니다.",
+  "signIn.button": "로그인",
   "signUp.titleID": "아이디",
   "signUp.titleName": "이름",
   "signUp.titlePW": "비밀번호",

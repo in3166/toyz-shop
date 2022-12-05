@@ -14,29 +14,19 @@ const SignIn = (): JSX.Element => {
   }
 
   const signInHandler = async (id: string, password: string) => {
-    const res = await signIn('credentials', {
+    const response = await signIn('credentials', {
       id,
       password,
       redirect: false,
     })
 
-    // const response = await fetch(`/api/users/${id}`, {
-    //   method: 'POST',
-    //   body: JSON.stringify({ id, password }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // })
-    //   .then(async (responseUser) => {
-    //     const data = await responseUser.json()
-    //     if (!data.success) return data.message
-    //     router.push('/')
-    //     return null
-    //   })
-    //   .catch((error) => {
-    //     return error.message
-    //   })
-    // return response
+    if (!response?.ok) {
+      return new Error(response?.error)
+    }
+
+    console.log('res3: ', response)
+    router.push('/')
+    return null
   }
 
   return (

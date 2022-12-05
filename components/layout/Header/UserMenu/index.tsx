@@ -1,10 +1,9 @@
-import React, { useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import store from 'store'
 import { useRouter } from 'next/router'
-import { useRecoil } from 'hooks/state'
+import { signOut, useSession } from 'next-auth/react'
+
 import { useI18n } from 'hooks'
-import { currentUserState, initialSettingUser } from 'stores/user'
 import { ProfileIcon, SettingIcon } from 'public/svgs'
 import styles from '../header.module.scss'
 
@@ -12,16 +11,15 @@ const UserMenu = () => {
   const t = useI18n()
   const router = useRouter()
 
-  const [currentUser, setCurrentUser] = useRecoil(currentUserState)
+  const { data: session } = useSession()
+  console.log(session)
+  const [isLoggedIn, setIsLoggedIn] = useState(session?.user || false)
 
-  const handleClickLogout = useCallback(() => {
-    setCurrentUser(initialSettingUser)
-    store.remove('currentUser')
-  }, [setCurrentUser])
+  useEffect(() => {
+    setIsLoggedIn(session?.user || false)
+  }, [isLoggedIn, session?.user])
 
-  const isLoggedIn = currentUser?.id !== ''
-
-  const loggedOutMenu = isLoggedIn && (
+  const loggedOutMenu = !isLoggedIn && (
     <>
       <li>
         <Link href='/signin' className={router.pathname === '/signin' ? styles.isActive : ''}>
@@ -36,16 +34,16 @@ const UserMenu = () => {
     </>
   )
 
-  const loggedInMenu = !isLoggedIn && (
+  const loggedInMenu = isLoggedIn && (
     <>
       <li>
-        <button type='button' onClick={handleClickLogout} className={styles.logout}>
+        <button type='button' onClick={() => signOut()} className={styles.logout}>
           {`${t('common:gnb.logout')}`}
         </button>
       </li>
       <li>
         <button type='button' className={styles.settingIcon}>
-          {currentUser?.role === 0 ? (
+          {session?.user?.name !== 'admin' ? (
             <Link href='/setting/user'>
               <ProfileIcon />
             </Link>

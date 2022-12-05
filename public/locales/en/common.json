@@ -15,6 +15,7 @@
   "signIn.snackBarError": "Login failed! \n (Please enter 'user1' or 'admin' for ID)",
   "signIn.errorMessageID": "ID must be at least 4 characters",
   "signIn.errorMessagePW": "Password must be at least 6 characters including numbers and alphabets",
+  "signIn.button": "SIGN IN",
   "signUp.titleID": "ID",
   "signUp.titleName": "Name",
   "signUp.titlePW": "Password",

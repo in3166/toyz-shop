@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { SessionProvider } from 'next-auth/react'
+import nextI18nextConfig from 'next-i18next.config'
 
 import { useCallback, useEffect, useState } from 'react'
 import { Provider } from 'react-redux'
@@ -17,7 +18,6 @@ import Layout from 'components/layout'
 import Header from 'components/layout/Header'
 import ErrorFallback from 'components/layout/ErrorFallback'
 import 'styles/index.scss'
-import nextI18nextConfig from 'next-i18next.config'
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnMount: false } },

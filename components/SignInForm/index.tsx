@@ -16,7 +16,7 @@ import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './signInForm.module.scss'
 
 interface ISignInFormProps {
-  onSignIn: (id: string, password: string) => Promise<Error | null>
+  onSignIn: (id: string, password: string) => Promise<Error | null> // Error | null
 }
 
 const SignInForm = ({ onSignIn }: ISignInFormProps) => {
@@ -34,14 +34,12 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
     if (!id.valueIsValid || !password.valueIsValid) {
       setSnackBarStatus('warning')
       setMessage(`${t('common:signIn.snackBarValid')}`)
-      return
     }
-
     const error = await onSignIn(id.value, password.value)
-    console.log(error)
+
     if (error) {
       setSnackBarStatus('error')
-      setMessage(`[Error]: ${error}`)
+      setMessage(`[Error]: ${error.message}`)
     }
   }
 

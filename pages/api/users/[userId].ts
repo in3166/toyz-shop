@@ -6,6 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const {
     query: { id },
     method,
+    body,
   } = req
 
   await dbConnect()
@@ -15,11 +16,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         const user = await User.findById(id)
         if (!user) {
-          return res.status(400).json({ success: false })
+          return res.status(400).json({ success: false, error: 'No user' })
         }
-        res.status(200).json({ success: true, data: user })
+        res.status(200).json({ success: true, user })
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json(error)
       }
       break
 
@@ -34,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         res.status(200).json({ success: true, data: user })
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json(error)
       }
       break
 
@@ -46,7 +47,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         res.status(200).json({ success: true, data: {} })
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json(error)
+      }
+      break
+    case 'POST':
+      try {
+        const user = await User.findOne({ id: body.id })
+        // console.log('user: ', user)
+        if (!user) {
+          return res.status(400).json({ success: false, error: 'User not found.' })
+        }
+        res.status(200).json({ success: true, user })
+      } catch (error) {
+        res.status(400).json(error)
       }
       break
 

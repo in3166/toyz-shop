@@ -2,6 +2,7 @@ import { MouseEvent } from 'react'
 import { IProductItem } from './product.d'
 
 export interface IUser {
+  _id?: string
   id: string
   name: string
   password: string
@@ -11,6 +12,7 @@ export interface IUser {
   role?: number
   createdAt?: date
   updatedAt?: date
+  __v?: number
 }
 
 export interface IDBUser {

@@ -1,11 +1,13 @@
+import { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+
 import DropDown from 'components/_shared/DropDown'
 import SearchBar from './SearchBar'
 import UserMenu from './UserMenu'
 import DarkMode from './DarkMode'
 
 import styles from './header.module.scss'
-import { useCallback, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 
 const SELECT_LIST = ['English', 'Korean']
 
@@ -16,6 +18,7 @@ interface IHeaderProps {
 
 const Header = ({ lang, isDark }: IHeaderProps): JSX.Element => {
   const router = useRouter()
+
   const [currentLanguage, setCurrentLanguage] = useState(lang === 'ko' ? 'Korean' : 'English')
 
   useEffect(() => {
