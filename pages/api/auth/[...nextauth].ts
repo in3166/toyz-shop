@@ -35,7 +35,6 @@ export default NextAuth({
           })
 
           const data = await response.json()
-          console.log('data: ', data)
           if (!data.success) {
             throw new Error(data?.error?.code)
           }
@@ -86,7 +85,6 @@ export default NextAuth({
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.email}`)
         const isUserExisted = await response.json()
-        console.log(user, account, credentials)
         if (!isUserExisted.success) {
           return `/signup?email=${user.email}`
         }
@@ -96,16 +94,11 @@ export default NextAuth({
       }
     },
     session: async ({ session, token }: { session: IAuthSession; token: IAuthToken }) => {
-      console.log('session: ', session)
-      console.log('session?.token: ', token)
-
       session.user = token as IAuthToken
       return session
     },
     jwt: async ({ token, user, account }) => {
       console.log('token: ', token)
-      console.log('user: ', user, account?.type)
-      console.log('account?.type: ', account)
       if (user && account?.type === 'oauth') {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user?.email}`)
         const data = await response.json()

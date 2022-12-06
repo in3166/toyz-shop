@@ -39,7 +39,7 @@ const Sidebar = (): JSX.Element => {
       <div className={styles.logo}>
         <Link href='/' className={styles.logo}>
           <LogoImage />
-          Toyz
+          <div>Toyz</div>
         </Link>
       </div>
       <nav className={styles.nav}>

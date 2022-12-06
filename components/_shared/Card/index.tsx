@@ -30,19 +30,19 @@ const Card = ({ item, user, setUser }: ICardProps) => {
     if (user.id === '' || user.id === 'admin') return
     store.remove('currentUser')
 
-    setLike((prev) => !prev)
-    setUser((prev) => {
-      const tempLikes = getTempLikes(prev.likes ?? [], like, item)
-      updateUserDBLikes(user.id, tempLikes).then(() => {
-        const newUser = { data: { ...user, likes: tempLikes }, key: user.id }
-        store.set('currentUser', newUser)
-      })
-      return { ...prev, likes: tempLikes }
-    })
+    // setLike((prev) => !prev)
+    // setUser((prev) => {
+    //   const tempLikes = getTempLikes(prev.likes ?? [], like, item)
+    //   updateUserDBLikes(user.id, tempLikes).then(() => {
+    //     const newUser = { data: { ...user, likes: tempLikes }, key: user.id }
+    //     store.set('currentUser', newUser)
+    //   })
+    //   return { ...prev, likes: tempLikes }
+    // })
   }
 
   return (
-    <Link href={`/product/${item.id}`}>
+    <Link href={`/product/${item._id}`}>
       <li className={styles.card} title={item.name}>
         <h3 className={styles.header}>
           <div className={styles.title}>{item.name}</div>
@@ -56,7 +56,7 @@ const Card = ({ item, user, setUser }: ICardProps) => {
         <dl>
           <div>
             <dt>{`${t('common:owner')}`}</dt>
-            <dd>{item.owner}</dd>
+            <dd>{item.owner.name}</dd>
           </div>
           <div>
             <dt>{`${t('common:price')}`}</dt>

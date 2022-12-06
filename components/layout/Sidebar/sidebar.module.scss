@@ -23,6 +23,28 @@
   text-align: center;
   background-color: colors.$SIDE_BACKGROUND_COLOR;
 
+  .logo {
+    @include flexbox.flexbox;
+    width: 100%;
+    margin: 7px 0;
+    font-size: 19px;
+    font-weight: bolder;
+    text-transform: uppercase;
+
+    a {
+      &:visited {
+        color: colors.$SIDE_LINK_RESET;
+        text-decoration: none;
+      }
+    }
+
+    svg {
+      width: 32px;
+      height: auto;
+      margin-right: 5px;
+    }
+  }
+
   .nav {
     margin-top: 120px;
 
@@ -57,28 +79,6 @@
         color: colors.$SIDE_LINK_RESET;
         background-color: colors.$SIDE_MENU_ACTIVE;
       }
-    }
-  }
-
-  .logo {
-    @include flexbox.flexbox;
-    width: 100%;
-    margin: 7px 0;
-    font-size: 22px;
-    font-weight: bolder;
-    text-transform: uppercase;
-
-    a {
-      &:visited {
-        color: colors.$SIDE_LINK_RESET;
-        text-decoration: none;
-      }
-    }
-
-    svg {
-      width: 32px;
-      height: auto;
-      margin-right: 5px;
     }
   }
 
@@ -135,6 +135,6 @@
   min-width: levels.$SIDEBAR_WIDTH;
 
   .menuToggle {
-    @include position.position(fixed, auto auto 10px 193px);
+    @include position.position(fixed, auto auto 10px 150px);
   }
 }

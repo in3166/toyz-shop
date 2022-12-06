@@ -10,8 +10,8 @@ const ProductsSchema = new mongoose.Schema(
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Users',
-      required: [true, "Please provide the Products owner's name"],
-      maxlength: [60, "Owner's Name cannot be more than 60 characters"],
+      required: [true, "Please provide the Products owner's id"],
+      maxlength: [60, "Owner's id cannot be more than 20 characters"],
     },
     price: {
       type: Number,

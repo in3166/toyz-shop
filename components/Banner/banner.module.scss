@@ -23,7 +23,7 @@
   &::after {
     @include position.position(absolute, auto auto 0 auto);
     width: 100%;
-    height: 60px;
+    height: 25px;
     content: '';
     background: linear-gradient(to bottom right, transparent 48%, colors.$MAIN_COLOR 50.25%);
   }

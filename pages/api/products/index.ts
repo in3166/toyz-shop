@@ -1,5 +1,6 @@
 import dbConnect from 'lib/dbConnect'
 import Product from 'lib/models/Products'
+import User from 'lib/models/Users'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -10,9 +11,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'GET':
       try {
-        const products = await Product.find({})
-        res.status(200).json({ success: true, data: products })
+        const products = await Product.find({}).populate({ path: 'owner', model: User, select: '-password' })
+        console.log(products)
+        res.status(200).json({ success: true, products })
       } catch (error) {
+        console.log('error', error)
         res.status(400).json({ success: false })
       }
       break

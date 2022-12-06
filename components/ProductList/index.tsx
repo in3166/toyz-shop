@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 
 import { useRecoil } from 'hooks/state'
 import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
@@ -17,20 +18,46 @@ interface IMainPageProps {
 const ProductList = ({ products }: IMainPageProps) => {
   const ref = useRef<HTMLDivElement | null>(null)
   const [productsList, setproductsList] = useState(products)
+
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useRecoil(currentUserState)
-
   const setTarget = useIntersectionObserver(ref, { rootMargin: '10px', threshold: 0 }, setIsLoading, setproductsList)
+  const router = useRouter()
+
+  useEffect(() => {
+    setIsLoading(true)
+    const { query: searchText } = router
+    if (searchText?.text) {
+      fetch(`/api/products/search?text=${searchText?.text}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(async (response) => {
+        const data = await response.json()
+        console.log(data)
+        if (data.success) {
+          setproductsList(data.product)
+          setIsLoading(false)
+        }
+      })
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
 
   return (
     <main className={styles.main}>
       <Container>
-        <ul className={styles.cardContainer}>
-          {productsList?.map((value) => {
-            return <Card key={value.id} item={value} user={user} setUser={setUser} />
-          })}
-        </ul>
-        {!isLoading && <ScrollDetecor setTarget={setTarget} />}
+        {productsList?.length < 1 && <div>No Items.</div>}
+        {!isLoading && (
+          <ul className={styles.cardContainer}>
+            {productsList?.map((value) => {
+              return <Card key={value._id} item={value} user={value.owner} setUser={setUser} />
+            })}
+          </ul>
+        )}
+        {/* {!isLoading && <ScrollDetecor setTarget={setTarget} />} */}
         {isLoading && <Loading />}
       </Container>
     </main>

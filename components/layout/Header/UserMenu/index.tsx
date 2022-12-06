@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
@@ -12,12 +12,6 @@ const UserMenu = () => {
   const router = useRouter()
 
   const { data: session } = useSession()
-  console.log(session)
-  // const [isLoggedIn, setIsLoggedIn] = useState(session?.user || false)
-
-  // useEffect(() => {
-  //   setIsLoggedIn(session?.user || false)
-  // }, [isLoggedIn, session?.user])
 
   const loggedOutMenu = !session && (
     <>

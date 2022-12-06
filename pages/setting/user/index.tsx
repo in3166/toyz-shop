@@ -71,7 +71,6 @@ const UserSetting = () => {
     })
 
     const data = await response.json()
-    console.log(data)
     if (data.success) {
       setSnackBarStatus('')
       setMessage(`[${data.user?.id}]: 회원 정보 수정 완료`)

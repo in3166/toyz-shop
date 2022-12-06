@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import TradeChart from './TabMenu/TradeChart'
@@ -9,10 +11,20 @@ import { useI18n } from 'hooks'
 
 const AdminSetting = () => {
   const t = useI18n()
-  const MENU_LISTS = [
-    [t('common:adminSetting.userTab'), <UserList key='userlist' />],
-    [t('common:adminSetting.chartTab'), <TradeChart key='tradechart' />],
-  ]
+  const router = useRouter()
+  const { data: session } = useSession()
+
+  useEffect(() => {
+    if (session?.user?.role !== 0) router.replace('/')
+  }, [router, session?.user?.role])
+
+  const MENU_LISTS =
+    session?.user?.role === 0
+      ? [
+          [t('adminSetting.userTab'), <UserList key='userlist' />],
+          [t('adminSetting.chartTab'), <TradeChart key='tradechart' />],
+        ]
+      : []
   const width = 100 / MENU_LISTS.length
 
   const [value, setValue] = useState(0)

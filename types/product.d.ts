@@ -1,11 +1,14 @@
+import { IUser } from 'types/user'
+
 export interface IProductItem {
-  id: string
-  name: string
-  owner: string
-  description: string
-  image: string
+  _id: number
   price: number
+  image: string
+  description: string
   createdAt: date
+  updatedAt?: date
+  name: string
+  owner: IUser
 }
 
 export interface IProductAPI {

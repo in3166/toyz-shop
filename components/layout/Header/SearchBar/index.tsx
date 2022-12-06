@@ -1,17 +1,15 @@
 import { useRef, useState, ChangeEvent, FormEvent } from 'react'
+import { useRouter } from 'next/router'
 
-import { useAppDispatch, useOnClickOutside } from 'hooks'
-import { searchProduct } from 'stores/reducer/product'
+import { useOnClickOutside } from 'hooks'
 import { SearchIcon } from 'public/svgs'
 import { cx } from 'styles'
 import styles from './searchBar.module.scss'
-import { useRouter } from 'next/router'
 
 const SearchBar = () => {
   const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [toggleSearchBar, setToggleSearchBar] = useState(false)
-  const dispatch = useAppDispatch()
 
   const focusRef = useRef<HTMLInputElement>(null)
 
@@ -33,8 +31,12 @@ const SearchBar = () => {
 
   const handleSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(searchProduct(searchText))
-    router.push('/search')
+    if (!searchText || searchText.trim() === '') {
+      return
+    }
+    // dispatch(searchProduct(searchText))
+    router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/?text=${searchText}`)
+    handleCloseSearchBar()
   }
 
   return (

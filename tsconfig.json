@@ -18,6 +18,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": [".", "public/svgs", "types/global.d.ts", "**/global.d.ts", "/types/global.d.ts"],
+  "include": [".", "public/svgs", "types/global.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
