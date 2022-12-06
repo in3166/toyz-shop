@@ -1,6 +1,7 @@
 @use '/styles/constants/colors';
 @use '/styles/mixins/responsive';
 @use '/styles/mixins/flexbox';
+@use '/styles/mixins/position';
 
 .card {
   display: flex;
@@ -42,7 +43,7 @@
     }
 
     .likeButton {
-      position: relative;
+      @include position.position(relative, auto);
       width: auto;
       height: auto;
       padding: 5px;
@@ -55,9 +56,7 @@
 
       &:hover {
         &::after {
-          position: absolute;
-          top: 0;
-          right: 0;
+          @include position.position(absolute, 0 0 auto auto);
           display: inline-block;
           width: 25px;
           height: 25px;

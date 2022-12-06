@@ -4,6 +4,7 @@ import NaverProvider from 'next-auth/providers/naver'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
+import { IAuthAccount, IAuthSession, IAuthToken, IAuthUser } from 'types/auth'
 
 const confirmPasswordHash = (plainPassword: string, hashedPassword: string) => {
   return new Promise((resolve) => {
@@ -62,6 +63,10 @@ export default NextAuth({
       clientId: process.env.NAVER_CLIENT_ID || '',
       clientSecret: process.env.NAVER_CLIENT_SECRET || '',
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    }),
   ],
   secret: process.env.NEXT_AUTH_SECRET_KEY,
   session: {
@@ -90,15 +95,17 @@ export default NextAuth({
         return false
       }
     },
-    session: async ({ session, token }) => {
+    session: async ({ session, token }: { session: IAuthSession; token: IAuthToken }) => {
       console.log('session: ', session)
-      console.log('account?.token: ', token)
-      session.user = token
+      console.log('session?.token: ', token)
+
+      session.user = token as IAuthToken
       return session
     },
     jwt: async ({ token, user, account }) => {
+      console.log('token: ', token)
       console.log('user: ', user, account?.type)
-      console.log('account?.type: ', account?.type)
+      console.log('account?.type: ', account)
       if (user && account?.type === 'oauth') {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user?.email}`)
         const data = await response.json()

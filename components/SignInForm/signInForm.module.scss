@@ -1,5 +1,7 @@
 @use '/styles/constants/colors';
 @use '/styles/mixins/responsive';
+@use '/styles/mixins/animation';
+@use '/styles/mixins/position';
 
 .signInForm {
   .signInButtonWrapper {
@@ -21,6 +23,20 @@
         background-color: colors.$SIGN_BUTTON_HOVER_BACKGROUND;
       }
     }
+  }
+
+  .loadingBar {
+    @include position.position(absolute, 15px auto auto 0);
+    width: 100%;
+    height: 4px;
+    margin: auto;
+    background: linear-gradient(to right, rgb(250, 166, 10), rgb(255, 196, 109));
+    background-color: #cccccc69;
+    background-repeat: repeat-y;
+    background-position: -25% 0;
+    background-size: 20%;
+    border-radius: 4px;
+    animation: loadingScroll 1.2s ease-in-out infinite;
   }
 
   :root[color-theme='dark'] & {

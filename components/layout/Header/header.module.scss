@@ -6,11 +6,11 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   background-color: colors.$HEADER_BACKGROUND_COLOR;
 
   .leftMenu {
-    position: relative;
+    @include position.position(relative, auto);
     display: flex;
     align-items: center;
   }
@@ -34,7 +34,7 @@
   }
 
   .rightMenu {
-    position: relative;
+    @include position.position(relative, auto);
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -5,7 +5,7 @@ export interface IUser {
   _id?: string
   id: string
   name: string
-  password: string
+  password?: string
   email: string
   phone: string
   likes?: IProductItem[]

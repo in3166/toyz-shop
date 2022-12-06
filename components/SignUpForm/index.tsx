@@ -1,6 +1,5 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
+import React, { FormEvent, useRef, useState } from 'react'
 import { useI18n } from 'hooks'
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 import useFormInput from 'hooks/useFormInput'
@@ -28,6 +27,7 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
   const router = useRouter()
   const userEmail = router.query?.email?.toString() ?? ''
   const [snackBarStatus, setSnackBarStatus] = useState('')
+  const [loading, setLoading] = useState(false)
   const { message, setMessage } = useSnackbar(5000)
 
   const id = useFormInput({ validateFunction: validateId })
@@ -37,10 +37,12 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
   const email = useFormInput({ validateFunction: validateEmail, initialValue: userEmail || '' })
 
   const handleOnSubmit = async (e: FormEvent) => {
+    setLoading(true)
     e.preventDefault()
     if (!id.valueIsValid || !password.valueIsValid || !phone.valueIsValid || !name.valueIsValid) {
       setSnackBarStatus('warning')
       setMessage(`${t('common:signUp.snackBar')}`)
+      setLoading(false)
       return
     }
 
@@ -57,10 +59,12 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
       setSnackBarStatus('error')
       setMessage(`[${error.code || 'Error'}]: ${error.message}`)
     }
+    setLoading(false)
   }
 
   return (
     <form onSubmit={handleOnSubmit} className={styles.signUpForm}>
+      {loading && <div className={styles.loadingBar} />}
       <InputText
         type='text'
         formTitle={`${t('common:signUp.titleID')}`}

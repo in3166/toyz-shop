@@ -3,7 +3,7 @@ function validateId(value: string) {
 }
 
 function validatePassword(value: string) {
-  return /^(?=.*\d)(?=.*[a-z]).{6,20}$/.test(value)
+  return /^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/.test(value)
 }
 
 function validateName(value: string) {

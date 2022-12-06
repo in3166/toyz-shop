@@ -21,6 +21,7 @@ const UsersSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter the User's email."],
       maxlength: [1000, 'Email cannot be more than 1000 characters'],
+      unique: 1,
     },
     phone: {
       required: [true, "Please enter the User's Phone Number."],

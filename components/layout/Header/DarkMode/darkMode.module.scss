@@ -1,7 +1,8 @@
 @use '/styles/constants/colors';
+@use '/styles/mixins/position';
 
 .switch {
-  position: relative;
+  @include position.position(relative, auto);
   display: inline-block;
   width: 54px;
   height: 28px;
@@ -14,20 +15,14 @@
 }
 
 .slider {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  @include position.position(absolute, 0 0 0 0);
   cursor: pointer;
   background-color: colors.$GRAYA;
   border-radius: 34px;
   transition: 0.2s;
 
   &::before {
-    position: absolute;
-    bottom: 3px;
-    left: 4px;
+    @include position.position(absolute, auto auto 3px 4px);
     width: 22px;
     height: 22px;
     content: '';
@@ -56,8 +51,7 @@ input:checked + .slider::before {
 }
 
 .text {
-  position: absolute;
-  top: 6px;
+  @include position.position(absolute, 6px auto auto auto);
   z-index: 9;
   font-size: 5px;
   color: colors.$GRAYE;

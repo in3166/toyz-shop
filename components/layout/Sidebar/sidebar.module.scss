@@ -2,15 +2,14 @@
 @use '/styles/constants/levels';
 @use '/styles/mixins/responsive';
 @use '/styles/mixins/flexbox';
+@use '/styles/mixins/position';
 
 .hideSidebar {
   width: 0 !important;
   min-width: 0 !important;
 
   .menuToggle {
-    position: fixed;
-    bottom: 10px;
-    left: 13px;
+    @include position.position(fixed, auto auto 10px 13px);
   }
 }
 
@@ -136,8 +135,6 @@
   min-width: levels.$SIDEBAR_WIDTH;
 
   .menuToggle {
-    position: fixed;
-    bottom: 10px;
-    left: 193px;
+    @include position.position(fixed, auto auto 10px 193px);
   }
 }

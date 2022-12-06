@@ -1,9 +1,10 @@
 @use '/styles/constants/colors';
+@use '/styles/mixins/position';
 
 $ASSET_PATH: '/assets/svgs/';
 
 .select {
-  position: relative;
+  @include position.position(relative, auto);
 
   .categoryIndicator {
     width: 10px;
@@ -28,7 +29,7 @@ $ASSET_PATH: '/assets/svgs/';
   }
 
   ul {
-    position: absolute;
+    @include position.position(absolute, auto);
     z-index: 4;
     width: 100%;
     height: auto;

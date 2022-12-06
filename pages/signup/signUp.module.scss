@@ -2,16 +2,18 @@
 @use '/styles/mixins/responsive';
 
 .formWrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 50%;
   min-width: 270px;
-  max-width: 500px;
+  max-width: 450px;
   height: auto;
   padding: 35px;
   margin: 30px;
   background-color: colors.$SIGN_BACKGROUND;
   border-radius: 10px;
+  box-shadow: 0 0 27px 11px #555555;
 
   header {
     font-size: 20px;

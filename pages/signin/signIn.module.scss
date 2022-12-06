@@ -2,6 +2,7 @@
 @use '/styles/mixins/responsive';
 
 .formWrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -12,6 +13,7 @@
   margin: 30px;
   background-color: colors.$SIGN_BACKGROUND;
   border-radius: 10px;
+  box-shadow: 0 0 15px 3px #30303057;
 
   header {
     font-size: 20px;
@@ -69,10 +71,3 @@
     width: 85%;
   }
 }
-
-// input::-ms-reveal,
-// input::-ms-clear {
-//   position: absolute;
-//   top: 1px;
-//   right: 30px;
-// }

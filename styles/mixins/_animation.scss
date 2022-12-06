@@ -32,3 +32,13 @@
     opacity: 1;
   }
 }
+
+@keyframes loadingScroll {
+  50% {
+    background-size: 80%;
+  }
+
+  100% {
+    background-position: 125% 0;
+  }
+}

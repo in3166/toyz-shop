@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from 'lib/dbConnect'
 import User from 'lib/models/Users'
+import { isEmpty } from 'lodash'
+import { getErrorMessage } from 'lib/errorHandler'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
@@ -25,16 +27,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case 'PUT':
       try {
-        const user = await User.findByIdAndUpdate(userId, req.body, {
-          new: true,
+        const user = await User.findOneAndUpdate({ id: userId }, req.body, {
+          new: false,
           runValidators: true,
         })
+        console.log(user)
         if (!user) {
-          return res.status(400).json({ success: false })
+          return res.status(400).json({ success: false, error: { code: 10001 } })
         }
-        res.status(200).json({ success: true, data: user })
+        res.status(200).json({ success: true, user })
       } catch (error) {
-        res.status(400).json(error)
+        const message = getErrorMessage(error)
+        console.log(message)
+        res.status(400).json({ success: false, error, message })
       }
       break
 

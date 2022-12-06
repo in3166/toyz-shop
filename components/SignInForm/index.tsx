@@ -31,9 +31,11 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
     if (!id.valueIsValid || !password.valueIsValid) {
       setSnackBarStatus('warning')
       setMessage(`${t('common:signIn.snackBarValid')}`)
+      setLoading(false)
+      return
     }
+
     const error = await onSignIn(id.value, password.value)
-    console.log(error)
 
     if (error) {
       setSnackBarStatus('error')
@@ -44,6 +46,7 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
 
   return (
     <form onSubmit={handleOnSubmit} className={styles.signInForm}>
+      {loading && <div className={styles.loadingBar} />}
       <InputText
         type='text'
         formTitle={`${t('common:signIn.titleID')}`}
@@ -71,11 +74,6 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
         </button>
       </div>
       {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
-      {loading && (
-        <Modal>
-          <Loading />
-        </Modal>
-      )}
     </form>
   )
 }

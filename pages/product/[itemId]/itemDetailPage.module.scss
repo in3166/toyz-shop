@@ -1,5 +1,6 @@
 @use '/styles/constants/colors';
 @use '/styles/mixins/responsive';
+@use '/styles/mixins/position';
 
 .header {
   padding: 10px;
@@ -11,7 +12,7 @@
 }
 
 .main {
-  position: relative;
+  @include position.position(relative, auto);
   display: flex;
   justify-content: space-between;
   padding: 10px 0 25px;
@@ -45,9 +46,7 @@
   }
 
   .buyButton {
-    position: absolute;
-    right: 10px;
-    bottom: -10px;
+    @include position.position(absolute, auto 10px -10px auto);
     padding: 10px 20px;
     border: 1px solid colors.$GRAY3;
     border-radius: 5px;

@@ -52,7 +52,7 @@ const SignIn = (): JSX.Element => {
         <button type='button' onClick={() => signIn('naver', { callbackUrl: '/' })}>
           <Image width={30} height={30} src='/svgs/naver_icon.png' alt='naver login icon' />
         </button>
-        <button type='button' onClick={() => signIn('naver', { callbackUrl: '/' })}>
+        <button type='button' onClick={() => signIn('google', { callbackUrl: '/' })}>
           <Image width={27} height={27} src='/svgs/google_icon.png' alt='google login icon' />
         </button>
       </footer>

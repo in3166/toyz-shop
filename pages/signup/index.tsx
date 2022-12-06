@@ -18,7 +18,7 @@ const SignUp: NextPage = () => {
     enteredUserData.likes = []
     try {
       const response = await fetch('/api/users', {
-        method: 'PUT',
+        method: 'POST',
         body: JSON.stringify(enteredUserData),
         headers: {
           'Content-Type': 'application/json',
@@ -27,9 +27,10 @@ const SignUp: NextPage = () => {
 
       const signUpResult = await response.json()
       if (!signUpResult.success) {
-        const message = !signUpResult.error.message
-          ? errorHandler(signUpResult.error?.code)
-          : signUpResult.error.message
+        const field = signUpResult.error?.keyValue?.email !== undefined ? 'Email' : 'ID'
+
+        let message = !signUpResult.error.message ? errorHandler(signUpResult.error?.code) : signUpResult.error.message
+        message += ` (${field})`
         return { ...signUpResult.error, message }
       }
 
