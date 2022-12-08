@@ -3,36 +3,31 @@
 
 .slider {
   width: 100%;
+  margin-bottom: 50px;
+  background-color: colors.$WHITE;
 
   .dots {
-    bottom: 0;
+    bottom: -25px;
     z-index: 3;
   }
 
   img {
-    width: 100%;
-    height: 350px;
+    height: 300px;
+    margin: auto;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 50%);
+    box-shadow: 14px 14px 9px 3px rgba(52, 52, 52, 20%);
+    transform: skewY(-2.5deg) translateY(-2.7%);
     object-fit: contain;
-    background-color: colors.$MAIN_COLOR;
   }
 
   .dlContent dt {
     width: 55px;
   }
 
-  &::after {
-    @include position.position(absolute, auto auto 0 auto);
-    width: 100%;
-    height: 25px;
-    content: '';
-    background: linear-gradient(to bottom right, transparent 48%, colors.$MAIN_COLOR 50.25%);
-  }
-
   :root[color-theme='dark'] & {
+    background-color: colors.$BANNER_DARK_FONT_COLOR;
+
     img {
-      width: 100%;
-      height: 350px;
-      object-fit: contain;
       background-color: #dad6d3 !important;
     }
 

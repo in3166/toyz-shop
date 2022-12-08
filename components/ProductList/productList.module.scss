@@ -3,18 +3,6 @@
 @use '/styles/mixins/flexbox';
 @use '/styles/mixins/animation';
 
-.main {
-  width: 100%;
-  min-width: 200px;
-  max-width: 100%;
-  height: 100%;
-  background-color: colors.$MAIN_COLOR;
-
-  :root[color-theme='dark'] & {
-    background-color: colors.$BACKGROUND_COLOR !important;
-  }
-}
-
 .cardContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

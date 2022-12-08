@@ -1,4 +1,4 @@
-import dbConnect from 'lib/dbConnect'
+import dbConnect from 'pages/api/dbConnect'
 import Product from 'lib/models/Products'
 import User from 'lib/models/Users'
 import { NextApiRequest, NextApiResponse } from 'next'

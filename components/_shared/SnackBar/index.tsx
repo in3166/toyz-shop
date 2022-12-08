@@ -1,6 +1,7 @@
 import { cx } from 'styles'
 import styles from './snackBar.module.scss'
 import { CloseIcon } from 'public/svgs'
+import React from 'react'
 
 interface ISnackBarProps {
   message: string
@@ -9,6 +10,7 @@ interface ISnackBarProps {
 }
 
 const SnackBar = ({ message, setMessage, status }: ISnackBarProps) => {
+  console.log(message, status)
   return (
     <div
       role='alert'
@@ -27,4 +29,4 @@ const SnackBar = ({ message, setMessage, status }: ISnackBarProps) => {
   )
 }
 
-export default SnackBar
+export default React.memo(SnackBar)

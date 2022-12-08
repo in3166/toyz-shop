@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import dbConnect from 'lib/dbConnect'
+import { dbConnect } from 'pages/api/middleware/dbConnect'
 import User from 'lib/models/Users'
 import { isEmpty } from 'lodash'
 import { getErrorMessage } from 'lib/errorHandler'

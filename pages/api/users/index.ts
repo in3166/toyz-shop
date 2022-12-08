@@ -2,7 +2,7 @@ import { MongoError } from 'mongodb'
 import { NextApiRequest, NextApiResponse } from 'next'
 import bcrypt from 'bcrypt'
 
-import dbConnect from 'lib/dbConnect'
+import { dbConnect } from 'pages/api/middleware/dbConnect'
 import User from 'lib/models/Users'
 import { MongooseError } from 'mongoose'
 import { IMongooseError } from 'types/mongo'

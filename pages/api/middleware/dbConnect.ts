@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 const MONGODB_URI: string = process.env.NEXT_PUBLIC_MONGO_URI ?? ''
 
@@ -13,7 +14,8 @@ if (!cached) {
   global.mongoose = { conn: null, promise: null }
 }
 
-async function dbConnect() {
+export async function dbConnect() {
+  console.log('db Connect..')
   if (cached.conn) {
     return cached.conn
   }
@@ -38,4 +40,14 @@ async function dbConnect() {
   return cached.conn
 }
 
-export default dbConnect
+export default async function dbMiddleware(req: NextApiRequest, res: NextApiResponse, next: () => void) {
+  console.log('db connected..')
+  try {
+    if (!global.mongoose) {
+      global.mongoose = dbConnect()
+    }
+  } catch (e) {
+    console.error(e)
+  }
+  return next()
+}

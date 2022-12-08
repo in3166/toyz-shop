@@ -5,31 +5,22 @@ import { InputCancelIcon } from 'public/svgs'
 import { cx } from 'styles'
 import styles from './inputText.module.scss'
 
-interface IInputFormProps {
+interface IInputFormProps<T> {
   formTitle: string
-  value: string
+  value: string | number
   onBlur?: () => void
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   reset?: () => void
   hasError?: boolean
   type: string
   errorMessage?: string
-  inputFocusRef?: RefObject<HTMLInputElement>
+  inputFocusRef?: RefObject<HTMLInputElement | HTMLTextAreaElement>
   read?: boolean
+  rows?: number
 }
 
-const InputText = ({
-  type,
-  errorMessage,
-  formTitle,
-  value,
-  onBlur,
-  onChange,
-  reset,
-  hasError,
-  inputFocusRef,
-  read,
-}: IInputFormProps) => {
+const InputText = <T,>(props: IInputFormProps<T>) => {
+  const { formTitle, value, onBlur, onChange, reset, hasError, type, errorMessage, inputFocusRef, read, rows } = props
   const handleResetOnclick = () => {
     if (reset) reset()
   }
@@ -43,17 +34,32 @@ const InputText = ({
       <label htmlFor={formTitle} className={styles.formTitle}>
         {formTitle}
       </label>
-      <input
-        type={type}
-        id={formTitle}
-        value={value}
-        onBlur={onBlur}
-        onChange={onChange}
-        className={cx(styles.inputText, { [styles.readOnlyInput]: read })}
-        ref={inputFocusRef}
-        readOnly={read}
-        autoComplete={`current-${formTitle}`}
-      />
+      {type !== 'textarea' ? (
+        <input
+          type={type}
+          id={formTitle}
+          value={value}
+          onBlur={onBlur}
+          onChange={onChange}
+          className={cx(styles.inputText, { [styles.readOnlyInput]: read })}
+          ref={inputFocusRef as RefObject<HTMLInputElement>}
+          readOnly={read}
+          autoComplete={`current-${formTitle}`}
+        />
+      ) : (
+        // <input type="number" onChange={onChange}/>
+        <textarea
+          id={formTitle}
+          value={value}
+          onBlur={onBlur}
+          onChange={onChange}
+          className={cx(styles.inputTextarea, { [styles.readOnlyInput]: read })}
+          ref={inputFocusRef as RefObject<HTMLTextAreaElement>}
+          readOnly={read}
+          autoComplete={`current-${formTitle}`}
+          rows={rows}
+        />
+      )}
       {!read && <InputCancelIcon className={cx({ [styles.iconHidden]: value === '' })} onClick={handleResetOnclick} />}
       {hasError && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>

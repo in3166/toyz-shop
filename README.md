@@ -57,6 +57,7 @@
 - @types/bcrpt
 - next-auth
 - next-connect: `Express`처럼 미들웨어 형태로 코드 작성 가능
+- multer: 이미지 업로드
 <br>
 
 - Eslint
@@ -201,6 +202,14 @@
 - `react-error-boundary`를 적용했습니다.
   - 메인 페이지에서 API 호출에 오류가 발생하면 Error를 보여줍니다.
   - 에러 메세지와 새로고침 버튼을 제공합니다.
+
+<br><br>
+
+## NextJS, MongoDB 적용
+
+- 회원 정보와 상품 정보를 DB에 저장
+- `next-auth`를 사용해 세션(JWT) 적용, 소셜 로그인 및 회원가입 추가
+
 
 <br><br>
 

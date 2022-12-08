@@ -16,7 +16,7 @@ const slideSettings = {
   infinite: true,
   speed: 700,
   slidesToShow: 1,
-  autoplay: true,
+  autoplay: false,
   slidesToScroll: 1,
   arrows: false,
   dotsClass: `slick-dots ${styles.dots}`,
@@ -54,7 +54,7 @@ const Banner = ({ products }: { products: IProductItem[] }) => {
                 <dl>
                   <div className={styles.dlContent}>
                     <dt>{`${t('common:title')}`}: </dt>
-                    <dd>{value.name}</dd>
+                    <dd>{value.title}</dd>
                   </div>
                   <div className={styles.dlContent}>
                     <dt>{`${t('common:price')}`}: </dt>
@@ -62,7 +62,7 @@ const Banner = ({ products }: { products: IProductItem[] }) => {
                   </div>
                   <div className={styles.dlContent}>
                     <dt>{`${t('common:owner')}`}: </dt>
-                    <dd>{value.name}</dd>
+                    <dd>{value.owner.name}</dd>
                   </div>
                   <div className={styles.dlContent}>
                     <dt>{`${t('common:date')}`}: </dt>

@@ -61,10 +61,6 @@
         color: colors.$GRAYA;
       }
     }
-
-    path {
-      fill: colors.$GRAYE;
-    }
   }
 
   @include responsive.mobileOnly {

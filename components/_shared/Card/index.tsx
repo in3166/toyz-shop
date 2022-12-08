@@ -43,15 +43,15 @@ const Card = ({ item, user, setUser }: ICardProps) => {
 
   return (
     <Link href={`/product/${item._id}`}>
-      <li className={styles.card} title={item.name}>
+      <li className={styles.card} title={item.title}>
         <h3 className={styles.header}>
-          <div className={styles.title}>{item.name}</div>
+          <div className={styles.title}>{item.title}</div>
           <button type='button' className={styles.likeButton} onClick={handleClickLike}>
             {like ? <HeartFillIcon /> : <HeartOutlineIcon />}
           </button>
         </h3>
 
-        <img src={item.image} alt={item.name} className={styles.itemImage} />
+        <img src={item.image} alt={item.title} className={styles.itemImage} />
 
         <dl>
           <div>

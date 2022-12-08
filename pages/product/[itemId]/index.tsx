@@ -30,7 +30,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   }
 
   return (
-    <Container color='white'>
+    <Container color='white' width='md'>
       <header className={styles.header}>{product.name}</header>
       <main className={styles.main}>
         <div className={styles.image}>

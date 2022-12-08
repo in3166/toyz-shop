@@ -30,10 +30,10 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
   const [loading, setLoading] = useState(false)
   const { message, setMessage } = useSnackbar(5000)
 
-  const id = useFormInput({ validateFunction: validateId })
-  const name = useFormInput({ validateFunction: validateName })
-  const password = useFormInput({ validateFunction: validatePassword })
-  const phone = useFormInput({ validateFunction: validatePhoneNumber })
+  const id = useFormInput({ validateFunction: validateId, initialValue: '' })
+  const name = useFormInput({ validateFunction: validateName, initialValue: '' })
+  const password = useFormInput({ validateFunction: validatePassword, initialValue: '' })
+  const phone = useFormInput({ validateFunction: validatePhoneNumber, initialValue: '' })
   const email = useFormInput({ validateFunction: validateEmail, initialValue: userEmail || '' })
 
   const handleOnSubmit = async (e: FormEvent) => {

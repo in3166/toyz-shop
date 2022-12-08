@@ -1,0 +1,133 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+@use '/styles/mixins/animation';
+@use '/styles/mixins/position';
+
+.topWrapper {
+  display: flex;
+
+  .infoWrapper {
+    flex-grow: 2;
+
+    textarea {
+      resize: vertical;
+    }
+  }
+
+  .imageWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    align-self: center;
+    justify-content: space-around;
+    min-height: 100%;
+    text-align: center;
+
+    .previewImage {
+      min-width: 50px;
+      max-width: 250px;
+      min-height: 200px;
+      max-height: 200px;
+    }
+
+    .priviewFilebox {
+      display: flex;
+      justify-content: center;
+      width: 90%;
+      height: 100%;
+      margin: 15px 0 0;
+      vertical-align: bottom;
+
+      .uploadName {
+        display: inline-block;
+        width: 78%;
+        height: 30px;
+        padding: 0 10px;
+        color: colors.$SIGN_DARK_FONT;
+        vertical-align: middle;
+        border: 1px solid colors.$GRAYD;
+      }
+
+      .plus {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        cursor: pointer;
+        background: #999999;
+
+        &:hover {
+          background: #777777;
+        }
+
+        &::before,
+        &::after {
+          position: absolute;
+          content: '';
+          background: colors.$WHITE;
+        }
+
+        &::after {
+          top: 50%;
+          right: 6px;
+          left: 6px;
+          height: 3px;
+          transform: translateY(-50%);
+        }
+
+        &::before {
+          top: 6px;
+          bottom: 6px;
+          left: 50%;
+          width: 3px;
+          transform: translateX(-50%);
+        }
+      }
+
+      .inputFile {
+        position: absolute;
+        width: 0;
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+        cursor: pointer;
+        border: 0;
+      }
+    }
+  }
+}
+
+.submitButtonWrapper {
+  width: 100%;
+  margin-top: 20px;
+  text-align: right;
+
+  .submitButton {
+    padding: 10px 17px;
+    font-size: 13px;
+    font-weight: 500;
+    color: colors.$SIGN_BUTTON;
+    background-color: colors.$SIGN_BUTTON_BACKGROUND;
+    border-radius: 100px;
+
+    &:hover {
+      color: colors.$SIGN_BUTTON_HOVER;
+      background-color: colors.$SIGN_BUTTON_HOVER_BACKGROUND;
+    }
+  }
+}
+
+.loadingBar {
+  @include position.position(absolute, 15px auto auto 0);
+  width: 100%;
+  height: 4px;
+  margin: auto;
+  background: linear-gradient(to right, rgb(250, 166, 10), rgb(255, 196, 109));
+  background-color: #cccccc69;
+  background-repeat: repeat-y;
+  background-position: -25% 0;
+  background-size: 20%;
+  border-radius: 4px;
+  animation: loadingScroll 1.2s ease-in-out infinite;
+}

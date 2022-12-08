@@ -51,10 +51,6 @@
       color: colors.$SIGN_DARK_INPUT !important;
     }
 
-    path {
-      fill: colors.$GRAYE;
-    }
-
     input::placeholder {
       font-size: small;
       color: colors.$SIGN_DARK_PLACEHOLDER;

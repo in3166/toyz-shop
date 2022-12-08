@@ -31,7 +31,14 @@ const UserMenu = () => {
   const loggedInMenu = session && (
     <>
       <li>
-        <button type='button' onClick={() => signOut()} className={styles.logout}>
+        <Link href='/product'>{`${t('gnb.addItem')}`}</Link>
+      </li>
+      <li>
+        <button
+          type='button'
+          onClick={() => signOut({ callbackUrl: process.env.NEXT_PUBLIC_BASE_URL })}
+          className={styles.logout}
+        >
           {`${t('common:gnb.logout')}`}
         </button>
       </li>

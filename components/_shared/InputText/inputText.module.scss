@@ -9,7 +9,7 @@
   margin: 35px 0;
 
   .formTitle {
-    margin-bottom: 0;
+    margin-bottom: 5px;
     font-size: 15px;
     color: colors.$INPUT_TEXT;
   }
@@ -23,7 +23,11 @@
     block-size: 12px;
     width: fit-content;
     cursor: pointer;
-    opacity: 0.3;
+    // opacity: 0.3;
+
+    path {
+      fill: rgb(109, 109, 109);
+    }
 
     &:hover {
       opacity: 0.7;
@@ -33,11 +37,31 @@
   .inputText {
     padding: 5px;
     border-bottom: 1.5px solid colors.$INPUT_BORDER;
-    border-radius: 10px;
+    border-radius: 1px;
+  }
+
+  .inputTextarea {
+    padding: 5px;
+    border: none;
+    border-bottom: 1.5px solid colors.$INPUT_BORDER;
+    border-radius: 3px;
   }
 
   .readOnlyInput {
     background-color: colors.$GRAYE;
+  }
+
+  :root[color-theme='dark'] & {
+    .formTitle {
+      margin-bottom: 5px;
+      color: colors.$DARK_INPUT_TEXT;
+    }
+
+    svg {
+      path {
+        fill: rgb(165, 165, 165);
+      }
+    }
   }
 }
 

@@ -7,6 +7,7 @@
 .hideSidebar {
   width: 0 !important;
   min-width: 0 !important;
+  transition: all 0.2s ease-in-out;
 
   .menuToggle {
     @include position.position(fixed, auto auto 10px 13px);
@@ -21,7 +22,8 @@
   overflow: auto;
   color: colors.$SIDE_FONT_COLOR;
   text-align: center;
-  background-color: colors.$SIDE_BACKGROUND_COLOR;
+  background-color: colors.$WHITE;
+  box-shadow: 0 0 10px 0 rgba(139, 139, 139, 58.9%);
 
   .logo {
     @include flexbox.flexbox;
@@ -33,7 +35,7 @@
 
     a {
       &:visited {
-        color: colors.$SIDE_LINK_RESET;
+        color: colors.$SIDE_FONT_COLOR;
         text-decoration: none;
       }
     }
@@ -46,36 +48,39 @@
   }
 
   .nav {
-    margin-top: 120px;
+    margin: 100px 20px;
+    font-size: 13px;
 
     li {
+      margin: 1px auto;
       cursor: pointer;
 
-      > a {
+      >a {
         display: flex;
         align-items: center;
-        height: 60px;
+        height: 45px;
         padding: 10px 15px;
+        color: colors.$SIDE_FONT_COLOR;
         letter-spacing: 2px;
 
         &:hover {
+          color: colors.$SIDE_LINK_RESET;
           background-color: colors.$SIDE_MENU_HOVER;
         }
 
         &:link {
-          color: colors.$SIDE_LINK_RESET;
+          color: colors.$SIDE_FONT_COLOR;
           text-decoration: none;
         }
 
         &:visited {
-          color: colors.$SIDE_LINK_RESET;
           text-decoration: none;
         }
       }
 
       .isActive {
         width: 100%;
-        font-weight: 700;
+        font-weight: 400;
         color: colors.$SIDE_LINK_RESET;
         background-color: colors.$SIDE_MENU_ACTIVE;
       }
@@ -106,6 +111,7 @@
   :root[color-theme='dark'] & {
     color: colors.$FONT_COLOR;
     background-color: colors.$SIDE_DARK_BACKGROUND_COLOR;
+    box-shadow: 0 0 10px 0 rgba(41, 41, 41, 58.9%);
 
     a,
     button {
@@ -133,6 +139,7 @@
 .openSidebar {
   width: levels.$SIDEBAR_WIDTH;
   min-width: levels.$SIDEBAR_WIDTH;
+  transition: all 0.2s ease-in-out;
 
   .menuToggle {
     @include position.position(fixed, auto auto 10px 150px);

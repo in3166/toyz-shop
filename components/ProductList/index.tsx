@@ -47,20 +47,18 @@ const ProductList = ({ products }: IMainPageProps) => {
   }, [router])
 
   return (
-    <main className={styles.main}>
-      <Container>
-        {productsList?.length < 1 && <div>No Items.</div>}
-        {!isLoading && (
-          <ul className={styles.cardContainer}>
-            {productsList?.map((value) => {
-              return <Card key={value._id} item={value} user={value.owner} setUser={setUser} />
-            })}
-          </ul>
-        )}
-        {/* {!isLoading && <ScrollDetecor setTarget={setTarget} />} */}
-        {isLoading && <Loading />}
-      </Container>
-    </main>
+    <Container width='lg'>
+      {productsList?.length < 1 && <div>No Items.</div>}
+      {!isLoading && (
+        <ul className={styles.cardContainer}>
+          {productsList?.map((value) => {
+            return <Card key={value._id} item={value} user={value.owner} setUser={setUser} />
+          })}
+        </ul>
+      )}
+      {/* {!isLoading && <ScrollDetecor setTarget={setTarget} />} */}
+      {isLoading && <Loading />}
+    </Container>
   )
 }
 

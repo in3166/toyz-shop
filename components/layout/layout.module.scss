@@ -9,14 +9,14 @@
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-  background-color: colors.$MAIN_COLOR;
+  background-color: colors.$WHITE;
 
   :root[color-theme='dark'] & {
-    background-color: colors.$BACKGROUND_COLOR;
+    background-color: colors.$DARK_BACKGROUND_COLOR;
 
     .app {
       color: colors.$MAIN_COLOR;
-      background-color: colors.$BACKGROUND_COLOR;
+      background-color: colors.$DARK_BACKGROUND_COLOR;
     }
 
     .task {
@@ -35,7 +35,8 @@
   width: 100%;
   min-width: 0;
   min-height: 100%;
-  background-color: colors.$MAIN_COLOR;
+  padding: 10px 0 0;
+  background-color: colors.$WHITE;
 
   @include responsive.mobileOnly {
     width: 100%;
@@ -51,28 +52,29 @@
   min-width: 200px;
   max-width: 100%;
   height: 100%;
-  background-color: colors.$MAIN_COLOR;
+  padding: 30px 25px;
+  background-color: colors.$WHITE;
 
   :root[color-theme='dark'] & {
-    background-color: colors.$BACKGROUND_COLOR !important;
+    background-color: colors.$DARK_BACKGROUND_COLOR !important;
   }
 }
 
 .cardContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  grid-gap: 8px;
 
   @include responsive.after(ML) {
-    grid-gap: 40px;
+    grid-gap: 30px;
   }
 
   @include responsive.after(SD) {
-    grid-gap: 50px;
+    grid-gap: 30px;
   }
 
   @include responsive.after(LD) {
-    grid-gap: 60px;
+    grid-gap: 40px;
   }
 }
 
@@ -81,7 +83,7 @@
   margin: 30px 0;
   text-align: center;
 
-  > svg {
+  >svg {
     width: auto;
     height: 50px;
     animation: rotation 1s infinite linear;

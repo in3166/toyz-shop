@@ -1,15 +1,36 @@
 @use '/styles/mixins/responsive';
+@use '/styles/constants/colors';
 
 .container {
   padding: 30px;
-  margin: 35px 20px 50px;
   border-radius: 10px;
+
   @include responsive.mobileOnly {
     padding: 10px;
     margin: 15px 10px 20px;
   }
+
+  :root[color-theme='dark'] & {
+    color: colors.$WHITE;
+  }
+}
+
+.sm {
+  width: 50%;
+}
+
+.md {
+  width: 70%;
+}
+
+.lg {
+  width: 100%;
 }
 
 .white {
   background-color: #efeff1;
+
+  :root[color-theme='dark'] & {
+    background-color: colors.$BANNER_DARK_FONT_COLOR;
+  }
 }

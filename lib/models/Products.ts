@@ -2,10 +2,10 @@ import mongoose from 'mongoose'
 
 const ProductsSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
-      required: [true, 'Please provide a name for this Products.'],
-      maxlength: [60, 'Name cannot be more than 60 characters'],
+      required: [true, 'Please provide a title for this Products.'],
+      maxlength: [60, 'Title cannot be more than 60 characters'],
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,

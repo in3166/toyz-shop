@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -31,9 +30,8 @@ export const getServerSideProps = async ({ locale, locales }: { locale: string; 
   })
 
   const data = await response.json()
-  console.log('data:', data)
   const { products } = data
-
+  console.log(products)
   // if (data.success)
   return {
     props: {

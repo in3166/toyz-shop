@@ -7,8 +7,15 @@ export interface IProductItem {
   description: string
   createdAt: date
   updatedAt?: date
-  name: string
+  title: string
   owner: IUser
+}
+
+interface IOnUploadSubmit {
+  owner?: string | undefined
+  title: string
+  description: string
+  price: number
 }
 
 export interface IProductAPI {

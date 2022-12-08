@@ -58,8 +58,7 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
       <Provider store={store}>
         <RecoilRoot>
           <SessionProvider session={props.session}>
-            <Layout>
-              <Header languageList={LANGUAGE_LIST} isDark={darkMode} />
+            <Layout languageList={LANGUAGE_LIST} isDark={darkMode}>
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Component {...props} />
               </ErrorBoundary>
