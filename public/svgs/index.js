@@ -15,7 +15,7 @@ import SettingIcon from './setting.svg'
 import ProfileIcon from './profile.svg'
 import LoadingSpinner from './spinner.svg'
 import TrashIcon from './trash.svg'
-import KakaoIcon from './kakaoTalk_logo.svg'
+import KakaoIcon from './kakaotalk_logo.svg'
 import PlusIcon from './plusIcon.svg'
 
 export {
