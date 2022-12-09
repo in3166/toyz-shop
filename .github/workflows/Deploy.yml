@@ -12,14 +12,14 @@ env:
 jobs:
   deploy:
     name: Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 19
+          node-version: 19.x
 
       - name: Create .env file 
         run: | 
@@ -28,7 +28,7 @@ jobs:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build next app
         run: npm run build
