@@ -8,6 +8,7 @@
     "start": "next start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "deploy": "pm2 startOrRestart ecosystem.config.js",
     "deploy:local": "pm2 startOrRestart ecosystem.config.js --env local",
     "deploy:dev": "pm2 startOrRestart ecosystem.config.js --env development",
     "deploy:prod": "pm2 startOrRestart ecosystem.config.js --env production"
