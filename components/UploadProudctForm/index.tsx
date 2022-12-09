@@ -27,7 +27,6 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
   const [imageFile, setImageFile] = useState<File>()
   const [imagePreviewUrl, setImagePreviewUrl] = useState(DEFAULT_IMAGE_PATH)
   const { data: session, status } = useSession()
-  console.log('session: ', session, status)
 
   useEffect(() => {
     if (!session && status !== 'loading') {
@@ -57,7 +56,6 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
 
   const handleOnSubmit = async (e: FormEvent) => {
     setLoading(true)
-    console.log(imageFile)
     e.preventDefault()
     if (!imageFile) {
       setSnackBarStatus('warning')
@@ -81,6 +79,7 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
 
     // console.log(data)
     const error = await onUploadSubmit(data, imageFile)
+    // eslint-disable-next-line no-console
     console.log(error)
     setLoading(false)
   }

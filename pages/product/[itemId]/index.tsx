@@ -19,7 +19,6 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { message, setMessage } = useSnackbar(3000)
 
   const { product } = pageProps
-  console.log('!!!: ', product)
 
   const handleOpenModal = () => {
     setOpenModal(true)
@@ -77,7 +76,6 @@ export async function getStaticPaths() {
   })
 
   const data = await response.json()
-  console.log('data1:', data.products)
   const { products } = data
 
   return {
@@ -96,7 +94,6 @@ interface IGetStaticProps {
 
 export const getStaticProps = async (context: IGetStaticProps) => {
   const { locale, locales, params } = context
-  console.log(params.itemId)
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${params.itemId}`, {
     method: 'GET',
     headers: {
@@ -105,7 +102,6 @@ export const getStaticProps = async (context: IGetStaticProps) => {
   })
 
   const data = await response.json()
-  console.log('data2:', data)
   const { product } = data
 
   return {

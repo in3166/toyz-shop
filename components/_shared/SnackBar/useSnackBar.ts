@@ -14,7 +14,6 @@ export const useSnackbar = (ms = 5000) => {
   }
 
   useUpdateEffect(() => {
-    console.log(timer.current)
     if (timer.current) clearTimer()
     if (message !== '') {
       timer.current = setTimeout(() => {

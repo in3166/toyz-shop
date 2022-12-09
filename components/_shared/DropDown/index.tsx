@@ -24,7 +24,6 @@ const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChang
     const selectedValue = e.currentTarget.value
     setCurrentValue(selectedValue)
     setSelectIsOpen(false)
-    console.log(currentValue !== selectedValue, 'currentValue: ', currentValue, ' /selectedValue: ', selectedValue)
     if (currentValue !== selectedValue && handleChangedValue) handleChangedValue(selectedValue || 'korean')
   }
 

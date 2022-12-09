@@ -15,7 +15,6 @@ import localStore from 'store'
 
 import wrapper from '../stores'
 import Layout from 'components/layout'
-import Header from 'components/layout/Header'
 import ErrorFallback from 'components/layout/ErrorFallback'
 import 'styles/index.scss'
 

@@ -15,7 +15,6 @@ if (!cached) {
 }
 
 export async function dbConnect() {
-  console.log('db Connect..')
   if (cached.conn) {
     return cached.conn
   }
@@ -41,12 +40,12 @@ export async function dbConnect() {
 }
 
 export default async function dbMiddleware(req: NextApiRequest, res: NextApiResponse, next: () => void) {
-  console.log('db connected..')
   try {
     if (!global.mongoose) {
       global.mongoose = dbConnect()
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
   }
   return next()

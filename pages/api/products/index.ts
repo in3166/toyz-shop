@@ -2,7 +2,6 @@ import Product from 'lib/models/Products'
 import User from 'lib/models/Users'
 import { NextApiRequest, NextApiResponse } from 'next'
 import handlers from '../middleware/_handlers'
-import nextConnect from 'next-connect'
 import formidable from 'formidable'
 import { v1 } from 'uuid'
 
@@ -18,7 +17,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).json({ success: true, products })
 })
 
-const asyncParse = (req: NextApiRequest) =>
+const asyncPares = (req: NextApiRequest): Promise<{ fields: any; files: any }> =>
   new Promise((resolve, reject) => {
     const form = new formidable.IncomingForm({
       uploadDir: `./public/products`,
@@ -45,21 +44,16 @@ const asyncParse = (req: NextApiRequest) =>
   })
 
 handler.post(async (req: any, res: NextApiResponse) => {
-  const form = new formidable.IncomingForm()
-  console.log('form ', form)
-  const result = await asyncParse(req)
+  // const form = new formidable.IncomingForm()
+  const result = await asyncPares(req)
   const { fields, files } = result
+
   const body = JSON.parse(fields.body)
-  console.log(body)
-  console.log(files.file.newFilename)
   body.data.image = `/products/${files.file.newFilename}`
 
-  console.log(body)
-  console.log(body.data)
   const products = await Product.create(body.data)
-  console.log(products)
   // res.status(200).json({ success: true, products })
-  res.status(201).json({ success: true, data: result })
+  res.status(201).json({ success: true, data: products })
 })
 
 export default handler

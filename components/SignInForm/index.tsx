@@ -7,9 +7,7 @@ import { validateId, validatePassword } from 'utils/validates/validateInput'
 import InputText from 'components/_shared/InputText'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import Loading from 'components/_shared/Loding'
 import styles from './signInForm.module.scss'
-import Modal from 'components/_shared/Modal'
 
 interface ISignInFormProps {
   onSignIn: (id: string, password: string) => Promise<IMongooseError | null>

@@ -1,21 +1,18 @@
-import { ChangeEvent, useState } from 'react'
 import type { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import { NextPageContext } from 'next/types'
-import dayjs from 'dayjs'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useI18n } from 'hooks'
-import { IOnUploadSubmit, IProductItem } from 'types/product'
+import { IOnUploadSubmit } from 'types/product'
 import Container from 'components/_shared/Container'
 import UploadImageForm from 'components/UploadProudctForm'
 import errorHandler from 'lib/errorHandler'
 
-const AddProudctPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
+const AddProudctPage: NextPage<AppProps> = () => {
   const t = useI18n()
 
   const handleSubmit = async (data: IOnUploadSubmit, file: File) => {
-    console.log('1: ', data, file)
     const formData = new FormData()
     formData.append(
       'body',
@@ -24,16 +21,13 @@ const AddProudctPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
       })
     )
     formData.append('file', file)
-    console.log('2')
 
     const response = await fetch('/api/products', {
       method: 'POST',
       body: formData,
     })
-    console.log('3', response)
 
     const uploadResult = await response.json()
-    console.log('uploadResult', uploadResult)
     if (!uploadResult?.success) {
       const field = uploadResult.error?.keyValue?.email !== undefined ? 'Email' : 'ID'
 

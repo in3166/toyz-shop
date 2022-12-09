@@ -12,7 +12,7 @@ import { useI18n } from 'hooks'
 const AdminSetting = () => {
   const t = useI18n()
   const router = useRouter()
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   useEffect(() => {
     if (session?.user?.role !== 0) router.replace('/')

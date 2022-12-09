@@ -33,7 +33,6 @@ export function useIntersectionObserver(
         setTimeout(() => {
           getProudcts(pageNumber)
             .then((res) => {
-              console.log(res.data)
               dispatch(setProductList(res.data))
               setproductsList((prev) => [...prev, ...res.data])
             })
@@ -46,7 +45,7 @@ export function useIntersectionObserver(
         }, 900)
       }
     },
-    [currentPage, dispatch, handleError, setCurrentPage, setIsLoading]
+    [currentPage, dispatch, handleError, setCurrentPage, setIsLoading, setproductsList]
   )
 
   useEffect(() => {

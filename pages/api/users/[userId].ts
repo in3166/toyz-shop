@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { dbConnect } from 'pages/api/middleware/dbConnect'
 import User from 'lib/models/Users'
-import { isEmpty } from 'lodash'
 import { getErrorMessage } from 'lib/errorHandler'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -31,14 +30,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           new: false,
           runValidators: true,
         })
-        console.log(user)
         if (!user) {
           return res.status(400).json({ success: false, error: { code: 10001 } })
         }
         res.status(200).json({ success: true, user })
       } catch (error) {
         const message = getErrorMessage(error)
-        console.log(message)
         res.status(400).json({ success: false, error, message })
       }
       break

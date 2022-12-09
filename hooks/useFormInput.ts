@@ -15,13 +15,10 @@ const useFormInput = ({ validateFunction, initialValue = '' }: IUseFormInputProp
 
   const hasError = !valueIsValid && isTouched
 
-  const valueChangeHandler = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value: currentValue } = e.currentTarget
-      setValue(currentValue)
-    },
-    [initialValue]
-  )
+  const valueChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value: currentValue } = e.currentTarget
+    setValue(currentValue)
+  }, [])
 
   const valueClickHandler = useCallback((e: MouseEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value: currentValue } = e.currentTarget

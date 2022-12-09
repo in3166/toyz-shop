@@ -1,4 +1,4 @@
-import dbConnect from 'pages/api/dbConnect'
+import { dbConnect } from 'pages/api/middleware/dbConnect'
 import Product from 'lib/models/Products'
 import User from 'lib/models/Users'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -8,9 +8,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     query: { text },
     method,
   } = req
-  console.log('text:', text)
-  console.log(text)
-  console.log(req.query)
   await dbConnect()
 
   switch (method) {
@@ -21,7 +18,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           model: User,
           select: '-password',
         })
-        console.log(text, product)
         if (!product) {
           return res.status(400).json({ success: false })
         }

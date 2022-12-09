@@ -1,13 +1,11 @@
-import Link from 'next/link'
 import Slider from 'react-slick'
 import dayjs from 'dayjs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import { IProductItem } from 'types/product'
-import { useAppSelector, useI18n, useState } from 'hooks'
+import { useI18n, useState } from 'hooks'
 import { useRouter } from 'next/router'
-import { getBannerList } from 'stores/reducer/banner'
 import styles from './banner.module.scss'
 import { MouseEvent } from 'react'
 
@@ -34,7 +32,6 @@ const Banner = ({ products }: { products: IProductItem[] }) => {
     }
   }
 
-  const bannerList: IProductItem[] = useAppSelector(getBannerList)
   return (
     <Slider {...slideSettings} className={styles.slider}>
       {products?.length > 0 &&

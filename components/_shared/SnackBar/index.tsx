@@ -10,7 +10,6 @@ interface ISnackBarProps {
 }
 
 const SnackBar = ({ message, setMessage, status }: ISnackBarProps) => {
-  console.log(message, status)
   return (
     <div
       role='alert'

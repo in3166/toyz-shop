@@ -31,7 +31,6 @@ export const getServerSideProps = async ({ locale, locales }: { locale: string; 
 
   const data = await response.json()
   const { products } = data
-  console.log(products)
   // if (data.success)
   return {
     props: {

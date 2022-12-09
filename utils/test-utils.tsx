@@ -4,7 +4,6 @@ import { render as rtlRender } from '@testing-library/react'
 import { configureStore } from '@reduxjs/toolkit'
 import type { PreloadedState } from '@reduxjs/toolkit'
 import { ErrorBoundary } from 'react-error-boundary'
-import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
 

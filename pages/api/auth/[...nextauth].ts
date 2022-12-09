@@ -4,7 +4,7 @@ import NaverProvider from 'next-auth/providers/naver'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
-import { IAuthAccount, IAuthSession, IAuthToken, IAuthUser } from 'types/auth'
+import { IAuthSession, IAuthToken } from 'types/auth'
 
 const confirmPasswordHash = (plainPassword: string, hashedPassword: string) => {
   return new Promise((resolve) => {
@@ -77,7 +77,7 @@ export default NextAuth({
     secret: 'secret_toyz_669',
   },
   callbacks: {
-    async signIn({ user, account, credentials }) {
+    async signIn({ user, account }) {
       try {
         if (account?.type === 'credentials') {
           return true
@@ -98,7 +98,6 @@ export default NextAuth({
       return session
     },
     jwt: async ({ token, user, account }) => {
-      console.log('token: ', token)
       if (user && account?.type === 'oauth') {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user?.email}`)
         const data = await response.json()

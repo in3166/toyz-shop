@@ -8,12 +8,11 @@ import styles from './likesPage.module.scss'
 
 const LikesPage = () => {
   const [user, setUser] = useRecoil(currentUserState)
-  const { data } = user
 
-  if (data.id === 'admin') return <div className={styles.empty}>You are admin.</div>
-  if (!data || data.id === '') return <div className={styles.empty}>You need to log in.</div>
+  if (user.id === 'admin') return <div className={styles.empty}>You are admin.</div>
+  if (!user || user.id === '') return <div className={styles.empty}>You need to log in.</div>
 
-  const userLikes = data?.likes || []
+  const userLikes = user?.likes || []
   if (userLikes.length < 1) return <div className={styles.empty}>No Items.</div>
 
   return (
@@ -21,7 +20,7 @@ const LikesPage = () => {
       <Container>
         <ul className={styles.cardContainer}>
           {userLikes?.map((value) => {
-            return <Card key={value.id} item={value} user={user} setUser={setUser} />
+            return <Card key={value._id} item={value} user={user} setUser={setUser} />
           })}
         </ul>
       </Container>

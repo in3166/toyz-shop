@@ -1,5 +1,4 @@
 import { Session } from 'next-auth'
-import { IUser } from 'types/user'
 import { IProductItem } from 'types/product'
 
 import { JWT } from 'next-auth/jwt'

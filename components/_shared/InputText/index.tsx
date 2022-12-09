@@ -5,7 +5,7 @@ import { InputCancelIcon } from 'public/svgs'
 import { cx } from 'styles'
 import styles from './inputText.module.scss'
 
-interface IInputFormProps<T> {
+interface IInputFormProps {
   formTitle: string
   value: string | number
   onBlur?: () => void
@@ -19,7 +19,7 @@ interface IInputFormProps<T> {
   rows?: number
 }
 
-const InputText = <T,>(props: IInputFormProps<T>) => {
+const InputText = (props: IInputFormProps) => {
   const { formTitle, value, onBlur, onChange, reset, hasError, type, errorMessage, inputFocusRef, read, rows } = props
   const handleResetOnclick = () => {
     if (reset) reset()

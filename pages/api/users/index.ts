@@ -1,12 +1,8 @@
-import { MongoError } from 'mongodb'
 import { NextApiRequest, NextApiResponse } from 'next'
 import bcrypt from 'bcrypt'
 
 import { dbConnect } from 'pages/api/middleware/dbConnect'
 import User from 'lib/models/Users'
-import { MongooseError } from 'mongoose'
-import { IMongooseError } from 'types/mongo'
-import errorHandler from 'lib/errorHandler'
 
 const SALT_ROUND = 7
 
@@ -32,7 +28,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const user = await User.create(enteredUser)
         res.status(201).json({ success: true, data: user })
       } catch (error) {
-        console.log('er', error)
         res.status(400).json({ success: false, error })
       }
       break

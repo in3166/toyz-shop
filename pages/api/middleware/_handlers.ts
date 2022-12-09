@@ -5,7 +5,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 const handlers = () => {
   return nextConnect({
     onError(error, req: NextApiRequest, res: NextApiResponse, next) {
-      console.log('onError: ', error)
       res.status(501).json({ success: false, error: `Sorry something Happened! ${error.message}` })
       next(error)
     },

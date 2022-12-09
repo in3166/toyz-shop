@@ -7,10 +7,10 @@ import { useI18n } from 'hooks'
 import { IProductItem } from 'types/product'
 import styles from './card.module.scss'
 import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
-import { IDBUser, IUser } from 'types/user'
+import { IUser } from 'types/user'
 import { SetterOrUpdater } from 'recoil'
-import { updateUserDBLikes } from 'services/user'
-import { getTempLikes } from './getTempLikes'
+// import { updateUserDBLikes } from 'services/user'
+// import { getTempLikes } from './getTempLikes'
 
 interface ICardProps {
   item: IProductItem
@@ -22,7 +22,7 @@ const Card = ({ item, user, setUser }: ICardProps) => {
   const t = useI18n()
   const isLiked = false
   // user && user.role === 1 ? user.likes.filter((value) => value.id === item.id).length > 0 : false
-  const [like, setLike] = useState(isLiked)
+  const [like] = useState(isLiked)
 
   const handleClickLike = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
