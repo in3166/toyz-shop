@@ -22,9 +22,9 @@ jobs:
         node-version: 19
 
     - name: Create .env file
-       run: |
+       run:|
         jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
-       env:
+      env:
          SECRETS_CONTEXT: ${{ toJson(secrets) }}
 
     - name: Install dependencies
@@ -45,7 +45,7 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
 
     - name: Code Deploy
       run: |
