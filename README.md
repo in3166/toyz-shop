@@ -63,6 +63,7 @@
 - next-connect: `Express`처럼 미들웨어 형태로 코드 작성 가능
 - formidable: 이미지 업로드
 - actionlint
+
 </details>
 
 <br>
@@ -75,10 +76,8 @@
 
 ## 폴더 구조
 
-
 <details>
 <summary>접기/펼치기</summary>
-
 
 ```
 📦 
@@ -150,6 +149,7 @@
 └─utils
     └─validates
 ```
+
 </details>
 <br><br>
 
@@ -407,11 +407,35 @@ catch (error) {
 
 <br>
 
+### Build 에러
+
+- `next build`는 서버를 실행시켜 놓고 해야한다.
+- 사용되는 컴포넌트는 `pages` 폴더 안에 있으면 안된다!
+-
+
+<br>
+
 ## Unit Test (Jest + React Testing Library)
 
 - 로그인 페이지 유닛 테스트 적용
 - 회원가입 페이지 유닛 테스트 적용
 
+<br>
+
+## CI/CD (EC2, Codedeploy, gihub action)
+
+<details>
+<summary>접기/펼치기</summary>
+
+### Trouble Shooting
+
+- `Missing credentials - please check if this instance was started with an IAM instance profile`
+  - ec2에서 `Codedeploy Agent` 실행이 IAM role 설정보다 빨리 시작해 role을 가져오지 못함
+  - 해결: 재실행해주기
+    - `sudo service codedeploy-agent restart`
+
+</details>
+```
 <br>
 <br>
 
