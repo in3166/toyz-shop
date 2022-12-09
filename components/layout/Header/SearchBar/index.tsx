@@ -35,7 +35,7 @@ const SearchBar = () => {
       return
     }
     // dispatch(searchProduct(searchText))
-    router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/?text=${searchText}`)
+    router.push(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/?text=${searchText}`)
     handleCloseSearchBar()
   }
 

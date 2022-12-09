@@ -36,7 +36,9 @@ const UserMenu = () => {
       <li>
         <button
           type='button'
-          onClick={() => signOut({ callbackUrl: process.env.NEXT_PUBLIC_BASE_URL })}
+          onClick={() =>
+            signOut({ callbackUrl: process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL })
+          }
           className={styles.logout}
         >
           {`${t('common:gnb.logout')}`}

@@ -26,13 +26,16 @@ export default NextAuth({
         }
 
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`, {
-            method: 'POST',
-            body: JSON.stringify({ id, password }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/${id}`,
+            {
+              method: 'POST',
+              body: JSON.stringify({ id, password }),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
 
           const data = await response.json()
           if (!data.success) {
@@ -83,7 +86,9 @@ export default NextAuth({
           return true
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.email}`)
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/${user.email}`
+        )
         const isUserExisted = await response.json()
         if (!isUserExisted.success) {
           return `/signup?email=${user.email}`
@@ -99,7 +104,9 @@ export default NextAuth({
     },
     jwt: async ({ token, user, account }) => {
       if (user && account?.type === 'oauth') {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user?.email}`)
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/${user?.email}`
+        )
         const data = await response.json()
         if (data.success) return { ...token, ...data.user }
       }

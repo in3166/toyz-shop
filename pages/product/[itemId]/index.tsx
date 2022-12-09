@@ -67,7 +67,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
 }
 
 // export async function getStaticPaths() {
-//   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
+//   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL }/api/products`, {
 //     method: 'GET',
 //     headers: {
 //       'Content-Type': 'application/json',
@@ -93,12 +93,15 @@ interface IGetStaticProps {
 
 export const getServerSideProps = async (context: IGetStaticProps) => {
   const { locale, locales, params } = context
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${params.itemId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/products/${params.itemId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  )
   const data = await response.json()
   const { product } = data
 

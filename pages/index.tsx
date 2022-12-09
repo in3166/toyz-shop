@@ -22,12 +22,15 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
 }
 
 export const getServerSideProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/products`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  )
 
   const data = await response.json()
   const { products } = data
