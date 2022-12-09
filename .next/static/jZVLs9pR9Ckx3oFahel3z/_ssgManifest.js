@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fproduct","\u002Fsetting\u002Fadmin","\u002Fsetting\u002Fuser","\u002Fsignin","\u002Fsignup"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

@@ -1,0 +1,22 @@
+{
+  "/_error": "pages/_error.js",
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/api/products/[productId]": "pages/api/products/[productId].js",
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/api/users/[userId]": "pages/api/users/[userId].js",
+  "/api/products/search": "pages/api/products/search.js",
+  "/api/users": "pages/api/users.js",
+  "/api/products": "pages/api/products.js",
+  "/product/[itemId]": "pages/product/[itemId].js",
+  "/": "pages/index.js",
+  "/signup": "pages/signup.js",
+  "/setting/admin": "pages/setting/admin.js",
+  "/setting/user": "pages/setting/user.js",
+  "/signin": "pages/signin.js",
+  "/product": "pages/product.js",
+  "/ko/500": "pages/ko/500.html",
+  "/en/500": "pages/en/500.html",
+  "/ko/404": "pages/ko/404.html",
+  "/en/404": "pages/en/404.html"
+}
