@@ -13,13 +13,14 @@
 
 ## 설명
 
-- 장난감 구매 사이트 구현
-- 회원가입을 통해 Firebase DB에 회원 정보를 저장하고 그에 맞게 로그인합니다.
-- 로그인 후 `Unsplash` API를 사용하여 장난감 이미지를 불러와 리스트로 보여줍니다.
-- 특정 아이템 상단의 하트 아이콘을 눌러 좋아요 기능을 할 수 있으며 해당 값은 Firebase의 DB에 저장합니다.
+- 중고 장난감 거래 사이트 구현
+- 회원가입을 통해 ~~Firebase DB~~ `MongoDB`에 회원 정보를 저장하고  로그인합니다.
+- 로그인 후 ~~`Unsplash` API~~ `MongoDB`에 저장된 상품 게시글을 불러와 리스트로 보여줍니다.
+- 사용자는 상품을 등록할 수 있습니다. (제목, 가격, 이미지, 설명)
+- 특정 아이템 상단의 하트 아이콘을 눌러 좋아요 기능을 할 수 있으며 해당 값은 에 DB에 저장합니다.
 <br>
 
-- 기존 프로젝트에 `NextJS`, `MongoDB` 추가 및 리팩토링 작업 수행
+- 기존 프로젝트에 `NextJS`, `MongoDB` 적용 및 리팩토링 작업 수행
 
 <br>
 
@@ -27,7 +28,10 @@
 
 <br>
 
-## 사용 기술
+## Package
+
+<details>
+<summary>접기/펼치기</summary>
 
 - React
 - Typescript
@@ -55,9 +59,12 @@
 - @types/mongoose(스키마)
 - @types/uuid
 - @types/bcrpt
-- next-auth
+- next-auth: Session/JWT 적용, 소셜 로그인 적용ㅎ
 - next-connect: `Express`처럼 미들웨어 형태로 코드 작성 가능
-- multer: 이미지 업로드
+- formidable: 이미지 업로드
+- actionlint
+</details>
+
 <br>
 
 - Eslint
@@ -68,58 +75,82 @@
 
 ## 폴더 구조
 
+
+<details>
+<summary>접기/펼치기</summary>
+
+
 ```
-├─assets
-│  └─svgs
+📦 
 ├─components
-│  ├─Card
-│  ├─Container
-│  ├─DropDown
-│  ├─InputText
-│  ├─Modal
-│  └─SnackBar
+│  ├─Banner
+│  ├─layout
+│  │  ├─ErrorFallback
+│  │  ├─Footer
+│  │  ├─Header
+│  │  │  ├─DarkMode
+│  │  │  ├─SearchBar
+│  │  │  └─UserMenu
+│  │  └─Sidebar
+│  ├─ProductList
+│  ├─SignInForm
+│  ├─SignUpForm
+│  ├─UploadProudctForm
+│  └─_shared
+│      ├─Card
+│      ├─Container
+│      ├─DropDown
+│      ├─InputText
+│      ├─Loding
+│      ├─Modal
+│      ├─ProtectedRoute
+│      ├─ScrollDetecor
+│      └─SnackBar
+├─fixtures
 ├─hooks
 │  ├─state
 │  └─worker
-├─routes
-│  ├─ItemDetailPage
-│  │  └─BuyItemModal
-│  ├─LikesPage
-│  ├─MainPage
-│  │  └─Banner
-│  ├─SearchPage
-│  ├─SettingPage
-│  │  ├─AdminSetting
+├─lib
+│  └─models
+├─mocks
+├─pages
+│  ├─404
+│  ├─api
+│  │  ├─auth
+│  │  ├─middleware
+│  │  ├─products
+│  │  └─users
+│  ├─likes
+│  ├─product
+│  │  └─[itemId]
+│  │      └─BuyItemModal
+│  ├─setting
+│  │  ├─admin
 │  │  │  └─TabMenu
 │  │  │      ├─TradeChart
 │  │  │      └─UserList
 │  │  │          └─RemoveUserModal
-│  │  └─UserSetting
-│  ├─SignInPage
-│  ├─SignUpPage
-│  └─_shared
-│      ├─ErrorFallback
-│      ├─Footer
-│      ├─Header
-│      │  ├─GNB
-│      │  │  └─DarkMode
-│      │  └─SearchBar
-│      ├─NotFound
-│      ├─ProtectedRoute
-│      └─Sidebar
+│  │  └─user
+│  ├─signin
+│  └─signup
+├─public
+│  ├─locales
+│  │  ├─en
+│  │  └─ko
+│  ├─products
+│  └─svgs
 ├─services
-├─states
+├─stores
+│  └─reducer
 ├─styles
 │  ├─base
 │  ├─constants
 │  └─mixins
 ├─types
 └─utils
-    └─locale
-        ├─en
-        └─ko
+    └─validates
 ```
-
+</details>
 <br><br>
 
 ## 기능
@@ -157,6 +188,13 @@
 - **무한 스크롤**
   - 메인 페이지에서 아래로 스크롤할 경우 다음 아이템 목록을 불러와 출력합니다.
   - `IntersectionObserver` API를 사용하였고 Custom Hook으로 분리하여 구현했습니다.
+
+<br>
+
+### 상품 등록 페이지
+
+- 제목, 상품 이미지, 가격, 설명을 입력 후 등록
+- `formidalble` 사용하여 이미지는 서버에 저장하고 나머지 정보는 DB에 저장
 
 <br>
 
@@ -209,7 +247,6 @@
 
 - 회원 정보와 상품 정보를 DB에 저장
 - `next-auth`를 사용해 세션(JWT) 적용, 소셜 로그인 및 회원가입 추가
-
 
 <br><br>
 
@@ -361,9 +398,19 @@ catch (error) {
 
 <br>
 
-## Trouble Shooting (Test)
+- 이미지 파일 등록하기
+  - `multer`을 사용해 이미지 파일을 서버에 저장한 경험이 있어 이번에도 사용했었다.
+    - 하지만, TypeScript와 NextJS를 사용하면서 막히는 부분이 많았다.
+    - 이전에 했던 동일한 로직을 적용해 봤는데 `storage`를 `multer`에 적용하고 `api`에서 불러오는 과정에서 계속해서 호출이 안됐었다. (~~아직 이유를 잘 모르겟다~~)
+  - `formidable` 라이브러리로 대체
+    - 아주 간단하게 적용할 수 있었고 `NextJS`와 호환이 잘 되어 있다.
 
--
+<br>
+
+## Unit Test (Jest + React Testing Library)
+
+- 로그인 페이지 유닛 테스트 적용
+- 회원가입 페이지 유닛 테스트 적용
 
 <br>
 <br>
@@ -386,3 +433,9 @@ catch (error) {
   - 삭제 시 다른 페이지를 갔다 되돌아 오면 삭제된 리스트가 뜨지 않는 문제가 발생했다.
     - 해결: key에 `users` state의 `length`를 추가했다.
 <br>
+
+- `React` 프로젝트에서 `NextJS`로 프로젝트를 전환 시 고려할 사항이 여럿있었다.
+  - 정말 이 페이지에 SSR이 필요한 지 생각해 볼 필요가 있다.
+  - 장난감 쇼핑몰은 SEO가 적용되어야 하기 때문에 Next를 적용했다.
+  - 기존의 CSR/SPA를 사용한 경우 사용자의 상호작용 반응 속도가 더 빨랐다.
+    - 하지만, 대규모 프로젝트가 될 경우 초기 로딩 속도가 정말 느려질 수 있다.
