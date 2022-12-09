@@ -1,7 +1,7 @@
 import Product from 'lib/models/Products'
 import User from 'lib/models/Users'
 import { NextApiRequest, NextApiResponse } from 'next'
-import handlers from '../middleware/_handlers'
+import handlers from '../../../lib/_handlers'
 import formidable from 'formidable'
 import { v1 } from 'uuid'
 

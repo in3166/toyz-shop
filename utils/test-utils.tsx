@@ -8,15 +8,11 @@ import { Provider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
 
 import type { AppStore, RootState } from '../stores'
-// As a basic setup, import your same slice reducers
 import productsReducer from '../stores/reducer/product'
 import bannerReducer from '../stores/reducer/banner'
 import systemReducer from '../stores/reducer/system'
-// import i18n from '../public/locales/index.mdtsx'
 import ErrorFallback from 'components/layout/ErrorFallback'
 
-// This type interface extends the default options for render from RTL, as well
-// as allows the user to specify other things such as initialState, store.
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
   store?: AppStore
@@ -38,15 +34,12 @@ export function renderWithProviders(
     return (
       <Provider store={store}>
         <RecoilRoot>
-          {/* <I18nextProvider i18n={i18n}> */}
           <ErrorBoundary FallbackComponent={ErrorFallback}>{children}</ErrorBoundary>
-          {/* </I18nextProvider> */}
         </RecoilRoot>
       </Provider>
     )
   }
 
-  // Return an object with the store and all of RTL's query functions
   return { store, ...rtlRender(ui, { wrapper: Wrapper, ...renderOptions }) }
 }
 

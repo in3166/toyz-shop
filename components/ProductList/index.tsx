@@ -27,7 +27,7 @@ const ProductList = ({ products }: IMainPageProps) => {
     setIsLoading(true)
     const { query: searchText } = router
     if (searchText?.text) {
-      fetch(`/api/products/search?text=${searchText?.text}`, {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/search?text=${searchText?.text}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

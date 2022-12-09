@@ -1,4 +1,4 @@
-import { validateId, validatePassword } from './validateInput'
+import { validateId, validatePassword } from '../../utils/validates/validateInput'
 
 describe('test Validate', () => {
   test('validate function should pass on correct input', () => {
