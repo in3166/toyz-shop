@@ -1,11 +1,7 @@
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useState } from 'react'
-import { getProudcts } from 'services/products'
+// import { getProudcts } from 'services/products'
 import { useRecoil } from './state'
 import { currentPageState } from 'stores/page'
-import { setProductList } from 'stores/reducer/product'
-import { useAppDispatch } from './useAppDispatch'
-import { useErrorHandler } from 'react-error-boundary'
-import { IProductItem } from 'types/product'
 
 interface Args extends IntersectionObserverInit {
   freezeOnceVisible?: boolean
@@ -14,11 +10,11 @@ interface Args extends IntersectionObserverInit {
 export function useIntersectionObserver(
   elementRef: RefObject<Element>,
   { threshold = 0 }: Args,
-  setIsLoading: Dispatch<SetStateAction<boolean>>,
-  setproductsList: Dispatch<SetStateAction<IProductItem[]>>
+  setIsLoading: Dispatch<SetStateAction<boolean>>
+  // setproductsList: Dispatch<SetStateAction<IProductItem[]>>
 ) {
-  const dispatch = useAppDispatch()
-  const handleError = useErrorHandler()
+  // const dispatch = useAppDispatch()
+  // const handleError = useErrorHandler()
   const [currentPage, setCurrentPage] = useRecoil(currentPageState)
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null)
 
@@ -30,22 +26,22 @@ export function useIntersectionObserver(
         const pageNumber = currentPage + 1
         setCurrentPage(pageNumber)
 
-        setTimeout(() => {
-          getProudcts(pageNumber)
-            .then((res) => {
-              dispatch(setProductList(res.data))
-              setproductsList((prev) => [...prev, ...res.data])
-            })
-            .catch((err) => {
-              handleError(err)
-            })
-            .finally(() => {
-              setIsLoading(false)
-            })
-        }, 900)
+        // setTimeout(() => {
+        //   getProudcts(pageNumber)
+        //     .then((res) => {
+        //       dispatch(setProductList(res.data))
+        //       setproductsList((prev) => [...prev, ...res.data])
+        //     })
+        //     .catch((err) => {
+        //       handleError(err)
+        //     })
+        //     .finally(() => {
+        //       setIsLoading(false)
+        //     })
+        // }, 900)
       }
     },
-    [currentPage, dispatch, handleError, setCurrentPage, setIsLoading, setproductsList]
+    [currentPage, setCurrentPage, setIsLoading]
   )
 
   useEffect(() => {

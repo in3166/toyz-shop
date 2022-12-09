@@ -1,45 +1,43 @@
-import { MouseEvent, useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
-
+import { MouseEvent, useState } from 'react'
 import { IDBUser } from 'types/user'
 import { useI18n } from 'hooks'
-import { getAllUserDataDB } from 'services/user'
+// import { getAllUserDataDB } from 'services/user'
 
 import RemoveUserModal from './RemoveUserModal'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import { LoadingSpinner, TrashIcon } from 'public/svgs'
+import { TrashIcon } from 'public/svgs'
 import styles from './userList.module.scss'
 
 const UserList = () => {
   const t = useI18n()
-  const [users, setUsers] = useState<IDBUser[]>([])
+  const [users] = useState<IDBUser[]>([])
   const [openModal, setOpenModal] = useState(false)
-  const [selectedID, setSelectedID] = useState<string>('')
+  const [, setSelectedID] = useState<string>('')
   const { message, setMessage } = useSnackbar(3000)
 
-  const { isLoading, data } = useQuery(
-    ['getAllUserDataDB', users.length],
-    () =>
-      getAllUserDataDB().then((res: IDBUser[]) => {
-        return res
-      }),
-    {
-      enabled: true,
-      staleTime: 6 * 50 * 1000,
-      useErrorBoundary: true,
-    }
-  )
+  // const { isLoading, data } = useQuery(
+  //   ['getAllUserDataDB', users.length],
+  //   () =>
+  //     getAllUserDataDB().then((res: IDBUser[]) => {
+  //       return res
+  //     }),
+  //   {
+  //     enabled: true,
+  //     staleTime: 6 * 50 * 1000,
+  //     useErrorBoundary: true,
+  //   }
+  // )
 
-  useEffect(() => {
-    if (data && data.length > 0) setUsers(data)
-  }, [data])
+  // useEffect(() => {
+  //   if (data && data.length > 0) setUsers(data)
+  // }, [data])
 
-  const loading = isLoading && (
-    <div className={styles.loading}>
-      <LoadingSpinner />
-    </div>
-  )
+  // const loading = isLoading && (
+  //   <div className={styles.loading}>
+  //     <LoadingSpinner />
+  //   </div>
+  // )
 
   const handleCloseModal = () => {
     setOpenModal(false)
@@ -78,10 +76,9 @@ const UserList = () => {
             ))}
         </tbody>
       </table>
-      {loading}
-      {openModal && (
-        <RemoveUserModal onClose={handleCloseModal} id={selectedID} setMessage={setMessage} setUsers={setUsers} />
-      )}
+      {/* {loading} */}
+      {openModal && <RemoveUserModal onClose={handleCloseModal} />}
+      {/* id={selectedID} setMessage={setMessage} setUsers={setUsers} */}
       {message && <SnackBar message={message} setMessage={setMessage} />}
     </div>
   )
