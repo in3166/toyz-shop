@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/github_action/app-frontend
+cd /home/ubuntu/github_action
 npm run build
 pm2 start npm --name "toyz_shop" -- start
 pm2 startup

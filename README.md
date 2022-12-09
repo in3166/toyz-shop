@@ -424,18 +424,31 @@ catch (error) {
 
 ## CI/CD (EC2, Codedeploy, gihub action)
 
-<details>
-<summary>접기/펼치기</summary>
+- EC2 인스턴스 생성
+- S3 Bucket 생성
+- Codedeploy 생성
+  - Codedeploy 로그 보기: `tail -F /var/log/aws/codedeploy-agent/codedeploy-agent.log`
+- github action - `./.github/workflow/deploy.yml` 작성
+- `./appspec.yml`, 스크립트 파일 작성
+<br>
 
 ### Trouble Shooting
+
+<details>
+<summary>접기/펼치기</summary>
 
 - `Missing credentials - please check if this instance was started with an IAM instance profile`
   - ec2에서 `Codedeploy Agent` 실행이 IAM role 설정보다 빨리 시작해 role을 가져오지 못함
   - 해결: 재실행해주기
     - `sudo service codedeploy-agent restart`
 
+- `npm/pm2 command not found`
+  - `su` 권리자 계정에서 설치해주기
+
+- 
+
 </details>
-```
+
 <br>
 <br>
 
