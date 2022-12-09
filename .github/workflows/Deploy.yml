@@ -6,8 +6,8 @@ on:
 
 env:
  S3_BUCKET_NAME: toyz-s3-bucket
-  CODE_DEPLOY_APPLICATION_NAME: toyz-code-deploy
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: toyz-server-deploy-group
+ CODE_DEPLOY_APPLICATION_NAME: toyz-code-deploy
+ CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: toyz-server-deploy-group
 
 jobs:
   deploy:
