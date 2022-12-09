@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /home/ubuntu/github_action
-npm install
+npm install --legacy-peer-deps
 npm install pm2 -g
