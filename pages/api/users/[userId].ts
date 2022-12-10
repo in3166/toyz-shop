@@ -9,7 +9,9 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { userId },
   } = req
 
-  const user = await User.findOne({ email: userId })
+  console.log('get [users id]: ', userId)
+
+  const user = await User.findOne({ id: userId })
   if (!user) {
     return res.status(400).json({ success: false, error: { code: 10001 } })
   }
@@ -36,7 +38,7 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { userId },
   } = req
 
-  const deletedUser = await User.deleteOne({ _id: userId })
+  const deletedUser = await User.deleteOne({ id: userId })
   if (!deletedUser) {
     return res.status(400).json({ success: false })
   }
@@ -44,10 +46,11 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { body } = req
+  const { query, body } = req
 
+  console.log('post [users id]: ', body.id)
   const user = await User.findOne({ id: body.id })
-  // console.log('user: ', user)
+  console.log('post [users id]: ', user)
   if (!user) {
     return res.status(400).json({ success: false, error: { code: 10001 } })
   }

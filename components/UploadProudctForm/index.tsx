@@ -86,8 +86,8 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
 
   return (
     <form onSubmit={handleOnSubmit} className={styles.UploadImageForm}>
-      {loading && <div className={styles.loadingBar} />}
       <div className={styles.topWrapper}>
+        {loading && <div className={styles.loadingBar} />}
         <div className={styles.imageWrapper}>
           <img className={styles.previewImage} src={imagePreviewUrl} alt='product preview' />
           <fieldset className={styles.priviewFilebox}>

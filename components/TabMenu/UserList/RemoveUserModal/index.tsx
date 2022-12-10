@@ -1,31 +1,38 @@
 import Modal from 'components/_shared/Modal'
 import { useI18n } from 'hooks'
-import { useCallback } from 'react'
-// import { removeUserDB } from 'services/user'
+import { Dispatch, SetStateAction, useCallback } from 'react'
+import { IUser } from 'types/user'
 import styles from './removeUserModal.module.scss'
 
 interface IRemoveUserModalProps {
   onClose: () => void
-  // setMessage: (text: string) => void
-  // setUsers: Dispatch<SetStateAction<IDBUser[]>>
-  // id: string
+  setMessage: (text: string) => void
+  setUsers: Dispatch<SetStateAction<IUser[]>>
+  id: string
 }
 
-const RemoveUserModal = ({ onClose }: IRemoveUserModalProps) => {
+const RemoveUserModal = ({ onClose, setMessage, setUsers, id }: IRemoveUserModalProps) => {
   const t = useI18n()
-  const handleClickBuy = useCallback(() => {
-    // removeUserDB(id)
-    //   .then(() => {
-    //     setUsers((prev) => prev.filter((user) => user.key !== id))
-    //     setMessage('삭제 완료!')
-    //   })
-    //   .catch((err) => {
-    //     setMessage(`삭제 실패: ${err}`)
-    //   })
-    //   .finally(() => {
-    //     onClose()
-    //   })
-  }, [])
+  const handleClickBuy = useCallback(async () => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(async (response) => {
+        setUsers((prev) => prev.filter((user) => user.id !== id))
+        const result = await response.json()
+        console.log('rsponse del', result)
+        if (response.ok) setMessage('삭제 완료!')
+      })
+      .catch((err) => {
+        setMessage(`삭제 실패: ${err}`)
+      })
+      .finally(() => {
+        onClose()
+      })
+  }, [id, onClose, setMessage, setUsers])
 
   return (
     <Modal onCancel={onClose}>

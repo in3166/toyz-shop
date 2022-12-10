@@ -44,16 +44,21 @@ const asyncPares = (req: NextApiRequest): Promise<{ fields: any; files: any }> =
   })
 
 handler.post(async (req: any, res: NextApiResponse) => {
-  // const form = new formidable.IncomingForm()
-  const result = await asyncPares(req)
-  const { fields, files } = result
+  try {
+    // const form = new formidable.IncomingForm()
+    const result = await asyncPares(req)
+    const { fields, files } = result
+    console.log('fields:', fields)
+    console.log('files:', files)
+    const body = JSON.parse(fields.body)
+    body.data.image = `/products/${files.file.newFilename}`
 
-  const body = JSON.parse(fields.body)
-  body.data.image = `/products/${files.file.newFilename}`
-
-  const products = await Product.create(body.data)
-  // res.status(200).json({ success: true, products })
-  res.status(201).json({ success: true, data: products })
+    const products = await Product.create(body.data)
+    // res.status(200).json({ success: true, products })
+    res.status(201).json({ success: true, data: products })
+  } catch (error) {
+    console.log('upload error: ', error)
+  }
 })
 
 export default handler

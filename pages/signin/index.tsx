@@ -21,7 +21,7 @@ const SignIn = (): JSX.Element => {
         password,
         redirect: false,
       })
-
+      console.log('response signin: ', response)
       if (!response?.ok) {
         const message = errorHandler(Number(response?.error))
         return { code: Number(response?.error), message, name: 'sign in error' }

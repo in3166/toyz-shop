@@ -2,6 +2,7 @@ import { useState } from 'react'
 import dayjs from 'dayjs'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import { useI18n } from 'hooks'
 import { AppProps } from 'next/app'
@@ -11,12 +12,17 @@ import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import BuyItemModal from 'components/BuyItemModal/indedx'
 import styles from './itemDetailPage.module.scss'
 import { ParsedUrlQuery } from 'querystring'
+import Products from 'lib/models/Products'
+import Users from 'lib/models/Users'
+import { IProductItem } from 'types/product'
+import { dbConnect } from 'lib/dbConnect'
+import Loading from 'components/_shared/Loding'
 
 const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const t = useI18n()
   const [openModal, setOpenModal] = useState(false)
   const { message, setMessage } = useSnackbar(3000)
-
+  const router = useRouter()
   const { product } = pageProps
 
   const handleOpenModal = () => {
@@ -25,6 +31,9 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
 
   const handleCloseModal = () => {
     setOpenModal(false)
+  }
+  if (router.isFallback) {
+    return <Loading />
   }
 
   return (
@@ -66,24 +75,21 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   )
 }
 
-// export async function getStaticPaths() {
-//   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL }/api/products`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   })
+export async function getStaticPaths() {
+  await dbConnect()
+  const responseProducts: IProductItem[] = await Products.find({}).populate({
+    path: 'owner',
+    model: Users,
+    select: '-password',
+  })
 
-//   const data = await response.json()
-//   const { products } = data
-
-//   return {
-//     fallback: 'blocking',
-//     paths: products.map((product: IProductItem) => ({
-//       params: { itemId: product._id.toString() },
-//     })),
-//   }
-// }
+  return {
+    fallback: true,
+    paths: responseProducts.map((product: IProductItem) => ({
+      params: { itemId: product._id.toString() },
+    })),
+  }
+}
 
 interface IGetStaticProps {
   locale: string
@@ -91,25 +97,20 @@ interface IGetStaticProps {
   params: ParsedUrlQuery
 }
 
-export const getServerSideProps = async (context: IGetStaticProps) => {
+export const getStaticProps = async (context: IGetStaticProps) => {
   const { locale, locales, params } = context
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/products/${params.itemId}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  )
-  const data = await response.json()
-  const { product } = data
+  await dbConnect()
+  const product = await Products.findOne({ _id: params.itemId }).populate({
+    path: 'owner',
+    model: Users,
+    select: '-password',
+  })
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
       locales,
-      product,
+      product: JSON.parse(JSON.stringify(product || [])),
     },
   }
 }

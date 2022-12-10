@@ -2,8 +2,13 @@
 
 ## 배포
 
-- [페이지 링크](https://toyz-shop.netlify.app/)
-- ID: user1, admin
+- 관리자 계정
+  - ID: admin
+  - PW: qwe123
+
+- [NextJS + MongoDB + Vercel 페이지](https://toyz-shop-in3166.vercel.app/)
+- [React + Firebase + Netlify 페이지](https://toyz-shop.netlify.app/)
+
 <br>
 
 ## 개발자
@@ -28,7 +33,7 @@
 
 <br>
 
-## Package
+## Package 및 Tools
 
 <details>
 <summary>접기/펼치기</summary>
@@ -407,14 +412,6 @@ catch (error) {
 
 <br>
 
-### Build 에러
-
-- `next build`는 서버를 실행시켜 놓고 해야한다.
-- 사용되는 컴포넌트는 `pages` 폴더 안에 있으면 안된다!
--
-
-<br>
-
 ## Unit Test (Jest + React Testing Library)
 
 - 로그인 페이지 유닛 테스트 적용
@@ -424,28 +421,66 @@ catch (error) {
 
 ## CI/CD (EC2, Codedeploy, gihub action)
 
-- EC2 인스턴스 생성
-- S3 Bucket 생성
-- Codedeploy 생성
-  - Codedeploy 로그 보기: `tail -F /var/log/aws/codedeploy-agent/codedeploy-agent.log`
-- github action - `./.github/workflow/deploy.yml` 작성
-- `./appspec.yml`, 스크립트 파일 작성
+- EC2, Codedeploy, gihub action를 사용한 배포
+  - EC2 인스턴스 생성
+  - S3 Bucket 생성
+  - Codedeploy 생성
+    - Codedeploy 로그 보기: `tail -F /var/log/aws/codedeploy-agent/codedeploy-agent.log`
+  - github action - `./.github/workflow/deploy.yml` 작성
+  - `./appspec.yml` 작성
+  - `./deploy.sh`  스크립트 파일 작성
+    - 배포 완료 후 github에 푸시하면 ec2에 자동으로 업로드되는 것까지 확인
+    - 문제: ec2이 free tier의 메모리 부족으로 `npm install` 시 프리징 현상 발생
 <br>
 
-### Trouble Shooting
+- Vercel을 사용해 배포
+  - Vercel에 repository를 연결 후 `deploy.yml` 작성
+  - `next.config.json`의 `swcMinify:false`로 수정: `true`이면 오류 발생
+  - 현재 test 및 production 배포 생략
+
+<br>
+
+### Trouble Shooting (CI/CD - AWS, Codedeploy)
 
 <details>
 <summary>접기/펼치기</summary>
 
-- `Missing credentials - please check if this instance was started with an IAM instance profile`
+### Build 에러
+
+- 사용되는 컴포넌트는 `pages` 폴더 안에 있으면 안된다.
+<br>
+
+- `ECONNREFUSED` 오류
+  - `getStaticPaths`, `getStaticProps`에서는 API를 호출하면 안된다!
+    - Next는 빌드 시 `getServerSideProps`가 아닌 `getStaticProps`, `getStaticPaths`에서 정의한 모든 페이지를 탐지한다.
+    - Next는 어떤 페이지를 빌드할지 결정하기 위해 `getStaticPaths`를 호출한다.
+    - 그 후, 작성할 페이지를 결정 후 `getStaticProps`에서 데이터를 가져온다.
+
+    - 이 때, 개발 서버(next dev)를 종료하고 배포 전 빌드를 시도할 가능성이 있는데 만약 API 호출이 있을 경우 서버에 액세스를 하려해서 오류가 발생한다.
+  - API 호출 대신, 직접 DB에 쿼리를 수행할 수 있다. (DB 서버는 따로 있으므로)
+
+
+  - `getServerSideProps`에서는 API를 호출해도 오류가 발생하지 않지만, 호출을 중복해서 하는 것이 되므로 성능상 저하가 발생한다.
+<br>
+
+- `self is not defined` 오류
+  - 빌드 중 `global` 접근 코드가 존재해서 발생
+<br>
+
+### EC2, Codedeploy 에러
+
+- ec2 log: `Missing credentials - please check if this instance was started with an IAM instance profile`
   - ec2에서 `Codedeploy Agent` 실행이 IAM role 설정보다 빨리 시작해 role을 가져오지 못함
   - 해결: 재실행해주기
     - `sudo service codedeploy-agent restart`
+<br>
 
-- `npm/pm2 command not found`
+- ec2: `npm/pm2 command not found`
   - `su` 권리자 계정에서 설치해주기
+  - global로 설치
 
-- 
+    - - `next build` 시 `self is not defined` 오류
+  - 빌드 중 `global` 접근 코드가 존재해서 발생
 
 </details>
 

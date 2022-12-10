@@ -1,43 +1,52 @@
-import { MouseEvent, useState } from 'react'
-import { IDBUser } from 'types/user'
-import { useI18n } from 'hooks'
-// import { getAllUserDataDB } from 'services/user'
+import { MouseEvent, useEffect, useState } from 'react'
+import { useQuery, UseQueryResult } from 'react-query'
 
+import { useI18n } from 'hooks'
+import { IReseponseUsers } from 'types/response'
 import RemoveUserModal from './RemoveUserModal'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import { TrashIcon } from 'public/svgs'
+import { LoadingSpinner, TrashIcon } from 'public/svgs'
 import styles from './userList.module.scss'
+import { IUser } from 'types/user'
 
 const UserList = () => {
   const t = useI18n()
-  const [users] = useState<IDBUser[]>([])
   const [openModal, setOpenModal] = useState(false)
-  const [, setSelectedID] = useState<string>('')
+  const [users, setUsers] = useState<IUser[]>([])
+  const [selectedID, setSelectedID] = useState<string>('')
   const { message, setMessage } = useSnackbar(3000)
 
-  // const { isLoading, data } = useQuery(
-  //   ['getAllUserDataDB', users.length],
-  //   () =>
-  //     getAllUserDataDB().then((res: IDBUser[]) => {
-  //       return res
-  //     }),
-  //   {
-  //     enabled: true,
-  //     staleTime: 6 * 50 * 1000,
-  //     useErrorBoundary: true,
-  //   }
-  // )
+  const { isLoading, data } = useQuery(
+    ['getAllUserDataDB'],
+    () =>
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(async (response) => {
+        const result = await response.json()
+        return result.users
+      }),
+    {
+      // error , success false 로직 추가
+      enabled: true,
+      staleTime: 6 * 50 * 1000,
+      useErrorBoundary: true,
+    }
+  )
 
-  // useEffect(() => {
-  //   if (data && data.length > 0) setUsers(data)
-  // }, [data])
+  useEffect(() => {
+    console.log('useeffect data', data)
+    if (data && data.length > 0) setUsers(data)
+  }, [data])
 
-  // const loading = isLoading && (
-  //   <div className={styles.loading}>
-  //     <LoadingSpinner />
-  //   </div>
-  // )
+  const loading = isLoading && (
+    <div className={styles.loading}>
+      <LoadingSpinner />
+    </div>
+  )
 
   const handleCloseModal = () => {
     setOpenModal(false)
@@ -62,13 +71,13 @@ const UserList = () => {
         </thead>
         <tbody>
           {users.length > 0 &&
-            users.map((value) => (
-              <tr key={value.key}>
-                <td>{value.data.id}</td>
-                <td>{value.data.name}</td>
-                <td>{value.data.phone}</td>
+            users.map((value: IUser) => (
+              <tr key={value._id}>
+                <td>{value.id}</td>
+                <td>{value.name}</td>
+                <td>{value.phone}</td>
                 <td>
-                  <button type='button' data-id={value.key} onClick={handleRemoveButton}>
+                  <button type='button' data-id={value._id} onClick={handleRemoveButton}>
                     <TrashIcon className={styles.trashIcon} />
                   </button>
                 </td>
@@ -76,9 +85,11 @@ const UserList = () => {
             ))}
         </tbody>
       </table>
-      {/* {loading} */}
-      {openModal && <RemoveUserModal onClose={handleCloseModal} />}
-      {/* id={selectedID} setMessage={setMessage} setUsers={setUsers} */}
+      {loading}
+      {openModal && (
+        <RemoveUserModal onClose={handleCloseModal} id={selectedID} setMessage={setMessage} setUsers={setUsers} />
+      )}
+
       {message && <SnackBar message={message} setMessage={setMessage} />}
     </div>
   )

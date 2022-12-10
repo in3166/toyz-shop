@@ -5,6 +5,9 @@ import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Banner from 'components/Banner'
 import ProductList from 'components/ProductList'
+import { dbConnect } from 'lib/dbConnect'
+import Users from 'lib/models/Users'
+import Products from 'lib/models/Products'
 
 const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { products } = pageProps
@@ -22,24 +25,14 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
 }
 
 export const getServerSideProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/products`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  )
+  await dbConnect()
+  const responseProducts = await Products.find({}).populate({ path: 'owner', model: Users, select: '-password' })
 
-  const data = await response.json()
-  const { products } = data
-  // if (data.success)
   return {
     props: {
       ...(await serverSideTranslations(locale, ['app', 'common'], nextI18nextConfig)),
       locales,
-      products,
+      products: JSON.parse(JSON.stringify(responseProducts || [])),
     },
   }
 }

@@ -10,9 +10,11 @@ const handler = handlers()
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const users = await User.find({})
-  return res.status(200).json({ success: true, data: users })
+  console.log('api susers ', users)
+  return res.status(200).json({ success: true, users })
 })
-handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+
+handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const enteredUser = req.body
   const hashPassword = await bcrypt.hash(enteredUser.password, SALT_ROUND)
   enteredUser.password = hashPassword
