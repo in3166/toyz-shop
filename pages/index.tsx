@@ -16,7 +16,7 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
     <>
       <Head>
         <title>Toyz</title>
-        <meta name='description' content='You can buy a wide variety of amazing toys!.' />
+        <meta name='description' content='You can buy a variety of amazing toys!.' />
       </Head>
       <Banner products={products} />
       <ProductList products={products} />

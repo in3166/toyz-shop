@@ -1,8 +1,7 @@
 import { MouseEvent, useEffect, useState } from 'react'
-import { useQuery, UseQueryResult } from 'react-query'
+import { useQuery } from 'react-query'
 
 import { useI18n } from 'hooks'
-import { IReseponseUsers } from 'types/response'
 import RemoveUserModal from './RemoveUserModal'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'

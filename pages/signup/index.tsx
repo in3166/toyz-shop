@@ -39,7 +39,6 @@ const SignUp: NextPage = () => {
         password: enteredUserData.password,
         redirect: false,
       })
-
       if (!responseSignin?.ok) {
         return new Error(responseSignin?.error)
       }
@@ -54,7 +53,7 @@ const SignUp: NextPage = () => {
     <>
       <Head>
         <title>Add a New User</title>
-        <meta name='description' content='You can join our Toyz shop!' />
+        <meta name='description' content='You can join a Toyz shop!' />
       </Head>
       <main className={styles.formWrapper}>
         <header className={styles.header}>

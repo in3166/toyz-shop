@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import { NextApiRequest, NextApiResponse } from 'next'
 
+mongoose.set('strictQuery', true)
 const MONGODB_URI: string = process.env.NEXT_PUBLIC_MONGO_URI ?? ''
 
 if (!MONGODB_URI) {

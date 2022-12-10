@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { AppProps } from 'next/app'
+import Head from 'next/head'
 import { NextPageContext } from 'next/types'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -49,13 +50,19 @@ const AddProudctPage: NextPage<AppProps> = () => {
   }
 
   return (
-    <Container color='white' width='lg'>
-      <header>
-        <h3>{`${t('upload.header')}`}</h3>
-      </header>
-      <br />
-      <UploadImageForm onUploadSubmit={handleSubmit} />
-    </Container>
+    <>
+      <Head>
+        <title>{`${t('upload.header')}`}</title>
+        <meta name='description' content='You can login our Toyz shop!' />
+      </Head>
+      <Container color='white' width='lg'>
+        <header>
+          <h3>{`${t('upload.header')}`}</h3>
+        </header>
+        <br />
+        <UploadImageForm onUploadSubmit={handleSubmit} />
+      </Container>
+    </>
   )
 }
 

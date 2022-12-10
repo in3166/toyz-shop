@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -37,36 +38,42 @@ const AdminSetting = () => {
   }
 
   return (
-    <article className={styles.wrapper}>
-      <header>
-        <nav>
-          <ul className={styles.tabMenu}>
-            {MENU_LISTS.map((menu, index) => (
-              <li key={`menu-${index + 1}`} className={cx({ [styles.tabMenuActive]: value === index })}>
-                <button type='button' onClick={() => changeTabHandler(index)}>
-                  {menu[0]}
-                </button>
-              </li>
-            ))}
-          </ul>
+    <>
+      <Head>
+        <title>Admin Setting</title>
+        <meta name='description' content='You can login our Toyz shop!' />
+      </Head>
+      <article className={styles.wrapper}>
+        <header>
+          <nav>
+            <ul className={styles.tabMenu}>
+              {MENU_LISTS.map((menu, index) => (
+                <li key={`menu-${index + 1}`} className={cx({ [styles.tabMenuActive]: value === index })}>
+                  <button type='button' onClick={() => changeTabHandler(index)}>
+                    {menu[0]}
+                  </button>
+                </li>
+              ))}
+            </ul>
 
-          <div className={styles.slider}>
-            <div className={styles.indicator} style={SlideStyle} />
-          </div>
-        </nav>
-      </header>
+            <div className={styles.slider}>
+              <div className={styles.indicator} style={SlideStyle} />
+            </div>
+          </nav>
+        </header>
 
-      <section className={styles.contentConatainer}>
-        {MENU_LISTS.map((menu, index) => (
-          <div
-            key={`content-${index + 1}`}
-            className={cx(styles.tabContents, { [styles.tabContentsHidden]: value !== index })}
-          >
-            {menu[1]}
-          </div>
-        ))}
-      </section>
-    </article>
+        <section className={styles.contentConatainer}>
+          {MENU_LISTS.map((menu, index) => (
+            <div
+              key={`content-${index + 1}`}
+              className={cx(styles.tabContents, { [styles.tabContentsHidden]: value !== index })}
+            >
+              {menu[1]}
+            </div>
+          ))}
+        </section>
+      </article>
+    </>
   )
 }
 

@@ -1,22 +1,23 @@
 import { useState } from 'react'
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import dayjs from 'dayjs'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { useRouter } from 'next/router'
-import type { NextPage } from 'next'
 import { useI18n } from 'hooks'
-import { AppProps } from 'next/app'
+import { IProductItem } from 'types/product'
 import SnackBar from 'components/_shared/SnackBar'
 import Container from 'components/_shared/Container'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import BuyItemModal from 'components/BuyItemModal/indedx'
+import Loading from 'components/_shared/Loding'
 import styles from './itemDetailPage.module.scss'
 import { ParsedUrlQuery } from 'querystring'
 import Products from 'lib/models/Products'
 import Users from 'lib/models/Users'
-import { IProductItem } from 'types/product'
 import { dbConnect } from 'lib/dbConnect'
-import Loading from 'components/_shared/Loding'
 
 const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const t = useI18n()
@@ -37,41 +38,46 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   }
 
   return (
-    <Container color='white' width='md'>
-      <header className={styles.header}>{product.name}</header>
-      <main className={styles.main}>
-        <div className={styles.image}>
-          <img src={product.image} alt='items' />
-        </div>
+    <>
+      <Head>
+        <title>Toyz Item-{product.name}</title>
+      </Head>
+      <Container color='white' width='md'>
+        <header className={styles.header}>{product.name}</header>
+        <main className={styles.main}>
+          <div className={styles.image}>
+            <img src={product.image} alt='items' />
+          </div>
 
-        <div>
-          <dl className={styles.content}>
-            <div>
-              <div>{product.description}</div>
-            </div>
-            <div>
-              <dt>{`${t('common:price')}`}</dt>
-              <dd>{product.price} 만원</dd>
-            </div>
-            <div>
-              <dt>{`${t('common:owner')}`}</dt>
-              <dd>{product.owner.name}</dd>
-            </div>
-            <div>
-              <dt> {`${t('common:date')}`}</dt>
-              <dd>{dayjs(product.createdAt).format('YYYY-MM-DD')}</dd>
-            </div>
-          </dl>
-          <button type='button' className={styles.buyButton} onClick={handleOpenModal}>
-            구매
-          </button>
-        </div>
-      </main>
-      {openModal && (
-        <BuyItemModal onClose={handleCloseModal} title={product.name} price={product.price} setMessage={setMessage} />
-      )}
-      {message && <SnackBar message={message} setMessage={setMessage} />}
-    </Container>
+          <div>
+            <dl className={styles.content}>
+              <div>
+                <div>{product.description}</div>
+              </div>
+              <div>
+                <dt>{`${t('common:price')}`}</dt>
+                <dd>{product.price} 만원</dd>
+              </div>
+              <div>
+                <dt>{`${t('common:owner')}`}</dt>
+                <dd>{product.owner.name}</dd>
+              </div>
+              <div>
+                <dt> {`${t('common:date')}`}</dt>
+                <dd>{dayjs(product.createdAt).format('YYYY-MM-DD')}</dd>
+              </div>
+            </dl>
+            <button type='button' className={styles.buyButton} onClick={handleOpenModal}>
+              구매
+            </button>
+          </div>
+        </main>
+        {openModal && (
+          <BuyItemModal onClose={handleCloseModal} title={product.name} price={product.price} setMessage={setMessage} />
+        )}
+        {message && <SnackBar message={message} setMessage={setMessage} />}
+      </Container>
+    </>
   )
 }
 

@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -81,49 +82,54 @@ const UserSetting = () => {
   }
 
   return (
-    <article className={styles.wrapper}>
-      <h2>{`${t('common:userInfo.title')}`}</h2>
-      <form onSubmit={handleOnSubmit}>
-        <InputText type='text' formTitle={`${t('common:signUp.titleID')}`} value={session?.user?.id || ''} read />
-        <InputText
-          type='text'
-          formTitle={`${t('common:signUp.titleName')}`}
-          value={name}
-          onChange={handleNameChange}
-          reset={resetName}
-          onBlur={handleNameBlur}
-          hasError={nameHasError}
-          errorMessage={`${t('common:signUp.errorMessageName')}`}
-          inputFocusRef={inputFocusRef}
-        />
-        <InputText
-          type='text'
-          formTitle={`${t('common:signUp.titlePhone')}`}
-          value={phone}
-          onChange={handlePhoneChange}
-          reset={resetPhone}
-          onBlur={handlePhoneBlur}
-          hasError={phoneHasError}
-          errorMessage={`${t('common:signUp.errorMessagePhone')}`}
-        />
-        <InputText
-          type='password'
-          formTitle={`${t('common:signUp.titlePW')}`}
-          value={password}
-          onChange={handlePasswordChange}
-          reset={resetPassword}
-          onBlur={handlePasswordBlur}
-          hasError={passwordHasError}
-          errorMessage={`${t('common:signUp.errorMessagePW')}`}
-        />
+    <>
+      <Head>
+        <title>{`${t('common:userInfo.title')}`}</title>
+      </Head>
+      <article className={styles.wrapper}>
+        <h2>{`${t('common:userInfo.title')}`}</h2>
+        <form onSubmit={handleOnSubmit}>
+          <InputText type='text' formTitle={`${t('common:signUp.titleID')}`} value={session?.user?.id || ''} read />
+          <InputText
+            type='text'
+            formTitle={`${t('common:signUp.titleName')}`}
+            value={name}
+            onChange={handleNameChange}
+            reset={resetName}
+            onBlur={handleNameBlur}
+            hasError={nameHasError}
+            errorMessage={`${t('common:signUp.errorMessageName')}`}
+            inputFocusRef={inputFocusRef}
+          />
+          <InputText
+            type='text'
+            formTitle={`${t('common:signUp.titlePhone')}`}
+            value={phone}
+            onChange={handlePhoneChange}
+            reset={resetPhone}
+            onBlur={handlePhoneBlur}
+            hasError={phoneHasError}
+            errorMessage={`${t('common:signUp.errorMessagePhone')}`}
+          />
+          <InputText
+            type='password'
+            formTitle={`${t('common:signUp.titlePW')}`}
+            value={password}
+            onChange={handlePasswordChange}
+            reset={resetPassword}
+            onBlur={handlePasswordBlur}
+            hasError={passwordHasError}
+            errorMessage={`${t('common:signUp.errorMessagePW')}`}
+          />
 
-        <footer>
-          <button type='submit'>수정</button>
-        </footer>
-      </form>
+          <footer>
+            <button type='submit'>수정</button>
+          </footer>
+        </form>
 
-      {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
-    </article>
+        {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
+      </article>
+    </>
   )
 }
 

@@ -459,7 +459,6 @@ catch (error) {
     - 이 때, 개발 서버(next dev)를 종료하고 배포 전 빌드를 시도할 가능성이 있는데 만약 API 호출이 있을 경우 서버에 액세스를 하려해서 오류가 발생한다.
   - API 호출 대신, 직접 DB에 쿼리를 수행할 수 있다. (DB 서버는 따로 있으므로)
 
-
   - `getServerSideProps`에서는 API를 호출해도 오류가 발생하지 않지만, 호출을 중복해서 하는 것이 되므로 성능상 저하가 발생한다.
 <br>
 
@@ -479,7 +478,7 @@ catch (error) {
   - `su` 권리자 계정에서 설치해주기
   - global로 설치
 
-    - - `next build` 시 `self is not defined` 오류
+      - - `next build` 시 `self is not defined` 오류
   - 빌드 중 `global` 접근 코드가 존재해서 발생
 
 </details>
