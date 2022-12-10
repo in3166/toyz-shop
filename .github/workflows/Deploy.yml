@@ -1,9 +1,11 @@
 name: Deploy Toyz_shop
+
 on:
   push:
-    branches: [feature/nextjs]
+    branches: ['feature/nextjs']
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   vercel:
     runs-on: ubuntu-latest
@@ -23,6 +25,12 @@ jobs:
         with:
           node-version: '19'
 
+      - name: Create .env file
+        run: |
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+
       - name: Build
         run: |
           npm install --legacy-peer-deps
@@ -38,6 +46,7 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_TL_ENGINE }}
           scope: ${{ secrets.VERCEL_ORG_ID }}
+
       # 테스트 통과 시 배포
       # - name: Run Tests Against Vercel
       #   env:
