@@ -46,15 +46,18 @@
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    padding: 5px;
 
     ul {
       display: flex;
       align-items: center;
-      font-size: 15px;
 
-      .logout {
-        font-size: 15px;
+      .userMenu {
+        font-size: 13px;
+        color: colors.$GRAY6;
+
+        &:hover {
+          font-weight: 600;
+        }
       }
     }
 

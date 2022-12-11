@@ -1,6 +1,7 @@
 import React, { FormEvent, useRef, useState } from 'react'
-import { useI18n } from 'hooks'
+import Image from 'next/image'
 
+import { useI18n } from 'hooks'
 import useFormInput from 'hooks/useFormInput'
 import { IMongooseError } from 'types/mongo'
 import { validateId, validatePassword } from 'utils/validates/validateInput'
@@ -10,7 +11,7 @@ import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './signInForm.module.scss'
 
 interface ISignInFormProps {
-  onSignIn: (id: string, password: string, e: FormEvent) => Promise<IMongooseError | null>
+  onSignIn: (id: string, password: string, type?: string) => Promise<IMongooseError | null>
 }
 
 const SignInForm = ({ onSignIn }: ISignInFormProps) => {
@@ -23,17 +24,18 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
   const id = useFormInput({ validateFunction: validateId })
   const password = useFormInput({ validateFunction: validatePassword })
 
-  const handleOnSubmit = async (e: FormEvent) => {
+  const handleOnSubmit = async (e: FormEvent, type?: string) => {
     setLoading(true)
     e.preventDefault()
-    if (!id.valueIsValid || !password.valueIsValid) {
+
+    if (!type && (!id.valueIsValid || !password.valueIsValid)) {
       setSnackBarStatus('warning')
       setMessage(`${t('common:signIn.snackBarValid')}`)
       setLoading(false)
       return
     }
 
-    const error = await onSignIn(id.value, password.value, e)
+    const error = await onSignIn(id.value, password.value, type)
 
     if (error) {
       setSnackBarStatus('error')
@@ -71,6 +73,17 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
           {`${t('common:signIn.button')}`}
         </button>
       </div>
+      <footer className={styles.siginInFooter}>
+        <button type='button' onClick={(e) => handleOnSubmit(e, 'kakao')}>
+          <Image width={30} height={30} src='/svgs/kakaotalk_logo.png' alt='kakao login icon' />
+        </button>
+        <button type='button' onClick={(e) => handleOnSubmit(e, 'naver')}>
+          <Image width={30} height={30} src='/svgs/naver_icon.png' alt='naver login icon' />
+        </button>
+        <button type='button' onClick={(e) => handleOnSubmit(e, 'google')}>
+          <Image width={27} height={27} src='/svgs/google_icon.png' alt='google login icon' />
+        </button>
+      </footer>
       {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
     </form>
   )

@@ -2,9 +2,9 @@
 @use '/styles/constants/colors';
 
 .container {
+  position: relative;
   padding: 30px;
   border-radius: 10px;
-
   @include responsive.mobileOnly {
     padding: 10px;
     margin: 15px 10px 20px;

@@ -6,6 +6,7 @@ import { signOut, useSession } from 'next-auth/react'
 import { useI18n } from 'hooks'
 import { ProfileIcon, SettingIcon } from 'public/svgs'
 import styles from '../header.module.scss'
+import { cx } from 'styles'
 
 const UserMenu = () => {
   const t = useI18n()
@@ -16,12 +17,12 @@ const UserMenu = () => {
   const loggedOutMenu = !session && (
     <>
       <li>
-        <Link href='/signin' className={router.pathname === '/signin' ? styles.isActive : ''}>
+        <Link href='/signin' className={cx({ [styles.isActive]: router.pathname === '/signin' })}>
           {`${t('common:gnb.signin')}`}
         </Link>
       </li>
       <li>
-        <Link href='/signup' className={router.pathname === '/signup' ? styles.isActive : ''}>
+        <Link href='/signup' className={cx({ [styles.isActive]: router.pathname === '/signup' })}>
           {`${t('common:gnb.signup')}`}
         </Link>
       </li>
@@ -31,7 +32,7 @@ const UserMenu = () => {
   const loggedInMenu = session && (
     <>
       <li>
-        <Link href='/product'>{`${t('gnb.addItem')}`}</Link>
+        <Link className={styles.userMenu} href='/product'>{`${t('gnb.addItem')}`}</Link>
       </li>
       <li>
         <button
@@ -39,7 +40,7 @@ const UserMenu = () => {
           onClick={() =>
             signOut({ callbackUrl: process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL })
           }
-          className={styles.logout}
+          className={styles.userMenu}
         >
           {`${t('common:gnb.logout')}`}
         </button>

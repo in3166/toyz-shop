@@ -46,7 +46,7 @@
 <details>
   <summary>
     <strong>
-      <span style="color:blue; cursor:pointer">
+      <span style="color:cadetblue cursor:pointer">
         접기/펼치기
       </span>
     </strong>
@@ -78,10 +78,11 @@
 - @types/mongoose(스키마)
 - @types/uuid
 - @types/bcrpt
-- next-auth: Session/JWT 적용, 소셜 로그인 적용ㅎ
+- next-auth: Session/JWT 적용, 소셜 로그인 적용
 - next-connect: `Express`처럼 미들웨어 형태로 코드 작성 가능
 - formidable: 이미지 업로드
 - actionlint
+- aws-sdk: s3 upload image
 
 </details>
 
@@ -98,7 +99,7 @@
 <details>
   <summary>
     <strong>
-      <span style="color:blue; cursor:pointer">
+      <span style="color:cadetblue cursor:pointer">
         접기/펼치기
       </span>
     </strong>
@@ -291,7 +292,7 @@
 <details>
   <summary>
     <strong>
-      <span style="color:blue; cursor:pointer">
+      <span style="color:cadetblue cursor:pointer">
         접기/펼치기
       </span>
     </strong>
@@ -487,7 +488,7 @@ catch (error) {
 <details>
   <summary>
     <strong>
-      <span style="color:blue; cursor:pointer">
+      <span style="color:cadetblue cursor:pointer">
         접기/펼치기
       </span>
     </strong>
@@ -526,7 +527,7 @@ catch (error) {
   - `su` 권리자 계정에서 설치해주기
   - global로 설치
 
-    - - `next build` 시 `self is not defined` 오류
+      - - `next build` 시 `self is not defined` 오류
   - 빌드 중 `global` 접근 코드가 존재해서 발생
 <br>
 

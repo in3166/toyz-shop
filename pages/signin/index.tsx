@@ -2,7 +2,6 @@ import { SignInIcon } from 'public/svgs'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import Image from 'next/image'
 import { NextPageContext } from 'next/types'
 import { signIn } from 'next-auth/react'
 
@@ -16,14 +15,19 @@ import { FormEvent } from 'react'
 const SignIn = (): JSX.Element => {
   const router = useRouter()
 
-  const signInHandler = async (id: string, password: string, e: FormEvent): Promise<IMongooseError | null> => {
-    e.preventDefault()
+  const signInHandler = async (id: string, password: string, type?: string): Promise<IMongooseError | null> => {
     try {
+      if (type !== 'credentials') {
+        signIn(type, { callbackUrl: '/' })
+        return null
+      }
+
       const response = await signIn('credentials', {
         id,
         password,
         redirect: false,
       })
+
       if (response?.error) {
         const message = errorHandler(Number(response?.error)) + !response?.status
         return { code: Number(response?.error), message, name: 'sign in error' }
@@ -52,17 +56,6 @@ const SignIn = (): JSX.Element => {
         <div className={styles.content}>
           <SignInForm onSignIn={signInHandler} />
         </div>
-        <footer className={styles.siginInFooter}>
-          <button type='button' onClick={() => signIn('kakao', { callbackUrl: '/' })}>
-            <Image width={30} height={30} src='/svgs/kakaotalk_logo.png' alt='kakao login icon' />
-          </button>
-          <button type='button' onClick={() => signIn('naver', { callbackUrl: '/' })}>
-            <Image width={30} height={30} src='/svgs/naver_icon.png' alt='naver login icon' />
-          </button>
-          <button type='button' onClick={() => signIn('google', { callbackUrl: '/' })}>
-            <Image width={27} height={27} src='/svgs/google_icon.png' alt='google login icon' />
-          </button>
-        </footer>
       </main>
     </>
   )
