@@ -6,8 +6,13 @@
   - ID: admin
   - PW: qwe123
 
-- [NextJS + MongoDB + Vercel 페이지](https://toyz-shop-in3166.vercel.app/)
-- [React + Firebase + Netlify 페이지](https://toyz-shop.netlify.app/)
+- 일반 계정
+  - ID: user1
+  - PW: qwe123
+<br>
+
+- **[페이지 링크 (NextJS + MongoDB + Vercel)](https://toyz-shop-in3166.vercel.app/)**
+- **[페이지 링크 (React + Firebase + Netlify)](https://toyz-shop.netlify.app/)**
 
 <br>
 
@@ -19,13 +24,16 @@
 ## 설명
 
 - 중고 장난감 거래 사이트 구현
-- 회원가입을 통해 ~~Firebase DB~~ `MongoDB`에 회원 정보를 저장하고  로그인합니다.
+- 회원가입을 통해 ~~Firebase DB~~ `MongoDB`에 회원 정보를 저장하고 로그인합니다.
 - 로그인 후 ~~`Unsplash` API~~ `MongoDB`에 저장된 상품 게시글을 불러와 리스트로 보여줍니다.
 - 사용자는 상품을 등록할 수 있습니다. (제목, 가격, 이미지, 설명)
 - 특정 아이템 상단의 하트 아이콘을 눌러 좋아요 기능을 할 수 있으며 해당 값은 에 DB에 저장합니다.
+- 사용자는 사용자 설정 페이지에서 사용자 정보를 수정할 수 있습니다.
+- 관리자는 관리자 설정 페이지에서 회원을 탈퇴시킬 수 있습니다.
 <br>
 
-- 기존 프로젝트에 `NextJS`, `MongoDB` 적용 및 리팩토링 작업 수행
+- 기존 프로젝트 <sub>(*React, firebase 등*)</sub>에서 `NextJS`, `MongoDB` 전환 및 리팩토링 작업 수행
+- 테스트 코드 추가 진행 중 ...
 
 <br>
 
@@ -36,7 +44,13 @@
 ## Package 및 Tools
 
 <details>
-<summary>접기/펼치기</summary>
+  <summary>
+    <strong>
+      <span style="color:blue; cursor:pointer">
+        접기/펼치기
+      </span>
+    </strong>
+  </summary>
 
 - React
 - Typescript
@@ -82,7 +96,13 @@
 ## 폴더 구조
 
 <details>
-<summary>접기/펼치기</summary>
+  <summary>
+    <strong>
+      <span style="color:blue; cursor:pointer">
+        접기/펼치기
+      </span>
+    </strong>
+  </summary>
 
 ```
 📦 
@@ -156,21 +176,26 @@
 ```
 
 </details>
+
 <br><br>
 
 ## 기능
 
 ### 로그인
 
-- ~~FireBase DB와 연동하여 해동 유저가 존재하면 로그인합니다.~~
 - MongoDB를 이용해 유저를 확인하고 로그인합니다.
-- Local Storage에 저장하여 로그인을 유지합니다.
+  - ~~FireBase DB와 연동하여 해동 유저가 존재하면 로그인합니다.~~
+<br>
+
+- `Next-auth` 라이브러리를 통한 소셜 로그인, JWT 적용
+  - 소셜 로그인 시 회원 정보에 해당 이메일이 없으면 회원가입 페이지로 이동합니다.
+  - ~~Local Storage에 저장하여 로그인을 유지합니다.~~
   
 ### 회원가입
 
 - 입력한 회원 정보를 MongoDB에 저장합니다.
 - **에러 메시지**
-  - 로그인과 회원 가입 입력 정보가 잘못된 경우 입력창 하단에 에러 메시지를 보여줍니다.
+  - 로그인과 회원 가입 입력 `<input>` 정보가 잘못된 경우 입력창 하단에 에러 메시지를 보여줍니다.
 <br>
 
 ### 스낵바
@@ -200,6 +225,7 @@
 
 - 제목, 상품 이미지, 가격, 설명을 입력 후 등록
 - `formidalble` 사용하여 이미지는 서버에 저장하고 나머지 정보는 DB에 저장
+  - Vercel의 경우 서버에 저장할 수 없어 AWS의 `S3`에 저장하도록 수정
 
 <br>
 
@@ -237,7 +263,11 @@
 
 ### 반응형 UI
 
-- 모바일 버전에 맞는 반응형 UI를 적용시켰습니다.
+- 사용자 화면 크기에 따른 반응형 UI를 적용시켰습니다.
+- 사이드바
+  - 화면 크기 조정 시 일정 너비 이하로는 사이드바 숨김
+  - 사이드바 버튼으로 열고 닫는 기능
+
 <br>
 
 ### Error Boundary
@@ -248,15 +278,25 @@
 
 <br><br>
 
-## NextJS, MongoDB 적용
+### NextJS, MongoDB 적용
 
-- 회원 정보와 상품 정보를 DB에 저장
+- NextJS를 사용해 SEO 최적화 및 SSR 적용
+- 회원 정보와 상품 정보를 MongoDB에 저장합니다. (mongoose 사용)
 - `next-auth`를 사용해 세션(JWT) 적용, 소셜 로그인 및 회원가입 추가
 
-<br><br>
+<br>
 
-## Trouble Shooting (NextJS 전환 과정 중)
+**Trouble Shooting (NextJS 전환 과정 중)**
 
+<details>
+  <summary>
+    <strong>
+      <span style="color:blue; cursor:pointer">
+        접기/펼치기
+      </span>
+    </strong>
+  </summary>
+  
 - NextJS로 전환하면서 `Duplicate atom key` 오류 발생
   - 빌드 과정에서 atome `state`가 재선언되면서 문제 발생
   - `@types/uuid`를 이용해 난수로 키를 선언
@@ -410,16 +450,18 @@ catch (error) {
   - `formidable` 라이브러리로 대체
     - 아주 간단하게 적용할 수 있었고 `NextJS`와 호환이 잘 되어 있다.
 
-<br>
+</details>
 
-## Unit Test (Jest + React Testing Library)
+<br><br>
+
+### Unit Test (Jest + React Testing Library)
 
 - 로그인 페이지 유닛 테스트 적용
 - 회원가입 페이지 유닛 테스트 적용
 
-<br>
+<br><br>
 
-## CI/CD (EC2, Codedeploy, gihub action)
+### CI/CD ~~(EC2, Codedeploy, gihub action)~~ => Vercel
 
 - EC2, Codedeploy, gihub action를 사용한 배포
   - EC2 인스턴스 생성
@@ -429,21 +471,27 @@ catch (error) {
   - github action - `./.github/workflow/deploy.yml` 작성
   - `./appspec.yml` 작성
   - `./deploy.sh`  스크립트 파일 작성
-    - 배포 완료 후 github에 푸시하면 ec2에 자동으로 업로드되는 것까지 확인
+    - github에 푸시하면 ec2에 자동으로 업로드되는 것까지 확인
     - 문제: ec2이 free tier의 메모리 부족으로 `npm install` 시 프리징 현상 발생
 <br>
 
-- Vercel을 사용해 배포
+- Vercel 배포
   - Vercel에 repository를 연결 후 `deploy.yml` 작성
   - `next.config.json`의 `swcMinify:false`로 수정: `true`이면 오류 발생
   - 현재 test 및 production 배포 생략
 
 <br>
 
-### Trouble Shooting (CI/CD - AWS, Codedeploy)
+**Trouble Shooting (CI/CD)**
 
 <details>
-<summary>접기/펼치기</summary>
+  <summary>
+    <strong>
+      <span style="color:blue; cursor:pointer">
+        접기/펼치기
+      </span>
+    </strong>
+  </summary>
 
 ### Build 에러
 
@@ -478,8 +526,14 @@ catch (error) {
   - `su` 권리자 계정에서 설치해주기
   - global로 설치
 
-      - - `next build` 시 `self is not defined` 오류
+    - - `next build` 시 `self is not defined` 오류
   - 빌드 중 `global` 접근 코드가 존재해서 발생
+<br>
+
+### Vercel 에러
+
+- 로컬에서 `SignIn` 성공 시 `status:200`과 `ok:true`가 응답되는 반면, Vercel 배포 후 `status:302`가 응답되어 옴
+  - 응답받는 `error` 속성이 `null` 일 경우 홈으로 리다이렉트하도록 수정
 
 </details>
 

@@ -24,8 +24,8 @@ const SignIn = (): JSX.Element => {
         password,
         redirect: false,
       })
-      if (!response?.ok) {
-        const message = errorHandler(Number(response?.error))
+      if (response?.error) {
+        const message = errorHandler(Number(response?.error)) + !response?.status
         return { code: Number(response?.error), message, name: 'sign in error' }
       }
 

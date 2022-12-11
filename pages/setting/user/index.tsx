@@ -24,7 +24,6 @@ const UserSetting = () => {
   const inputFocusRef = useRef(null)
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const { message, setMessage } = useSnackbar(5000)
-
   const {
     value: name,
     reset: resetName,

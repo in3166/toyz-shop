@@ -37,7 +37,6 @@ const asyncPares = (req: NextApiRequest): Promise<{ fields: any; files: any }> =
     })
     form.parse(req, (err, fields, files) => {
       if (err) return reject(err)
-      // resolve "returns" the promise so you will have a straighforward logic flow
       resolve({ fields, files })
       return null
     })
@@ -45,7 +44,6 @@ const asyncPares = (req: NextApiRequest): Promise<{ fields: any; files: any }> =
 
 handler.post(async (req: any, res: NextApiResponse) => {
   try {
-    // const form = new formidable.IncomingForm()
     const result = await asyncPares(req)
     const { fields, files } = result
     console.log('fields:', fields)
@@ -54,7 +52,6 @@ handler.post(async (req: any, res: NextApiResponse) => {
     body.data.image = `/products/${files.file.newFilename}`
 
     const products = await Product.create(body.data)
-    // res.status(200).json({ success: true, products })
     res.status(201).json({ success: true, data: products })
   } catch (error) {
     console.log('upload error: ', error)

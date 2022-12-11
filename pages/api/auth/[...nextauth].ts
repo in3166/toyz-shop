@@ -5,6 +5,8 @@ import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
 import { IAuthSession, IAuthToken } from 'types/auth'
+import { dbConnect } from 'lib/dbConnect'
+import Users from 'lib/models/Users'
 
 const confirmPasswordHash = (plainPassword: string, hashedPassword: string) => {
   return new Promise((resolve) => {
@@ -23,7 +25,6 @@ export default NextAuth({
           id: string
           password: string
         }
-        console.log('credentials: ', credentials)
         try {
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/${id}`,
@@ -68,7 +69,7 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
   ],
-  secret: process.env.NEXT_AUTH_SECRET_KEY || process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET || process.env.SECRET || process.env.NEXT_AUTH_SECRET_KEY,
   session: {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60,
@@ -83,12 +84,9 @@ export default NextAuth({
         if (account?.type === 'credentials') {
           return true
         }
-
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/${user.email}`
-        )
-        const isUserExisted = await response.json()
-        if (!isUserExisted.success) {
+        await dbConnect()
+        const response = await Users.find({ email: user.email })
+        if (!response.length) {
           return `/signup?email=${user.email}`
         }
         return true
@@ -97,16 +95,18 @@ export default NextAuth({
       }
     },
     session: async ({ session, token }: { session: IAuthSession; token: IAuthToken }) => {
-      session.user = token as IAuthToken
+      // 조건 주기
+      session.user = { ...session.user, ...token }
       return session
     },
     jwt: async ({ token, user, account }) => {
       if (user && account?.type === 'oauth') {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/${user?.email}`
-        )
-        const data = await response.json()
-        if (data.success) return { ...token, ...data.user }
+        await dbConnect()
+        const response = await Users.find({ email: user.email }).lean()
+        if (response?.length > 0) {
+          const newToken = { ...user, ...response[0] }
+          return newToken
+        }
       }
 
       if (user) {
@@ -117,6 +117,6 @@ export default NextAuth({
     },
   },
   pages: {
-    signIn: '/signin',
+    signIn: '/auth/signin',
   },
 })
