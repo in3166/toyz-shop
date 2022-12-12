@@ -24,7 +24,7 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
   const id = useFormInput({ validateFunction: validateId })
   const password = useFormInput({ validateFunction: validatePassword })
 
-  const handleOnSubmit = async (e: FormEvent, type?: string) => {
+  const handleOnSubmit = async (e: FormEvent, type = 'credentials') => {
     setLoading(true)
     e.preventDefault()
 

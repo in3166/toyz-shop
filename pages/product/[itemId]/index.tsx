@@ -81,21 +81,21 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   )
 }
 
-export async function getStaticPaths() {
-  await dbConnect()
-  const responseProducts: IProductItem[] = await Products.find({}).populate({
-    path: 'owner',
-    model: Users,
-    select: '-password',
-  })
+// export async function getStaticPaths() {
+//   await dbConnect()
+//   const responseProducts: IProductItem[] = await Products.find({}).populate({
+//     path: 'owner',
+//     model: Users,
+//     select: '-password',
+//   })
 
-  return {
-    fallback: true,
-    paths: responseProducts.map((product: IProductItem) => ({
-      params: { itemId: product._id.toString() },
-    })),
-  }
-}
+//   return {
+//     fallback: true,
+//     paths: responseProducts.map((product: IProductItem) => ({
+//       params: { itemId: product._id.toString() },
+//     })),
+//   }
+// }
 
 interface IGetStaticProps {
   locale: string
@@ -103,7 +103,7 @@ interface IGetStaticProps {
   params: ParsedUrlQuery
 }
 
-export const getStaticProps = async (context: IGetStaticProps) => {
+export const getServerSideprops = async (context: IGetStaticProps) => {
   const { locale, locales, params } = context
   await dbConnect()
   const product = await Products.findOne({ _id: params.itemId }).populate({

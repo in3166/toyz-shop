@@ -24,7 +24,7 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   )
 }
 
-export const getServerSideProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
+export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   await dbConnect()
   const responseProducts = await Products.find({}).populate({ path: 'owner', model: Users, select: '-password' })
 
@@ -34,6 +34,7 @@ export const getServerSideProps = async ({ locale, locales }: { locale: string; 
       locales,
       products: JSON.parse(JSON.stringify(responseProducts || [])),
     },
+    revalidate: 10,
   }
 }
 

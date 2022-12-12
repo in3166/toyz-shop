@@ -24,22 +24,6 @@
     }
   }
 
-  .siginInFooter {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 50px;
-    text-align: center;
-
-    button {
-      width: fit-content;
-
-      &:hover {
-        filter: brightness(0.8);
-      }
-    }
-  }
-
   input::placeholder {
     font-size: small;
     color: colors.$GRAY6;

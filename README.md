@@ -45,11 +45,9 @@
 
 <details>
   <summary>
-    <strong>
-      <span style="color:cadetblue cursor:pointer">
-        접기/펼치기
+      <span style="cursor: pointer;">
+        $\color{teal}\textsf{접기 / 펼치기}$
       </span>
-    </strong>
   </summary>
 
 - React
@@ -98,11 +96,9 @@
 
 <details>
   <summary>
-    <strong>
-      <span style="color:cadetblue cursor:pointer">
-        접기/펼치기
+      <span style="cursor: pointer;">
+        $\color{teal}\textsf{접기 / 펼치기}$
       </span>
-    </strong>
   </summary>
 
 ```
@@ -197,14 +193,11 @@
 - 입력한 회원 정보를 MongoDB에 저장합니다.
 - **에러 메시지**
   - 로그인과 회원 가입 입력 `<input>` 정보가 잘못된 경우 입력창 하단에 에러 메시지를 보여줍니다.
-<br>
 
 ### 스낵바
 
 - 로그인과 회원 가입 등에서 `submit` 시 입력 정보나 결과가 잘못된 경우 스낵바를 보여줍니다.
 - 스낵바는 일정 시간 후 사라집니다.
-
-<br>
 
 ### 메인 페이지
 
@@ -220,15 +213,11 @@
   - 메인 페이지에서 아래로 스크롤할 경우 다음 아이템 목록을 불러와 출력합니다.
   - `IntersectionObserver` API를 사용하였고 Custom Hook으로 분리하여 구현했습니다.
 
-<br>
-
 ### 상품 등록 페이지
 
 - 제목, 상품 이미지, 가격, 설명을 입력 후 등록
 - `formidalble` 사용하여 이미지는 서버에 저장하고 나머지 정보는 DB에 저장
   - Vercel의 경우 서버에 저장할 수 없어 AWS의 `S3`에 저장하도록 수정
-
-<br>
 
 ### 헤더
 
@@ -244,8 +233,6 @@
 - **Loading**
   - 데이터를 불러올 때 로딩 스피너를 보여줍니다.
 
-<br>
-
 ### User Setting Page
 
 - 회원 정보를 조회하고 수정할 수 있습니다.
@@ -260,7 +247,6 @@
 
 - **Trading Chart**
   - `victory.js`와 더미 데이터를 통해 차트를 보여줍니다.
-<br>
 
 ### 반응형 UI
 
@@ -269,15 +255,40 @@
   - 화면 크기 조정 시 일정 너비 이하로는 사이드바 숨김
   - 사이드바 버튼으로 열고 닫는 기능
 
-<br>
-
 ### Error Boundary
 
 - `react-error-boundary`를 적용했습니다.
   - 메인 페이지에서 API 호출에 오류가 발생하면 Error를 보여줍니다.
   - 에러 메세지와 새로고침 버튼을 제공합니다.
 
-<br><br>
+**문제 해결 과정**
+
+<details>
+  <summary>
+      <span style="cursor: pointer;">
+        $\color{teal}\textsf{접기 / 펼치기}$
+      </span>
+  </summary>
+
+- 반응형 UI 구현 중, 화면 사이즈에 따라 사이드바 표시 여부를 결정해줬는데 헤더의 사이드바 버튼을 클릭할 경우에도 사이드바를 열고 닫는 기능을 넣는데 어려움이 있었다.
+  - `scss`의 스타일이 중복되어 제대로 작동하지 않았다.
+  - 그래서, 사이드바 컴포넌트에서 `window`에 `resize` 함수를 걸어줘서 해결했다.
+<br>
+
+- 무한 스크롤을 구현하던 중 스크롤을 내려서 데이터를 가져올 때 호출이 너무 여러 번 가는 경우가 존재했다.
+  - 부모 컴포넌트에서 `user` 데이터를 받아 오는데 `user`의 데이터가 없는 경우 다시 렌더링 되어 `if(!user) return null`을 추가했다.
+<br>
+
+- 관리자 설정 페이지에서 `useQeury`을 사용할 때 'qeury Funtion'안에서 `setState`를 해주면 해당 페이지에 다시 왔을 때 유저 목록을 불러오지 못하는 오류가 발생했다.
+  - 같은 키의 요청일 경우 `staleTime`이 지나지 않으면 해당 함수를 다시 실행하지 않고 캐싱된 결과를 반환해준다.
+    - 해결: 반환된 `data`를 `useEffect`를 사용하여 저장했다.
+
+  - 삭제 시 다른 페이지를 갔다 되돌아 오면 삭제된 리스트가 뜨지 않는 문제가 발생했다.
+    - 해결: key에 `users` state의 `length`를 추가했다.
+
+</details>
+
+<br><br><br>
 
 ### NextJS, MongoDB 적용
 
@@ -291,13 +302,21 @@
 
 <details>
   <summary>
-    <strong>
-      <span style="color:cadetblue cursor:pointer">
-        접기/펼치기
+      <span style="cursor: pointer;">
+        $\color{teal}\textsf{접기 / 펼치기}$
       </span>
-    </strong>
   </summary>
   
+- `React` 프로젝트에서 `NextJS`로 프로젝트를 전환 시 고려할 사항이 여럿있었다.
+  - 정말 이 페이지에 SSR이 필요한 지 생각해 볼 필요가 있다.
+    - 상품 상세 페이지의 경우 가장 최근의 정보가 있어야 하기 때문에 SSR(`getServerSideProps`)을 사용했고 제품 목록의 경우 SSG(`getStaticProps` + `revalidate`)을 사용해 사전 렌더링하였다.
+
+  - 장난감 쇼핑몰은 SEO가 적용되어야 하기 때문에 Next를 적용했다.
+  - 기존의 CSR/SPA를 사용한 경우 사용자의 상호작용 반응 속도가 더 빨랐다.
+    - 하지만, 대규모 프로젝트가 될 경우 초기 로딩 속도가 정말 느려질 수 있다.
+
+<br>
+
 - NextJS로 전환하면서 `Duplicate atom key` 오류 발생
   - 빌드 과정에서 atome `state`가 재선언되면서 문제 발생
   - `@types/uuid`를 이용해 난수로 키를 선언
@@ -453,14 +472,14 @@ catch (error) {
 
 </details>
 
-<br><br>
+<br><br><br>
 
 ### Unit Test (Jest + React Testing Library)
 
 - 로그인 페이지 유닛 테스트 적용
 - 회원가입 페이지 유닛 테스트 적용
 
-<br><br>
+<br><br><br>
 
 ### CI/CD ~~(EC2, Codedeploy, gihub action)~~ => Vercel
 
@@ -487,11 +506,9 @@ catch (error) {
 
 <details>
   <summary>
-    <strong>
-      <span style="color:cadetblue cursor:pointer">
-        접기/펼치기
+      <span style="cursor: pointer;">
+        $\color{teal}\textsf{접기 / 펼치기}$
       </span>
-    </strong>
   </summary>
 
 ### Build 에러
@@ -513,7 +530,7 @@ catch (error) {
 
 - `self is not defined` 오류
   - 빌드 중 `global` 접근 코드가 존재해서 발생
-<br>
+<br><br>
 
 ### EC2, Codedeploy 에러
 
@@ -539,29 +556,3 @@ catch (error) {
 </details>
 
 <br>
-<br>
-
-### 느낀 점 및 문제점
-
-- 반응형 UI 구현 중, 화면 사이즈에 따라 사이드바 표시 여부를 결정해줬는데 헤더의 사이드바 버튼을 클릭할 경우에도 사이드바를 열고 닫는 기능을 넣는데 어려움이 있었다.
-  - `scss`의 스타일이 중복되어 제대로 작동하지 않았다.
-  - 그래서, 사이드바 컴포넌트에서 `window`에 `resize` 함수를 걸어줘서 해결했다.
-<br>
-
-- 무한 스크롤을 구현하던 중 스크롤을 내려서 데이터를 가져올 때 호출이 너무 여러 번 가는 경우가 존재했다.
-  - 부모 컴포넌트에서 `user` 데이터를 받아 오는데 `user`의 데이터가 없는 경우 다시 렌더링 되어 `if(!user) return null`을 추가했다.
-<br>
-
-- 관리자 설정 페이지에서 `useQeury`을 사용할 때 'qeury Funtion'안에서 `setState`를 해주면 해당 페이지에 다시 왔을 때 유저 목록을 불러오지 못하는 오류가 발생했다.
-  - 같은 키의 요청일 경우 `staleTime`이 지나지 않으면 해당 함수를 다시 실행하지 않고 캐싱된 결과를 반환해준다.
-    - 해결: 반환된 `data`를 `useEffect`를 사용하여 저장했다.
-
-  - 삭제 시 다른 페이지를 갔다 되돌아 오면 삭제된 리스트가 뜨지 않는 문제가 발생했다.
-    - 해결: key에 `users` state의 `length`를 추가했다.
-<br>
-
-- `React` 프로젝트에서 `NextJS`로 프로젝트를 전환 시 고려할 사항이 여럿있었다.
-  - 정말 이 페이지에 SSR이 필요한 지 생각해 볼 필요가 있다.
-  - 장난감 쇼핑몰은 SEO가 적용되어야 하기 때문에 Next를 적용했다.
-  - 기존의 CSR/SPA를 사용한 경우 사용자의 상호작용 반응 속도가 더 빨랐다.
-    - 하지만, 대규모 프로젝트가 될 경우 초기 로딩 속도가 정말 느려질 수 있다.

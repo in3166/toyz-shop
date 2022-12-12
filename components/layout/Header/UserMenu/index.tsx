@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
@@ -17,12 +17,12 @@ const UserMenu = () => {
   const loggedOutMenu = !session && (
     <>
       <li>
-        <Link href='/signin' className={cx({ [styles.isActive]: router.pathname === '/signin' })}>
+        <Link href='/signin' className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/signin' })}>
           {`${t('common:gnb.signin')}`}
         </Link>
       </li>
       <li>
-        <Link href='/signup' className={cx({ [styles.isActive]: router.pathname === '/signup' })}>
+        <Link href='/signup' className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/signup' })}>
           {`${t('common:gnb.signup')}`}
         </Link>
       </li>

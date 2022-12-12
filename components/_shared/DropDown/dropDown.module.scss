@@ -6,7 +6,11 @@ $ASSET_PATH: '/assets/svgs/';
 .select {
   @include position.position(relative, auto);
 
-  .categoryIndicator {
+  & button {
+    color: colors.$GRAY6;
+  }
+
+  .categoryindicator {
     width: 10px;
     height: 10px;
     border-radius: 50%;

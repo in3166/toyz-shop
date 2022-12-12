@@ -1,39 +1,33 @@
-import { SignInIcon } from 'public/svgs'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { NextPageContext } from 'next/types'
 import { signIn } from 'next-auth/react'
+import { NextPageContext } from 'next/types'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import SignInForm from 'components/SignInForm'
-
-import styles from './signIn.module.scss'
 import { IMongooseError } from 'types/mongo'
 import errorHandler from 'lib/errorHandler'
-import { FormEvent } from 'react'
+import SignInForm from 'components/SignInForm'
+import styles from './signIn.module.scss'
+import { SignInIcon } from 'public/svgs'
 
 const SignIn = (): JSX.Element => {
-  const router = useRouter()
-
   const signInHandler = async (id: string, password: string, type?: string): Promise<IMongooseError | null> => {
     try {
       if (type !== 'credentials') {
-        signIn(type, { callbackUrl: '/' })
+        await signIn(type, { callbackUrl: '/' })
         return null
       }
 
       const response = await signIn('credentials', {
         id,
         password,
-        redirect: false,
+        redirect: true,
+        callbackUrl: '/',
       })
 
       if (response?.error) {
         const message = errorHandler(Number(response?.error)) + !response?.status
         return { code: Number(response?.error), message, name: 'sign in error' }
       }
-
-      router.push('/')
       return null
     } catch (error) {
       return { code: Number(error), name: 'sign in error' }

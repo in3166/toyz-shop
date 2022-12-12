@@ -77,7 +77,7 @@ const AdminSetting = () => {
   )
 }
 
-export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
+export const getServerSideProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),

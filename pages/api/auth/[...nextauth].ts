@@ -30,7 +30,6 @@ export default NextAuth({
             `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/${id}`,
             {
               method: 'GET',
-              // body: JSON.stringify({ id, password }),
               headers: {
                 'Content-Type': 'application/json',
               },
@@ -108,7 +107,6 @@ export default NextAuth({
           return newToken
         }
       }
-
       if (user) {
         return { ...token, ...user }
       }
@@ -117,6 +115,6 @@ export default NextAuth({
     },
   },
   pages: {
-    signIn: '/auth/signin',
+    signIn: '/',
   },
 })
