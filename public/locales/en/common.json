@@ -76,6 +76,7 @@
   "adminSetting": {
     "adminSetting.userTab": "User List",
     "adminSetting.chartTab": "Trading Chart",
+    "adminSetting.bannerTab": "Banner",
     "adminSetting.userList.id": "ID",
     "adminSetting.userList.name": "Name",
     "adminSetting.userList.phone": "Phone Number",

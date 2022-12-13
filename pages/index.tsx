@@ -1,17 +1,18 @@
 import type { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-
 import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import Banner from 'components/Banner'
 import ProductList from 'components/ProductList'
 import { dbConnect } from 'lib/dbConnect'
 import Users from 'lib/models/Users'
 import Products from 'lib/models/Products'
+import Banners from 'lib/models/Banners'
 
 const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
-  const { products } = pageProps
+  const { products, banners } = pageProps
 
   return (
     <>
@@ -19,7 +20,7 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
         <title>Toyz</title>
         <meta name='description' content='You can buy a variety of amazing toys!.' />
       </Head>
-      <Banner products={products} />
+      <Banner banners={banners} />
       <ProductList products={products} />
     </>
   )
@@ -28,12 +29,14 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   await dbConnect()
   const responseProducts = await Products.find({}).populate({ path: 'owner', model: Users, select: '-password' })
+  const responseBanners = await Banners.find({}).populate({ path: 'item', model: Products })
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ['app', 'common'], nextI18nextConfig)),
       locales,
       products: JSON.parse(JSON.stringify(responseProducts || [])),
+      banners: JSON.parse(JSON.stringify(responseBanners || [])),
     },
     revalidate: 10,
   }

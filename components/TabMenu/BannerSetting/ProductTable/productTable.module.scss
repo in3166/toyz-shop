@@ -1,0 +1,41 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+@use '/styles/mixins/flexbox';
+
+.table {
+  width: 100%;
+  padding: 3px;
+  text-align: center;
+  border: 1px solid colors.$GRAYA;
+  border-style: hidden;
+  border-radius: 9px;
+  box-shadow: 0 0 0 1px #666666;
+
+  thead {
+    border-bottom: 2px solid colors.$GRAYA;
+  }
+
+  th {
+    padding: 5px;
+    border: 1px solid colors.$GRAYA;
+  }
+
+  tr {
+    border: 1px solid colors.$GRAYA;
+  }
+
+  tbody {
+    border: 1px solid colors.$GRAYA;
+  }
+
+  td {
+    padding: 5px;
+    border: 1px solid colors.$GRAYA;
+  }
+
+  :root[color-theme='dark'] & {
+    button {
+      color: colors.$HEADER_DARK_FONT_COLOR;
+    }
+  }
+}

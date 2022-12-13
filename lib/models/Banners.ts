@@ -5,6 +5,7 @@ const BannersSchema = new mongoose.Schema(
     item: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Products',
+      index: { unique: true },
     },
   },
   { timestamps: true }

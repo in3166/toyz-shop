@@ -4,25 +4,6 @@
 .tableWrapper {
   width: 100%;
   overflow: auto;
-
-  &::-webkit-scrollbar {
-    display: block;
-    height: 7px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 7px;
-    background: #c0c0c0;
-    border-radius: 20px;
-
-    &:hover {
-      background: #525252;
-    }
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(199, 199, 199, 10%);
-  }
 }
 
 .userTable {
@@ -68,6 +49,32 @@
         &:active {
           background-color: colors.$TD_BUTTON_ACTIVE;
         }
+      }
+    }
+  }
+
+  :root[color-theme='dark'] & {
+    th,
+    td {
+      color: colors.$HEADER_DARK_FONT_COLOR !important;
+    }
+
+    thead {
+      border-bottom: 1px colors.$GRAYE solid;
+    }
+
+    button {
+      svg {
+        fill: colors.$GRAYD;
+      }
+
+      &:hover {
+        color: colors.$GRAY3;
+        background-color: colors.$TD_BUTTON_HOVER;
+      }
+
+      &:active {
+        background-color: colors.$TD_BUTTON_ACTIVE;
       }
     }
   }

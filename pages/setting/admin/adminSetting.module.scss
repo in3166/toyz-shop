@@ -2,7 +2,7 @@
 
 .wrapper {
   position: relative;
-  width: 80%;
+  width: 90%;
   margin: 50px;
   overflow: hidden;
   background: rgb(243, 243, 243);
@@ -20,6 +20,17 @@
       margin: 0;
       background: colors.$TAB_BAR;
       transition: all 0.2s;
+    }
+  }
+
+  :root[color-theme='dark'] & {
+    color: colors.$HEADER_DARK_FONT_COLOR;
+    background-color: colors.$HEADER_DARK_BACKGROUND_COLOR;
+
+    .tabMenu {
+      button {
+        color: colors.$GRAYD;
+      }
     }
   }
 }

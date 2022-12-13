@@ -1,5 +1,6 @@
 @use '/styles/constants/colors';
 @use '/styles/mixins/position';
+@use '/styles/mixins/responsive';
 
 .slider {
   width: 100%;
@@ -54,6 +55,12 @@
 
     dl > div {
       display: flex;
+    }
+  }
+
+  @include responsive.mobileOnly {
+    .slideContent {
+      width: auto !important;
     }
   }
 }

@@ -4,10 +4,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'stores/user'
-
 import Container from 'components/_shared/Container'
-import Card from 'components/_shared/Card'
 import styles from './likesPage.module.scss'
+import ProductList from 'components/ProductList'
 
 const LikesPage = () => {
   const { data: session } = useSession()
@@ -27,9 +26,7 @@ const LikesPage = () => {
     <main className={styles.main}>
       <Container>
         <ul className={styles.cardContainer}>
-          {userLikes?.map((value) => {
-            return <Card key={value._id} product={value} user={user} setUser={setUser} />
-          })}
+          <ProductList products={userLikes} />
         </ul>
       </Container>
     </main>

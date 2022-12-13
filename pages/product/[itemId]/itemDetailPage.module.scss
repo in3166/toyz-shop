@@ -32,6 +32,8 @@
   }
 
   .content {
+    width: 100%;
+
     div {
       display: flex;
       line-height: 30px;
@@ -57,7 +59,7 @@
 
     .buttonWrapper {
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       width: 100%;
 
       .buyButton {

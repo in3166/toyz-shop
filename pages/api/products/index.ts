@@ -1,8 +1,8 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import Product from 'lib/models/Products'
 import User from 'lib/models/Users'
-import { NextApiRequest, NextApiResponse } from 'next'
-import handlers from '../../../lib/_handlers'
 import { asyncPares } from 'lib/s3'
+import handlers from 'lib/_handlers'
 
 export const config = {
   api: {
@@ -20,9 +20,6 @@ handler.post(async (req: any, res: NextApiResponse) => {
   try {
     const result = await asyncPares(req)
     const { fields, files, url } = result
-    console.log('fields:', fields)
-    console.log('files:', files)
-    console.log('url:', url)
     const body = JSON.parse(fields.body)
     body.data.image = url
 

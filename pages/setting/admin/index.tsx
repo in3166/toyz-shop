@@ -9,6 +9,7 @@ import UserList from '../../../components/TabMenu/UserList'
 import { cx } from 'styles'
 import styles from './adminSetting.module.scss'
 import { useI18n } from 'hooks'
+import BannerSetting from 'components/TabMenu/BannerSetting'
 
 const AdminSetting = () => {
   const t = useI18n()
@@ -16,14 +17,15 @@ const AdminSetting = () => {
   const { data: session } = useSession()
   console.log('admin session: ', session)
   useEffect(() => {
-    if (session?.user?.role !== 0) router.replace('/')
+    // if (session?.user?.role !== 0) router.replace('/')
   }, [router, session?.user?.role])
 
   const MENU_LISTS =
-    session?.user?.role === 0
+    session?.user?.role !== 0
       ? [
           [t('adminSetting.userTab'), <UserList key='userlist' />],
           [t('adminSetting.chartTab'), <TradeChart key='tradechart' />],
+          [t('adminSetting.bannerTab'), <BannerSetting key='bannerSetting' />],
         ]
       : []
 

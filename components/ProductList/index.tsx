@@ -5,11 +5,11 @@ import { useSession } from 'next-auth/react'
 import { useRecoil } from 'hooks/state'
 // import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
 import { currentUserState } from 'stores/user'
-import Container from 'components/_shared/Container'
-import Card from 'components/_shared/Card'
-import styles from './productList.module.scss'
 import { IProductItem } from 'types/product'
 import Loading from 'components/_shared/Loding'
+import Container from 'components/_shared/Container'
+import ProductItem from 'components/ProductList/ProductItem'
+import styles from './productList.module.scss'
 
 interface IMainPageProps {
   products: IProductItem[]
@@ -57,7 +57,7 @@ const ProductList = ({ products }: IMainPageProps) => {
       {!isLoading && (
         <ul className={styles.cardContainer}>
           {productsList?.map((value) => {
-            return <Card key={value._id} product={value} user={user} setUser={setUser} />
+            return <ProductItem key={value._id} product={value} user={user} setUser={setUser} />
           })}
         </ul>
       )}

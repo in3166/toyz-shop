@@ -24,10 +24,14 @@ const UserList = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(async (response) => {
-        const result = await response.json()
-        return result.users
-      }),
+      })
+        .then(async (response) => {
+          const result = await response.json()
+          return result.users
+        })
+        .catch((err) => {
+          console.log(err)
+        }),
     {
       // error , success false 로직 추가
       enabled: true,
@@ -37,7 +41,6 @@ const UserList = () => {
   )
 
   useEffect(() => {
-    console.log('useeffect data', data)
     if (data && data.length > 0) setUsers(data)
   }, [data])
 

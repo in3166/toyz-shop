@@ -72,6 +72,7 @@
   "adminSetting": {
     "userTab": "사용자 목록",
     "chartTab": "거래 차트",
+    "adminSetting.bannerTab": "배너 설정",
     "userList.id": "아이디",
     "userList.name": "이름",
     "userList.phone": "전화번호",

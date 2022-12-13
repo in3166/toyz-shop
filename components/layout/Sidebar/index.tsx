@@ -44,12 +44,22 @@ const Sidebar = (): JSX.Element => {
         <ul>
           <li>
             <Link href='/' className={router.pathname === '/' ? styles.isActive : ''}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link href='/market' className={router.pathname === '/market' ? styles.isActive : ''}>
               MarketPlace
             </Link>
           </li>
           <li>
             <Link href='/likes' className={router.pathname === '/likes' ? styles.isActive : ''}>
               Likes
+            </Link>
+          </li>
+          <li>
+            <Link href='/cart' className={router.pathname === '/cart' ? styles.isActive : ''}>
+              Cart
             </Link>
           </li>
         </ul>

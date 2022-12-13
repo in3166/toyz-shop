@@ -17,7 +17,22 @@
   }
 
   &::-webkit-scrollbar {
-    display: none; // Chrome
+    display: block;
+    height: 7px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 7px;
+    background: #c0c0c0;
+    border-radius: 20px;
+
+    &:hover {
+      background: #525252;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(199, 199, 199, 10%);
   }
 }
 
