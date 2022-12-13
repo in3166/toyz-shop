@@ -15,17 +15,17 @@ export interface IAuthSession extends Session {
 }
 
 export interface IAuthToken extends JWT {
-  name?: string | null | undefined
-  email?: string | null | undefined
-  sub?: string | null | undefined
   _id?: string
   id?: string
+  name?: string | null | undefined
+  email?: string | null | undefined
   phone?: string
   likes?: IProductItem[] | []
   role?: number
   createdAt?: string
   updatedAt?: string
   __v?: number
+  sub?: string | null | undefined
   iat?: number
   exp?: number
   jti?: string

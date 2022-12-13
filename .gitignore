@@ -29,3 +29,7 @@ handlers.ts
 
 .next
 .vercel
+
+next-env.d.ts
+jest.config.js
+/fixtures

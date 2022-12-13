@@ -1,13 +1,13 @@
 import { MouseEvent } from 'react'
 import { IProductItem } from './product.d'
 
-export interface IUser {
+export interface IUser extends IAuthToken {
   _id?: string
-  id: string
-  name: string
+  id?: string
+  name?: string | null | undefined
   password?: string
-  email: string
-  phone: string
+  email?: string | null | undefined
+  phone?: string
   likes?: IProductItem[]
   role?: number
   createdAt?: date

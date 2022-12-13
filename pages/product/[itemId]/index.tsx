@@ -25,7 +25,6 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { message, setMessage } = useSnackbar(3000)
   const router = useRouter()
   const { product } = pageProps
-
   const handleOpenModal = () => {
     setOpenModal(true)
   }
@@ -40,40 +39,47 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Toyz Item-{product.name}</title>
+        <title>Toyz Item</title>
       </Head>
       <Container color='white' width='md'>
-        <header className={styles.header}>{product.name}</header>
+        <header className={styles.header}>{product?.title}</header>
         <main className={styles.main}>
           <div className={styles.image}>
-            <img src={product.image} alt='items' />
+            <img src={product?.image} alt='items' />
           </div>
 
-          <div>
-            <dl className={styles.content}>
-              <div>
-                <div>{product.description}</div>
-              </div>
+          <div className={styles.content}>
+            <dl>
               <div>
                 <dt>{`${t('common:price')}`}</dt>
-                <dd>{product.price} 만원</dd>
+                <dd>{product?.price} 만원</dd>
               </div>
               <div>
                 <dt>{`${t('common:owner')}`}</dt>
-                <dd>{product.owner.name}</dd>
+                <dd>{product?.owner.name}</dd>
               </div>
               <div>
                 <dt> {`${t('common:date')}`}</dt>
-                <dd>{dayjs(product.createdAt).format('YYYY-MM-DD')}</dd>
+                <dd>{dayjs(product?.createdAt).format('YYYY-MM-DD')}</dd>
               </div>
             </dl>
-            <button type='button' className={styles.buyButton} onClick={handleOpenModal}>
-              구매
-            </button>
+            <div className={styles.description}>
+              <div>{product?.description}</div>
+            </div>
+            <div className={styles.buttonWrapper}>
+              <button type='button' className={styles.buyButton} onClick={handleOpenModal}>
+                구매
+              </button>
+            </div>
           </div>
         </main>
         {openModal && (
-          <BuyItemModal onClose={handleCloseModal} title={product.name} price={product.price} setMessage={setMessage} />
+          <BuyItemModal
+            onClose={handleCloseModal}
+            title={product?.name}
+            price={product?.price}
+            setMessage={setMessage}
+          />
         )}
         {message && <SnackBar message={message} setMessage={setMessage} />}
       </Container>
@@ -92,7 +98,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
 //   return {
 //     fallback: true,
 //     paths: responseProducts.map((product: IProductItem) => ({
-//       params: { itemId: product._id.toString() },
+//       params: { itemId: product?._id.toString() },
 //     })),
 //   }
 // }
@@ -103,7 +109,7 @@ interface IGetStaticProps {
   params: ParsedUrlQuery
 }
 
-export const getServerSideprops = async (context: IGetStaticProps) => {
+export const getServerSideProps = async (context: IGetStaticProps) => {
   const { locale, locales, params } = context
   await dbConnect()
   const product = await Products.findOne({ _id: params.itemId }).populate({
@@ -116,7 +122,7 @@ export const getServerSideprops = async (context: IGetStaticProps) => {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
       locales,
-      product: JSON.parse(JSON.stringify(product || [])),
+      product: JSON.parse(JSON.stringify(product)),
     },
   }
 }

@@ -9,13 +9,18 @@
   font-weight: 500;
   color: colors.$GRAY3;
   border-bottom: 1px solid;
+
+  :root[color-theme='dark'] & {
+    color: colors.$HEADER_DARK_FONT_COLOR;
+  }
 }
 
 .main {
-  @include position.position(relative, auto);
+  @include position.position(relative, null);
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 10px 0 25px;
+  padding: 5px 10px;
 
   .image {
     img {
@@ -27,9 +32,9 @@
   }
 
   .content {
-    > div {
+    div {
       display: flex;
-      line-height: 40px;
+      line-height: 30px;
 
       dt {
         width: 50px;
@@ -39,28 +44,59 @@
       }
 
       dd {
-        color: colors.$GRAY6;
         letter-spacing: 1px;
+      }
+    }
+
+    .description {
+      padding: 15px 10px;
+      margin: 10px;
+      border: 1px colors.$GRAY6 solid;
+      border-radius: 10px;
+    }
+
+    .buttonWrapper {
+      display: flex;
+      justify-content: end;
+      width: 100%;
+
+      .buyButton {
+        // @include position.position(absolute, auto 10px -10px auto);
+        padding: 10px 20px;
+        margin: 10px 3px;
+        border: 1px solid colors.$GRAY3;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: colors.$GRAYD;
+        }
+
+        &:active {
+          background-color: colors.$GRAYA;
+        }
       }
     }
   }
 
-  .buyButton {
-    @include position.position(absolute, auto 10px -10px auto);
-    padding: 10px 20px;
-    border: 1px solid colors.$GRAY3;
-    border-radius: 5px;
-
-    &:hover {
-      background-color: colors.$GRAYD;
-    }
-
-    &:active {
-      background-color: colors.$GRAYA;
-    }
+  @include responsive.after(MD) {
+    flex-direction: row;
   }
 
-  @include responsive.mobileOnly {
-    flex-direction: column;
+  :root[color-theme='dark'] & {
+    color: colors.$HEADER_DARK_FONT_COLOR;
+
+    .buyButton {
+      background-color: colors.$GRAYD;
+      border: 1px solid colors.$GRAY6;
+
+      &:hover {
+        color: colors.$GRAYD;
+        background-color: colors.$GRAY3;
+      }
+
+      &:active {
+        background-color: colors.$GRAYA;
+      }
+    }
   }
 }

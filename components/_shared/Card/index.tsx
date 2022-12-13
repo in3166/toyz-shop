@@ -1,70 +1,83 @@
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import Link from 'next/link'
+import { SetterOrUpdater } from 'recoil'
 import dayjs from 'dayjs'
 import store from 'store'
-// import HeartFillIcon from 'public/svgs/heartFill.svg'
 import { useI18n } from 'hooks'
 import { IProductItem } from 'types/product'
-import styles from './card.module.scss'
-import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import { IUser } from 'types/user'
-import { SetterOrUpdater } from 'recoil'
-// import { updateUserDBLikes } from 'services/user'
-// import { getTempLikes } from './getTempLikes'
+import { changeLikesList } from './changeLikesList'
+import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
+import styles from './card.module.scss'
 
 interface ICardProps {
-  item: IProductItem
+  product: IProductItem
   user?: IUser
   setUser?: SetterOrUpdater<IUser>
 }
 
-const Card = ({ item, user, setUser }: ICardProps) => {
+const Card = ({ product, user, setUser }: ICardProps) => {
   const t = useI18n()
-  const isLiked = false
-  // user && user.role === 1 ? user.likes.filter((value) => value.id === item.id).length > 0 : false
-  const [like] = useState(isLiked)
+  const [isLiked, setIsLiked] = useState(false)
 
-  const handleClickLike = (e: MouseEvent<HTMLButtonElement>) => {
+  useEffect(() => {
+    if (user && user.role === 1 && user?.likes) {
+      const isLike = user.likes.some((value) => value?._id === product._id)
+      setIsLiked(isLike)
+    }
+  }, [product._id, user])
+
+  const handleClickLike = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (!user || !setUser) return
-    if (user.id === '' || user.id === 'admin') return
+    if (!user.id || user.id === 'admin') return
     store.remove('currentUser')
 
-    // setLike((prev) => !prev)
-    // setUser((prev) => {
-    //   const tempLikes = getTempLikes(prev.likes ?? [], like, item)
-    //   updateUserDBLikes(user.id, tempLikes).then(() => {
-    //     const newUser = { data: { ...user, likes: tempLikes }, key: user.id }
-    //     store.set('currentUser', newUser)
-    //   })
-    //   return { ...prev, likes: tempLikes }
-    // })
+    setIsLiked((prev) => !prev)
+    const likes = changeLikesList(user.likes ?? [], isLiked, product)
+    const likesIdList = likes.map((value) => value._id)
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}`, {
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ likes: likesIdList }),
+        method: 'PATCH',
+      })
+      const result = await response.json()
+      if (!result.success) {
+        setIsLiked((prev) => !prev)
+      }
+      setUser({ ...user, likes })
+    } catch (error) {
+      setIsLiked((prev) => {
+        return !prev
+      })
+    }
   }
 
   return (
-    <Link href={`/product/${item._id}`}>
-      <li className={styles.card} title={item.title}>
+    <Link href={`/product/${product._id}`}>
+      <li className={styles.card} title={product.title}>
         <h3 className={styles.header}>
-          <div className={styles.title}>{item.title}</div>
+          <div className={styles.title}>{product.title}</div>
           <button type='button' className={styles.likeButton} onClick={handleClickLike}>
-            {like ? <HeartFillIcon /> : <HeartOutlineIcon />}
+            {isLiked ? <HeartFillIcon /> : <HeartOutlineIcon />}
           </button>
         </h3>
 
-        <img src={item.image} alt={item.title} className={styles.itemImage} />
+        <img src={product.image} alt={product.title} className={styles.productImage} />
 
         <dl>
           <div>
             <dt>{`${t('common:owner')}`}</dt>
-            <dd>{item.owner.name}</dd>
+            <dd>{product.owner.name}</dd>
           </div>
           <div>
             <dt>{`${t('common:price')}`}</dt>
-            <dd>{item.price} 만원</dd>
+            <dd>{product.price} 만원</dd>
           </div>
           <div>
             <dt>{`${t('common:date')}`}</dt>
-            <dd>{dayjs(item.createdAt).format('YY-MM-DD')}</dd>
+            <dd>{dayjs(product.createdAt).format('YY-MM-DD')}</dd>
           </div>
         </dl>
       </li>

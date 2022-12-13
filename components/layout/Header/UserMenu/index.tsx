@@ -32,15 +32,16 @@ const UserMenu = () => {
   const loggedInMenu = session && (
     <>
       <li>
-        <Link className={styles.userMenu} href='/product'>{`${t('gnb.addItem')}`}</Link>
+        <Link className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/product' })} href='/product'>
+          <button type='button'>{`${t('gnb.addItem')}`}</button>
+        </Link>
       </li>
-      <li>
+      <li className={styles.userMenu}>
         <button
           type='button'
           onClick={() =>
             signOut({ callbackUrl: process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL })
           }
-          className={styles.userMenu}
         >
           {`${t('common:gnb.logout')}`}
         </button>

@@ -3,7 +3,7 @@
 @use '/styles/mixins/position';
 
 .inputForm {
-  @include position.position(relative, auto);
+  @include position.position(relative, null);
   display: flex;
   flex-direction: column;
   margin: 35px 0;

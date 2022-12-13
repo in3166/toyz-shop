@@ -27,11 +27,7 @@ const UsersSchema = new mongoose.Schema(
       required: [true, "Please enter the User's Phone Number."],
       type: String,
     },
-    likes: [
-      {
-        products: { type: mongoose.Schema.Types.ObjectId, ref: 'Products' },
-      },
-    ],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Products' }],
     role: {
       type: Number,
       required: [true, 'Role is requied.'],

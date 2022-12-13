@@ -63,7 +63,7 @@ const UserSetting = () => {
     }
 
     const response = await fetch(`/api/users/${session?.user?.id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({ name, phone, password }),
       headers: {
         'Content-Type': 'application/json',

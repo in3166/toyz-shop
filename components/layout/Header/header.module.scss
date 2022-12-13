@@ -5,7 +5,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  width: 99%;
+  width: 95%;
   padding: 5px;
   margin: 6px 0;
   background-color: colors.$WHITE;
@@ -13,7 +13,7 @@
   border-radius: 15px;
 
   .leftMenu {
-    @include position.position(relative, auto);
+    @include position.position(relative, null);
     display: flex;
     align-items: center;
   }
@@ -38,10 +38,14 @@
         color: colors.$FONT_COLOR;
       }
     }
+
+    .userMenu {
+      color: colors.$GRAYE;
+    }
   }
 
   .rightMenu {
-    @include position.position(relative, auto);
+    @include position.position(relative, null);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -52,11 +56,22 @@
       align-items: center;
 
       .userMenu {
+        height: 18px;
         font-size: 13px;
         color: colors.$GRAY6;
 
         &:hover {
           font-weight: 600;
+        }
+
+        button {
+          height: 18px;
+          font-size: 13px;
+          color: colors.$GRAY6;
+
+          &:hover {
+            font-weight: 600;
+          }
         }
       }
     }
@@ -95,6 +110,10 @@
       }
     }
 
+    .lang button {
+      color: colors.$GRAY6 !important;
+    }
+
     @include responsive.mobileOnly {
       ul {
         font-size: 12px;
@@ -105,10 +124,12 @@
           }
         }
       }
-
-      .settingIcon {
-        display: none;
-      }
     }
+  }
+}
+
+@include responsive.mobileOnly {
+  .header {
+    flex-direction: column;
   }
 }

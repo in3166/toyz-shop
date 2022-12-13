@@ -2,7 +2,7 @@
 @use '/styles/mixins/position';
 
 .switch {
-  @include position.position(relative, auto);
+  @include position.position(relative, null);
   display: inline-block;
   width: 54px;
   height: 28px;

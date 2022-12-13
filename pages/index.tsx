@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+
 import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Banner from 'components/Banner'

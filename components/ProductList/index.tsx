@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 import { useRecoil } from 'hooks/state'
 // import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
 import { currentUserState } from 'stores/user'
-
 import Container from 'components/_shared/Container'
 import Card from 'components/_shared/Card'
 import styles from './productList.module.scss'
@@ -19,9 +19,16 @@ const ProductList = ({ products }: IMainPageProps) => {
   const [productsList, setproductsList] = useState(products)
 
   const [isLoading, setIsLoading] = useState(false)
-  const [, setUser] = useRecoil(currentUserState)
   // const setTarget = useIntersectionObserver(ref, { rootMargin: '10px', threshold: 0 }, setIsLoading, setproductsList)
   const router = useRouter()
+
+  const { data: session } = useSession()
+  const [user, setUser] = useRecoil(currentUserState)
+
+  useEffect(() => {
+    if (!user && session?.user) setUser(session.user)
+    console.log('recoil user: ', user)
+  }, [session, setUser, user])
 
   useEffect(() => {
     setIsLoading(true)
@@ -50,7 +57,7 @@ const ProductList = ({ products }: IMainPageProps) => {
       {!isLoading && (
         <ul className={styles.cardContainer}>
           {productsList?.map((value) => {
-            return <Card key={value._id} item={value} user={value.owner} setUser={setUser} />
+            return <Card key={value._id} product={value} user={user} setUser={setUser} />
           })}
         </ul>
       )}

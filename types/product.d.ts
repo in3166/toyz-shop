@@ -1,7 +1,7 @@
 import { IUser } from 'types/user'
 
 export interface IProductItem {
-  _id: number
+  _id: string
   price: number
   image: string
   description: string

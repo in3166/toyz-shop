@@ -45,7 +45,7 @@
     }
 
     .likeButton {
-      @include position.position(relative, auto);
+      @include position.position(relative, null);
       width: auto;
       height: auto;
       padding: 5px;
