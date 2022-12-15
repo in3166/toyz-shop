@@ -58,7 +58,7 @@ const Banner = ({ banners }: { banners: IBanner[] }) => {
                 </div>
                 <div className={styles.dlContent}>
                   <dt>{`${t('common:owner')}`}: </dt>
-                  <dd>{value.item.owner.name}</dd>
+                  <dd>{value.item.owner.id}</dd>
                 </div>
                 <div className={styles.dlContent}>
                   <dt>{`${t('common:date')}`}: </dt>

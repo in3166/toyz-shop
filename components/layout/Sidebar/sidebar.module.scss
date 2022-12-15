@@ -55,7 +55,7 @@
       margin: 1px auto;
       cursor: pointer;
 
-      >a {
+      > a {
         display: flex;
         align-items: center;
         height: 45px;
@@ -113,9 +113,15 @@
     background-color: colors.$SIDE_DARK_BACKGROUND_COLOR;
     box-shadow: 0 0 10px 0 rgba(41, 41, 41, 58.9%);
 
-    a,
-    button {
-      color: colors.$FONT_COLOR;
+    .nav {
+      a {
+        color: colors.$GRAYA;
+      }
+    }
+
+    .isActive,
+    .logo {
+      color: colors.$FONT_COLOR !important;
     }
 
     .task {

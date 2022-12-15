@@ -18,10 +18,12 @@
 
   &::-webkit-scrollbar {
     display: block;
+    width: 10px;
     height: 7px;
   }
 
   &::-webkit-scrollbar-thumb {
+    width: 10px;
     height: 7px;
     background: #c0c0c0;
     border-radius: 20px;

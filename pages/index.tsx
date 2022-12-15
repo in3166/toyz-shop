@@ -29,7 +29,11 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   await dbConnect()
   const responseProducts = await Products.find({}).populate({ path: 'owner', model: Users, select: '-password' })
-  const responseBanners = await Banners.find({}).populate({ path: 'item', model: Products })
+  const responseBanners = await Banners.find({}).populate({
+    path: 'item',
+    model: Products,
+    populate: { path: 'owner', model: Users, select: '-password' },
+  })
 
   return {
     props: {

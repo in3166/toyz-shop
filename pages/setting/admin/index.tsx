@@ -15,13 +15,13 @@ const AdminSetting = () => {
   const t = useI18n()
   const router = useRouter()
   const { data: session } = useSession()
-  console.log('admin session: ', session)
+
   useEffect(() => {
-    // if (session?.user?.role !== 0) router.replace('/')
+    if (session?.user?.role !== 0) router.replace('/')
   }, [router, session?.user?.role])
 
   const MENU_LISTS =
-    session?.user?.role !== 0
+    session?.user?.role === 0
       ? [
           [t('adminSetting.userTab'), <UserList key='userlist' />],
           [t('adminSetting.chartTab'), <TradeChart key='tradechart' />],

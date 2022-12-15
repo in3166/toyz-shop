@@ -113,23 +113,27 @@
     .lang button {
       color: colors.$GRAY6 !important;
     }
-
-    @include responsive.mobileOnly {
-      ul {
-        font-size: 12px;
-
-        li {
-          + li {
-            margin-left: 7px;
-          }
-        }
-      }
-    }
   }
 }
 
 @include responsive.mobileOnly {
   .header {
     flex-direction: column;
+  }
+
+  .rightMenu {
+    width: 100%;
+
+    ul {
+      display: flex;
+      justify-content: center;
+      font-size: 10px;
+
+      li {
+        + li {
+          margin-left: 3px !important;
+        }
+      }
+    }
   }
 }
