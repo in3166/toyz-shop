@@ -24,7 +24,7 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const [loading, setLoading] = useState(false)
   const { message, setMessage } = useSnackbar()
-  const [imageFile, setImageFile] = useState<File>()
+  const [imageFile, setImageFile] = useState<File | undefined>()
   const [imagePreviewUrl, setImagePreviewUrl] = useState(DEFAULT_IMAGE_PATH)
   const { data: session, status } = useSession()
 
@@ -80,12 +80,21 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
     // console.log(data)
     const error = await onUploadSubmit(data, imageFile)
     // eslint-disable-next-line no-console
-    console.log(error)
+    console.log('error: ', error)
+    if (!error) {
+      setSnackBarStatus('')
+      setMessage(`${t('upload.snackBarSuccess')}`)
+      setImageFile(undefined)
+      title.reset()
+      description.reset()
+      price.reset()
+      setImagePreviewUrl(DEFAULT_IMAGE_PATH)
+    }
     setLoading(false)
   }
 
   return (
-    <form onSubmit={handleOnSubmit} className={styles.UploadImageForm}>
+    <form onSubmit={handleOnSubmit} className={styles.uploadImageForm}>
       <div className={styles.topWrapper}>
         {loading && <div className={styles.loadingBar} />}
         <div className={styles.imageWrapper}>

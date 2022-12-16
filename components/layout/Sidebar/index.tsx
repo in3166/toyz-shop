@@ -48,7 +48,7 @@ const Sidebar = (): JSX.Element => {
             </Link>
           </li>
           <li>
-            <Link href='/market' className={router.pathname === '/market' ? styles.isActive : ''}>
+            <Link href='/marketplace' className={router.pathname === '/marketplace' ? styles.isActive : ''}>
               MarketPlace
             </Link>
           </li>

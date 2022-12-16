@@ -23,7 +23,8 @@
     "errorMessagePrice": "'0' 이상을 입력하세요.",
     "errorMessageDescription": "5글자 이상 입력하세요.",
     "snackBarValid": "입력이 올바르지 않습니다.",
-    "snackBarImageNotValid":"상품 사진이 없습니다."
+    "snackBarImageNotValid": "상품 사진이 없습니다.",
+    "snackBarSuccess": "상품이 등록되었습니다."
   },
   "signIn": {
     "title": "로그인",
@@ -72,7 +73,7 @@
   "adminSetting": {
     "userTab": "사용자 목록",
     "chartTab": "거래 차트",
-    "adminSetting.bannerTab": "배너 설정",
+    "bannerTab": "배너 설정",
     "userList.id": "아이디",
     "userList.name": "이름",
     "userList.phone": "전화번호",
@@ -81,5 +82,9 @@
   "title": "제목",
   "price": "가격",
   "owner": "소유자",
-  "date": "등록일"
+  "date": "등록일",
+  "likes": {
+    "admin": "관리자 계정입니다.",
+    "notValid": "권한이 없습니다."
+  }
 }

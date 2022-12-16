@@ -3,13 +3,13 @@ import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useI18n } from 'hooks'
 
-import TradeChart from '../../../components/TabMenu/TradeChart'
-import UserList from '../../../components/TabMenu/UserList'
+import TradeChart from 'components/AdminSettingTabs/TradeChart'
+import UserList from 'components/AdminSettingTabs/UserList'
+import BannerSetting from 'components/AdminSettingTabs/BannerSetting'
 import { cx } from 'styles'
 import styles from './adminSetting.module.scss'
-import { useI18n } from 'hooks'
-import BannerSetting from 'components/TabMenu/BannerSetting'
 
 const AdminSetting = () => {
   const t = useI18n()

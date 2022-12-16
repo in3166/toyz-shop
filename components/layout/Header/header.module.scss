@@ -24,7 +24,7 @@
 
     a,
     button {
-      color: colors.$HEADER_DARK_FONT_COLOR;
+      color: colors.$HEADER_DARK_FONT_COLOR !important;
     }
 
     .lang button {
@@ -126,7 +126,8 @@
 
     ul {
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
+      width: 100%;
       font-size: 10px;
 
       li {
@@ -135,5 +136,15 @@
         }
       }
     }
+  }
+}
+
+.lang {
+  display: none;
+}
+
+@include responsive.after(M) {
+  .lang {
+    display: inline-block;
   }
 }

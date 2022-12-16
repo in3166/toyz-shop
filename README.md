@@ -147,7 +147,7 @@
 │  │      └─BuyItemModal
 │  ├─setting
 │  │  ├─admin
-│  │  │  └─TabMenu
+│  │  │  └─AdminSettingTabs
 │  │  │      ├─TradeChart
 │  │  │      └─UserList
 │  │  │          └─RemoveUserModal

@@ -23,7 +23,8 @@
     "errorMessagePrice": "Enter at least '0'.",
     "errorMessageDescription": "Enter at least 5 characters.",
     "snackBarValid": "Input is not valid.",
-    "snackBarImageNotValid":"No image."
+    "snackBarImageNotValid": "No image.",
+    "snackBarSuccess": "The product has been registered."
   },
   "signIn": {
     "title": "Sign In",
@@ -74,12 +75,16 @@
     "title": "User Info"
   },
   "adminSetting": {
-    "adminSetting.userTab": "User List",
-    "adminSetting.chartTab": "Trading Chart",
-    "adminSetting.bannerTab": "Banner",
-    "adminSetting.userList.id": "ID",
-    "adminSetting.userList.name": "Name",
-    "adminSetting.userList.phone": "Phone Number",
-    "adminSetting.userList.withdrawal": "Withdrawal"
+    "userTab": "User List",
+    "chartTab": "Trading Chart",
+    "bannerTab": "Banner",
+    "userList.id": "ID",
+    "userList.name": "Name",
+    "userList.phone": "Phone Number",
+    "userList.withdrawal": "Withdrawal"
+  },
+  "likes": {
+    "admin": "Administrators are not available.",
+    "notValid": "You do not have permission."
   }
 }

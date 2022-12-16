@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import { IBanner } from 'types/banners'
 import { useI18n, useState } from 'hooks'
 import styles from './banner.module.scss'
+import { currencyFormatter } from 'utils/currencyFormatter'
 
 const slideSettings = {
   dots: true,
@@ -54,7 +55,7 @@ const Banner = ({ banners }: { banners: IBanner[] }) => {
                 </div>
                 <div className={styles.dlContent}>
                   <dt>{`${t('common:price')}`}: </dt>
-                  <dd>{value.item.price} 만원</dd>
+                  <dd>{currencyFormatter(value.item.price, 'tenThousand')} 만원</dd>
                 </div>
                 <div className={styles.dlContent}>
                   <dt>{`${t('common:owner')}`}: </dt>

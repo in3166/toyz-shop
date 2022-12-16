@@ -20,10 +20,8 @@ const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
   const handleChangeLanguage = useCallback(
     (language: string) => {
       const selectedLanguage = language === 'English' || language === '영어' ? 'en' : 'ko'
-      const path = router.query.email ? `${router.pathname}?email=${router.query.email}` : router.pathname
-      router.replace(path, path, {
-        locale: selectedLanguage,
-      })
+      const { pathname, asPath, query } = router
+      router.push({ pathname, query }, asPath, { locale: selectedLanguage })
     },
     [router]
   )

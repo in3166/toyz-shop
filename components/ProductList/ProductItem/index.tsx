@@ -10,6 +10,7 @@ import { IUser } from 'types/user'
 import { changeLikesList } from './changeLikesList'
 import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import styles from './productItem.module.scss'
+import { currencyFormatter } from 'utils/currencyFormatter'
 
 interface ICardProps {
   product: IProductItem
@@ -74,7 +75,7 @@ const ProductItem = ({ product, user, setUser }: ICardProps) => {
           </div>
           <div>
             <dt>{`${t('common:price')}`}</dt>
-            <dd>{product.price} 만원</dd>
+            <dd>{currencyFormatter(product.price, 'tenThousand')} 만원</dd>
           </div>
           <div>
             <dt>{`${t('common:date')}`}</dt>

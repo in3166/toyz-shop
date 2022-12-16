@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { IBanner } from 'types/banners'
 import { IProductItem } from 'types/product'
 import styles from './productTable.module.scss'
+import dayjs from 'dayjs'
 
 interface IProductTable {
   products: IProductItem[]
@@ -40,7 +41,7 @@ const ProductTable = ({ products, setBanners }: IProductTable) => {
             <td>{index}</td>
             <td>{value.title}</td>
             <td>{value.price}</td>
-            <td>{value.createdAt}</td>
+            <td>{dayjs(value.createdAt).format('YYYY.MM.DD')}</td>
             <td>{value.description}</td>
             <td>
               <button type='button' onClick={() => handleAddBanner(value)}>

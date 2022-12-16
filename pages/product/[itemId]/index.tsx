@@ -18,6 +18,7 @@ import { ParsedUrlQuery } from 'querystring'
 import Products from 'lib/models/Products'
 import Users from 'lib/models/Users'
 import { dbConnect } from 'lib/dbConnect'
+import { currencyFormatter } from 'utils/currencyFormatter'
 
 const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const t = useI18n()
@@ -52,7 +53,9 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
             <dl>
               <div>
                 <dt>{`${t('common:price')}`}</dt>
-                <dd>{product?.price} 만원</dd>
+                <dd>
+                  {currencyFormatter(product?.price)} <sub>(원)</sub>
+                </dd>
               </div>
               <div>
                 <dt>{`${t('common:owner')}`}</dt>
@@ -86,22 +89,6 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
     </>
   )
 }
-
-// export async function getStaticPaths() {
-//   await dbConnect()
-//   const responseProducts: IProductItem[] = await Products.find({}).populate({
-//     path: 'owner',
-//     model: Users,
-//     select: '-password',
-//   })
-
-//   return {
-//     fallback: true,
-//     paths: responseProducts.map((product: IProductItem) => ({
-//       params: { itemId: product?._id.toString() },
-//     })),
-//   }
-// }
 
 interface IGetStaticProps {
   locale: string

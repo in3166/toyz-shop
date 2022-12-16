@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useI18n } from 'hooks'
 
 import { useRecoil } from 'hooks/state'
 import { currentUserState } from 'stores/user'
@@ -9,15 +10,15 @@ import styles from './likesPage.module.scss'
 import ProductList from 'components/ProductList'
 
 const LikesPage = () => {
+  const t = useI18n()
   const { data: session } = useSession()
   const [user, setUser] = useRecoil(currentUserState)
   useEffect(() => {
     if (session) setUser(session?.user)
   }, [session, setUser])
 
-  if (user?.id === 'admin') return <div className={styles.empty}>You are admin.</div>
-  if (!user || user.id === '') return <div className={styles.empty}>You need to log in.</div>
-  if (!user) return <div>권한 없음</div>
+  if (user?.id === 'admin') return <div className={styles.empty}>{`${t('likes.admin')}`}</div>
+  if (!user || user.id === '') return <div className={styles.empty}>{`${t('likes.notValid')}`}</div>
 
   const userLikes = user?.likes || []
   if (userLikes.length < 1) return <div className={styles.empty}>No Items.</div>
