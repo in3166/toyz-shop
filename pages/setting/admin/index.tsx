@@ -15,6 +15,7 @@ const AdminSetting = () => {
   const t = useI18n()
   const router = useRouter()
   const { data: session, status } = useSession()
+  const [bannerTabIsSelected, setBannerTabIsSelected] = useState(false)
 
   useEffect(() => {
     if (status !== 'loading' && session?.user?.role !== 0) router.replace('/')
@@ -25,7 +26,7 @@ const AdminSetting = () => {
       ? [
           [t('adminSetting.userTab'), <UserList key='userlist' />],
           [t('adminSetting.chartTab'), <TradeChart key='tradechart' />],
-          [t('adminSetting.bannerTab'), <BannerSetting key='bannerSetting' />],
+          [t('adminSetting.bannerTab'), <BannerSetting key='bannerSetting' selected={bannerTabIsSelected} />],
         ]
       : []
 
@@ -40,6 +41,7 @@ const AdminSetting = () => {
   const changeTabHandler = (tabNumber: number) => {
     setValue(tabNumber)
     setSlideStyle((prev) => ({ ...prev, left: `${Math.floor(INIT_WIDTH * tabNumber)}%` }))
+    if (tabNumber === 2 && !bannerTabIsSelected) setBannerTabIsSelected(true)
   }
 
   return (

@@ -7,10 +7,10 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Provider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
 
-import type { AppStore, RootState } from '../stores'
-import productsReducer from '../stores/reducer/product'
-import bannerReducer from '../stores/reducer/banner'
-import systemReducer from '../stores/reducer/system'
+import type { AppStore, RootState } from 'stores'
+import productsReducer from 'stores/reducer/product'
+import bannerReducer from 'stores/reducer/banner'
+import systemReducer from 'stores/reducer/system'
 import ErrorFallback from 'components/layout/ErrorFallback'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {

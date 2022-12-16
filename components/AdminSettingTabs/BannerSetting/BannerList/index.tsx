@@ -1,10 +1,12 @@
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useQuery } from 'react-query'
 import { IProductItem } from 'types/product'
 import { IBanner } from 'types/banners'
 import Card from 'components/_shared/Card'
 import styles from './bannerList.module.scss'
 import { BASE_URL } from 'src/fixtures'
+import useDragScroll from './useDragScroll'
+import { throttle } from 'lodash'
 
 interface IBannerList {
   banners: IBanner[]
@@ -52,28 +54,42 @@ const BannerList = ({ banners, setBanners }: IBannerList) => {
       setBanners((prev) => prev.filter((value: IBanner) => value?._id !== id))
     }
   }
+  const scrollRef = useRef<HTMLUListElement>(null)
+  const { onDragEnd, onDragStart, onDragMove, isDrag } = useDragScroll(scrollRef)
+
+  const onThrottleDragMove = throttle(onDragMove, 50)
 
   return (
     <>
       <header>
         <h2>Banner List</h2>
       </header>
-      <div className={styles.bannerListWrapper}>
+      <ul
+        role='presentation'
+        className={styles.bannerListWrapper}
+        ref={scrollRef}
+        onMouseDown={onDragStart}
+        onMouseMove={isDrag ? onThrottleDragMove : undefined}
+        onMouseUp={onDragEnd}
+        onMouseLeave={onDragEnd}
+      >
         {banners?.map((value: { _id: string; item: IProductItem }) => {
           return (
-            <Card key={value?._id}>
-              <div className={styles.infoWrapper}>
-                <button type='button' className={styles.deleteButton} onClick={() => handleDeleteBanner(value?._id)}>
-                  x
-                </button>
-                <label className={styles.titleLabel}>{value.item.title}</label>
-                <img src={value.item.image} alt={value.item.title} />
-                <label className={styles.ownerLabel}>Owner : {value.item.owner.id}</label>
-              </div>
-            </Card>
+            <li key={value?._id}>
+              <Card>
+                <div className={styles.infoWrapper}>
+                  <button type='button' className={styles.deleteButton} onClick={() => handleDeleteBanner(value?._id)}>
+                    x
+                  </button>
+                  <label className={styles.titleLabel}>{value.item.title}</label>
+                  <img src={value.item.image} alt={value.item.title} />
+                  <label className={styles.ownerLabel}>Owner : {value.item.owner.id}</label>
+                </div>
+              </Card>
+            </li>
           )
         })}
-      </div>
+      </ul>
     </>
   )
 }

@@ -6,8 +6,9 @@ import ProductTable from './ProductTable'
 import BannerList from './BannerList'
 import styles from './bannerSetting.module.scss'
 import { BASE_URL } from 'src/fixtures'
+import Loading from 'components/_shared/Loding'
 
-const BannerSetting = () => {
+const BannerSetting = ({ selected }: { selected: boolean }) => {
   const [banners, setBanners] = useState<IBanner[]>([])
   const { isLoading, data: products } = useQuery(
     ['getAllProductsData'],
@@ -26,12 +27,13 @@ const BannerSetting = () => {
           console.log('err:', err)
         }),
     {
-      // error , success false 로직 추가
-      enabled: true,
+      enabled: selected,
       staleTime: 6 * 50 * 1000,
       useErrorBoundary: true,
     }
   )
+
+  if (isLoading) return <Loading />
 
   return (
     <div className={styles.bannerWrapper}>
