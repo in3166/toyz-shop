@@ -5,13 +5,14 @@ import { IBanner } from 'types/banners'
 import ProductTable from './ProductTable'
 import BannerList from './BannerList'
 import styles from './bannerSetting.module.scss'
+import { BASE_URL } from 'src/fixtures'
 
 const BannerSetting = () => {
   const [banners, setBanners] = useState<IBanner[]>([])
   const { isLoading, data: products } = useQuery(
     ['getAllProductsData'],
     () =>
-      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
+      fetch(`${BASE_URL}/api/products`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

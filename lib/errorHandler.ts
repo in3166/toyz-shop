@@ -6,6 +6,8 @@ export default (code: number) => {
       return 'Duplicate key error.'
     case 10001:
       return 'User not found.'
+    case 10002:
+      return 'Password is not correct.'
     case 10003:
       return 'Not Correct Password.'
     default:

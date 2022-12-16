@@ -37,7 +37,7 @@ const Sidebar = (): JSX.Element => {
       <div className={styles.logo}>
         <Link href='/' className={styles.logo}>
           <LogoImage />
-          <div>Toyz</div>
+          Toyz
         </Link>
       </div>
       <nav className={styles.nav}>

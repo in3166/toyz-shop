@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import User from 'lib/models/Users'
 import handlers from 'lib/_handlers'
 import Products from 'lib/models/Products'
+import { confirmPasswordHash } from 'src/utils/comparePassword'
 
 const handler = handlers()
 
@@ -40,14 +41,25 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { userId },
+    body,
   } = req
 
-  const user = await User.findOneAndUpdate({ id: userId }, req.body, {
-    new: false,
-    runValidators: true,
-  })
+  const user = await User.findOne({ id: userId })
+  if (!user) return res.status(400).json({ success: false, error: { code: 10001 } })
 
-  if (!user) {
+  const compare = await confirmPasswordHash(body.password, user.password)
+  if (!compare) return res.status(400).json({ success: false, error: { code: 10002 } })
+
+  const updateResult = await User.findOneAndUpdate(
+    { id: userId },
+    { name: body.name, phone: body.phone },
+    {
+      new: false,
+      runValidators: true,
+    }
+  )
+
+  if (!updateResult) {
     return res.status(400).json({ success: false, error: { code: 10001 } })
   }
   return res.status(200).json({ success: true, user })

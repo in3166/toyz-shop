@@ -1,4 +1,4 @@
-export const signUpValue = [
+export const signUpUserValue = [
   [
     'ID',
     {
@@ -33,7 +33,7 @@ export const signUpValue = [
   ],
 ]
 
-export const signInValue = [
+export const signInUserValue = [
   [
     'ID',
     {

@@ -18,7 +18,7 @@ import { ParsedUrlQuery } from 'querystring'
 import Products from 'lib/models/Products'
 import Users from 'lib/models/Users'
 import { dbConnect } from 'lib/dbConnect'
-import { currencyFormatter } from 'utils/currencyFormatter'
+import { currencyFormatter } from 'src/utils/currencyFormatter'
 
 const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const t = useI18n()

@@ -1,3 +1,4 @@
+import Card from 'components/_shared/Card'
 import { VictoryTheme, VictoryChart, VictoryLine, VictoryScatter, VictoryTooltip, VictoryLegend } from 'victory'
 
 const data = [
@@ -11,7 +12,7 @@ const data = [
 
 const TradeChart = () => {
   return (
-    <div>
+    <Card>
       <VictoryChart theme={VictoryTheme.grayscale}>
         <VictoryLine
           style={{
@@ -36,7 +37,7 @@ const TradeChart = () => {
           ]}
         />
       </VictoryChart>
-    </div>
+    </Card>
   )
 }
 

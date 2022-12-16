@@ -3,6 +3,7 @@ import { IBanner } from 'types/banners'
 import { IProductItem } from 'types/product'
 import styles from './productTable.module.scss'
 import dayjs from 'dayjs'
+import { BASE_URL } from 'src/fixtures'
 
 interface IProductTable {
   products: IProductItem[]
@@ -11,47 +12,52 @@ interface IProductTable {
 
 const ProductTable = ({ products, setBanners }: IProductTable) => {
   const handleAddBanner = async (value: IProductItem) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/banners`, {
+    const response = await fetch(`${BASE_URL}/api/banners`, {
       method: 'POST',
       headers: { 'Content-Type': 'apllication/jspn' },
       body: value._id,
     })
     const result = await response.json()
-    console.log('add banner', result)
+
     if (result.success) {
       setBanners((prev) => [...prev, { _id: result.banners._id, item: value }])
     }
   }
 
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Date</th>
-          <th>Desc.</th>
-          <th>Add</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products?.map((value, index) => (
-          <tr key={value._id}>
-            <td>{index}</td>
-            <td>{value.title}</td>
-            <td>{value.price}</td>
-            <td>{dayjs(value.createdAt).format('YYYY.MM.DD')}</td>
-            <td>{value.description}</td>
-            <td>
-              <button type='button' onClick={() => handleAddBanner(value)}>
-                +
-              </button>
-            </td>
+    <>
+      <header className={styles.header}>
+        <h2>Product List</h2>
+      </header>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Desc.</th>
+            <th>Add</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {products?.map((value, index) => (
+            <tr key={value._id}>
+              <td className={styles.tdIndex}>{index}</td>
+              <td className={styles.tdTitle}>{value.title}</td>
+              <td className={styles.tdPrice}>{value.price}</td>
+              <td className={styles.tdDate}>{dayjs(value.createdAt).format('YYYY.MM.DD')}</td>
+              <td className={styles.tdDescription}>{value.description}</td>
+              <td className={styles.tdAdd}>
+                <button className={styles.addButton} type='button' onClick={() => handleAddBanner(value)}>
+                  +
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   )
 }
 

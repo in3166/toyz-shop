@@ -2,7 +2,6 @@ import { MouseEvent, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { SetterOrUpdater } from 'recoil'
 import dayjs from 'dayjs'
-import store from 'store'
 
 import { useI18n } from 'hooks'
 import { IProductItem } from 'types/product'
@@ -10,7 +9,9 @@ import { IUser } from 'types/user'
 import { changeLikesList } from './changeLikesList'
 import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import styles from './productItem.module.scss'
-import { currencyFormatter } from 'utils/currencyFormatter'
+import { currencyFormatter } from 'src/utils/currencyFormatter'
+import { BASE_URL } from 'src/fixtures'
+import { useSession } from 'next-auth/react'
 
 interface ICardProps {
   product: IProductItem
@@ -21,7 +22,7 @@ interface ICardProps {
 const ProductItem = ({ product, user, setUser }: ICardProps) => {
   const t = useI18n()
   const [isLiked, setIsLiked] = useState(false)
-
+  const { data: session } = useSession()
   useEffect(() => {
     if (user && user.role === 1 && user?.likes) {
       const isLike = user.likes.some((value) => value?._id === product._id)
@@ -33,13 +34,13 @@ const ProductItem = ({ product, user, setUser }: ICardProps) => {
     e.preventDefault()
     if (!user || !setUser) return
     if (!user.id || user.id === 'admin') return
-    store.remove('currentUser')
+    if (product.owner.id === user.id) return
 
     setIsLiked((prev) => !prev)
     const likes = changeLikesList(user.likes ?? [], isLiked, product)
     const likesIdList = likes.map((value) => value._id)
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}`, {
+      const response = await fetch(`${BASE_URL}/api/users/${user.id}`, {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ likes: likesIdList }),
         method: 'PATCH',
@@ -49,6 +50,7 @@ const ProductItem = ({ product, user, setUser }: ICardProps) => {
         setIsLiked((prev) => !prev)
       }
       setUser({ ...user, likes })
+      if (session) session.user.likes = likes
     } catch (error) {
       setIsLiked((prev) => {
         return !prev

@@ -14,11 +14,11 @@ import styles from './adminSetting.module.scss'
 const AdminSetting = () => {
   const t = useI18n()
   const router = useRouter()
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
 
   useEffect(() => {
-    if (session?.user?.role !== 0) router.replace('/')
-  }, [router, session?.user?.role])
+    if (status !== 'loading' && session?.user?.role !== 0) router.replace('/')
+  }, [router, session?.user?.role, status])
 
   const MENU_LISTS =
     session?.user?.role === 0
@@ -29,14 +29,17 @@ const AdminSetting = () => {
         ]
       : []
 
-  const width = 100 / MENU_LISTS.length
-
+  const INIT_WIDTH = Math.floor(100 / MENU_LISTS.length)
   const [value, setValue] = useState(0)
-  const [SlideStyle, setSlideStyle] = useState({ width: `${width}%` })
+  const [SlideStyle, setSlideStyle] = useState({ width: `${INIT_WIDTH}%` })
+
+  useEffect(() => {
+    setSlideStyle({ width: `${INIT_WIDTH}%` })
+  }, [INIT_WIDTH])
 
   const changeTabHandler = (tabNumber: number) => {
     setValue(tabNumber)
-    setSlideStyle((prev) => ({ ...prev, left: `${width * tabNumber}%` }))
+    setSlideStyle((prev) => ({ ...prev, left: `${Math.floor(INIT_WIDTH * tabNumber)}%` }))
   }
 
   return (

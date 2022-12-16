@@ -1,22 +1,29 @@
 @use '/styles/constants/colors';
 @use '/styles/mixins/responsive';
 @use '/styles/mixins/flexbox';
+@use '/styles/mixins/position';
+
+.header {
+  margin: 10px 0;
+}
 
 .table {
+  display: block;
   width: 100%;
   padding: 3px;
+  margin: 10px 0;
+  overflow: auto;
   text-align: center;
-  border: 1px solid colors.$GRAYA;
   border-style: hidden;
   border-radius: 9px;
-  box-shadow: 0 0 0 1px #666666;
 
   thead {
     border-bottom: 2px solid colors.$GRAYA;
   }
 
   th {
-    padding: 5px;
+    padding: 6px;
+    color: colors.$GRAY6;
     border: 1px solid colors.$GRAYA;
   }
 
@@ -29,8 +36,49 @@
   }
 
   td {
-    padding: 5px;
+    padding: 8px;
+    text-align: left;
     border: 1px solid colors.$GRAYA;
+  }
+
+  .tdIndex {
+    text-align: center;
+  }
+
+  .tdTitle {
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tdDescription {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tdAdd {
+    text-align: center;
+
+    .addButton {
+      position: relative;
+      width: auto;
+      height: auto;
+
+      &:hover {
+        &::after {
+          @include position.position(absolute, 1px -8px auto auto);
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          content: '';
+          background-color: rgba(184, 184, 184, 28.1%);
+          border-radius: 50px;
+        }
+      }
+    }
   }
 
   :root[color-theme='dark'] & {

@@ -1,6 +1,7 @@
 import Modal from 'components/_shared/Modal'
 import { useI18n } from 'hooks'
 import { Dispatch, SetStateAction, useCallback } from 'react'
+import { BASE_URL } from 'src/fixtures'
 import { IUser } from 'types/user'
 import styles from './removeUserModal.module.scss'
 
@@ -14,7 +15,7 @@ interface IRemoveUserModalProps {
 const RemoveUserModal = ({ onClose, setMessage, setUsers, id }: IRemoveUserModalProps) => {
   const t = useI18n()
   const handleClickBuy = useCallback(async () => {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`, {
+    fetch(`${BASE_URL}/api/users/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

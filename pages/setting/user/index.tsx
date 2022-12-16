@@ -6,11 +6,12 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useI18n } from 'hooks'
 import useFormInput from 'hooks/useFormInput'
-import { validateName, validatePassword, validatePhoneNumber } from 'utils/validates/validateInput'
+import { validateName, validatePassword, validatePhoneNumber } from 'src/utils/validateInput'
 import InputText from 'components/_shared/InputText'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './userSetting.module.scss'
+import errorHandler from 'lib/errorHandler'
 
 const UserSetting = () => {
   const t = useI18n()
@@ -72,12 +73,17 @@ const UserSetting = () => {
 
     const data = await response.json()
     if (data.success) {
+      if (session) {
+        session.user.name = name
+        session.user.phone = phone
+      }
       setSnackBarStatus('')
       setMessage(`[${data.user?.id}]: 회원 정보 수정 완료`)
       return
     }
+
     setSnackBarStatus('error')
-    setMessage(`[${data.error?.code}]: ${data.message}`)
+    setMessage(`[${data.error?.code}]: ${errorHandler(data.error?.code)}`)
   }
 
   return (

@@ -6,6 +6,7 @@ import { useI18n } from 'hooks'
 import { ProfileIcon, SettingIcon } from 'public/svgs'
 import styles from '../header.module.scss'
 import { cx } from 'styles'
+import { BASE_URL } from 'src/fixtures'
 
 const UserMenu = () => {
   const t = useI18n()
@@ -36,12 +37,7 @@ const UserMenu = () => {
         </Link>
       </li>
       <li className={styles.userMenu}>
-        <button
-          type='button'
-          onClick={() =>
-            signOut({ callbackUrl: process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL })
-          }
-        >
+        <button type='button' onClick={() => signOut({ callbackUrl: BASE_URL })}>
           {`${t('common:gnb.logout')}`}
         </button>
       </li>

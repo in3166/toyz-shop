@@ -4,13 +4,7 @@ import { useRouter } from 'next/router'
 
 import useFormInput from 'hooks/useFormInput'
 import { IUser } from 'types/user'
-import {
-  validateEmail,
-  validateId,
-  validateName,
-  validatePassword,
-  validatePhoneNumber,
-} from 'utils/validates/validateInput'
+import { validateEmail, validateId, validateName, validatePassword, validatePhoneNumber } from 'src/utils/validateInput'
 import InputText from 'components/_shared/InputText'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'

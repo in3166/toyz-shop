@@ -31,7 +31,7 @@
     margin: 7px 0;
     font-size: 19px;
     font-weight: bolder;
-    text-transform: uppercase;
+    color: colors.$BLACK;
 
     a {
       &:visited {
@@ -39,6 +39,7 @@
         text-decoration: none;
       }
     }
+    text-transform: uppercase;
 
     svg {
       width: 32px;

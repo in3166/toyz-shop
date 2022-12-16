@@ -3,18 +3,13 @@ import KakaoProvider from 'next-auth/providers/kakao'
 import NaverProvider from 'next-auth/providers/naver'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import bcrypt from 'bcrypt'
+
 import { IAuthSession, IAuthToken } from 'types/auth'
 import { dbConnect } from 'lib/dbConnect'
 import Users from 'lib/models/Users'
+import { useRecoil } from 'hooks/state'
+import { confirmPasswordHash } from 'src/utils/comparePassword'
 
-const confirmPasswordHash = (plainPassword: string, hashedPassword: string) => {
-  return new Promise((resolve) => {
-    bcrypt.compare(plainPassword, hashedPassword, (err, res) => {
-      resolve(res)
-    })
-  })
-}
 export default NextAuth({
   providers: [
     CredentialsProvider({
