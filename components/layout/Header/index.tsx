@@ -37,7 +37,7 @@ const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
       </div>
       <nav className={styles.rightMenu}>
         <ul>
-          <UserMenu />
+          <UserMenu lang={currentLanguage} />
           <li>
             <DarkMode darkMode={isDark} />
           </li>

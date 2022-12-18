@@ -7,13 +7,13 @@ import dayjs from 'dayjs'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useI18n } from 'hooks'
-import { IProductItem } from 'types/product'
 import SnackBar from 'components/_shared/SnackBar'
 import Container from 'components/_shared/Container'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import BuyItemModal from 'components/BuyItemModal/indedx'
 import Loading from 'components/_shared/Loding'
 import styles from './itemDetailPage.module.scss'
+import { useSession } from 'next-auth/react'
 import { ParsedUrlQuery } from 'querystring'
 import Products from 'lib/models/Products'
 import Users from 'lib/models/Users'
@@ -25,8 +25,13 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const [openModal, setOpenModal] = useState(false)
   const { message, setMessage } = useSnackbar(3000)
   const router = useRouter()
-  const { product } = pageProps
+  const { data: session } = useSession()
+  const { product, locale } = pageProps
   const handleOpenModal = () => {
+    if (session?.user.role !== 1) {
+      setMessage('로그인하세요.')
+      return
+    }
     setOpenModal(true)
   }
 
@@ -42,7 +47,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
       <Head>
         <title>Toyz Item</title>
       </Head>
-      <Container color='white' width='md'>
+      <Container color='white' width='lg'>
         <header className={styles.header}>{product?.title}</header>
         <main className={styles.main}>
           <div className={styles.image}>
@@ -79,12 +84,13 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
         {openModal && (
           <BuyItemModal
             onClose={handleCloseModal}
-            title={product?.name}
-            price={product?.price}
+            product={product}
+            lang={locale}
             setMessage={setMessage}
+            buyer={session?.user?._id}
           />
         )}
-        {message && <SnackBar message={message} setMessage={setMessage} />}
+        {message && <SnackBar message={message} setMessage={setMessage} status='warning' />}
       </Container>
     </>
   )
@@ -109,6 +115,7 @@ export const getServerSideProps = async (context: IGetStaticProps) => {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
       locales,
+      locale,
       product: JSON.parse(JSON.stringify(product)),
     },
   }

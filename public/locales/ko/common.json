@@ -59,7 +59,8 @@
     "title": "제목",
     "price": "가격",
     "buyButton": "구매",
-    "closeButton": "취소"
+    "closeButton": "취소",
+    "image": "사진"
   },
   "removeUserModal": {
     "header": "유저 삭제",

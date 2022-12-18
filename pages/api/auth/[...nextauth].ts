@@ -10,12 +10,6 @@ import Users from 'lib/models/Users'
 import { BASE_URL } from 'src/fixtures'
 import { confirmPasswordHash } from 'src/utils/comparePassword'
 
-interface ITokenResponse extends Response {
-  accessToken?: string
-  accessTokenExpiry?: string
-  refreshToken?: string
-}
-
 export default NextAuth({
   providers: [
     CredentialsProvider({

@@ -8,12 +8,12 @@ import styles from '../header.module.scss'
 import { cx } from 'styles'
 import { BASE_URL } from 'src/fixtures'
 
-const UserMenu = () => {
+const UserMenu = ({ lang }: { lang: string }) => {
   const t = useI18n()
   const router = useRouter()
 
   const { data: session } = useSession()
-
+  const language = lang === '한국어' || lang === 'Korean' ? '' : '/en'
   const loggedOutMenu = !session && (
     <>
       <li>
@@ -31,13 +31,13 @@ const UserMenu = () => {
 
   const loggedInMenu = session && (
     <>
-      <li>
-        <Link className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/product' })} href='/product'>
+      <li className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/product' })}>
+        <Link href='/product'>
           <button type='button'>{`${t('gnb.addItem')}`}</button>
         </Link>
       </li>
       <li className={styles.userMenu}>
-        <button type='button' onClick={() => signOut({ callbackUrl: BASE_URL })}>
+        <button type='button' onClick={() => signOut({ callbackUrl: `${BASE_URL}/${language}` })}>
           {`${t('common:gnb.logout')}`}
         </button>
       </li>

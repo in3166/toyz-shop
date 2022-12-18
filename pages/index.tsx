@@ -34,13 +34,13 @@ export const getStaticProps = async ({ locale, locales }: { locale: string; loca
     model: Products,
     populate: { path: 'owner', model: Users, select: '-password' },
   })
-
+  const existedBanner = responseBanners.filter((value) => value.item !== null)
   return {
     props: {
       ...(await serverSideTranslations(locale, ['app', 'common'], nextI18nextConfig)),
       locales,
       products: JSON.parse(JSON.stringify(responseProducts || [])),
-      banners: JSON.parse(JSON.stringify(responseBanners || [])),
+      banners: JSON.parse(JSON.stringify(existedBanner || [])),
     },
     revalidate: 10,
   }

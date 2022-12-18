@@ -63,7 +63,8 @@
     "title": "Title",
     "price": "Price",
     "buyButton": "Buy",
-    "closeButton": "Cancel"
+    "closeButton": "Cancel",
+    "image": "Image"
   },
   "removeUserModal": {
     "header": "Remove User",

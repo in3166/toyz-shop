@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
+import { NextPageContext } from 'next/types'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { NextPageContext } from 'next/types'
 import { signIn } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 

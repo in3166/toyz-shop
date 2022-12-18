@@ -1,0 +1,64 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+@use '/styles/mixins/position';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 25px;
+
+  header {
+    margin: 35px;
+    font-size: 30px;
+    color: colors.$FONT_COLOR;
+  }
+
+  dl {
+    padding: 25px;
+    background-color: colors.$SIDE_BACKGROUND_COLOR;
+    border: 1px colors.$GRAY3 solid;
+    border-radius: 30px;
+
+    :root[color-theme='dark'] & {
+      background-color: colors.$GRAY6;
+    }
+
+    div {
+      margin: 35px 20px;
+
+      dt {
+        margin: 15px 0;
+        font-size: 13px;
+        color: colors.$GRAYA;
+        letter-spacing: 1px;
+      }
+
+      dd {
+        letter-spacing: 1px;
+      }
+    }
+  }
+
+  .buttonWrapper {
+    margin: 25px;
+
+    .backButton {
+      padding: 10px 20px;
+      margin: 10px 3px;
+      // @include position.position(absolute, auto 10px -10px auto);
+      background-color: colors.$BACKGROUND_COLOR;
+      border: 1px solid colors.$GRAY3;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: colors.$GRAYD;
+      }
+
+      &:active {
+        background-color: colors.$GRAYA;
+      }
+    }
+  }
+}

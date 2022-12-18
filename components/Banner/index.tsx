@@ -44,26 +44,26 @@ const Banner = ({ banners }: { banners: IBanner[] }) => {
             onMouseDown={() => setMouseMoved(false)}
             onClick={(e) => handleClick(e)}
             className={(styles.link, styles.slideContent)}
-            value={`/product/${value.item._id}`}
+            value={`/product/${value.item?._id}`}
           >
-            <img src={value.item.image} loading='lazy' alt='products' placeholder='' />
+            <img src={value.item?.image} loading='lazy' alt='products' placeholder='' />
             <div className={styles.description}>
               <dl>
                 <div className={styles.dlContent}>
                   <dt>{`${t('common:title')}`}: </dt>
-                  <dd>{value.item.title}</dd>
+                  <dd>{value.item?.title}</dd>
                 </div>
                 <div className={styles.dlContent}>
                   <dt>{`${t('common:price')}`}: </dt>
-                  <dd>{currencyFormatter(value.item.price, 'tenThousand')} 만원</dd>
+                  <dd>{currencyFormatter(value.item?.price, 'tenThousand')} 만원</dd>
                 </div>
                 <div className={styles.dlContent}>
                   <dt>{`${t('common:owner')}`}: </dt>
-                  <dd>{value.item.owner.id}</dd>
+                  <dd>{value.item?.owner.id}</dd>
                 </div>
                 <div className={styles.dlContent}>
                   <dt>{`${t('common:date')}`}: </dt>
-                  <dd>{dayjs(value.item.createdAt).format('YYYY-MM-DD')}</dd>
+                  <dd>{dayjs(value.item?.createdAt).format('YYYY-MM-DD')}</dd>
                 </div>
               </dl>
             </div>
