@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
 import { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { SessionProvider } from 'next-auth/react'
 import nextI18nextConfig from 'next-i18next.config'
@@ -25,7 +24,6 @@ const queryClient = new QueryClient({
 const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { t } = useTranslation()
-  const router = useRouter()
 
   const LANGUAGE_LIST = [t('language.first'), t('language.second')]
 
@@ -45,7 +43,7 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
 
   useEffect(() => {
     themeCheck()
-  }, [darkMode, router.locale, themeCheck])
+  }, [darkMode, themeCheck])
 
   useEffect(() => {
     themeCheck()

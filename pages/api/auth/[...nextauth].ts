@@ -7,8 +7,14 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { IAuthSession, IAuthToken } from 'types/auth'
 import { dbConnect } from 'lib/dbConnect'
 import Users from 'lib/models/Users'
-import { useRecoil } from 'hooks/state'
+import { BASE_URL } from 'src/fixtures'
 import { confirmPasswordHash } from 'src/utils/comparePassword'
+
+interface ITokenResponse extends Response {
+  accessToken?: string
+  accessTokenExpiry?: string
+  refreshToken?: string
+}
 
 export default NextAuth({
   providers: [
@@ -21,15 +27,12 @@ export default NextAuth({
           password: string
         }
         try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/${id}`,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+          const response = await fetch(`${BASE_URL}/api/users/${id}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
 
           const data = await response.json()
           if (!data.success) {
@@ -37,7 +40,6 @@ export default NextAuth({
           }
           const compare = await confirmPasswordHash(password, data.user.password)
           if (!compare) throw new Error('10003')
-
           delete data.user.password
           return data.user
         } catch (error) {
@@ -66,8 +68,7 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET || process.env.SECRET || process.env.NEXT_AUTH_SECRET_KEY,
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60,
-    updateAge: 24 * 60 * 60,
+    maxAge: 30 * 60 * 60, // 1일
   },
   jwt: {
     secret: process.env.NEXT_AUTH_SECRET_KEY || process.env.SECRET,

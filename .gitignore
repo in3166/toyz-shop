@@ -32,4 +32,5 @@ handlers.ts
 
 next-env.d.ts
 jest.config.js
-/fixtures
+**/fixtures
+/bin

@@ -28,8 +28,8 @@ const ProductList = ({ products }: IMainPageProps) => {
   useEffect(() => {
     if (!user && session?.user) setUser(session.user)
   }, [session, setUser, user])
-  console.log('recoil user: ', user)
-  console.log('session user: ', session?.user)
+  // console.log('recoil user: ', user)
+  // console.log('session user: ', session?.user)
 
   useEffect(() => {
     setIsLoading(true)
