@@ -1,4 +1,4 @@
-import { useI18n } from 'hooks'
+import { useI18n, useState } from 'hooks'
 import { loadTossPayments } from '@tosspayments/payment-sdk'
 
 import { BASE_URL } from 'src/fixtures'
@@ -6,9 +6,9 @@ import { IProductItem } from 'types/product'
 import Modal from 'components/_shared/Modal'
 import { currencyFormatter } from 'src/utils/currencyFormatter'
 import styles from './buyItemModal.module.scss'
+import { cx } from 'styles'
 
-const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq'
-
+const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY || ''
 interface IBuyItemModalProps {
   onClose: () => void
   setMessage: (text: string) => void
@@ -20,12 +20,18 @@ interface IBuyItemModalProps {
 const BuyItemModal = ({ onClose, product, lang, buyer, setMessage }: IBuyItemModalProps) => {
   const t = useI18n()
 
-  const handleClickBuy = async () => {
+  const [openMenu, setOpenMenu] = useState(false)
+
+  const handleBuyMenuOpen = () => {
+    setOpenMenu((prev) => !prev)
+  }
+
+  const handleClickBuy = async (type: boolean) => {
     loadTossPayments(clientKey)
       .then((tossPayments) => {
         // 카드 결제 메서드 실행
         tossPayments
-          .requestPayment('가상계좌', {
+          .requestPayment(type ? '가상계좌' : '카드', {
             amount: product?.price,
             orderId: `${product._id}`,
             orderName: `buyProduct${product._id}`,
@@ -72,13 +78,26 @@ const BuyItemModal = ({ onClose, product, lang, buyer, setMessage }: IBuyItemMod
         </dl>
       </form>
       <footer className={styles.footer}>
-        {/* <Paypal amount={price} /> */}
         <button type='button' className={styles.cancelButton} onClick={onClose}>
           {`${t('buyModal.closeButton')}`}
         </button>
-        <button type='button' className={styles.confirmButton} onClick={handleClickBuy}>
-          {`${t('buyModal.buyButton')}`}
-        </button>
+        <div className={styles.buyButtonWrapper}>
+          <button type='button' className={styles.buyButton} onClick={handleBuyMenuOpen}>
+            {`${t('buyModal.buyButton')}`}
+          </button>
+          <ul className={cx(styles.buyMenu, { [styles.menuOpen]: openMenu })}>
+            <li>
+              <button type='button' onClick={() => handleClickBuy(true)}>
+                가상 계좌
+              </button>
+            </li>
+            <li>
+              <button type='button' onClick={() => handleClickBuy(false)}>
+                카드
+              </button>
+            </li>
+          </ul>
+        </div>
       </footer>
     </Modal>
   )
