@@ -8,7 +8,7 @@
   font-size: 17px;
   font-weight: 500;
   color: colors.$GRAY3;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid colors.$GRAY6;
 
   :root[color-theme='dark'] & {
     color: colors.$HEADER_DARK_FONT_COLOR;
@@ -26,7 +26,8 @@
     img {
       width: 100%;
       min-width: 200px;
-      max-height: 230px;
+      max-height: 250px;
+      object-fit: contain;
     }
     padding-right: 15px;
   }

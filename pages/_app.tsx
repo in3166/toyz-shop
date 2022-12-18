@@ -16,7 +16,6 @@ import wrapper from '../stores'
 import Layout from 'components/layout'
 import ErrorFallback from 'components/layout/ErrorFallback'
 import 'styles/index.scss'
-import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnMount: false } },
@@ -56,17 +55,11 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
       <Provider store={store}>
         <RecoilRoot>
           <SessionProvider session={props.session}>
-            <PayPalScriptProvider
-              options={{
-                'client-id': 'AQdyzyUuG-8qDTvD7xCBNOmQzL7i8z4uqKZPHkGhVsVT4sUpoG12SYLJd0KHOPXbHsfQlQlGkON_cTuj',
-              }}
-            >
-              <Layout languageList={LANGUAGE_LIST} isDark={darkMode}>
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                  <Component {...props} />
-                </ErrorBoundary>
-              </Layout>
-            </PayPalScriptProvider>
+            <Layout languageList={LANGUAGE_LIST} isDark={darkMode}>
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Component {...props} />
+              </ErrorBoundary>
+            </Layout>
           </SessionProvider>
         </RecoilRoot>
       </Provider>
