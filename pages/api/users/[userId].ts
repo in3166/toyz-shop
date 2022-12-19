@@ -38,6 +38,7 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json({ success: true, user })
 })
 
+// setting/users
 handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { userId },
@@ -77,14 +78,14 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json({ success: true, data: {} })
 })
 
-handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { query, body } = req
-  const user = await User.findOne({ id: body.id })
+// handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
+//   const { query, body } = req
+//   const user = await User.findOne({ id: body.id })
 
-  if (!user) {
-    return res.status(400).json({ success: false, error: { code: 10001 } })
-  }
-  return res.status(200).json({ success: true, user })
-})
+//   if (!user) {
+//     return res.status(400).json({ success: false, error: { code: 10001 } })
+//   }
+//   return res.status(200).json({ success: true, user })
+// })
 
 export default handler

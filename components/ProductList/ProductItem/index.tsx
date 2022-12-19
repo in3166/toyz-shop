@@ -40,7 +40,7 @@ const ProductItem = ({ product, user, setUser }: ICardProps) => {
     const likes = changeLikesList(user.likes ?? [], isLiked, product)
     const likesIdList = likes.map((value) => value._id)
     try {
-      const response = await fetch(`${BASE_URL}/api/users/${user.id}`, {
+      const response = await fetch(`/api/users/likes/${user.id}`, {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ likes: likesIdList }),
         method: 'PATCH',
