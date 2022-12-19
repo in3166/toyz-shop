@@ -109,4 +109,13 @@ $ASSET_PATH: '/assets/svgs/';
 
 .selectBox {
   flex-direction: column !important;
+  overflow: hidden;
+
+  .option {
+    margin: 0 !important;
+
+    &:hover {
+      background-color: colors.$GRAYD;
+    }
+  }
 }

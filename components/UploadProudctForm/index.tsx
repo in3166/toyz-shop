@@ -148,7 +148,7 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
       />
 
       <div className={styles.submitButtonWrapper}>
-        <button type='submit' className={styles.submitButton}>
+        <button type='submit' className={styles.submitButton} aria-label='submit the upload product form'>
           {`${t('upload.submitBtn')}`}
         </button>
       </div>

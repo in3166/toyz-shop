@@ -39,6 +39,7 @@ const Banner = ({ banners }: { banners: IBanner[] }) => {
         return (
           <button
             type='button'
+            aria-label='enter product detail page from banner'
             key={value._id}
             onMouseMove={() => setMouseMoved(true)}
             onMouseDown={() => setMouseMoved(false)}

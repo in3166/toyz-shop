@@ -78,7 +78,12 @@ const BannerList = ({ banners, setBanners }: IBannerList) => {
             <li key={value?._id}>
               <Card>
                 <div className={styles.infoWrapper}>
-                  <button type='button' className={styles.deleteButton} onClick={() => handleDeleteBanner(value?._id)}>
+                  <button
+                    type='button'
+                    aria-label='remove item from banner lise'
+                    className={styles.deleteButton}
+                    onClick={() => handleDeleteBanner(value?._id)}
+                  >
                     x
                   </button>
                   <label className={styles.titleLabel}>{value.item.title}</label>

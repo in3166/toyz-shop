@@ -71,7 +71,12 @@ const Success: NextPage = () => {
         </div>
       </dl>
       <footer className={styles.buttonWrapper}>
-        <button className={styles.backButton} type='button' onClick={() => router.push('/')}>
+        <button
+          className={styles.backButton}
+          type='button'
+          aria-label='link to home page'
+          onClick={() => router.push('/')}
+        >
           Home으로 돌아가기
         </button>
       </footer>

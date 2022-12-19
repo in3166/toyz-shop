@@ -35,7 +35,12 @@ const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChang
 
   return (
     <div className={cx(styles.select, styles[size], { [styles.selectIsOpen]: selectIsOpen })} ref={dropDownRef}>
-      <button type='button' className={cx(styles.selected, styles[size])} onClick={handleVisibleOptions}>
+      <button
+        type='button'
+        aria-label='open dropdown options'
+        className={cx(styles.selected, styles[size])}
+        onClick={handleVisibleOptions}
+      >
         {currentValue}
         <DownArrow className={cx(styles.downArrowIcon, { [styles.selectMenuOpen]: selectIsOpen })} />
       </button>
@@ -44,7 +49,13 @@ const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChang
           selectList.map((value) => {
             return (
               <li className={styles.option} key={value}>
-                <button type='button' value={value} data-value={value} onClick={handleListClick}>
+                <button
+                  type='button'
+                  aria-label='click drop down menu'
+                  value={value}
+                  data-value={value}
+                  onClick={handleListClick}
+                >
                   {value}
                 </button>
               </li>

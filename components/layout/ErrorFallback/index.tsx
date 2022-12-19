@@ -16,7 +16,7 @@ const ErrorFallback = ({ error }: IErrorFallbackProps) => {
         <dd>{error.message}</dd>
       </dl>
 
-      <button type='button' onClick={myErrorHandler} className={styles.reloadButton}>
+      <button type='button' aria-label='refresh a page' onClick={myErrorHandler} className={styles.reloadButton}>
         새로고침
       </button>
     </div>

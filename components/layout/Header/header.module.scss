@@ -33,10 +33,6 @@
       color: colors.$HEADER_DARK_FONT_COLOR !important;
     }
 
-    .lang button {
-      color: colors.$FONT_COLOR !important;
-    }
-
     .task {
       background-color: colors.$GRAY3;
 
@@ -121,7 +117,7 @@
     }
 
     .lang button {
-      color: colors.$GRAY6 !important;
+      color: colors.$FONT_COLOR !important;
     }
   }
 }

@@ -56,7 +56,7 @@ const AdminSetting = () => {
             <ul className={styles.tabMenu}>
               {MENU_LISTS.map((menu, index) => (
                 <li key={`menu-${index + 1}`} className={cx({ [styles.tabMenuActive]: value === index })}>
-                  <button type='button' onClick={() => changeTabHandler(index)}>
+                  <button type='button' aria-label='switch tabs' onClick={() => changeTabHandler(index)}>
                     {menu[0]}
                   </button>
                 </li>

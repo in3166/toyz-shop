@@ -59,11 +59,16 @@ const ProductItem = ({ product, user, setUser }: ICardProps) => {
   }
 
   return (
-    <Link href={`/product/${product._id}`}>
-      <li className={styles.card} title={product.title}>
+    <li className={styles.card} title={product.title}>
+      <Link href={`/product/${product._id}`} aria-label='link to product detail page'>
         <h3 className={styles.header}>
           <div className={styles.title}>{product.title}</div>
-          <button type='button' className={styles.likeButton} onClick={handleClickLike}>
+          <button
+            type='button'
+            aria-label='Add a product to like'
+            className={styles.likeButton}
+            onClick={handleClickLike}
+          >
             {isLiked ? <HeartFillIcon /> : <HeartOutlineIcon />}
           </button>
         </h3>
@@ -84,8 +89,8 @@ const ProductItem = ({ product, user, setUser }: ICardProps) => {
             <dd>{dayjs(product.createdAt).format('YY-MM-DD')}</dd>
           </div>
         </dl>
-      </li>
-    </Link>
+      </Link>
+    </li>
   )
 }
 

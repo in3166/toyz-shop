@@ -57,17 +57,17 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
           <div className={styles.content}>
             <dl>
               <div>
-                <dt>{`${t('common:price')}`}</dt>
+                <dt>{`${t('price')}`}</dt>
                 <dd>
                   {currencyFormatter(product?.price)} <sub>(원)</sub>
                 </dd>
               </div>
               <div>
-                <dt>{`${t('common:owner')}`}</dt>
+                <dt>{`${t('owner')}`}</dt>
                 <dd>{product?.owner.name}</dd>
               </div>
               <div>
-                <dt> {`${t('common:date')}`}</dt>
+                <dt> {`${t('date')}`}</dt>
                 <dd>{dayjs(product?.createdAt).format('YYYY-MM-DD')}</dd>
               </div>
             </dl>
@@ -75,7 +75,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
               <div>{product?.description}</div>
             </div>
             <div className={styles.buttonWrapper}>
-              <button type='button' className={styles.buyButton} onClick={handleOpenModal}>
+              <button type='button' aria-label='open buy modal' className={styles.buyButton} onClick={handleOpenModal}>
                 구매
               </button>
             </div>

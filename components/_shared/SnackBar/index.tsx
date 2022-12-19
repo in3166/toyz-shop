@@ -21,7 +21,7 @@ const SnackBar = ({ message, setMessage, status }: ISnackBarProps) => {
       )}
     >
       {message}
-      <button type='button' onClick={() => setMessage('')}>
+      <button type='button' aria-label='close snack bar' onClick={() => setMessage('')}>
         <CloseIcon />
       </button>
     </div>

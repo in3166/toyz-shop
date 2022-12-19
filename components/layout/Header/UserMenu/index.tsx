@@ -17,12 +17,20 @@ const UserMenu = ({ lang }: { lang: string }) => {
   const loggedOutMenu = !session && (
     <>
       <li>
-        <Link href='/signin' className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/signin' })}>
+        <Link
+          href='/signin'
+          aria-label='link to signin page'
+          className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/signin' })}
+        >
           {`${t('common:gnb.signin')}`}
         </Link>
       </li>
       <li>
-        <Link href='/signup' className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/signup' })}>
+        <Link
+          href='/signup'
+          aria-label='link to signup page'
+          className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/signup' })}
+        >
           {`${t('common:gnb.signup')}`}
         </Link>
       </li>
@@ -32,23 +40,23 @@ const UserMenu = ({ lang }: { lang: string }) => {
   const loggedInMenu = session && (
     <>
       <li className={cx(styles.userMenu, { [styles.isActive]: router.pathname === '/product' })}>
-        <Link href='/product'>
-          <button type='button'>{`${t('gnb.addItem')}`}</button>
+        <Link href='/product' aria-label='link to upload product page'>
+          <button type='button' aria-label='enter upload product page'>{`${t('gnb.addItem')}`}</button>
         </Link>
       </li>
       <li className={styles.userMenu}>
-        <button type='button' onClick={() => signOut({ callbackUrl: `${BASE_URL}/${language}` })}>
+        <button type='button' aria-label='sign out' onClick={() => signOut({ callbackUrl: `${BASE_URL}/${language}` })}>
           {`${t('common:gnb.logout')}`}
         </button>
       </li>
       <li>
-        <button type='button' className={styles.settingIcon}>
+        <button type='button' className={styles.settingIcon} aria-label='Enter User Setting Page'>
           {session?.user?.name !== 'admin' ? (
-            <Link href='/setting/user'>
+            <Link href='/setting/user' aria-label='link to User Setting page'>
               <ProfileIcon />
             </Link>
           ) : (
-            <Link href='/setting/admin'>
+            <Link href='/setting/admin' aria-label='link to Admin Setting page'>
               <SettingIcon />
             </Link>
           )}

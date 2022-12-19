@@ -44,6 +44,7 @@ const SearchBar = () => {
       <button
         type='button'
         onClick={handleOpenSearchBar}
+        aria-label='SearchBar Toggle'
         className={cx(styles.searchToggleButton, { [styles.hideToggleButton]: toggleSearchBar })}
       >
         <SearchIcon />

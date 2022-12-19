@@ -113,8 +113,8 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
       />
 
       <footer className={styles.footer}>
-        <button type='submit' className={styles.signUpButton}>
-          {`${t('common:signUp.button')}`}
+        <button type='submit' className={styles.signUpButton} aria-label='submit signup form'>
+          {`${t('signUp.button')}`}
         </button>
       </footer>
       {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}

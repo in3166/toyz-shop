@@ -35,7 +35,7 @@ const Sidebar = (): JSX.Element => {
       className={cx(styles.aside, { [styles.hideSidebar]: !visibleSideBar }, { [styles.openSidebar]: visibleSideBar })}
     >
       <div className={styles.logo}>
-        <Link href='/' className={styles.logo}>
+        <Link href='/' aria-label='link to home page' className={styles.logo}>
           <LogoImage />
           Toyz
         </Link>
@@ -43,28 +43,40 @@ const Sidebar = (): JSX.Element => {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <Link href='/' className={router.pathname === '/' ? styles.isActive : ''}>
+            <Link href='/' aria-label='link to home page' className={router.pathname === '/' ? styles.isActive : ''}>
               Home
             </Link>
           </li>
           <li>
-            <Link href='/marketplace' className={router.pathname === '/marketplace' ? styles.isActive : ''}>
+            <Link
+              href='/marketplace'
+              aria-label='link to marketplace page'
+              className={router.pathname === '/marketplace' ? styles.isActive : ''}
+            >
               MarketPlace
             </Link>
           </li>
           <li>
-            <Link href='/likes' className={router.pathname === '/likes' ? styles.isActive : ''}>
+            <Link
+              href='/likes'
+              aria-label='link to likes page'
+              className={router.pathname === '/likes' ? styles.isActive : ''}
+            >
               Likes
             </Link>
           </li>
           <li>
-            <Link href='/cart' className={router.pathname === '/cart' ? styles.isActive : ''}>
+            <Link
+              href='/cart'
+              aria-label='link to cart page'
+              className={router.pathname === '/cart' ? styles.isActive : ''}
+            >
               Cart
             </Link>
           </li>
         </ul>
       </nav>
-      <button type='button' onClick={handleOpenMenu} className={styles.menuToggle}>
+      <button type='button' onClick={handleOpenMenu} className={styles.menuToggle} aria-label='SideBar Toggle'>
         <MenuBar />
       </button>
     </aside>

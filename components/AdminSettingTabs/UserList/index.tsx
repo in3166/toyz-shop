@@ -79,7 +79,7 @@ const UserList = () => {
                 <td>{value.name}</td>
                 <td>{value.phone}</td>
                 <td>
-                  <button type='button' data-id={value._id} onClick={handleRemoveButton}>
+                  <button type='button' aria-label='remove user' data-id={value._id} onClick={handleRemoveButton}>
                     <TrashIcon className={styles.trashIcon} />
                   </button>
                 </td>

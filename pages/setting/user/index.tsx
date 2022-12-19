@@ -128,7 +128,9 @@ const UserSetting = () => {
           />
 
           <footer>
-            <button type='submit'>수정</button>
+            <button type='submit' aria-label='submit update user form'>
+              수정
+            </button>
           </footer>
         </form>
 

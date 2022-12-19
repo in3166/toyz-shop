@@ -78,21 +78,26 @@ const BuyItemModal = ({ onClose, product, lang, buyer, setMessage }: IBuyItemMod
         </dl>
       </form>
       <footer className={styles.footer}>
-        <button type='button' className={styles.cancelButton} onClick={onClose}>
+        <button type='button' aria-label='close the buy modal' className={styles.cancelButton} onClick={onClose}>
           {`${t('buyModal.closeButton')}`}
         </button>
         <div className={styles.buyButtonWrapper}>
-          <button type='button' className={styles.buyButton} onClick={handleBuyMenuOpen}>
+          <button
+            type='button'
+            aria-label='toggle the buy menu'
+            className={styles.buyButton}
+            onClick={handleBuyMenuOpen}
+          >
             {`${t('buyModal.buyButton')}`}
           </button>
           <ul className={cx(styles.buyMenu, { [styles.menuOpen]: openMenu })}>
             <li>
-              <button type='button' onClick={() => handleClickBuy(true)}>
+              <button type='button' aria-label='enter a virtual account page' onClick={() => handleClickBuy(true)}>
                 가상 계좌
               </button>
             </li>
             <li>
-              <button type='button' onClick={() => handleClickBuy(false)}>
+              <button type='button' aria-label='enter a card page' onClick={() => handleClickBuy(false)}>
                 카드
               </button>
             </li>

@@ -22,12 +22,16 @@ const DarkMode = ({ darkMode }: { darkMode: boolean }): JSX.Element => {
 
   return (
     <label className={styles.switch}>
-      <input type='checkbox' checked={value} id='toggleSwitch' onChange={clickToggleHandler} />
+      <input type='checkbox' checked={value} title='toggle darkmode' id='toggleSwitch' onChange={clickToggleHandler} />
       <span className={styles.slider} />
-      <label className={cx(styles.textLeft, styles.text, { [styles.textActive]: !value })} htmlFor='toggleSwitch'>
+      <label
+        htmlFor='toggleSwitch'
+        aria-hidden
+        className={cx(styles.textLeft, styles.text, { [styles.textActive]: !value })}
+      >
         <SunIcon />
       </label>
-      <label className={cx(styles.textRight, styles.text, { [styles.textActive]: value })} htmlFor='toggleSwitch'>
+      <label htmlFor='toggleSwitch' className={cx(styles.textRight, styles.text, { [styles.textActive]: value })}>
         <MoonIcon />
       </label>
     </label>

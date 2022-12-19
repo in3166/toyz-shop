@@ -49,7 +49,12 @@ const ProductTable = ({ products, setBanners }: IProductTable) => {
               <td className={styles.tdDate}>{dayjs(value.createdAt).format('YYYY.MM.DD')}</td>
               <td className={styles.tdDescription}>{value.description}</td>
               <td className={styles.tdAdd}>
-                <button className={styles.addButton} type='button' onClick={() => handleAddBanner(value)}>
+                <button
+                  className={styles.addButton}
+                  aria-label='add item to banner list'
+                  type='button'
+                  onClick={() => handleAddBanner(value)}
+                >
                   +
                 </button>
               </td>

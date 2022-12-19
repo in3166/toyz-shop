@@ -39,6 +39,7 @@ const ProductList = ({ products }: IMainPageProps) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Cache-Control': 'max-age=31536000',
         },
       }).then(async (response) => {
         const data = await response.json()

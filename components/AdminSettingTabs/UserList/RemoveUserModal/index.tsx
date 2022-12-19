@@ -37,14 +37,19 @@ const RemoveUserModal = ({ onClose, setMessage, setUsers, id }: IRemoveUserModal
 
   return (
     <Modal onCancel={onClose}>
-      <header className={styles.header}>{`${t('common:removeUserModal.header')}`}</header>
-      <div className={styles.content}>{`${t('common:removeUserModal.content')}`}</div>
+      <header className={styles.header}>{`${t('removeUserModal.header')}`}</header>
+      <div className={styles.content}>{`${t('removeUserModal.content')}`}</div>
       <footer className={styles.footer}>
-        <button type='button' className={styles.cancelButton} onClick={onClose}>
-          {`${t('common:removeUserModal.closeButton')}`}
+        <button type='button' aria-label='close remove user modal' className={styles.cancelButton} onClick={onClose}>
+          {`${t('removeUserModal.closeButton')}`}
         </button>
-        <button type='button' className={styles.confirmButton} onClick={handleClickBuy}>
-          {`${t('common:removeUserModal.confirmButton')}`}
+        <button
+          type='button'
+          aria-label='confrim remove user'
+          className={styles.confirmButton}
+          onClick={handleClickBuy}
+        >
+          {`${t('removeUserModal.confirmButton')}`}
         </button>
       </footer>
     </Modal>

@@ -55,32 +55,32 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
         reset={id.reset}
         onBlur={id.inputBlurHandler}
         hasError={id.hasError}
-        errorMessage={`${t('common:signIn.errorMessageID')}`}
+        errorMessage={`${t('signIn.errorMessageID')}`}
         inputFocusRef={inputFocusRef}
       />
       <InputText
         type='password'
-        formTitle={`${t('common:signIn.titlePW')}`}
+        formTitle={`${t('signIn.titlePW')}`}
         value={password.value}
         onChange={password.valueChangeHandler}
         reset={password.reset}
         onBlur={password.inputBlurHandler}
         hasError={password.hasError}
-        errorMessage={`${t('common:signIn.errorMessagePW')}`}
+        errorMessage={`${t('signIn.errorMessagePW')}`}
       />
       <div className={styles.signInButtonWrapper}>
-        <button type='submit' className={styles.signInButton}>
-          {`${t('common:signIn.button')}`}
+        <button type='submit' className={styles.signInButton} aria-label='submit signin form'>
+          {`${t('signIn.button')}`}
         </button>
       </div>
       <footer className={styles.siginInFooter}>
-        <button type='button' onClick={(e) => handleOnSubmit(e, 'kakao')}>
+        <button type='button' aria-label='sign in with kakao' onClick={(e) => handleOnSubmit(e, 'kakao')}>
           <Image width={30} height={30} src='/svgs/kakaotalk_logo.png' alt='kakao login icon' />
         </button>
-        <button type='button' onClick={(e) => handleOnSubmit(e, 'naver')}>
+        <button type='button' aria-label='sign in with naver' onClick={(e) => handleOnSubmit(e, 'naver')}>
           <Image width={30} height={30} src='/svgs/naver_icon.png' alt='naver login icon' />
         </button>
-        <button type='button' onClick={(e) => handleOnSubmit(e, 'google')}>
+        <button type='button' aria-label='sign in with google' onClick={(e) => handleOnSubmit(e, 'google')}>
           <Image width={27} height={27} src='/svgs/google_icon.png' alt='google login icon' />
         </button>
       </footer>

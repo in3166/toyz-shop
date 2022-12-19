@@ -18,7 +18,12 @@ interface IModalOverlayProps {
 
 const BackDrop = ({ onCancel }: IBackDropProps) => {
   return (
-    <button type='button' onClick={onCancel} className={styles.backDropButton}>
+    <button
+      type='button'
+      aria-label='click backdrop to close modal'
+      onClick={onCancel}
+      className={styles.backDropButton}
+    >
       <div className={styles.backDrop} />
     </button>
   )
