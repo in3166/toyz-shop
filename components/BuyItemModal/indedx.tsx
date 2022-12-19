@@ -1,4 +1,4 @@
-import { useI18n, useState } from 'hooks'
+import { useI18n, useOnClickOutside, useState } from 'hooks'
 import { loadTossPayments } from '@tosspayments/payment-sdk'
 
 import { BASE_URL } from 'src/fixtures'
@@ -19,7 +19,7 @@ interface IBuyItemModalProps {
 
 const BuyItemModal = ({ onClose, product, lang, buyer, setMessage }: IBuyItemModalProps) => {
   const t = useI18n()
-
+  const buyMenuRef = useOnClickOutside(() => setOpenMenu(false))
   const [openMenu, setOpenMenu] = useState(false)
 
   const handleBuyMenuOpen = () => {
@@ -81,7 +81,7 @@ const BuyItemModal = ({ onClose, product, lang, buyer, setMessage }: IBuyItemMod
         <button type='button' aria-label='close the buy modal' className={styles.cancelButton} onClick={onClose}>
           {`${t('buyModal.closeButton')}`}
         </button>
-        <div className={styles.buyButtonWrapper}>
+        <div className={styles.buyButtonWrapper} ref={buyMenuRef}>
           <button
             type='button'
             aria-label='toggle the buy menu'

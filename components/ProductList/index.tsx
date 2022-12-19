@@ -17,7 +17,7 @@ interface IMainPageProps {
 const ProductList = ({ products }: IMainPageProps) => {
   // const ref = useRef<HTMLDivElement | null>(null)
   const [productsList, setproductsList] = useState(products)
-
+  const [searchText, setSearchText] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   // const setTarget = useIntersectionObserver(ref, { rootMargin: '10px', threshold: 0 }, setIsLoading, setproductsList)
   const router = useRouter()
@@ -26,16 +26,15 @@ const ProductList = ({ products }: IMainPageProps) => {
   const [user, setUser] = useRecoil(currentUserState)
 
   useEffect(() => {
+    const { query } = router
+    if (query?.text) setSearchText(query?.text?.toString())
     if (!user && session?.user) setUser(session.user)
-  }, [session, setUser, user])
-  // console.log('recoil user: ', user)
-  // console.log('session user: ', session?.user)
+  }, [router, session, setUser, user])
 
   useEffect(() => {
     setIsLoading(true)
-    const { query: searchText } = router
-    if (searchText?.text) {
-      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/search?text=${searchText?.text}`, {
+    if (searchText !== '')
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/search?text=${searchText}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -45,13 +44,11 @@ const ProductList = ({ products }: IMainPageProps) => {
         const data = await response.json()
         if (data.success) {
           setproductsList(data.product)
-          setIsLoading(false)
         }
+        setIsLoading(false)
       })
-    } else {
-      setIsLoading(false)
-    }
-  }, [router])
+    else setIsLoading(false)
+  }, [searchText])
 
   return (
     <Container width='lg'>

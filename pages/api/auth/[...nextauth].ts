@@ -93,6 +93,9 @@ export default NextAuth({
         await dbConnect()
         const response = await Users.find({ email: user.email }).lean()
         if (response?.length > 0) {
+          console.log('user: ', user)
+          console.log('response: ', response)
+          console.log('response[0]: ', response[0])
           const newToken = { ...user, ...response[0] }
           return newToken
         }

@@ -13,6 +13,9 @@ const LikesPage = () => {
   const t = useI18n()
   const { data: session } = useSession()
   const [user, setUser] = useRecoil(currentUserState)
+  console.log('recoil likes user: ', user)
+  console.log('session likes: ', session)
+
   useEffect(() => {
     if (session) setUser(session?.user)
   }, [session, setUser])
@@ -23,15 +26,7 @@ const LikesPage = () => {
   const userLikes = user?.likes || []
   if (userLikes.length < 1) return <div className={styles.empty}>No Items.</div>
 
-  return (
-    <main className={styles.main}>
-      <Container>
-        <ul className={styles.cardContainer}>
-          <ProductList products={userLikes} />
-        </ul>
-      </Container>
-    </main>
-  )
+  return <ProductList products={userLikes} />
 }
 
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {

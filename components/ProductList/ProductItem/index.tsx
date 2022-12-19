@@ -51,6 +51,7 @@ const ProductItem = ({ product, user, setUser }: ICardProps) => {
       }
       setUser({ ...user, likes })
       if (session) session.user.likes = likes
+      console.log('ses: ', session)
     } catch (error) {
       setIsLiked((prev) => {
         return !prev
@@ -78,7 +79,7 @@ const ProductItem = ({ product, user, setUser }: ICardProps) => {
         <dl>
           <div>
             <dt>{`${t('common:owner')}`}</dt>
-            <dd>{product.owner.name}</dd>
+            <dd>{product.owner?.name}</dd>
           </div>
           <div>
             <dt>{`${t('common:price')}`}</dt>

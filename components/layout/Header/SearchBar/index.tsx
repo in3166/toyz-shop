@@ -5,6 +5,7 @@ import { useOnClickOutside } from 'hooks'
 import { SearchIcon } from 'public/svgs'
 import { cx } from 'styles'
 import styles from './searchBar.module.scss'
+import { BASE_URL } from 'src/fixtures'
 
 const SearchBar = () => {
   const router = useRouter()
@@ -34,8 +35,7 @@ const SearchBar = () => {
     if (!searchText || searchText.trim() === '') {
       return
     }
-    // dispatch(searchProduct(searchText))
-    router.push(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL}/?text=${searchText}`)
+    router.push(`${BASE_URL}/marketplace/?text=${searchText}`)
     handleCloseSearchBar()
   }
 
