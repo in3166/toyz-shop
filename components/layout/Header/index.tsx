@@ -5,7 +5,6 @@ import DropDown from 'components/_shared/DropDown'
 import SearchBar from './SearchBar'
 import UserMenu from './UserMenu'
 import DarkMode from './DarkMode'
-
 import styles from './header.module.scss'
 
 interface IHeaderProps {

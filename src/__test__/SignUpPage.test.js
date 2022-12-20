@@ -3,17 +3,17 @@ import { fireEvent, renderWithProviders, screen, act, renderHook } from 'src/uti
 import SignUpForm from 'components/SignUpForm'
 import SignUpPage from '../../pages/signup/index'
 import useFormInput from 'hooks/useFormInput'
-import { signUpValue } from 'src/fixtures/users'
+import { signUpUserValue } from 'src/fixtures/users'
 
 describe('SignUp Component', () => {
-  test.each(signUpValue)('The %s field should be in the document', async (fieldText) => {
+  test.each(signUpUserValue)('The %s field should be in the document', async (fieldText) => {
     renderWithProviders(<SignUpPage />)
     const field = screen.getByLabelText(fieldText)
     expect(field).toBeInTheDocument()
     expect(field.value).toMatch('')
   })
 
-  test.each(signUpValue)(
+  test.each(signUpUserValue)(
     'error message should be in the document when the %s value is not valid',
     async (fieldText, { messageText, validInputText, notValidInputText }) => {
       renderWithProviders(<SignUpPage />)

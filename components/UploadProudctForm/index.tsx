@@ -1,15 +1,15 @@
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
-import { useI18n } from 'hooks'
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
+
+import { useI18n } from 'hooks'
 import useFormInput from 'hooks/useFormInput'
 import { IMongooseError } from 'types/mongo'
+import { IOnUploadSubmit } from 'types/product'
 import { validateProductDescription, validateProductPrice, validateProductTitle } from 'src/utils/validateInput'
 import InputText from 'components/_shared/InputText'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './uploadImageForm.module.scss'
-import { IOnUploadSubmit } from 'types/product'
 
 interface IUploadImageFormProps {
   onUploadSubmit: (data: IOnUploadSubmit, file: File) => Promise<IMongooseError | null>
@@ -19,22 +19,13 @@ const DEFAULT_IMAGE_PATH = '/products/default.png'
 
 const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
   const t = useI18n()
-  const router = useRouter()
   const inputFocusRef = useRef(null)
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const [loading, setLoading] = useState(false)
   const { message, setMessage } = useSnackbar()
   const [imageFile, setImageFile] = useState<File | undefined>()
   const [imagePreviewUrl, setImagePreviewUrl] = useState(DEFAULT_IMAGE_PATH)
-  const { data: session, status } = useSession()
-
-  useEffect(() => {
-    if (!session && status !== 'loading') {
-      setSnackBarStatus('warning')
-      setMessage('Please Login')
-      router.push('/signin')
-    }
-  }, [router, session, setMessage, status])
+  const { data: session } = useSession()
 
   const title = useFormInput({ validateFunction: validateProductTitle })
   const price = useFormInput({ validateFunction: validateProductPrice })
@@ -77,10 +68,7 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
       price: Number(price.value),
     }
 
-    // console.log(data)
     const error = await onUploadSubmit(data, imageFile)
-    // eslint-disable-next-line no-console
-    console.log('error: ', error)
     if (!error) {
       setSnackBarStatus('')
       setMessage(`${t('upload.snackBarSuccess')}`)

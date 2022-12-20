@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { NextPageContext } from 'next/types'
+import { useRouter } from 'next/router'
 import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+
 import { currencyFormatter } from 'src/utils/currencyFormatter'
 import styles from './success.module.scss'
 

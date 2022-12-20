@@ -6,12 +6,12 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useI18n } from 'hooks'
 import useFormInput from 'hooks/useFormInput'
-import { validateName, validatePassword, validatePhoneNumber } from 'src/utils/validateInput'
+import errorHandler from 'lib/errorHandler'
 import InputText from 'components/_shared/InputText'
 import SnackBar from 'components/_shared/SnackBar'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
+import { validateName, validatePassword, validatePhoneNumber } from 'src/utils/validateInput'
 import styles from './userSetting.module.scss'
-import errorHandler from 'lib/errorHandler'
 
 const UserSetting = () => {
   const t = useI18n()

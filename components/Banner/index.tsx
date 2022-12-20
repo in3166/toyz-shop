@@ -5,10 +5,10 @@ import dayjs from 'dayjs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { IBanner } from 'types/banners'
 import { useI18n, useState } from 'hooks'
-import styles from './banner.module.scss'
+import { IBanner } from 'types/banners'
 import { currencyFormatter } from 'src/utils/currencyFormatter'
+import styles from './banner.module.scss'
 
 const slideSettings = {
   dots: true,
@@ -24,7 +24,6 @@ const slideSettings = {
 const Banner = ({ banners }: { banners: IBanner[] }) => {
   const t = useI18n()
   const [mouseMoved, setMouseMoved] = useState(false)
-  // console.log(r)
   const router = useRouter()
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     const path = e.currentTarget.value

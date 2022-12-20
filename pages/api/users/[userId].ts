@@ -1,9 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import mongoose from 'mongoose'
 import User from 'lib/models/Users'
 import handlers from 'lib/_handlers'
-import Products from 'lib/models/Products'
 import { confirmPasswordHash } from 'src/utils/comparePassword'
+import { getUserId } from 'lib/controllers'
 
 const handler = handlers()
 
@@ -12,10 +11,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { userId },
   } = req
 
-  const user = await User.findOne({ id: userId }).populate({
-    path: 'likes',
-    model: Products,
-  })
+  const user = await getUserId(userId)
 
   if (!user) {
     return res.status(400).json({ success: false, error: { code: 10001 } })
@@ -77,15 +73,5 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
   }
   return res.status(200).json({ success: true, data: {} })
 })
-
-// handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-//   const { query, body } = req
-//   const user = await User.findOne({ id: body.id })
-
-//   if (!user) {
-//     return res.status(400).json({ success: false, error: { code: 10001 } })
-//   }
-//   return res.status(200).json({ success: true, user })
-// })
 
 export default handler

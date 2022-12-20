@@ -6,8 +6,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 
 import { IAuthSession, IAuthToken } from 'types/auth'
 import { dbConnect } from 'lib/dbConnect'
-import Users from 'lib/models/Users'
-import { BASE_URL } from 'src/fixtures'
+import { getUserId, getUserEmail } from 'lib/controllers'
 import { confirmPasswordHash } from 'src/utils/comparePassword'
 
 export default NextAuth({
@@ -21,21 +20,15 @@ export default NextAuth({
           password: string
         }
         try {
-          const response = await fetch(`${BASE_URL}/api/users/${id}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
+          await dbConnect()
 
-          const data = await response.json()
-          if (!data.success) {
-            throw new Error(data?.error?.code)
-          }
-          const compare = await confirmPasswordHash(password, data.user.password)
+          const data = await getUserId(id)
+
+          const compare = await confirmPasswordHash(password, data.password)
           if (!compare) throw new Error('10003')
-          delete data.user.password
-          return data.user
+
+          delete data.password
+          return data
         } catch (error) {
           if (typeof error === 'string') {
             throw new Error(error)
@@ -74,7 +67,7 @@ export default NextAuth({
           return true
         }
         await dbConnect()
-        const response = await Users.find({ email: user.email })
+        const response = await getUserEmail(user.email)
         if (!response.length) {
           return `/signup?email=${user.email}`
         }
@@ -91,12 +84,9 @@ export default NextAuth({
     jwt: async ({ token, user, account }) => {
       if (user && account?.type === 'oauth') {
         await dbConnect()
-        const response = await Users.find({ email: user.email }).lean()
-        if (response?.length > 0) {
-          console.log('user: ', user)
-          console.log('response: ', response)
-          console.log('response[0]: ', response[0])
-          const newToken = { ...user, ...response[0] }
+        const response = await getUserEmail(user.email)
+        if (response) {
+          const newToken = { ...user, ...response }
           return newToken
         }
       }

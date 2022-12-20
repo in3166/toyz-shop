@@ -3,10 +3,10 @@ import { fireEvent, renderWithProviders, screen, act, renderHook } from 'src/uti
 import LoginForm from 'components/SignInForm'
 import SignInPage from '../../pages/signin/index'
 import useFormInput from 'hooks/useFormInput'
-import { signInValue } from 'src/fixtures/users'
+import { signInUserValue } from 'src/fixtures/users'
 
 describe('SignIn Component', () => {
-  test.each(signInValue)('The %s field should be in the document', async (fieldText) => {
+  test.each(signInUserValue)('The %s field should be in the document', async (fieldText) => {
     renderWithProviders(<SignInPage />)
     // id input이 존재하고 값은 없어야 한다.
     const field = screen.getByLabelText(fieldText)
@@ -14,7 +14,7 @@ describe('SignIn Component', () => {
     expect(field.value).toMatch('')
   })
 
-  test.each(signInValue)(
+  test.each(signInUserValue)(
     'error message should be in the document when the %s value is not valid',
     async (fieldText, { messageText, validInputText, notValidInputText }) => {
       renderWithProviders(<SignInPage />)
@@ -42,7 +42,7 @@ describe('SignIn Component', () => {
     }
   )
 
-  test.each(signInValue)(
+  test.each(signInUserValue)(
     'The snackbar should be in the document if the %s is not valid.',
     async (fieldText, { notValidInputText }) => {
       const user = userEvent.setup({ delay: null })

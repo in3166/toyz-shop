@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction } from 'react'
+import dayjs from 'dayjs'
+
 import { IBanner } from 'types/banners'
 import { IProductItem } from 'types/product'
-import styles from './productTable.module.scss'
-import dayjs from 'dayjs'
 import { BASE_URL } from 'src/fixtures'
+import styles from './productTable.module.scss'
 
 interface IProductTable {
   products: IProductItem[]

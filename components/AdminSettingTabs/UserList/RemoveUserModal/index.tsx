@@ -1,8 +1,9 @@
-import Modal from 'components/_shared/Modal'
-import { useI18n } from 'hooks'
 import { Dispatch, SetStateAction, useCallback } from 'react'
+import { useI18n } from 'hooks'
+
 import { BASE_URL } from 'src/fixtures'
 import { IUser } from 'types/user'
+import Modal from 'components/_shared/Modal'
 import styles from './removeUserModal.module.scss'
 
 interface IRemoveUserModalProps {
@@ -24,8 +25,7 @@ const RemoveUserModal = ({ onClose, setMessage, setUsers, id }: IRemoveUserModal
       .then(async (response) => {
         setUsers((prev) => prev.filter((user) => user.id !== id))
         const result = await response.json()
-        console.log('rsponse del', result)
-        if (response.ok) setMessage('삭제 완료!')
+        if (result.ok) setMessage('삭제 완료!')
       })
       .catch((err) => {
         setMessage(`삭제 실패: ${err}`)

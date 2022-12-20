@@ -1,7 +1,7 @@
-import Product from 'lib/models/Products'
-import User from 'lib/models/Users'
 import { NextApiRequest, NextApiResponse } from 'next'
-import handlers from '../../../lib/_handlers'
+import { getProduct } from 'lib/controllers'
+import Product from 'lib/models/Products'
+import handlers from 'lib/_handlers'
 
 const handler = handlers()
 
@@ -10,11 +10,8 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { productId },
   } = req
 
-  const product = await Product.findOne({ _id: productId }).populate({
-    path: 'owner',
-    model: User,
-    select: '-password',
-  })
+  const product = await getProduct(productId)
+
   if (!product) {
     return res.status(400).json({ success: false })
   }

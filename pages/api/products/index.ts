@@ -3,6 +3,7 @@ import Product from 'lib/models/Products'
 import User from 'lib/models/Users'
 import { asyncPares } from 'lib/s3'
 import handlers from 'lib/_handlers'
+import { getAllProduct } from 'lib/controllers'
 
 export const config = {
   api: {
@@ -12,8 +13,13 @@ export const config = {
 const handler = handlers()
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  const products = await Product.find({}).populate({ path: 'owner', model: User, select: '-password' })
-  res.status(200).json({ success: true, products })
+  const {
+    query: { page },
+  } = req
+
+  const products = await getAllProduct(Number(page))
+
+  return res.status(201).json({ success: true, products })
 })
 
 handler.post(async (req: any, res: NextApiResponse) => {

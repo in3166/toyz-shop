@@ -18,14 +18,18 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(origin + locale)
   } else if (pathname.startsWith('/setting/user') && session?.role !== 1) {
     return NextResponse.redirect(origin + locale)
-  } else if (pathname.startsWith('/likes') && session?.role !== 1) {
+  } else if (pathname.startsWith('/likes')) {
     if (!session) {
-      return NextResponse.redirect(`${origin + locale}/siginin`)
+      return NextResponse.redirect(`${origin + locale}/signin`)
+    }
+  } else if (pathname === '/product') {
+    if (!session) {
+      return NextResponse.redirect(`${origin + locale}/signin`)
     }
   }
   return null
 }
 
 export const config = {
-  matcher: ['/signin', '/signup', '/setting/:path*', '/likes'],
+  matcher: ['/signin', '/signup', '/setting/:path*', '/likes', '/product'],
 }

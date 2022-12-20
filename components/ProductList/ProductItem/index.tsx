@@ -10,48 +10,45 @@ import { changeLikesList } from './changeLikesList'
 import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import styles from './productItem.module.scss'
 import { currencyFormatter } from 'src/utils/currencyFormatter'
-import { BASE_URL } from 'src/fixtures'
-import { useSession } from 'next-auth/react'
 
 interface ICardProps {
   product: IProductItem
-  user?: IUser
-  setUser?: SetterOrUpdater<IUser>
+  user: IUser | undefined
+  likes: IProductItem[]
+  setLikes: SetterOrUpdater<IProductItem[]>
 }
 
-const ProductItem = ({ product, user, setUser }: ICardProps) => {
+const ProductItem = ({ product, user, likes, setLikes }: ICardProps) => {
   const t = useI18n()
   const [isLiked, setIsLiked] = useState(false)
-  const { data: session } = useSession()
+
   useEffect(() => {
-    if (user && user.role === 1 && user?.likes) {
-      const isLike = user.likes.some((value) => value?._id === product._id)
+    if (user && user.role === 1 && likes.length > 0) {
+      const isLike = likes.some((value) => value?._id === product._id)
       setIsLiked(isLike)
     }
-  }, [product._id, user])
+  }, [likes, product._id, user])
 
   const handleClickLike = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    if (!user || !setUser) return
-    if (!user.id || user.id === 'admin') return
+    if (!user || !user.id || user.id === 'admin') return
     if (product.owner.id === user.id) return
 
     setIsLiked((prev) => !prev)
-    const likes = changeLikesList(user.likes ?? [], isLiked, product)
-    const likesIdList = likes.map((value) => value._id)
+    const tempLikes = changeLikesList(likes, isLiked, product)
+    const likesIdList = tempLikes.map((value) => value._id)
     try {
       const response = await fetch(`/api/users/likes/${user.id}`, {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ likes: likesIdList }),
         method: 'PATCH',
       })
+
       const result = await response.json()
       if (!result.success) {
         setIsLiked((prev) => !prev)
       }
-      setUser({ ...user, likes })
-      if (session) session.user.likes = likes
-      console.log('ses: ', session)
+      setLikes(tempLikes)
     } catch (error) {
       setIsLiked((prev) => {
         return !prev

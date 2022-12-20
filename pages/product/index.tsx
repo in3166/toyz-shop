@@ -36,15 +36,6 @@ const AddProudctPage: NextPage<AppProps> = () => {
       message += ` (${field})`
       return { ...uploadResult.error, message }
     }
-    // const addProductResult = await response.json()
-    // if (!addProductResult.success) {
-    //   const field = addProductResult.error?.keyValue?.email !== undefined ? 'Email' : 'ID'
-    //   let message = !addProductResult.error.message
-    //     ? errorHandler(addProductResult.error?.code)
-    //     : addProductResult.error.message
-    //   message += ` (${field})`
-    //   return { ...addProductResult.error, message }
-    // }
 
     return null
   }

@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useQuery } from 'react-query'
+import { throttle } from 'lodash'
+
 import { IProductItem } from 'types/product'
 import { IBanner } from 'types/banners'
+import useDragScroll from './useDragScroll'
+import { BASE_URL } from 'src/fixtures'
 import Card from 'components/_shared/Card'
 import styles from './bannerList.module.scss'
-import { BASE_URL } from 'src/fixtures'
-import useDragScroll from './useDragScroll'
-import { throttle } from 'lodash'
 
 interface IBannerList {
   banners: IBanner[]

@@ -1,22 +1,18 @@
-import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useState } from 'react'
-// import { getProudcts } from 'services/products'
-import { useRecoil } from './state'
-import { currentPageState } from 'stores/page'
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
+import { IProductItem } from 'types/product'
 
 interface Args extends IntersectionObserverInit {
   freezeOnceVisible?: boolean
 }
 
 export function useIntersectionObserver(
-  elementRef: RefObject<Element>,
-  { threshold = 0 }: Args,
-  setIsLoading: Dispatch<SetStateAction<boolean>>
-  // setproductsList: Dispatch<SetStateAction<IProductItem[]>>
+  { threshold = 0.7 }: Args,
+  setIsLoading: Dispatch<SetStateAction<boolean>>,
+  setProductsList: Dispatch<SetStateAction<IProductItem[]>>
 ) {
-  // const dispatch = useAppDispatch()
-  // const handleError = useErrorHandler()
-  const [currentPage, setCurrentPage] = useRecoil(currentPageState)
+  const [currentPage, setCurrentPage] = useState(1)
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null)
+  const [isEnd, setIsEnd] = useState(false)
 
   const onIntersect: IntersectionObserverCallback = useCallback(
     ([entries]) => {
@@ -24,24 +20,29 @@ export function useIntersectionObserver(
         setIsLoading(true)
 
         const pageNumber = currentPage + 1
-        setCurrentPage(pageNumber)
-
-        // setTimeout(() => {
-        //   getProudcts(pageNumber)
-        //     .then((res) => {
-        //       dispatch(setProductList(res.data))
-        //       setproductsList((prev) => [...prev, ...res.data])
-        //     })
-        //     .catch((err) => {
-        //       handleError(err)
-        //     })
-        //     .finally(() => {
-        //       setIsLoading(false)
-        //     })
-        // }, 900)
+        // TODO: 분리 필요 => 요청, setState
+        fetch(`/api/products?page=${pageNumber}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'GET',
+        })
+          .then(async (response: any) => {
+            if (response.ok) {
+              const result = await response.json()
+              console.log(result?.products)
+              if (!result?.products || result?.products?.length <= 0) setIsEnd(true)
+              else setProductsList((prev) => [...prev, ...result.products])
+              setCurrentPage(pageNumber)
+            }
+          })
+          .catch((err) => console.error(err))
+          .finally(() => {
+            setIsLoading(false)
+          })
       }
     },
-    [currentPage, setCurrentPage, setIsLoading]
+    [currentPage, setIsLoading, setProductsList]
   )
 
   useEffect(() => {
@@ -53,5 +54,5 @@ export function useIntersectionObserver(
     return () => observer.unobserve(target)
   }, [threshold, onIntersect, target])
 
-  return setTarget
+  return { setTarget, isEnd }
 }

@@ -1,7 +1,8 @@
-import { cx } from 'styles'
-import styles from './snackBar.module.scss'
-import { CloseIcon } from 'public/svgs'
 import React from 'react'
+
+import { CloseIcon } from 'public/svgs'
+import styles from './snackBar.module.scss'
+import { cx } from 'styles'
 
 interface ISnackBarProps {
   message: string

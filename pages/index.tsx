@@ -4,42 +4,46 @@ import Head from 'next/head'
 import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
+import { dbConnect } from 'lib/dbConnect'
+import { getAllBanner, getAllProduct } from 'lib/controllers'
 import Banner from 'components/Banner'
 import ProductList from 'components/ProductList'
-import { dbConnect } from 'lib/dbConnect'
-import Users from 'lib/models/Users'
-import Products from 'lib/models/Products'
-import Banners from 'lib/models/Banners'
+import ScrollDetecor from 'components/_shared/ScrollDetecor'
+import { useState } from 'react'
+import { IProductItem } from 'types/product'
 
 const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
-  const { products, banners } = pageProps
+  const { initialProducts, banners } = pageProps
+  const [isLoading, setIsLoading] = useState(false)
+  const [products, setProducts] = useState<IProductItem[]>(initialProducts)
+  const { setTarget, isEnd } = useIntersectionObserver({ rootMargin: '10px', threshold: 0 }, setIsLoading, setProducts)
 
   return (
     <>
       <Head>
         <title>Toyz</title>
-        <meta name='description' content='You can buy a variety of amazing toys!.' />
+        <meta name='description' content='You can buy a variety of amazing toys!' />
       </Head>
       <Banner banners={banners} />
-      <ProductList products={products} />
+      <ProductList products={products} isLoading={isLoading} setProducts={setProducts} />
+      {!isEnd && !isLoading && <ScrollDetecor setTarget={setTarget} />}
     </>
   )
 }
 
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   await dbConnect()
-  const responseProducts = await Products.find({}).populate({ path: 'owner', model: Users, select: '-password' })
-  const responseBanners = await Banners.find({}).populate({
-    path: 'item',
-    model: Products,
-    populate: { path: 'owner', model: Users, select: '-password' },
-  })
+
+  const responseProducts = await getAllProduct(1)
+  const responseBanners = await getAllBanner()
   const existedBanner = responseBanners.filter((value) => value.item !== null)
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ['app', 'common'], nextI18nextConfig)),
       locales,
-      products: JSON.parse(JSON.stringify(responseProducts || [])),
+      initialProducts: JSON.parse(JSON.stringify(responseProducts || [])),
       banners: JSON.parse(JSON.stringify(existedBanner || [])),
     },
     revalidate: 10,

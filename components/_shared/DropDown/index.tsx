@@ -1,9 +1,9 @@
 import { Dispatch, MouseEvent, SetStateAction, useState } from 'react'
 
 import { useOnClickOutside } from 'hooks'
-import { cx } from 'styles'
-import styles from './dropDown.module.scss'
 import { DownArrow } from 'public/svgs'
+import styles from './dropDown.module.scss'
+import { cx } from 'styles'
 
 interface IDropDownProps {
   currentValue: string

@@ -1,6 +1,5 @@
 import { ChangeEvent, MouseEvent, useCallback, useState } from 'react'
 
-// type Type = string | number
 interface IUseFormInputProps {
   validateFunction?: (value: string) => boolean
   initialValue?: string
@@ -17,7 +16,7 @@ const useFormInput = ({ validateFunction, initialValue = '' }: IUseFormInputProp
 
   const valueChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value: currentValue } = e.currentTarget
-    setValue(currentValue.trim())
+    setValue(currentValue)
   }, [])
 
   const valueClickHandler = useCallback((e: MouseEvent<HTMLInputElement | HTMLTextAreaElement>) => {

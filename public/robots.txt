@@ -1,3 +1,7 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /setting/
+Disallow: /signin/
+Disallow: /signup/
+Disallow: /success/
+Disallow: /fail/
