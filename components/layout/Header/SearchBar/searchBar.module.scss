@@ -101,3 +101,18 @@
     }
   }
 }
+
+@include responsive.mobileOnly {
+  .searchBox {
+    right: 10px;
+    margin: 0;
+
+    .searchToggleButton {
+      right: 7px;
+    }
+
+    .searchFormOpen {
+      width: 130px;
+    }
+  }
+}

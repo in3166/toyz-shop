@@ -6,6 +6,8 @@ import SearchBar from './SearchBar'
 import UserMenu from './UserMenu'
 import DarkMode from './DarkMode'
 import styles from './header.module.scss'
+import Link from 'next/link'
+import { LogoImage } from 'public/svgs'
 
 interface IHeaderProps {
   languageList: string[]
@@ -32,6 +34,9 @@ const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
   return (
     <div className={styles.header}>
       <div className={styles.leftMenu}>
+        <Link href='/' aria-label='link to home page' className={styles.logo}>
+          <LogoImage />
+        </Link>
         <SearchBar />
       </div>
       <nav className={styles.rightMenu}>

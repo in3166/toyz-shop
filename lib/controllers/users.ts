@@ -15,7 +15,7 @@ export const getUserId = (userId: string | string[] | undefined) => {
 }
 
 export const getUserEmail = (email: string | null | undefined) => {
-  return Users.findOne({ email })
+  return Users.find({ email })
     .populate({
       path: 'likes',
       model: Products,

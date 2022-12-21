@@ -55,7 +55,7 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET || process.env.SECRET || process.env.NEXT_AUTH_SECRET_KEY,
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 60 * 60, // 1일
+    maxAge: 30 * 60 * 60 * 24, // 1일
   },
   jwt: {
     secret: process.env.NEXT_AUTH_SECRET_KEY || process.env.SECRET,
@@ -68,7 +68,7 @@ export default NextAuth({
         }
         await dbConnect()
         const response = await getUserEmail(user.email)
-        if (!response.length) {
+        if (response?.length < 1) {
           return `/signup?email=${user.email}`
         }
         return true

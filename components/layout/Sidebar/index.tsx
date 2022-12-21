@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { debounce } from 'lodash'
 
-import { useState } from 'hooks'
+import { useOnClickOutside, useState } from 'hooks'
 import { LogoImage, MenuBar } from 'public/svgs'
 import { cx } from 'styles'
 import styles from './sidebar.module.scss'
@@ -11,6 +11,10 @@ import styles from './sidebar.module.scss'
 const Sidebar = (): JSX.Element => {
   const router = useRouter()
   const [visibleSideBar, setVisibleSideBar] = useState(true)
+
+  const handleOpenMenu = () => {
+    setVisibleSideBar((prev) => !prev)
+  }
 
   const handleResize = debounce(() => {
     setVisibleSideBar(window.innerWidth > 768)
@@ -20,18 +24,23 @@ const Sidebar = (): JSX.Element => {
     if (typeof window !== 'undefined' && window.innerWidth < 766) {
       setVisibleSideBar(false)
     }
+  }, [])
+
+  useEffect(() => {
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
     }
   }, [handleResize])
 
-  const handleOpenMenu = () => {
-    setVisibleSideBar((prev) => !prev)
+  const handleClickOutsideSidebar = () => {
+    if (visibleSideBar && window.innerWidth < 600) setVisibleSideBar(false)
   }
+  const asideRef = useOnClickOutside(handleClickOutsideSidebar)
 
   return (
     <aside
+      ref={asideRef}
       className={cx(styles.aside, { [styles.hideSidebar]: !visibleSideBar }, { [styles.openSidebar]: visibleSideBar })}
     >
       <div className={styles.logo}>

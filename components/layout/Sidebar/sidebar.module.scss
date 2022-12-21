@@ -4,16 +4,6 @@
 @use '/styles/mixins/flexbox';
 @use '/styles/mixins/position';
 
-.hideSidebar {
-  width: 0 !important;
-  min-width: 0 !important;
-  transition: all 0.2s ease-in-out;
-
-  .menuToggle {
-    @include position.position(fixed, auto auto 10px 13px);
-  }
-}
-
 .aside {
   z-index: 2;
   width: levels.$SIDEBAR_WIDTH;
@@ -135,11 +125,30 @@
   }
 }
 
+.hideSidebar {
+  width: 0;
+  min-width: 0;
+  transition: all 0.2s ease-in-out;
+
+  .menuToggle {
+    @include position.position(fixed, auto auto 10px 13px);
+  }
+}
+
 @include responsive.mobileOnly {
   .aside {
     width: 0;
     min-width: 0;
     padding: 0;
+
+    .nav {
+      margin: 100px 7px;
+    }
+  }
+
+  .openSidebar {
+    width: levels.$SIDEBAR_MOBILE_WIDTH !important;
+    min-width: levels.$SIDEBAR_MOBILE_WIDTH !important;
   }
 }
 
