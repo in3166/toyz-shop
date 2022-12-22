@@ -68,7 +68,7 @@ export default NextAuth({
         }
         await dbConnect()
         const response = await getUserEmail(user.email)
-        if (response?.length < 1) {
+        if (response.length < 1) {
           return `/signup?email=${user.email}`
         }
         return true
@@ -85,8 +85,8 @@ export default NextAuth({
       if (user && account?.type === 'oauth') {
         await dbConnect()
         const response = await getUserEmail(user.email)
-        if (response) {
-          const newToken = { ...user, ...response }
+        if (response?.length > 0) {
+          const newToken = { ...user, ...response[0] }
           return newToken
         }
       }

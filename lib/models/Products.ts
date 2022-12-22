@@ -26,6 +26,10 @@ const ProductsSchema = new mongoose.Schema(
       required: [true, 'Please provide an image url for this Products.'],
       type: String,
     },
+    status: {
+      type: Number,
+      default: 1, // 1: 판매중, 2: 예약중, 3: 판매완료
+    },
   },
   { timestamps: true }
 )

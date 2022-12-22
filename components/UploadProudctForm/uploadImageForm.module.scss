@@ -45,6 +45,8 @@
 
       .uploadName {
         display: inline-block;
+        width: 90%;
+        max-width: 162px;
         height: 30px;
         padding: 0 10px;
         color: colors.$SIGN_DARK_FONT;

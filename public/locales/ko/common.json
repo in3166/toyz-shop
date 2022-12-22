@@ -1,4 +1,9 @@
 {
+  "title": "제목",
+  "price": "가격",
+  "owner": "소유자",
+  "date": "등록일",
+  "status": "상태",
   "gnb": {
     "signin": "로그인",
     "signup": "회원가입",
@@ -80,10 +85,6 @@
     "userList.phone": "전화번호",
     "userList.withdrawal": "탈퇴"
   },
-  "title": "제목",
-  "price": "가격",
-  "owner": "소유자",
-  "date": "등록일",
   "likes": {
     "admin": "관리자 계정입니다.",
     "notValid": "권한이 없습니다."

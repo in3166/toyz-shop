@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dayjs from 'dayjs'
 import { ParsedUrlQuery } from 'querystring'
 
 import { useI18n } from 'hooks'
+import { useUserLikes } from 'hooks/useUserLikes'
 import SnackBar from 'components/_shared/SnackBar'
 import Container from 'components/_shared/Container'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
@@ -18,17 +19,20 @@ import Products from 'lib/models/Products'
 import Users from 'lib/models/Users'
 import { dbConnect } from 'lib/dbConnect'
 import { currencyFormatter } from 'src/utils/currencyFormatter'
+import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import styles from './itemDetailPage.module.scss'
 
 const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
+  const { product, locale } = pageProps
   const t = useI18n()
   const [openModal, setOpenModal] = useState(false)
   const { message, setMessage } = useSnackbar(3000)
   const router = useRouter()
-  const { data: session } = useSession()
-  const { product, locale } = pageProps
+  const { likes, user, handleClickLike } = useUserLikes()
+  const [isLiked, setIsLiked] = useState(false)
+
   const handleOpenModal = () => {
-    if (session?.user.role !== 1) {
+    if (!user || user?.role !== 1) {
       setMessage('로그인하세요.')
       return
     }
@@ -38,9 +42,35 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const handleCloseModal = () => {
     setOpenModal(false)
   }
+
+  useEffect(() => {
+    if (likes.some((value) => value._id === product?._id)) {
+      setIsLiked(true)
+    }
+  }, [likes, product?._id])
+
   if (router.isFallback) {
     return <Loading />
   }
+  const handleClickEdit = () => {
+    router.push(`/product?id=${product._id}`)
+  }
+  const editButton = (
+    <button type='button' onClick={handleClickEdit}>
+      <Image className={styles.editButton} width={17} height={17} src='/svgs/edit.png' alt='edit product info button' />
+    </button>
+  )
+  const likeButton = (
+    <button
+      type='button'
+      aria-label='Add a product to like'
+      className={styles.likeButton}
+      onClick={(e) => handleClickLike(e, product, isLiked, setIsLiked)}
+    >
+      {isLiked ? <HeartFillIcon /> : <HeartOutlineIcon />}
+    </button>
+  )
+  const headerButton = user?.id === product.owner.id ? editButton : likeButton
 
   return (
     <>
@@ -48,7 +78,10 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
         <title>Toyz Item</title>
       </Head>
       <Container color='white' width='lg'>
-        <header className={styles.header}>{product?.title}</header>
+        <header className={styles.header}>
+          <h3>{product?.title}</h3>
+          {user && headerButton}
+        </header>
         <main className={styles.main}>
           <div className={styles.image}>
             <img src={product?.image} alt='items' />
@@ -87,7 +120,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
             product={product}
             lang={locale}
             setMessage={setMessage}
-            buyer={session?.user?._id}
+            buyer={user?._id}
           />
         )}
         {message && <SnackBar message={message} setMessage={setMessage} status='warning' />}

@@ -12,13 +12,11 @@ interface IMainPageProps {
   setProducts?: Dispatch<IProductItem[]>
 }
 const ProductList = ({ products, isLoading, setProducts }: IMainPageProps) => {
-  const { likes, setLikes, user } = useUserLikes()
+  const { likes, user, handleClickLike } = useUserLikes()
   useEffect(() => {
     if (setProducts) {
       if (!products || products?.length < 1) {
         setProducts(likes)
-      } else {
-        setProducts(products)
       }
     }
   }, [likes, products, setProducts])
@@ -29,7 +27,9 @@ const ProductList = ({ products, isLoading, setProducts }: IMainPageProps) => {
       {!isLoading && products?.length < 1 && <div>No Items.</div>}
       <ul className={styles.cardContainer}>
         {products?.map((value) => {
-          return <ProductItem key={value._id} product={value} user={user} likes={likes} setLikes={setLikes} />
+          return (
+            <ProductItem key={value._id} product={value} user={user} likes={likes} handleClickLike={handleClickLike} />
+          )
         })}
       </ul>
       {isLoading && <Loading />}

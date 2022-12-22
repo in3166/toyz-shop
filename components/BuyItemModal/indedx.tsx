@@ -37,7 +37,7 @@ const BuyItemModal = ({ onClose, product, lang, buyer, setMessage }: IBuyItemMod
             orderName: `buyProduct${product._id}`,
             customerName: `toy-z`,
             successUrl: `${BASE_URL}/success?seller=${product?.owner?._id}&price=${product?.price}&buyer=${buyer}`,
-            failUrl: `${BASE_URL}/failed?seller=${product?.owner?._id}&price=${product?.price}&buyer=${buyer}`,
+            failUrl: `${BASE_URL}/fail?seller=${product?.owner?._id}&price=${product?.price}&buyer=${buyer}`,
             validHours: 24,
             cashReceipt: {
               type: '소득공제',

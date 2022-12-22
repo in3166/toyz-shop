@@ -30,7 +30,6 @@ export function useIntersectionObserver(
           .then(async (response: any) => {
             if (response.ok) {
               const result = await response.json()
-              console.log(result?.products)
               if (!result?.products || result?.products?.length <= 0) setIsEnd(true)
               else setProductsList((prev) => [...prev, ...result.products])
               setCurrentPage(pageNumber)

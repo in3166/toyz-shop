@@ -3,12 +3,31 @@
 @use '/styles/mixins/position';
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 5px;
   margin-bottom: 30px;
   font-size: 17px;
   font-weight: 500;
   color: colors.$GRAY2;
-  border-bottom: 1px solid colors.$GRAY6;
+  border-bottom: 1px solid colors.$GRAYA;
+
+  svg {
+    width: 20px;
+    height: auto;
+
+    image {
+      width: 20px;
+      height: auto;
+    }
+  }
+
+  .editButton {
+    &:hover {
+      filter: drop-shadow(0 0 0.3px black);
+    }
+  }
 
   :root[color-theme='dark'] & {
     color: colors.$HEADER_DARK_FONT_COLOR;
@@ -53,8 +72,8 @@
 
     .description {
       padding: 15px 10px;
-      margin: 10px;
-      border: 1px colors.$GRAY6 solid;
+      margin: 20px 0;
+      border: 1px colors.$GRAYA solid;
       border-radius: 10px;
     }
 
@@ -64,10 +83,12 @@
       width: 100%;
 
       .buyButton {
+        width: 55px;
+        height: 35px;
         // @include position.position(absolute, auto 10px -10px auto);
-        padding: 10px 20px;
+        // padding: 10px 20px;
         margin: 10px 3px;
-        border: 1px solid colors.$GRAY3;
+        border: 1px solid colors.$GRAYA;
         border-radius: 5px;
 
         &:hover {

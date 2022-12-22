@@ -1,10 +1,11 @@
-import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 import { useI18n } from 'hooks'
 import useFormInput from 'hooks/useFormInput'
 import { IMongooseError } from 'types/mongo'
-import { IOnUploadSubmit } from 'types/product'
+import { IOnUploadSubmit, IProductItem } from 'types/product'
 import { validateProductDescription, validateProductPrice, validateProductTitle } from 'src/utils/validateInput'
 import InputText from 'components/_shared/InputText'
 import SnackBar from 'components/_shared/SnackBar'
@@ -12,24 +13,30 @@ import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './uploadImageForm.module.scss'
 
 interface IUploadImageFormProps {
-  onUploadSubmit: (data: IOnUploadSubmit, file: File) => Promise<IMongooseError | null>
+  onUploadSubmit: (data: IOnUploadSubmit, file?: File) => Promise<IMongooseError | null>
+  product?: IProductItem
 }
 
 const DEFAULT_IMAGE_PATH = '/products/default.png'
+const INITIAL_DESCRIPTION = `판매할 상품의 상세 정보를 작성해주세요. \n 품명: \n 가격: \n 사용 기간: \n 거래 방식: (택배/직거래) \n 장소: `
 
-const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
+const UploadImageForm = ({ onUploadSubmit, product }: IUploadImageFormProps) => {
   const t = useI18n()
+  const router = useRouter()
   const inputFocusRef = useRef(null)
   const [snackBarStatus, setSnackBarStatus] = useState('')
   const [loading, setLoading] = useState(false)
   const { message, setMessage } = useSnackbar()
   const [imageFile, setImageFile] = useState<File | undefined>()
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(DEFAULT_IMAGE_PATH)
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(product?.image || DEFAULT_IMAGE_PATH)
   const { data: session } = useSession()
 
-  const title = useFormInput({ validateFunction: validateProductTitle })
-  const price = useFormInput({ validateFunction: validateProductPrice })
-  const description = useFormInput({ validateFunction: validateProductDescription })
+  const title = useFormInput({ validateFunction: validateProductTitle, initialValue: product?.title })
+  const price = useFormInput({ validateFunction: validateProductPrice, initialValue: product?.price?.toString() })
+  const description = useFormInput({
+    validateFunction: validateProductDescription,
+    initialValue: product?.description || INITIAL_DESCRIPTION,
+  })
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -48,7 +55,7 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
   const handleOnSubmit = async (e: FormEvent) => {
     setLoading(true)
     e.preventDefault()
-    if (!imageFile) {
+    if (!imageFile && !product) {
       setSnackBarStatus('warning')
       setMessage(`${t('upload.snackBarImageNotValid')}`)
       setLoading(false)
@@ -66,9 +73,18 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
       description: description.value,
       title: title.value,
       price: Number(price.value),
+      changedImage: 'no',
     }
 
     const error = await onUploadSubmit(data, imageFile)
+    if (error) {
+      console.log(error)
+    }
+
+    if (product) {
+      router.push(`/product/${product._id}`)
+    }
+
     if (!error) {
       setSnackBarStatus('')
       setMessage(`${t('upload.snackBarSuccess')}`)
@@ -90,7 +106,9 @@ const UploadImageForm = ({ onUploadSubmit }: IUploadImageFormProps) => {
           <fieldset className={styles.priviewFilebox}>
             <input
               className={styles.uploadName}
-              value={imagePreviewUrl === DEFAULT_IMAGE_PATH ? '' : imageFile?.name}
+              value={
+                imagePreviewUrl === product?.image || imagePreviewUrl === DEFAULT_IMAGE_PATH ? '' : imageFile?.name
+              }
               readOnly
               placeholder='상품 사진 등록'
             />

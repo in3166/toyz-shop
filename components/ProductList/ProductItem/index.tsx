@@ -1,24 +1,28 @@
-import { MouseEvent, useEffect, useState } from 'react'
+import { Dispatch, MouseEvent, SetStateAction, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { SetterOrUpdater } from 'recoil'
 import dayjs from 'dayjs'
 
 import { useI18n } from 'hooks'
 import { IProductItem } from 'types/product'
 import { IUser } from 'types/user'
-import { changeLikesList } from './changeLikesList'
+import { currencyFormatter } from 'src/utils/currencyFormatter'
+import handleProductStatus from 'src/utils/handleProductStatus'
 import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import styles from './productItem.module.scss'
-import { currencyFormatter } from 'src/utils/currencyFormatter'
 
 interface ICardProps {
   product: IProductItem
   user: IUser | undefined
   likes: IProductItem[]
-  setLikes: SetterOrUpdater<IProductItem[]>
+  handleClickLike: (
+    e: MouseEvent<HTMLButtonElement>,
+    product: IProductItem,
+    isLiked: boolean,
+    setIsLiked: Dispatch<SetStateAction<boolean>>
+  ) => Promise<void>
 }
 
-const ProductItem = ({ product, user, likes, setLikes }: ICardProps) => {
+const ProductItem = ({ product, user, likes, handleClickLike }: ICardProps) => {
   const t = useI18n()
   const [isLiked, setIsLiked] = useState(false)
 
@@ -29,33 +33,6 @@ const ProductItem = ({ product, user, likes, setLikes }: ICardProps) => {
     }
   }, [likes, product._id, user])
 
-  const handleClickLike = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    if (!user || !user.id || user.id === 'admin') return
-    if (product.owner.id === user.id) return
-
-    setIsLiked((prev) => !prev)
-    const tempLikes = changeLikesList(likes, isLiked, product)
-    const likesIdList = tempLikes.map((value) => value._id)
-    try {
-      const response = await fetch(`/api/users/likes/${user.id}`, {
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ likes: likesIdList }),
-        method: 'PATCH',
-      })
-
-      const result = await response.json()
-      if (!result.success) {
-        setIsLiked((prev) => !prev)
-      }
-      setLikes(tempLikes)
-    } catch (error) {
-      setIsLiked((prev) => {
-        return !prev
-      })
-    }
-  }
-
   return (
     <li className={styles.card} title={product.title}>
       <Link href={`/product/${product._id}`} aria-label='link to product detail page'>
@@ -65,7 +42,7 @@ const ProductItem = ({ product, user, likes, setLikes }: ICardProps) => {
             type='button'
             aria-label='Add a product to like'
             className={styles.likeButton}
-            onClick={handleClickLike}
+            onClick={(e) => handleClickLike(e, product, isLiked, setIsLiked)}
           >
             {isLiked ? <HeartFillIcon /> : <HeartOutlineIcon />}
           </button>
@@ -85,6 +62,10 @@ const ProductItem = ({ product, user, likes, setLikes }: ICardProps) => {
           <div>
             <dt>{`${t('common:date')}`}</dt>
             <dd>{dayjs(product.createdAt).format('YY-MM-DD')}</dd>
+          </div>
+          <div>
+            <dt>{`${t('common:status')}`}</dt>
+            <dd>{handleProductStatus(product?.status)}</dd>
           </div>
         </dl>
       </Link>

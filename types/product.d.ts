@@ -9,13 +9,16 @@ export interface IProductItem {
   updatedAt?: date
   title: string
   owner: IUser
+  status: number
 }
 
 interface IOnUploadSubmit {
+  _id?: string
   owner?: string | undefined
   title: string
   description: string
   price: number
+  changedImage: string
 }
 
 export interface IProductAPI {

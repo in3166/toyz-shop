@@ -32,7 +32,8 @@
 
   img {
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    max-height: 350px;
   }
 }
 
@@ -66,12 +67,12 @@
     .buyButton {
       width: 100px;
       padding: 5px 25px;
-      color: colors.$GRAYD;
+      color: colors.$GRAYE;
       background-color: colors.$PRIMARY_BUTTON_BACKGROUND;
       border-radius: 5px;
 
       &:hover {
-        color: colors.$GRAYE;
+        color: colors.$GRAYD;
         background-color: colors.$PRIMARY_BUTTON_HOVER_BACKGROUND;
       }
 
@@ -82,25 +83,19 @@
 
     .buyMenu {
       position: absolute;
+      top: -20px;
+      // display: none;
+      z-index: -1;
       width: 100px;
-      // bottom: 0;
-      height: 0;
       overflow: hidden;
-      visibility: hidden;
-      background-color: colors.$GRAYD;
+      background-color: colors.$GRAYE;
+      border: 1px solid rgb(187, 187, 187);
       border-radius: 7px;
-      transition: all ease-in-out 0.7s;
-    }
-
-    .menuOpen {
-      position: absolute;
-      right: 0;
-      bottom: -90px;
-      height: fit-content;
-      visibility: visible;
+      opacity: 0;
+      transition: all ease-in-out 0.2s;
 
       & > li:nth-child(1) {
-        border-bottom: 1px solid colors.$GRAYA;
+        border-bottom: 1px solid colors.$GRAYD;
       }
 
       button {
@@ -110,6 +105,16 @@
           background-color: colors.$GRAYA;
         }
       }
+    }
+
+    .menuOpen {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      // display: block;
+      // height: fit-content;
+      visibility: visible;
+      opacity: 1;
     }
   }
 }
