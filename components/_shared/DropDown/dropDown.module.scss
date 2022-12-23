@@ -5,6 +5,12 @@ $ASSET_PATH: '/assets/svgs/';
 
 .select {
   @include position.position(relative, null);
+  height: 100%;
+
+  sub {
+    position: absolute;
+    top: -12px;
+  }
 
   .categoryindicator {
     width: 10px;
@@ -17,8 +23,8 @@ $ASSET_PATH: '/assets/svgs/';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 40px;
-    padding: 5px 14px;
+    height: 100%;
+    padding: 0 14px;
     text-align: center;
     cursor: pointer;
     background-color: colors.$WHITE;
@@ -48,7 +54,8 @@ $ASSET_PATH: '/assets/svgs/';
 
       button {
         width: 100%;
-        padding: 7px 20px;
+        min-height: 30px;
+        padding: 0 15px;
       }
 
       &:hover {
@@ -86,11 +93,9 @@ $ASSET_PATH: '/assets/svgs/';
 
 .large {
   width: 220px;
-  height: 60px;
 
   > button {
-    height: 60px !important;
-    padding: 15px;
+    padding: 0 15px;
   }
 }
 
@@ -102,8 +107,7 @@ $ASSET_PATH: '/assets/svgs/';
   width: 90px;
 
   > button {
-    height: 30px !important;
-    padding: 8px !important;
+    padding: 0 8px !important;
   }
 }
 

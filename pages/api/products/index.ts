@@ -1,18 +1,22 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Product from 'lib/models/Products'
-import User from 'lib/models/Users'
 import { asyncPares } from 'lib/s3'
 import handlers from 'lib/_handlers'
-import { getAllProduct } from 'lib/controllers'
+import { getAllProducts } from 'lib/controllers'
 
 const handler = handlers()
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
-    query: { page },
+    query: { text, page, status, sort },
   } = req
+  const params: { text?: string; page?: number; status?: number; sort?: number } = {}
+  if (text) params.text = text?.toString()
+  if (page) params.page = Number(page)
+  if (status) params.status = Number(status)
+  if (sort) params.sort = Number(sort)
 
-  const products = await getAllProduct(Number(page))
+  const products = await getAllProducts(params)
 
   return res.status(201).json({ success: true, products })
 })

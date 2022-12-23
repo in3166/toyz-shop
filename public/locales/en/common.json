@@ -14,6 +14,20 @@
     "first": "English",
     "second": "Korean"
   },
+  "filter":{
+    "status":{
+      "all":"All",
+      "onSale":"On Sale",
+      "reserved":"Reservation",
+      "sold":"Sold Out"
+    },
+    "sort":{
+      "latest":"Latest",
+      "oldest":"Oldest",
+      "highPrice":"Higher Price",
+      "lowPrice":"Lower Price"
+    }
+  },
   "upload": {
     "title": "Title",
     "titleErrorMsg": "Title",

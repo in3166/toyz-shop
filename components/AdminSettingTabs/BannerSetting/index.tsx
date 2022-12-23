@@ -13,7 +13,7 @@ const BannerSetting = ({ selected }: { selected: boolean }) => {
   const { isLoading, data: products } = useQuery(
     ['getAllProductsData'],
     () =>
-      fetch(`${BASE_URL}/api/products`, {
+      fetch(`${BASE_URL}/api/products?page=1&status=1`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

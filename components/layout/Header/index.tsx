@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import DropDown from 'components/_shared/DropDown'
-import SearchBar from './SearchBar'
+import SearchBar from '../../_shared/SearchBar'
 import UserMenu from './UserMenu'
 import DarkMode from './DarkMode'
 import styles from './header.module.scss'
@@ -16,7 +16,7 @@ interface IHeaderProps {
 
 const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
   const router = useRouter()
-  const [currentLanguage, setCurrentLanguage] = useState(languageList[0])
+  const [currentLanguage, setCurrentLanguage] = useState('0')
 
   const handleChangeLanguage = useCallback(
     (language: string) => {
@@ -28,7 +28,7 @@ const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
   )
 
   useEffect(() => {
-    setCurrentLanguage(languageList[0])
+    setCurrentLanguage('0')
   }, [languageList])
 
   return (
@@ -51,7 +51,7 @@ const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
               selectList={languageList}
               setCurrentValue={setCurrentLanguage}
               size='small'
-              handleChangedValue={handleChangeLanguage}
+              handleChangedLanguage={handleChangeLanguage}
             />
           </li>
         </ul>

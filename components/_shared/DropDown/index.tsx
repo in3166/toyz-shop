@@ -6,14 +6,24 @@ import styles from './dropDown.module.scss'
 import { cx } from 'styles'
 
 interface IDropDownProps {
+  title?: string
   currentValue: string
   selectList: string[]
   setCurrentValue: Dispatch<SetStateAction<string>>
-  size: 'large' | 'medium' | 'small'
-  handleChangedValue?: (language: string) => void
+  size?: 'large' | 'medium' | 'small'
+  handleChangedLanguage?: (language: string) => void // TODO: useeffect로 빼기
+  handleChangedFilter?: (param: string) => void // TODO: useeffect로 빼기
 }
 
-const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChangedValue }: IDropDownProps) => {
+const DropDown = ({
+  title,
+  currentValue,
+  selectList,
+  setCurrentValue,
+  size = 'small',
+  handleChangedLanguage,
+  handleChangedFilter,
+}: IDropDownProps) => {
   const [selectIsOpen, setSelectIsOpen] = useState(false)
 
   const handleVisibleOptions = () => {
@@ -24,7 +34,13 @@ const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChang
     const selectedValue = e.currentTarget.value
     setCurrentValue(selectedValue)
     setSelectIsOpen(false)
-    if (currentValue !== selectedValue && handleChangedValue) handleChangedValue(selectedValue || 'korean')
+
+    if (handleChangedFilter) {
+      handleChangedFilter(selectedValue)
+    }
+
+    if (currentValue !== selectedValue && handleChangedLanguage)
+      handleChangedLanguage(selectList[Number(selectedValue)] || 'korean')
   }
 
   const handleOnClose = () => {
@@ -35,24 +51,25 @@ const DropDown = ({ currentValue, selectList, setCurrentValue, size, handleChang
 
   return (
     <div className={cx(styles.select, styles[size], { [styles.selectIsOpen]: selectIsOpen })} ref={dropDownRef}>
+      {title && <sub>{title}</sub>}
       <button
         type='button'
         aria-label='open dropdown options'
         className={cx(styles.selected, styles[size])}
         onClick={handleVisibleOptions}
       >
-        {currentValue}
+        {selectList[Number(currentValue)]}
         <DownArrow className={cx(styles.downArrowIcon, { [styles.selectMenuOpen]: selectIsOpen })} />
       </button>
       <ul className={styles.selectBox}>
         {selectIsOpen &&
-          selectList.map((value) => {
+          selectList.map((value, index) => {
             return (
               <li className={styles.option} key={value}>
                 <button
                   type='button'
                   aria-label='click drop down menu'
-                  value={value}
+                  value={index}
                   data-value={value}
                   onClick={handleListClick}
                 >

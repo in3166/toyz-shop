@@ -1,11 +1,11 @@
-import { MouseEvent } from 'react'
+import { MouseEvent, useState } from 'react'
 import Slider from 'react-slick'
 import { useRouter } from 'next/router'
 import dayjs from 'dayjs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { useI18n, useState } from 'hooks'
+import { useI18n } from 'hooks'
 import { IBanner } from 'types/banners'
 import { currencyFormatter } from 'src/utils/currencyFormatter'
 import styles from './banner.module.scss'

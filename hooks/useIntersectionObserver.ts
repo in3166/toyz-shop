@@ -8,7 +8,8 @@ interface Args extends IntersectionObserverInit {
 export function useIntersectionObserver(
   { threshold = 0.7 }: Args,
   setIsLoading: Dispatch<SetStateAction<boolean>>,
-  setProductsList: Dispatch<SetStateAction<IProductItem[]>>
+  setProductsList: Dispatch<SetStateAction<IProductItem[]>>,
+  url: string
 ) {
   const [currentPage, setCurrentPage] = useState(1)
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null)
@@ -21,7 +22,7 @@ export function useIntersectionObserver(
 
         const pageNumber = currentPage + 1
         // TODO: 분리 필요 => 요청, setState
-        fetch(`/api/products?page=${pageNumber}`, {
+        fetch(`${url}page=${pageNumber}`, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -31,7 +32,11 @@ export function useIntersectionObserver(
             if (response.ok) {
               const result = await response.json()
               if (!result?.products || result?.products?.length <= 0) setIsEnd(true)
-              else setProductsList((prev) => [...prev, ...result.products])
+              else
+                setProductsList((prev) => {
+                  console.log(prev)
+                  return [...prev, ...result.products]
+                })
               setCurrentPage(pageNumber)
             }
           })
@@ -41,7 +46,7 @@ export function useIntersectionObserver(
           })
       }
     },
-    [currentPage, setIsLoading, setProductsList]
+    [currentPage, setIsLoading, setProductsList, url]
   )
 
   useEffect(() => {
@@ -53,5 +58,5 @@ export function useIntersectionObserver(
     return () => observer.unobserve(target)
   }, [threshold, onIntersect, target])
 
-  return { setTarget, isEnd }
+  return { setTarget, isEnd, setIsEnd, setCurrentPage }
 }

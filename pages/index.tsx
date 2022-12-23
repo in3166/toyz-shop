@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -6,18 +7,24 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
 import { dbConnect } from 'lib/dbConnect'
-import { getAllBanner, getAllProduct } from 'lib/controllers'
+import { getAllBanner, getAllProducts } from 'lib/controllers'
 import Banner from 'components/Banner'
 import ProductList from 'components/ProductList'
 import ScrollDetecor from 'components/_shared/ScrollDetecor'
-import { useState } from 'react'
 import { IProductItem } from 'types/product'
 
 const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { initialProducts, banners } = pageProps
   const [isLoading, setIsLoading] = useState(false)
+  const [status, setStatus] = useState('1')
+
   const [products, setProducts] = useState<IProductItem[]>(initialProducts)
-  const { setTarget, isEnd } = useIntersectionObserver({ rootMargin: '10px', threshold: 0 }, setIsLoading, setProducts)
+  const { setTarget, isEnd } = useIntersectionObserver(
+    { rootMargin: '10px', threshold: 0 },
+    setIsLoading,
+    setProducts,
+    `/api/products?status=${status}&`
+  )
 
   return (
     <>
@@ -35,7 +42,7 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   await dbConnect()
 
-  const responseProducts = await getAllProduct(1)
+  const responseProducts = await getAllProducts({ page: 1, status: 1 })
   const responseBanners = await getAllBanner()
   const existedBanner = responseBanners.filter((value) => value.item !== null)
 
