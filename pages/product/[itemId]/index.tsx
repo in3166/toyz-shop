@@ -62,14 +62,29 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   if (router.isFallback) {
     return <Loading />
   }
+
   const handleClickEdit = () => {
     router.push(`/product?id=${product._id}`)
   }
+
+  const handleClickDelete = async () => {
+    const result = await fetchToAPI(`/api/products/${product?._id}`, 'DELETE')
+    if (result.success) {
+      router.push(`/`)
+    }
+  }
+
   const editButton = (
-    <button type='button' onClick={handleClickEdit} className={styles.editButtonWrapper}>
-      <Image className={styles.editButton} width={17} height={17} src='/svgs/edit.png' alt='edit product info button' />
-    </button>
+    <div className={styles.editButtonWrapper}>
+      <button type='button' onClick={handleClickEdit} className={styles.editButton}>
+        <Image width={17} height={17} src='/svgs/edit.png' alt='edit product info button' />
+      </button>
+      <button type='button' onClick={handleClickDelete} className={styles.deleteButton}>
+        <Image width={17} height={17} src='/svgs/bin.png' alt='edit product info button' />
+      </button>
+    </div>
   )
+
   const likeButton = (
     <button
       type='button'
@@ -80,6 +95,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
       {isLiked ? <HeartFillIcon /> : <HeartOutlineIcon />}
     </button>
   )
+
   const headerButton = user?.id === product.owner.id ? editButton : likeButton
 
   const handleStatusOnConfirm = async (selectedStatus: number) => {

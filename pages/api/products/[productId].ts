@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getProduct } from 'lib/controllers'
+import { getProductById } from 'lib/controllers'
 import Product from 'lib/models/Products'
 import handlers from 'lib/_handlers'
 
@@ -10,7 +10,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { productId },
   } = req
 
-  const product = await getProduct(productId)
+  const product = await getProductById(productId)
 
   if (!product) {
     return res.status(400).json({ success: false })
@@ -46,6 +46,22 @@ handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({ success: false })
   }
   return res.status(200).json({ success: true, data: product })
+})
+
+handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
+  const {
+    query: { productId },
+  } = req
+
+  if (productId) {
+    const product = await Product.findByIdAndRemove(productId)
+    console.log('delete 결과: ', product)
+    if (!product) {
+      return res.status(400).json({ success: false })
+    }
+    return res.status(200).json({ success: true, data: product })
+  }
+  return res.status(400).json({ success: false })
 })
 
 export default handler

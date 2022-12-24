@@ -26,9 +26,17 @@
   .editButtonWrapper {
     display: flex;
     align-items: center;
-    padding: 4px;
+    padding: 3px 5px;
 
-    .editButton {
+    button {
+      padding: 2px 3px;
+    }
+
+    .editButton,
+    .deleteButton {
+      display: flex;
+      align-items: center;
+
       &:hover {
         filter: drop-shadow(0 0 0.3px black);
       }
@@ -42,8 +50,13 @@
       background-color: rgb(202, 201, 201);
       border-radius: 50px;
 
-      &:hover {
-        background-color: rgba(202, 201, 201, 67.8%);
+      .editButton,
+      .deleteButton {
+        border-radius: 50px;
+
+        &:hover {
+          background-color: rgba(124, 124, 124, 23.3%);
+        }
       }
     }
   }

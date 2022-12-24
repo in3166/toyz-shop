@@ -10,6 +10,7 @@ export const getUserId = (userId: string | string[] | undefined) => {
     .populate({
       path: 'likes',
       model: Products,
+      populate: { path: 'owner', model: Users, select: '-password' },
     })
     .lean()
 }
@@ -19,6 +20,7 @@ export const getUserEmail = (email: string | null | undefined) => {
     .populate({
       path: 'likes',
       model: Products,
+      populate: { path: 'owner', model: Users, select: '-password' },
     })
     .lean()
 }
