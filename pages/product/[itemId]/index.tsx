@@ -21,26 +21,36 @@ import { dbConnect } from 'lib/dbConnect'
 import { currencyFormatter } from 'src/utils/currencyFormatter'
 import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import styles from './itemDetailPage.module.scss'
+import DropDown from 'components/_shared/DropDown'
+import fetchToAPI from 'src/utils/fetchToAPI'
+import ItemStatusModal from 'components/ItemStatusModal/indedx'
 
 const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { product, locale } = pageProps
   const t = useI18n()
-  const [openModal, setOpenModal] = useState(false)
+  const statusSelectList = [
+    `${t('common:filter:status:onSale')}`,
+    `${t('common:filter:status:reserved')}`,
+    `${t('common:filter:status:sold')}`,
+  ]
+  const [openBuyModal, setOpenBuyModal] = useState(false)
+  const [openStatusModal, setOpenStatusModal] = useState(false)
   const { message, setMessage } = useSnackbar(3000)
+  const [status, setStatus] = useState((product?.status || 1) - 1)
   const router = useRouter()
   const { likes, user, handleClickLike } = useUserLikes()
   const [isLiked, setIsLiked] = useState(false)
 
-  const handleOpenModal = () => {
+  const handleOpenBuyModal = () => {
     if (!user || user?.role !== 1) {
       setMessage('로그인하세요.')
       return
     }
-    setOpenModal(true)
+    setOpenBuyModal(true)
   }
 
   const handleCloseModal = () => {
-    setOpenModal(false)
+    setOpenBuyModal(false)
   }
 
   useEffect(() => {
@@ -56,7 +66,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
     router.push(`/product?id=${product._id}`)
   }
   const editButton = (
-    <button type='button' onClick={handleClickEdit}>
+    <button type='button' onClick={handleClickEdit} className={styles.editButtonWrapper}>
       <Image className={styles.editButton} width={17} height={17} src='/svgs/edit.png' alt='edit product info button' />
     </button>
   )
@@ -71,6 +81,36 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
     </button>
   )
   const headerButton = user?.id === product.owner.id ? editButton : likeButton
+
+  const handleStatusOnConfirm = async (selectedStatus: number) => {
+    const url = `/api/products/${product?._id}`
+    const response = await fetchToAPI(url, 'PATCH', { status: selectedStatus + 1 })
+    if (!response?.success) {
+      setStatus(product?.status)
+    }
+    setOpenStatusModal(false)
+  }
+
+  const handleChangedStatus = async (selectedStatus: number) => {
+    if (user?._id !== product?.owner?._id) return
+    if (!selectedStatus) {
+      setOpenStatusModal(true)
+      return
+    }
+    await handleStatusOnConfirm(selectedStatus)
+  }
+
+  const productStatus =
+    user?.id === product.owner.id ? (
+      <DropDown
+        currentValue={status}
+        selectList={statusSelectList}
+        setCurrentValue={setStatus}
+        handleChangedFilter={handleChangedStatus}
+      />
+    ) : (
+      statusSelectList[(product?.status || 1) - 1]
+    )
 
   return (
     <>
@@ -103,24 +143,42 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
                 <dt> {`${t('date')}`}</dt>
                 <dd>{dayjs(product?.createdAt).format('YYYY-MM-DD')}</dd>
               </div>
+              <div>
+                <dt> {`${t('Status')}`}</dt>
+                <dd>{productStatus}</dd>
+              </div>
             </dl>
             <div className={styles.description}>
               <div>{product?.description}</div>
             </div>
             <div className={styles.buttonWrapper}>
-              <button type='button' aria-label='open buy modal' className={styles.buyButton} onClick={handleOpenModal}>
+              <button
+                type='button'
+                aria-label='open buy modal'
+                className={styles.buyButton}
+                onClick={handleOpenBuyModal}
+              >
                 구매
               </button>
             </div>
           </div>
         </main>
-        {openModal && (
+        {openBuyModal && (
           <BuyItemModal
             onClose={handleCloseModal}
             product={product}
             lang={locale}
             setMessage={setMessage}
             buyer={user?._id}
+          />
+        )}
+        {openStatusModal && (
+          <ItemStatusModal
+            onClose={() => {
+              setOpenStatusModal(false)
+              if (product?.status >= 1) setStatus(product.status - 1)
+            }}
+            onConfirm={() => handleStatusOnConfirm(0)}
           />
         )}
         {message && <SnackBar message={message} setMessage={setMessage} status='warning' />}

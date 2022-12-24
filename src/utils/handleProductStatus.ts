@@ -1,12 +1,12 @@
 export default function handleProductStatus(status: number) {
   switch (status) {
     case 1:
-      return '판매 중'
+      return 'common:filter:status:onSale'
     case 2:
-      return '예약 중'
+      return 'common:filter:status:reserved'
     case 3:
-      return '판매 완료'
+      return 'common:filter:status:sold'
     default:
-      return '판매 중'
+      return 'common:filter:status:all'
   }
 }

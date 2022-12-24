@@ -65,7 +65,7 @@ const ProductItem = ({ product, user, likes, handleClickLike }: ICardProps) => {
           </div>
           <div>
             <dt>{`${t('common:status')}`}</dt>
-            <dd>{handleProductStatus(product?.status)}</dd>
+            <dd>{`${t(handleProductStatus(product?.status))}`}</dd>
           </div>
         </dl>
       </Link>

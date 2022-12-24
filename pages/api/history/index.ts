@@ -3,7 +3,6 @@ import User from 'lib/models/Users'
 import handlers from 'lib/_handlers'
 import History from 'lib/models/History'
 import Products from 'lib/models/Products'
-import Banners from 'lib/models/Banners'
 
 const handler = handlers()
 

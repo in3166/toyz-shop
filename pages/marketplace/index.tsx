@@ -15,23 +15,8 @@ import ProductList from 'components/ProductList'
 import SearchBar from 'components/_shared/SearchBar'
 import styles from './marketPlace.module.scss'
 import DropDown from 'components/_shared/DropDown'
-import Loading from 'components/_shared/Loding'
+import fetchToAPI from 'src/utils/fetchToAPI'
 
-async function fetchToAPI(url: string, method: string) {
-  return fetch(url, {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'max-age=31536000',
-    },
-  }).then(async (response) => {
-    const data = await response.json()
-    if (data.success) {
-      return data
-    }
-    return null
-  })
-}
 const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const t = useI18n()
   const statusSelectList = [
@@ -52,14 +37,16 @@ const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [searchText, setSearchText] = useState('')
-  const [status, setStatus] = useState('1')
-  const [sort, setSort] = useState('0')
+  const [status, setStatus] = useState(1)
+  const [sort, setSort] = useState(0)
   const [products, setProducts] = useState(initialProducts)
 
   useEffect(() => {
     setIsLoading(true)
     const { query } = router
-    if (query?.text) setSearchText(query?.text?.toString())
+    if (query?.text) {
+      setSearchText(query?.text?.toString())
+    }
 
     if (query?.text?.toString()) {
       fetchToAPI(`/api/products?text=${query?.text?.toString()}`, 'GET').then((response) => {
@@ -84,12 +71,12 @@ const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
     selectedSort,
     selectedStatus,
   }: {
-    selectedSort: string
-    selectedStatus: string
+    selectedSort: number
+    selectedStatus: number
   }) => {
     setIsLoading(true)
 
-    let url = `/api/products?page=1&status=${selectedSort}&sort=${selectedStatus}`
+    let url = `/api/products?page=1&status=${selectedStatus}&sort=${selectedSort}`
     if (searchText) url += `&text=${searchText}`
 
     const response = await fetchToAPI(url, 'GET')
@@ -128,8 +115,7 @@ const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
           <SearchBar />
         </div>
       </header>
-      {isLoading && <Loading />}
-      {!isLoading && <ProductList products={products} isLoading={isLoading} />}
+      <ProductList products={products} isLoading={isLoading} />
       {!isEnd && !isLoading && <ScrollDetecor setTarget={setTarget} />}
     </>
   )

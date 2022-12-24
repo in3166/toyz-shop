@@ -23,14 +23,29 @@
     }
   }
 
-  .editButton {
-    &:hover {
-      filter: drop-shadow(0 0 0.3px black);
+  .editButtonWrapper {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+
+    .editButton {
+      &:hover {
+        filter: drop-shadow(0 0 0.3px black);
+      }
     }
   }
 
   :root[color-theme='dark'] & {
     color: colors.$HEADER_DARK_FONT_COLOR;
+
+    .editButtonWrapper {
+      background-color: rgb(202, 201, 201);
+      border-radius: 50px;
+
+      &:hover {
+        background-color: rgba(202, 201, 201, 67.8%);
+      }
+    }
   }
 }
 

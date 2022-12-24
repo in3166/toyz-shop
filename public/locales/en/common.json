@@ -81,6 +81,12 @@
     "closeButton": "Cancel",
     "image": "Image"
   },
+  "statusModal": {
+    "header": "Change Status",
+    "message": "If you change to sales, the amount paid will be refunded. \n\nAre you sure you want to proceed?",
+    "confirmButton": "OK",
+    "closeButton": "Cancel"
+  },
   "removeUserModal": {
     "header": "Remove User",
     "content": "Are you sure?",

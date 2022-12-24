@@ -7,12 +7,12 @@ import { cx } from 'styles'
 
 interface IDropDownProps {
   title?: string
-  currentValue: string
+  currentValue: number
   selectList: string[]
-  setCurrentValue: Dispatch<SetStateAction<string>>
+  setCurrentValue: Dispatch<SetStateAction<number>>
   size?: 'large' | 'medium' | 'small'
   handleChangedLanguage?: (language: string) => void // TODO: useeffect로 빼기
-  handleChangedFilter?: (param: string) => void // TODO: useeffect로 빼기
+  handleChangedFilter?: (param: number) => void // TODO: useeffect로 빼기
 }
 
 const DropDown = ({
@@ -31,7 +31,7 @@ const DropDown = ({
   }
 
   const handleListClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const selectedValue = e.currentTarget.value
+    const selectedValue = Number(e.currentTarget.value)
     setCurrentValue(selectedValue)
     setSelectIsOpen(false)
 
@@ -40,7 +40,7 @@ const DropDown = ({
     }
 
     if (currentValue !== selectedValue && handleChangedLanguage)
-      handleChangedLanguage(selectList[Number(selectedValue)] || 'korean')
+      handleChangedLanguage(selectList[selectedValue] || 'korean')
   }
 
   const handleOnClose = () => {
@@ -58,7 +58,7 @@ const DropDown = ({
         className={cx(styles.selected, styles[size])}
         onClick={handleVisibleOptions}
       >
-        {selectList[Number(currentValue)]}
+        {selectList[currentValue]}
         <DownArrow className={cx(styles.downArrowIcon, { [styles.selectMenuOpen]: selectIsOpen })} />
       </button>
       <ul className={styles.selectBox}>

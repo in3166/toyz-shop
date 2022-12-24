@@ -1,14 +1,11 @@
 import Products from 'lib/models/Products'
 import Users from 'lib/models/Users'
-import { keyBy } from 'lodash'
 import { SortOrder } from 'mongoose'
-import { stringify } from 'querystring'
-import { Interface } from 'readline'
 /**
  *
- * @param {number} page 가져올 페이지 번호
+ * @param {number} page   가져올 페이지 번호
  * @param {number} status 0: 전체 1: 판매중 2: 예약중 3: 판매완료
- * @param {number} sort 0: _id 1: price1 2: price-1 3: createdAt1 4: createdAt-1
+ * @param {number} sort   0: 최신순 1: 오래된순 2: 가격높은순 3: 가격낮은순
  * @returns products
  */
 interface IGetAllProducts {
@@ -25,10 +22,10 @@ export const getAllProducts = ({ text, page, status, sort }: IGetAllProducts) =>
   const sortCondition: { _id?: SortOrder; price?: SortOrder } = {}
   switch (sort) {
     case 0:
-      sortCondition._id = 'asc'
+      sortCondition._id = 'desc'
       break
     case 1:
-      sortCondition._id = 'desc'
+      sortCondition._id = 'asc'
       break
     case 2:
       sortCondition.price = 'desc'
@@ -38,6 +35,7 @@ export const getAllProducts = ({ text, page, status, sort }: IGetAllProducts) =>
       break
 
     default:
+      sortCondition._id = 'desc'
       break
   }
 

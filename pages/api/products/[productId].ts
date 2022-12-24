@@ -34,4 +34,18 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json({ success: true, data: product })
 })
 
+handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
+  const {
+    query: { productId },
+    body,
+  } = req
+  const product = await Product.findByIdAndUpdate(productId, body, {
+    runValidators: true,
+  })
+  if (!product) {
+    return res.status(400).json({ success: false })
+  }
+  return res.status(200).json({ success: true, data: product })
+})
+
 export default handler

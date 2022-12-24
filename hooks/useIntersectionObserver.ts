@@ -19,7 +19,6 @@ export function useIntersectionObserver(
     ([entries]) => {
       if (entries.isIntersecting) {
         setIsLoading(true)
-
         const pageNumber = currentPage + 1
         // TODO: 분리 필요 => 요청, setState
         fetch(`${url}page=${pageNumber}`, {
@@ -32,11 +31,7 @@ export function useIntersectionObserver(
             if (response.ok) {
               const result = await response.json()
               if (!result?.products || result?.products?.length <= 0) setIsEnd(true)
-              else
-                setProductsList((prev) => {
-                  console.log(prev)
-                  return [...prev, ...result.products]
-                })
+              else setProductsList((prev) => [...prev, ...result.products])
               setCurrentPage(pageNumber)
             }
           })
