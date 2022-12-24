@@ -1,29 +1,28 @@
 import { useEffect, useState } from 'react'
-import type { NextPage } from 'next'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { AppProps } from 'next/app'
-import Head from 'next/head'
-import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
-import { dbConnect } from 'lib/dbConnect'
-import { getAllProducts } from 'lib/controllers'
-import ScrollDetecor from 'components/_shared/ScrollDetecor'
+import { getToken } from 'next-auth/jwt'
 import ProductList from 'components/ProductList'
-import SearchBar from 'components/_shared/SearchBar'
-import styles from './marketPlace.module.scss'
+import ScrollDetecor from 'components/_shared/ScrollDetecor'
 import fetchToAPI from 'src/utils/fetchToAPI'
+import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
 import ProductFilter from 'components/ProductFilter'
+import styles from './marketPlace.module.scss'
+import SearchBar from 'components/_shared/SearchBar'
+import type { NextRequest } from 'next/server'
+import { getProductByUserId } from 'lib/controllers/products'
+import { IAuthToken } from 'types/auth'
 
-const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
+const MyListPage = ({ pageProps }: AppProps) => {
   const { initialProducts } = pageProps
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [searchText, setSearchText] = useState('')
-  const [products, setProducts] = useState(initialProducts)
   const [status, setStatus] = useState(1)
   const [sort, setSort] = useState(0)
+  const [products, setProducts] = useState(initialProducts)
 
   useEffect(() => {
     setIsLoading(true)
@@ -54,8 +53,8 @@ const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>MarketPlace</title>
-        <meta name='description' content='You can buy a variety of amazing toys!.' />
+        <title>Toyz</title>
+        <meta name='description' content='A list of your favorite products.' />
       </Head>
       <header className={styles.header}>
         <ProductFilter
@@ -69,24 +68,34 @@ const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
           <SearchBar />
         </div>
       </header>
-      <ProductList products={products} isLoading={isLoading} />
+      <ProductList products={products} setProducts={setProducts} />
       {!isEnd && !isLoading && <ScrollDetecor setTarget={setTarget} />}
     </>
   )
 }
+interface IGetServerSideProps {
+  locale: string
+  locales: string[]
+  req: NextRequest
+}
 
-export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
-  await dbConnect()
-  const responseProducts = await getAllProducts({ page: 1, status: 1 })
+export const getServerSideProps = async (context: IGetServerSideProps) => {
+  const { locale, locales, req } = context
+  const token: IAuthToken | null = await getToken({ req })
+  let initialProducts: Omit<any, never>[] = []
+
+  if (token) {
+    initialProducts = await getProductByUserId(token?._id || '')
+  }
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['app', 'common'], nextI18nextConfig)),
+      ...(await serverSideTranslations(locale, ['common'])),
       locales,
-      initialProducts: JSON.parse(JSON.stringify(responseProducts || [])),
+      locale,
+      initialProducts: JSON.parse(JSON.stringify(initialProducts)),
     },
-    revalidate: 10,
   }
 }
 
-export default MarketPlace
+export default MyListPage

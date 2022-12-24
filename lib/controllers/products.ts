@@ -48,8 +48,16 @@ export const getAllProducts = ({ text, page, status, sort }: IGetAllProducts) =>
     .populate({ path: 'owner', model: Users, select: '-password' })
 }
 
-export const getProduct = (productId: string | string[] | undefined) => {
+export const getProductById = (productId: string | string[] | undefined) => {
   return Products.findOne({ _id: productId }).populate({
+    path: 'owner',
+    model: Users,
+    select: '-password',
+  })
+}
+
+export const getProductByUserId = (userId: string | string[] | undefined) => {
+  return Products.find({ owner: userId }).populate({
     path: 'owner',
     model: Users,
     select: '-password',

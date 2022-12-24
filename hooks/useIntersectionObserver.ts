@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
+import fetchToAPI from 'src/utils/fetchToAPI'
 import { IProductItem } from 'types/product'
 
 interface Args extends IntersectionObserverInit {
@@ -9,7 +10,11 @@ export function useIntersectionObserver(
   { threshold = 0.7 }: Args,
   setIsLoading: Dispatch<SetStateAction<boolean>>,
   setProductsList: Dispatch<SetStateAction<IProductItem[]>>,
-  url: string
+  query: {
+    searchText?: string
+    status?: number
+    sort?: number
+  }
 ) {
   const [currentPage, setCurrentPage] = useState(1)
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null)
@@ -20,13 +25,16 @@ export function useIntersectionObserver(
       if (entries.isIntersecting) {
         setIsLoading(true)
         const pageNumber = currentPage + 1
-        // TODO: 분리 필요 => 요청, setState
-        fetch(`${url}page=${pageNumber}`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'GET',
-        })
+        // TODO: 분리 필요 => 요청, setState, react-query
+        fetch(
+          `/api/products?status=${query.status}&sort=${query.sort}&searchText=${query.searchText}&page=${pageNumber}`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'GET',
+          }
+        )
           .then(async (response: any) => {
             if (response.ok) {
               const result = await response.json()
@@ -41,7 +49,7 @@ export function useIntersectionObserver(
           })
       }
     },
-    [currentPage, setIsLoading, setProductsList, url]
+    [currentPage, query.searchText, query.sort, query.status, setIsLoading, setProductsList]
   )
 
   useEffect(() => {
@@ -53,5 +61,26 @@ export function useIntersectionObserver(
     return () => observer.unobserve(target)
   }, [threshold, onIntersect, target])
 
-  return { setTarget, isEnd, setIsEnd, setCurrentPage }
+  const handleChangedFilter = async ({
+    selectedSort,
+    selectedStatus,
+  }: {
+    selectedSort: number
+    selectedStatus: number
+  }) => {
+    setIsLoading(true)
+
+    let tempUrl = `/api/products?page=1&status=${selectedStatus}&sort=${selectedSort}`
+    if (query.searchText) tempUrl += `&text=${query.searchText}`
+
+    const response = await fetchToAPI(tempUrl, 'GET')
+    if (response) {
+      setProductsList(response?.products)
+      setCurrentPage(1)
+      setIsEnd(false)
+    }
+    setIsLoading(false)
+  }
+
+  return { setTarget, isEnd, handleChangedFilter }
 }

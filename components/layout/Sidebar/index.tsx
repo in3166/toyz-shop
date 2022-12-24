@@ -76,11 +76,11 @@ const Sidebar = (): JSX.Element => {
           </li>
           <li>
             <Link
-              href='/cart'
+              href='/mylist'
               aria-label='link to cart page'
-              className={router.pathname === '/cart' ? styles.isActive : ''}
+              className={router.pathname === '/myist' ? styles.isActive : ''}
             >
-              Cart
+              MyList
             </Link>
           </li>
         </ul>

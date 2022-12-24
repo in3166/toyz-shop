@@ -16,14 +16,13 @@ import { IProductItem } from 'types/product'
 const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { initialProducts, banners } = pageProps
   const [isLoading, setIsLoading] = useState(false)
-  const [status, setStatus] = useState('1')
-
   const [products, setProducts] = useState<IProductItem[]>(initialProducts)
+
   const { setTarget, isEnd } = useIntersectionObserver(
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,
     setProducts,
-    `/api/products?status=${status}&`
+    { status: 1 }
   )
 
   return (

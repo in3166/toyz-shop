@@ -16,7 +16,7 @@ interface IHeaderProps {
 
 const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
   const router = useRouter()
-  const [currentLanguage, setCurrentLanguage] = useState('0')
+  const [currentLanguage, setCurrentLanguage] = useState(0)
 
   const handleChangeLanguage = useCallback(
     (language: string) => {
@@ -28,7 +28,7 @@ const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
   )
 
   useEffect(() => {
-    setCurrentLanguage('0')
+    setCurrentLanguage(0)
   }, [languageList])
 
   return (
@@ -41,7 +41,7 @@ const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
       </div>
       <nav className={styles.rightMenu}>
         <ul>
-          <UserMenu lang={currentLanguage} />
+          <UserMenu lang={languageList[currentLanguage]} />
           <li>
             <DarkMode darkMode={isDark} />
           </li>

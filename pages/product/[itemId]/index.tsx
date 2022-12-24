@@ -187,13 +187,13 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   )
 }
 
-interface IGetStaticProps {
+interface IGetServerSideProps {
   locale: string
   locales: string[]
   params: ParsedUrlQuery
 }
 
-export const getServerSideProps = async (context: IGetStaticProps) => {
+export const getServerSideProps = async (context: IGetServerSideProps) => {
   const { locale, locales, params } = context
   await dbConnect()
   const product = await Products.findOne({ _id: params.itemId }).populate({
