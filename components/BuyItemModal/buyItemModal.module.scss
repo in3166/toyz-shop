@@ -84,7 +84,6 @@
     .buyMenu {
       position: absolute;
       top: -20px;
-      // display: none;
       z-index: -1;
       width: 100px;
       overflow: hidden;
@@ -111,8 +110,6 @@
       position: absolute;
       top: 45px;
       right: 0;
-      // display: block;
-      // height: fit-content;
       visibility: visible;
       opacity: 1;
     }

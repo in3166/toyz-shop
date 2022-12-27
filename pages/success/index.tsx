@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { currencyFormatter } from 'src/utils/currencyFormatter'
+import { currencyFormatter } from 'src/utils'
 import styles from './success.module.scss'
 
 interface IBuyInfo {

@@ -7,10 +7,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useEffect, useI18n, useState } from 'hooks'
 import { IOnUploadSubmit, IProductItem } from 'types/product'
-import Container from 'components/_shared/Container'
-import UploadImageForm from 'components/UploadProudctForm'
 import errorHandler from 'lib/errorHandler'
-import Loading from 'components/_shared/Loding'
+import { Container, Loading } from 'components/_shared'
+import UploadImageForm from 'components/UploadProudctForm'
 
 const UpdateProudctPage: NextPage<AppProps> = () => {
   const t = useI18n()

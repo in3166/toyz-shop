@@ -1,12 +1,10 @@
 import React, { FormEvent, useRef, useState } from 'react'
 import Image from 'next/image'
 
-import { useI18n } from 'hooks'
-import useFormInput from 'hooks/useFormInput'
+import { useI18n, useFormInput } from 'hooks'
 import { IMongooseError } from 'types/mongo'
-import { validateId, validatePassword } from 'src/utils/validateInput'
-import InputText from 'components/_shared/InputText'
-import SnackBar from 'components/_shared/SnackBar'
+import { validateId, validatePassword } from 'src/utils'
+import { InputText, SnackBar } from 'components/_shared'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './signInForm.module.scss'
 

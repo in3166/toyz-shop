@@ -1,6 +1,6 @@
+import { SortOrder } from 'mongoose'
 import Products from 'lib/models/Products'
 import Users from 'lib/models/Users'
-import { SortOrder } from 'mongoose'
 /**
  *
  * @param {number} page   가져올 페이지 번호
@@ -52,7 +52,7 @@ export const getProductById = (productId: string | string[] | undefined) => {
   return Products.findOne({ _id: productId }).populate({
     path: 'owner',
     model: Users,
-    select: '-password',
+    select: '-password -likes',
   })
 }
 
@@ -60,6 +60,6 @@ export const getProductByUserId = (userId: string | string[] | undefined) => {
   return Products.find({ owner: userId }).populate({
     path: 'owner',
     model: Users,
-    select: '-password',
+    select: '-password -likes',
   })
 }

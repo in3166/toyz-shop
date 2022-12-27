@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getProductById } from 'lib/controllers'
-import Product from 'lib/models/Products'
+import { Products } from 'lib/models'
 import handlers from 'lib/_handlers'
 
 const handler = handlers()
@@ -24,7 +24,7 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { productId },
   } = req
 
-  const product = await Product.findByIdAndUpdate(productId, req.body, {
+  const product = await Products.findByIdAndUpdate(productId, req.body, {
     new: true,
     runValidators: true,
   })
@@ -39,7 +39,7 @@ handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { productId },
     body,
   } = req
-  const product = await Product.findByIdAndUpdate(productId, body, {
+  const product = await Products.findByIdAndUpdate(productId, body, {
     runValidators: true,
   })
   if (!product) {
@@ -54,8 +54,7 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
   } = req
 
   if (productId) {
-    const product = await Product.findByIdAndRemove(productId)
-    console.log('delete 결과: ', product)
+    const product = await Products.findByIdAndRemove(productId)
     if (!product) {
       return res.status(400).json({ success: false })
     }

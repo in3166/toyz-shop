@@ -1,4 +1,4 @@
-export default async function fetchToAPI(url: string, method: string, bodyData?: Object) {
+export async function fetchToAPI(url: string, method: string, bodyData?: Object) {
   return fetch(url, {
     method,
     headers: {

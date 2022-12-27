@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import User from 'lib/models/Users'
 import handlers from 'lib/_handlers'
-import { confirmPasswordHash } from 'src/utils/comparePassword'
-import { getUserId } from 'lib/controllers'
+import { comparePassword } from 'src/utils'
+import { getUserIdWithoutPW } from 'lib/controllers'
 
 const handler = handlers()
 
@@ -11,7 +11,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { userId },
   } = req
 
-  const user = await getUserId(userId)
+  const user = await getUserIdWithoutPW(userId)
 
   if (!user) {
     return res.status(400).json({ success: false, error: { code: 10001 } })
@@ -44,7 +44,7 @@ handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await User.findOne({ id: userId })
   if (!user) return res.status(400).json({ success: false, error: { code: 10001 } })
 
-  const compare = await confirmPasswordHash(body.password, user.password)
+  const compare = await comparePassword(body.password, user.password)
   if (!compare) return res.status(400).json({ success: false, error: { code: 10002 } })
 
   const updateResult = await User.findOneAndUpdate(

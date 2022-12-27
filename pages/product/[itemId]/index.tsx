@@ -8,22 +8,16 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dayjs from 'dayjs'
 import { ParsedUrlQuery } from 'querystring'
 
-import { useI18n } from 'hooks'
-import { useUserLikes } from 'hooks/useUserLikes'
-import SnackBar from 'components/_shared/SnackBar'
-import Container from 'components/_shared/Container'
-import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import BuyItemModal from 'components/BuyItemModal/indedx'
-import Loading from 'components/_shared/Loding'
-import Products from 'lib/models/Products'
-import Users from 'lib/models/Users'
+import { useI18n, useUserLikes } from 'hooks'
+import { Products, Users } from 'lib/models'
 import { dbConnect } from 'lib/dbConnect'
-import { currencyFormatter } from 'src/utils/currencyFormatter'
+import { currencyFormatter, fetchToAPI } from 'src/utils'
+import { SnackBar, Container, Loading, DropDown } from 'components/_shared'
+import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
+import BuyItemModal from 'components/BuyItemModal'
+import ItemStatusModal from 'components/ItemStatusModal'
 import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import styles from './itemDetailPage.module.scss'
-import DropDown from 'components/_shared/DropDown'
-import fetchToAPI from 'src/utils/fetchToAPI'
-import ItemStatusModal from 'components/ItemStatusModal/indedx'
 
 const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { product, locale } = pageProps
@@ -54,7 +48,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   }
 
   useEffect(() => {
-    if (likes.some((value) => value._id === product?._id)) {
+    if (likes.some((value: { _id: string }) => value._id === product?._id)) {
       setIsLiked(true)
     }
   }, [likes, product?._id])

@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useCallback } from 'react'
 import { useI18n } from 'hooks'
 
-import { BASE_URL } from 'src/fixtures'
 import { IUser } from 'types/user'
-import Modal from 'components/_shared/Modal'
+import { BASE_URL } from 'src/fixtures'
+import { Modal } from 'components/_shared'
 import styles from './removeUserModal.module.scss'
 
 interface IRemoveUserModalProps {

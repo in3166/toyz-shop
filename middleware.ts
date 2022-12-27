@@ -26,10 +26,14 @@ export async function middleware(req: NextRequest) {
     if (!session) {
       return NextResponse.redirect(`${origin + locale}/signin`)
     }
+  } else if (pathname === '/mylist') {
+    if (!session) {
+      return NextResponse.redirect(`${origin + locale}/signin`)
+    }
   }
   return null
 }
 
 export const config = {
-  matcher: ['/signin', '/signup', '/setting/:path*', '/likes', '/product'],
+  matcher: ['/signin', '/signup', '/setting/:path*', '/likes', '/product', '/mylist'],
 }

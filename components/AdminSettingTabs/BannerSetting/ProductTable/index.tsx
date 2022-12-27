@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 
 import { IBanner } from 'types/banners'
 import { IProductItem } from 'types/product'
+import { currencyFormatter } from 'src/utils'
 import { BASE_URL } from 'src/fixtures'
 import styles from './productTable.module.scss'
 
@@ -46,7 +47,7 @@ const ProductTable = ({ products, setBanners }: IProductTable) => {
             <tr key={value._id}>
               <td className={styles.tdIndex}>{index}</td>
               <td className={styles.tdTitle}>{value.title}</td>
-              <td className={styles.tdPrice}>{value.price}</td>
+              <td className={styles.tdPrice}>{currencyFormatter(value.price)}</td>
               <td className={styles.tdDate}>{dayjs(value.createdAt).format('YYYY.MM.DD')}</td>
               <td className={styles.tdDescription}>{value.description}</td>
               <td className={styles.tdAdd}>

@@ -7,7 +7,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { IAuthSession, IAuthToken } from 'types/auth'
 import { dbConnect } from 'lib/dbConnect'
 import { getUserId, getUserEmail } from 'lib/controllers'
-import { confirmPasswordHash } from 'src/utils/comparePassword'
+import { comparePassword } from 'src/utils'
 
 export default NextAuth({
   providers: [
@@ -24,7 +24,7 @@ export default NextAuth({
 
           const data = await getUserId(id)
 
-          const compare = await confirmPasswordHash(password, data.password)
+          const compare = await comparePassword(password, data.password)
           if (!compare) throw new Error('10003')
 
           delete data.password

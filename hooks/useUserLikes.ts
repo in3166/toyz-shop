@@ -1,8 +1,9 @@
-import { useRecoil } from 'hooks/state'
-import { Dispatch, MouseEvent, SetStateAction, useCallback, useEffect, useState } from 'react'
-import { userLikesState } from 'stores/likes'
+import { Dispatch, MouseEvent, SetStateAction, useCallback, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
+
+import { useRecoil } from 'hooks/state'
 import { IProductItem } from 'types/product'
+import { userLikesState } from 'stores/likes'
 import { changeLikesList } from 'components/ProductList/ProductItem/changeLikesList'
 
 export const useUserLikes = () => {
@@ -11,15 +12,16 @@ export const useUserLikes = () => {
 
   useEffect(() => {
     if (session?.user?.id)
-      fetch(`/api/users/${session?.user?.id}`).then(async (response) => {
+      fetch(`/api/users/likes/${session?.user?.id}`).then(async (response) => {
         const result = await response.json()
-        if (result?.success) setLikes(result?.user?.likes)
+        if (result?.success) setLikes(result?.likes)
       })
-  }, [session?.user?.id, setLikes])
+  }, [session, session?.user?.id, setLikes])
 
   const handleClickLike = useCallback(
     async (
       e: MouseEvent<HTMLButtonElement>,
+
       product: IProductItem,
       isLiked: boolean,
       setIsLiked: Dispatch<SetStateAction<boolean>>
@@ -31,11 +33,10 @@ export const useUserLikes = () => {
       setIsLiked((prev) => {
         return !prev
       })
-      const tempLikes = changeLikesList(likes, isLiked, product)
 
-      console.log('tempLikes; ', tempLikes)
+      const tempLikes = changeLikesList(likes, isLiked, product)
       const likesIdList = tempLikes.map((value) => value._id)
-      console.log('likesIdList; ', likesIdList)
+
       try {
         const response = await fetch(`/api/users/likes/${session?.user.id}`, {
           headers: { 'Content-Type': 'application/json' },

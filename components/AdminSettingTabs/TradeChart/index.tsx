@@ -1,5 +1,5 @@
-import Card from 'components/_shared/Card'
 import { VictoryTheme, VictoryChart, VictoryLine, VictoryScatter, VictoryTooltip, VictoryLegend } from 'victory'
+import Card from 'components/_shared/Card'
 
 const data = [
   { x: '22-06-06', y: 150 },

@@ -2,12 +2,12 @@ import { MouseEvent, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 
 import { useI18n } from 'hooks'
-import RemoveUserModal from './RemoveUserModal'
-import SnackBar from 'components/_shared/SnackBar'
+import { IUser } from 'types/user'
+import { SnackBar } from 'components/_shared'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
+import RemoveUserModal from './RemoveUserModal'
 import { LoadingSpinner, TrashIcon } from 'public/svgs'
 import styles from './userList.module.scss'
-import { IUser } from 'types/user'
 
 const UserList = () => {
   const t = useI18n()

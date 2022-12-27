@@ -1,15 +1,13 @@
 import React, { FormEvent, useRef, useState } from 'react'
-import { useI18n } from 'hooks'
 import { useRouter } from 'next/router'
 
-import useFormInput from 'hooks/useFormInput'
+import { useI18n, useFormInput } from 'hooks'
 import { IUser } from 'types/user'
-import { validateEmail, validateId, validateName, validatePassword, validatePhoneNumber } from 'src/utils/validateInput'
-import InputText from 'components/_shared/InputText'
-import SnackBar from 'components/_shared/SnackBar'
+import { IMongooseError } from 'types/mongo'
+import { validateEmail, validateId, validateName, validatePassword, validatePhoneNumber } from 'src/utils'
+import { InputText, SnackBar } from 'components/_shared'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './signUpForm.module.scss'
-import { IMongooseError } from 'types/mongo'
 
 interface ISignUpFormProps {
   onAddUser: (user: IUser) => Promise<IMongooseError | null>

@@ -1,6 +1,7 @@
-import DropDown from 'components/_shared/DropDown'
-import { useI18n, useState } from 'hooks'
 import { Dispatch, SetStateAction } from 'react'
+
+import { useI18n } from 'hooks'
+import DropDown from 'components/_shared/DropDown'
 import styles from './productFilter.module.scss'
 
 interface IProductFilter {

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
-import fetchToAPI from 'src/utils/fetchToAPI'
+import { fetchToAPI } from 'src/utils'
 import { IProductItem } from 'types/product'
 
 interface Args extends IntersectionObserverInit {

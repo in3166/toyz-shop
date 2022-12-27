@@ -1,14 +1,12 @@
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
-import { useI18n } from 'hooks'
-import useFormInput from 'hooks/useFormInput'
+import { useI18n, useFormInput } from 'hooks'
 import { IMongooseError } from 'types/mongo'
 import { IOnUploadSubmit, IProductItem } from 'types/product'
-import { validateProductDescription, validateProductPrice, validateProductTitle } from 'src/utils/validateInput'
-import InputText from 'components/_shared/InputText'
-import SnackBar from 'components/_shared/SnackBar'
+import { validateProductDescription, validateProductPrice, validateProductTitle } from 'src/utils'
+import { InputText, SnackBar } from 'components/_shared'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './uploadImageForm.module.scss'
 

@@ -104,28 +104,28 @@
       border: 1px colors.$GRAYA solid;
       border-radius: 10px;
     }
+  }
 
-    .buttonWrapper {
-      display: flex;
-      justify-content: flex-end;
-      width: 100%;
+  .buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 
-      .buyButton {
-        width: 55px;
-        height: 35px;
-        // @include position.position(absolute, auto 10px -10px auto);
-        // padding: 10px 20px;
-        margin: 10px 3px;
-        border: 1px solid colors.$GRAYA;
-        border-radius: 5px;
+    .buyButton {
+      width: 55px;
+      height: 35px;
+      // @include position.position(absolute, auto 10px -10px auto);
+      // padding: 10px 20px;
+      margin: 10px 3px;
+      border: 1px solid colors.$GRAYA;
+      border-radius: 5px;
 
-        &:hover {
-          background-color: colors.$GRAYD;
-        }
+      &:hover {
+        background-color: colors.$GRAYD;
+      }
 
-        &:active {
-          background-color: colors.$GRAYA;
-        }
+      &:active {
+        background-color: colors.$GRAYA;
       }
     }
   }

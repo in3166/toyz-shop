@@ -5,8 +5,8 @@ import { signOut, useSession } from 'next-auth/react'
 import { useI18n } from 'hooks'
 import { BASE_URL } from 'src/fixtures'
 import { ProfileIcon, SettingIcon } from 'public/svgs'
-import styles from '../header.module.scss'
 import { cx } from 'styles'
+import styles from '../header.module.scss'
 
 const UserMenu = ({ lang }: { lang: string }) => {
   const t = useI18n()

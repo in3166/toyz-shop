@@ -6,15 +6,14 @@ import Head from 'next/head'
 import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
+import { useIntersectionObserver } from 'hooks'
 import { dbConnect } from 'lib/dbConnect'
 import { getAllProducts } from 'lib/controllers'
-import ScrollDetecor from 'components/_shared/ScrollDetecor'
+import { fetchToAPI } from 'src/utils'
+import { ScrollDetecor, SearchBar } from 'components/_shared'
 import ProductList from 'components/ProductList'
-import SearchBar from 'components/_shared/SearchBar'
-import styles from './marketPlace.module.scss'
-import fetchToAPI from 'src/utils/fetchToAPI'
 import ProductFilter from 'components/ProductFilter'
+import styles from './marketPlace.module.scss'
 
 const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { initialProducts } = pageProps

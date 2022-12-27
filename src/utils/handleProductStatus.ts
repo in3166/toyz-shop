@@ -1,4 +1,4 @@
-export default function handleProductStatus(status: number) {
+export function handleProductStatus(status: number) {
   switch (status) {
     case 1:
       return 'common:filter:status:onSale'

@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import { useI18n } from 'hooks'
 import { IBanner } from 'types/banners'
-import { currencyFormatter } from 'src/utils/currencyFormatter'
+import { currencyFormatter } from 'src/utils'
 import styles from './banner.module.scss'
 
 const slideSettings = {

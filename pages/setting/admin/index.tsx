@@ -3,8 +3,8 @@ import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useI18n } from 'hooks'
 
+import { useI18n } from 'hooks'
 import TradeChart from 'components/AdminSettingTabs/TradeChart'
 import UserList from 'components/AdminSettingTabs/UserList'
 import BannerSetting from 'components/AdminSettingTabs/BannerSetting'
@@ -30,7 +30,7 @@ const AdminSetting = () => {
         ]
       : []
 
-  const INIT_WIDTH = Math.floor(100 / MENU_LISTS.length)
+  const INIT_WIDTH = 100 / MENU_LISTS.length
   const [value, setValue] = useState(0)
   const [SlideStyle, setSlideStyle] = useState({ width: `${INIT_WIDTH}%` })
 
@@ -40,7 +40,7 @@ const AdminSetting = () => {
 
   const changeTabHandler = (tabNumber: number) => {
     setValue(tabNumber)
-    setSlideStyle((prev) => ({ ...prev, left: `${Math.floor(INIT_WIDTH * tabNumber)}%` }))
+    setSlideStyle((prev) => ({ ...prev, left: `${INIT_WIDTH * tabNumber}%` }))
     if (tabNumber === 2 && !bannerTabIsSelected) setBannerTabIsSelected(true)
   }
 

@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
-export const confirmPasswordHash = (plainPassword: string, hashedPassword: string): Promise<boolean> => {
+export const comparePassword = (plainPassword: string, hashedPassword: string): Promise<boolean> => {
   return new Promise((resolve) => {
     bcrypt.compare(plainPassword, hashedPassword, (err, res) => {
       resolve(res)

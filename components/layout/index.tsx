@@ -1,10 +1,12 @@
 import { ReactNode } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 import Sidebar from './Sidebar'
 import Footer from './Footer'
-import styles from './layout.module.scss'
-import { cx } from 'styles'
 import Header from './Header'
+import ErrorFallback from './ErrorFallback'
+import { cx } from 'styles'
+import styles from './layout.module.scss'
 
 interface ILayoutPropx {
   children: ReactNode
@@ -18,7 +20,9 @@ const Layout = ({ children, languageList, isDark }: ILayoutPropx) => {
       <Sidebar />
       <div className={cx(styles.app)}>
         <Header languageList={languageList} isDark={isDark} />
-        <main className={styles.main}>{children}</main>
+        <main className={styles.main}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>{children}</ErrorBoundary>
+        </main>
         <Footer />
       </div>
     </div>

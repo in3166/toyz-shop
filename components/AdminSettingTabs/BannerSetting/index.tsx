@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useQuery } from 'react-query'
 
 import { IBanner } from 'types/banners'
+import { BASE_URL } from 'src/fixtures'
+import { Loading } from 'components/_shared'
 import ProductTable from './ProductTable'
 import BannerList from './BannerList'
 import styles from './bannerSetting.module.scss'
-import { BASE_URL } from 'src/fixtures'
-import Loading from 'components/_shared/Loding'
 
 const BannerSetting = ({ selected }: { selected: boolean }) => {
   const [banners, setBanners] = useState<IBanner[]>([])

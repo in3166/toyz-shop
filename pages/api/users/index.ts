@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 import User from 'lib/models/Users'
 import handlers from 'lib/_handlers'

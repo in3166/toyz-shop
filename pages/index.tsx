@@ -5,13 +5,13 @@ import Head from 'next/head'
 import nextI18nextConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { useIntersectionObserver } from 'hooks/useIntersectionObserver'
+import { useIntersectionObserver } from 'hooks'
+import { IProductItem } from 'types/product'
 import { dbConnect } from 'lib/dbConnect'
 import { getAllBanner, getAllProducts } from 'lib/controllers'
+import { ScrollDetecor } from 'components/_shared'
 import Banner from 'components/Banner'
 import ProductList from 'components/ProductList'
-import ScrollDetecor from 'components/_shared/ScrollDetecor'
-import { IProductItem } from 'types/product'
 
 const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
   const { initialProducts, banners } = pageProps

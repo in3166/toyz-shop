@@ -1,10 +1,10 @@
-import { useI18n, useOnClickOutside, useState } from 'hooks'
 import { loadTossPayments } from '@tosspayments/payment-sdk'
 
+import { useI18n, useOnClickOutside, useState } from 'hooks'
 import { IProductItem } from 'types/product'
-import Modal from 'components/_shared/Modal'
 import { BASE_URL } from 'src/fixtures'
-import { currencyFormatter } from 'src/utils/currencyFormatter'
+import { currencyFormatter } from 'src/utils'
+import { Modal } from 'components/_shared'
 import styles from './buyItemModal.module.scss'
 import { cx } from 'styles'
 

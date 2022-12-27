@@ -1,6 +1,6 @@
 import { useI18n } from 'hooks'
 
-import Modal from 'components/_shared/Modal'
+import { Modal } from 'components/_shared'
 import styles from './itemStatusModal.module.scss'
 
 interface IItemStatusModalProps {

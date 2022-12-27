@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import DropDown from 'components/_shared/DropDown'
-import SearchBar from '../../_shared/SearchBar'
+import { DropDown, SearchBar } from 'components/_shared'
 import UserMenu from './UserMenu'
 import DarkMode from './DarkMode'
 import styles from './header.module.scss'
-import Link from 'next/link'
 import { LogoImage } from 'public/svgs'
 
 interface IHeaderProps {

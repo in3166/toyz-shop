@@ -1,10 +1,11 @@
+import { Dispatch, useEffect } from 'react'
+import { useRouter } from 'next/router'
+
+import { useUserLikes } from 'hooks'
 import { IProductItem } from 'types/product'
-import Loading from 'components/_shared/Loding'
-import Container from 'components/_shared/Container'
+import { Container, Loading } from 'components/_shared'
 import ProductItem from 'components/ProductList/ProductItem'
 import styles from './productList.module.scss'
-import { useUserLikes } from 'hooks/useUserLikes'
-import { Dispatch, useEffect } from 'react'
 
 interface IMainPageProps {
   products: IProductItem[]
@@ -13,13 +14,15 @@ interface IMainPageProps {
 }
 const ProductList = ({ products, isLoading, setProducts }: IMainPageProps) => {
   const { likes, user, handleClickLike } = useUserLikes()
+  const router = useRouter()
+
   useEffect(() => {
     if (setProducts) {
-      if (!products || products?.length < 1) {
+      if (router.asPath === '/likes') {
         setProducts(likes)
       }
     }
-  }, [likes, products, setProducts])
+  }, [likes, router.asPath, setProducts])
   // TODO: Rerender 확인
   // console.log(products)
   return (

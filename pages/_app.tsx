@@ -1,20 +1,17 @@
-import { NextPage } from 'next'
-import { AppProps } from 'next/app'
-import { appWithTranslation, useTranslation } from 'next-i18next'
-import { SessionProvider } from 'next-auth/react'
-import nextI18nextConfig from 'next-i18next.config'
-
 import { useCallback, useEffect, useState } from 'react'
-import { Provider } from 'react-redux'
-import { RecoilRoot } from 'recoil'
-import { ErrorBoundary } from 'react-error-boundary'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { Provider } from 'react-redux'
+import { RecoilRoot } from 'recoil'
+import { NextPage } from 'next'
+import { AppProps } from 'next/app'
+import { SessionProvider } from 'next-auth/react'
+import { appWithTranslation, useTranslation } from 'next-i18next'
+import nextI18nextConfig from 'next-i18next.config'
 import localStore from 'store'
 
-import wrapper from '../stores'
+import wrapper from 'stores'
 import Layout from 'components/layout'
-import ErrorFallback from 'components/layout/ErrorFallback'
 import 'styles/index.scss'
 
 const queryClient = new QueryClient({
@@ -56,9 +53,7 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
         <RecoilRoot>
           <SessionProvider session={props.session}>
             <Layout languageList={LANGUAGE_LIST} isDark={darkMode}>
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Component {...props} />
-              </ErrorBoundary>
+              <Component {...props} />
             </Layout>
           </SessionProvider>
         </RecoilRoot>

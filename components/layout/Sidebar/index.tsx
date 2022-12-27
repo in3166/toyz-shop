@@ -78,7 +78,7 @@ const Sidebar = (): JSX.Element => {
             <Link
               href='/mylist'
               aria-label='link to cart page'
-              className={router.pathname === '/myist' ? styles.isActive : ''}
+              className={router.pathname === '/mylist' ? styles.isActive : ''}
             >
               MyList
             </Link>
