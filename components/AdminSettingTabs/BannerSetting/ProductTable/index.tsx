@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 
 import { IBanner } from 'types/banners'
 import { IProductItem } from 'types/product'
-import { currencyFormatter } from 'src/utils'
+import { currencyFormatter } from 'utils'
 import { BASE_URL } from 'src/fixtures'
 import styles from './productTable.module.scss'
 

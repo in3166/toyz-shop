@@ -513,6 +513,11 @@ catch (error) {
 
   - `formidable` 라이브러리로 대체
     - 아주 간단하게 적용할 수 있었고 `NextJS`와 호환이 잘 되어 있다.
+<br>
+
+- Jest
+  - `package.json`의 `test` 수정
+  - `"test": "react-scripts test",` => `"test": "jest --watch",`
 
 </details>
 
@@ -588,7 +593,7 @@ catch (error) {
   - `su` 권리자 계정에서 설치해주기
   - global로 설치
 
-    - - `next build` 시 `self is not defined` 오류
+      - - `next build` 시 `self is not defined` 오류
   - 빌드 중 `global` 접근 코드가 존재해서 발생
 <br>
 

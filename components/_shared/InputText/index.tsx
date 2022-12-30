@@ -60,7 +60,7 @@ const InputText = (props: IInputFormProps) => {
           rows={rows}
         />
       )}
-      {!read && <InputCancelIcon className={cx({ [styles.iconHidden]: value === '' })} onClick={handleResetOnclick} />}
+      {/* {!read && <InputCancelIcon className={cx({ [styles.iconHidden]: value === '' })} onClick={handleResetOnclick} />} */}
       {hasError && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   )

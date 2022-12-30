@@ -1,0 +1,7 @@
+.filterWrapper {
+  display: flex;
+  height: 100%;
+}
+.filterWrapper div:nth-child(1) {
+  margin-right: 10px;
+}/*# sourceMappingURL=productFilter.module.css.map */

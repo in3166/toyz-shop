@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import { useI18n, useFormInput } from 'hooks'
 import { IMongooseError } from 'types/mongo'
-import { validateId, validatePassword } from 'src/utils'
+import { validateId, validatePassword } from 'utils'
 import { InputText, SnackBar } from 'components/_shared'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './signInForm.module.scss'
@@ -26,7 +26,7 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
     setLoading(true)
     e.preventDefault()
 
-    if (!type && (!id.valueIsValid || !password.valueIsValid)) {
+    if (type && (!id.valueIsValid || !password.valueIsValid)) {
       setSnackBarStatus('warning')
       setMessage(`${t('common:signIn.snackBarValid')}`)
       setLoading(false)
@@ -34,7 +34,6 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
     }
 
     const error = await onSignIn(id.value, password.value, type)
-
     if (error) {
       setSnackBarStatus('error')
       setMessage(`[${error.code || 'Error'}]: ${error.message}`)
@@ -47,7 +46,7 @@ const SignInForm = ({ onSignIn }: ISignInFormProps) => {
       {loading && <div className={styles.loadingBar} />}
       <InputText
         type='text'
-        formTitle={`${t('common:signIn.titleID')}`}
+        formTitle={`${t('signIn.titleID')}`}
         value={id.value}
         onChange={id.valueChangeHandler}
         reset={id.reset}

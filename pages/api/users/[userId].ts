@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import User from 'lib/models/Users'
 import handlers from 'lib/_handlers'
-import { comparePassword } from 'src/utils'
+import { comparePassword } from 'utils'
 import { getUserIdWithoutPW } from 'lib/controllers'
 
 const handler = handlers()

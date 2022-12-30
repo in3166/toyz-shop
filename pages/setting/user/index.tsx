@@ -8,7 +8,7 @@ import { useFormInput, useI18n } from 'hooks'
 import errorHandler from 'lib/errorHandler'
 import { InputText, SnackBar } from 'components/_shared'
 import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import { validateName, validatePassword, validatePhoneNumber } from 'src/utils/validateInput'
+import { validateName, validatePassword, validatePhoneNumber } from 'utils'
 import styles from './userSetting.module.scss'
 
 const UserSetting = () => {

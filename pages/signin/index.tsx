@@ -8,8 +8,10 @@ import errorHandler from 'lib/errorHandler'
 import SignInForm from 'components/SignInForm'
 import styles from './signIn.module.scss'
 import { SignInIcon } from 'public/svgs'
+import { useRouter } from 'next/router'
 
 const SignIn = (): JSX.Element => {
+  const router = useRouter()
   const signInHandler = async (id: string, password: string, type?: string): Promise<IMongooseError | null> => {
     try {
       if (type !== 'credentials') {
@@ -20,14 +22,13 @@ const SignIn = (): JSX.Element => {
       const response = await signIn('credentials', {
         id,
         password,
-        redirect: true,
-        callbackUrl: '/',
+        redirect: false,
       })
-
       if (response?.error) {
-        const message = errorHandler(Number(response?.error)) + !response?.status
+        const message = errorHandler(Number(response?.error))
         return { code: Number(response?.error), message, name: 'sign in error' }
       }
+      router.push('/')
       return null
     } catch (error) {
       return { code: Number(error), name: 'sign in error' }

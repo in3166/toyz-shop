@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import { useI18n } from 'hooks'
 import { IProductItem } from 'types/product'
 import { IUser } from 'types/user'
-import { currencyFormatter, handleProductStatus } from 'src/utils'
+import { currencyFormatter, handleProductStatus } from 'utils'
 import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
 import styles from './productItem.module.scss'
 
