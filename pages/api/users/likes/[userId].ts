@@ -22,7 +22,6 @@ handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
     query: { userId },
     body,
   } = req
-
   const updateResult = await Users.findOneAndUpdate({ id: userId }, body, {
     new: false,
   })

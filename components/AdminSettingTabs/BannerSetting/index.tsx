@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery } from 'react-query'
 
 import { IBanner } from 'types/banners'
-import { BASE_URL } from 'src/fixtures'
+import { BASE_URL } from '__tests__/fixtures'
 import { Loading } from 'components/_shared'
 import ProductTable from './ProductTable'
 import BannerList from './BannerList'

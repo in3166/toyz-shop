@@ -5,7 +5,7 @@ import { useOnClickOutside } from 'hooks'
 import { SearchIcon } from 'public/svgs'
 import { cx } from 'styles'
 import styles from './searchBar.module.scss'
-import { BASE_URL } from 'src/fixtures'
+import { BASE_URL } from '__tests__/fixtures'
 
 const SearchBar = () => {
   const router = useRouter()

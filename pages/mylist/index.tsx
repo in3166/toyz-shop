@@ -14,17 +14,17 @@ import ProductFilter from 'components/ProductFilter'
 import styles from './marketPlace.module.scss'
 
 const MyListPage = ({ pageProps }: AppProps) => {
-  const { initialProducts } = pageProps
+  const { initialProducts, userId } = pageProps
   const [isLoading, setIsLoading] = useState(true)
   const [status, setStatus] = useState(1)
   const [sort, setSort] = useState(0)
   const [products, setProducts] = useState(initialProducts)
-
+  console.log('mylist :', userId)
   const { setTarget, isEnd, handleChangedFilter } = useIntersectionObserver(
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,
     setProducts,
-    { status, sort }
+    { status, sort, userId }
   )
 
   return (
@@ -64,12 +64,12 @@ export const getServerSideProps = async (context: IGetServerSideProps) => {
   if (token) {
     initialProducts = await getProductByUserId(token?._id || '')
   }
-
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
       locales,
       locale,
+      userId: token?._id,
       initialProducts: JSON.parse(JSON.stringify(initialProducts)),
     },
   }

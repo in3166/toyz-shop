@@ -14,8 +14,10 @@ export function useIntersectionObserver(
     searchText?: string
     status?: number
     sort?: number
+    userId?: string
   }
 ) {
+  const { userId, status, sort, searchText } = query
   const [currentPage, setCurrentPage] = useState(1)
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null)
   const [isEnd, setIsEnd] = useState(false)
@@ -27,7 +29,7 @@ export function useIntersectionObserver(
         const pageNumber = currentPage + 1
         // TODO: 분리 필요 => 요청, setState, react-query
         fetch(
-          `/api/products?status=${query.status}&sort=${query.sort}&searchText=${query.searchText}&page=${pageNumber}`,
+          `/api/products?user=${userId}&status=${status}&sort=${sort}&searchText=${searchText}&page=${pageNumber}`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -49,7 +51,7 @@ export function useIntersectionObserver(
           })
       }
     },
-    [currentPage, query.searchText, query.sort, query.status, setIsLoading, setProductsList]
+    [currentPage, searchText, setIsLoading, setProductsList, sort, status, userId]
   )
 
   useEffect(() => {
@@ -70,7 +72,7 @@ export function useIntersectionObserver(
   }) => {
     setIsLoading(true)
 
-    let tempUrl = `/api/products?page=1&status=${selectedStatus}&sort=${selectedSort}`
+    let tempUrl = `/api/products?user=${userId}&page=1&status=${selectedStatus}&sort=${selectedSort}`
     if (query.searchText) tempUrl += `&text=${query.searchText}`
 
     const response = await fetchToAPI(tempUrl, 'GET')

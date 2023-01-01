@@ -2,7 +2,7 @@ import { loadTossPayments } from '@tosspayments/payment-sdk'
 
 import { useI18n, useOnClickOutside, useState } from 'hooks'
 import { IProductItem } from 'types/product'
-import { BASE_URL } from 'src/fixtures'
+import { BASE_URL } from '__tests__/fixtures'
 import { currencyFormatter } from 'utils'
 import { Modal } from 'components/_shared'
 import styles from './buyItemModal.module.scss'

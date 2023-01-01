@@ -8,13 +8,15 @@ const handler = handlers()
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
-    query: { text, page, status, sort },
+    query: { text, page, status, sort, user },
   } = req
-  const params: { text?: string; page?: number; status?: number; sort?: number } = {}
-  if (text) params.text = text?.toString()
-  if (page) params.page = Number(page)
-  if (status) params.status = Number(status)
-  if (sort) params.sort = Number(sort)
+
+  const params: { text?: string; page?: number; status?: number; sort?: number; owner?: string } = {}
+  if (text && text !== 'undefined') params.text = text?.toString()
+  if (page && page !== 'undefined') params.page = Number(page)
+  if (status && status !== 'undefined') params.status = Number(status)
+  if (sort && sort !== 'undefined') params.sort = Number(sort)
+  if (user && user !== 'undefined') params.owner = user?.toString()
 
   const products = await getAllProducts(params)
 

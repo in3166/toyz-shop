@@ -13,11 +13,13 @@ interface IGetAllProducts {
   page?: number
   status?: number
   sort?: number
+  owner?: string
 }
-export const getAllProducts = ({ text, page, status, sort }: IGetAllProducts) => {
+export const getAllProducts = ({ text, page, status, sort, owner }: IGetAllProducts) => {
   let condition = {}
   if (status && status > 0) condition = { status }
   if (text) condition = { ...condition, title: { $regex: text, $options: 'i' } }
+  if (owner) condition = { ...condition, owner }
 
   const sortCondition: { _id?: SortOrder; price?: SortOrder } = {}
   switch (sort) {

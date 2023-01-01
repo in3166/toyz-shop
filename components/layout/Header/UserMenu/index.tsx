@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
 
 import { useI18n } from 'hooks'
-import { BASE_URL } from 'src/fixtures'
+import { BASE_URL } from '__tests__/fixtures'
 import { ProfileIcon, SettingIcon } from 'public/svgs'
 import { cx } from 'styles'
 import styles from '../header.module.scss'
