@@ -37,7 +37,7 @@
 
 <br>
 
-![Animation3](https://user-images.githubusercontent.com/45654988/172039569-797604df-af1c-466e-a1df-7e41475a4ffd.gif)
+![toyz](https://user-images.githubusercontent.com/45654988/210160158-c857a2c1-23a3-44bb-b525-cb83aebd8849.gif)
 
 <br>
 
@@ -103,73 +103,98 @@
 
 ```
 📦 
-├─components
-│  ├─Banner
-│  ├─layout
-│  │  ├─ErrorFallback
-│  │  ├─Footer
-│  │  ├─Header
-│  │  │  ├─DarkMode
-│  │  │  ├─SearchBar
-│  │  │  └─UserMenu
-│  │  └─Sidebar
-│  ├─ProductList
-│  ├─SignInForm
-│  ├─SignUpForm
-│  ├─UploadProudctForm
-│  └─_shared
-│      ├─Card
-│      ├─Container
-│      ├─DropDown
-│      ├─InputText
-│      ├─Loding
-│      ├─Modal
-│      ├─ProtectedRoute
-│      ├─ScrollDetecor
-│      └─SnackBar
-├─fixtures
-├─hooks
-│  ├─state
-│  └─worker
-├─lib
-│  └─models
-├─mocks
-├─pages
-│  ├─404
-│  ├─api
-│  │  ├─auth
-│  │  ├─middleware
-│  │  ├─products
-│  │  └─users
-│  ├─likes
-│  ├─product
-│  │  └─[itemId]
-│  │      └─BuyItemModal
-│  ├─setting
-│  │  ├─admin
-│  │  │  └─AdminSettingTabs
-│  │  │      ├─TradeChart
-│  │  │      └─UserList
-│  │  │          └─RemoveUserModal
-│  │  └─user
-│  ├─signin
-│  └─signup
-├─public
-│  ├─locales
-│  │  ├─en
-│  │  └─ko
-│  ├─products
-│  └─svgs
-├─services
-├─stores
-│  └─reducer
-├─styles
-│  ├─base
-│  ├─constants
-│  └─mixins
-├─types
-└─utils
-    └─validates
+├─ .github
+│  └─ workflows
+│     └─ Deploy.yml
+├─ components
+│  ├─ AdminSettingTabs
+│  │  ├─ BannerSetting
+│  │  │  ├─ BannerList
+│  │  │  └─ ProductTable
+│  │  ├─ TradeChart
+│  │  └─ UserList
+│  │     └─ RemoveUserModal
+│  ├─ Banner
+│  ├─ BuyItemModal
+│  ├─ ItemStatusModal
+│  ├─ layout
+│  │  ├─ ErrorFallback
+│  │  ├─ Footer
+│  │  ├─ Header
+│  │  │  ├─ DarkMode
+│  │  │  └─ UserMenu
+│  │  └─ Sidebar
+│  ├─ ProductFilter
+│  ├─ ProductList
+│  │  └─ ProductItem
+│  ├─ SignInForm
+│  ├─ SignUpForm
+│  ├─ UploadProudctForm
+│  └─ _shared
+│     ├─ Card
+│     ├─ Container
+│     ├─ DropDown
+│     ├─ index.tsx
+│     ├─ InputText
+│     ├─ Loading
+│     ├─ Modal
+│     ├─ ProtectedRoute
+│     ├─ ScrollDetecor
+│     ├─ SearchBar
+│     └─ SnackBar
+├─ hooks
+│  ├─ state
+│  └─ worker
+├─ lib
+│  ├─ controllers
+│  ├─ models
+│  ├─ dbConnect.ts
+│  ├─ errorHandler.ts
+│  └─ s3.ts
+├─ middleware.ts
+├─ pages
+│  ├─ 404
+│  ├─ api
+│  │  ├─ auth
+│  │  ├─ banners
+│  │  ├─ history
+│  │  ├─ products
+│  │  │  └─ [productId].ts
+│  │  └─ users
+│  │     │  └─ [userId].ts
+│  │     └─ [userId].ts
+│  ├─ fail
+│  ├─ likes
+│  ├─ marketplace
+│  ├─ mylist
+│  ├─ product
+│  │  └─ [itemId]
+│  ├─ setting
+│  │  ├─ admin
+│  │  └─ user
+│  ├─ signin
+│  ├─ signup
+│  ├─ success
+├─ public
+│  ├─ locales
+│  │  ├─ en
+│  │  └─ ko
+│  ├─ manifest.json
+│  ├─ svgs
+│  └─ _redirects
+├─ README.md
+├─ scripts
+├─ setupTests.ts
+├─ stores
+│  └─ reducer
+├─ styles
+│  ├─ base
+│  ├─ constants
+│  └─ mixins
+├─ types
+├─ utils
+└─ __tests__
+   └─ __mocks__
 ```
 
 </details>
