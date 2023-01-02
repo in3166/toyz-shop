@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 import { useFormInput } from 'hooks'
 import { fireEvent, renderWithProviders, screen, act, renderHook } from 'utils/test-utils'
-import { signInUserValue } from '__tests__/fixtures/users'
+import { signInUserValue } from 'fixtures/users'
 import LoginForm from 'components/SignInForm'
 import SignInPage from 'pages/signin'
 import { I18nextProvider } from 'react-i18next'

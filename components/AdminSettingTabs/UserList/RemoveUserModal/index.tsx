@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useCallback } from 'react'
 import { useI18n } from 'hooks'
 
 import { IUser } from 'types/user'
-import { BASE_URL } from '__tests__/fixtures'
+import { BASE_URL } from 'fixtures'
 import { Modal } from 'components/_shared'
 import styles from './removeUserModal.module.scss'
 

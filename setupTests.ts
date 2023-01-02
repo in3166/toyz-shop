@@ -3,7 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
-import { server } from './src/__mocks__/server'
+import { server } from './__tests__/__mocks__/server'
 
 // 모든 테스트를 실행하기 전에 server listen
 beforeEach(() => server.listen())

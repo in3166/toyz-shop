@@ -4,7 +4,7 @@ import { throttle } from 'lodash'
 
 import { IProductItem } from 'types/product'
 import { IBanner } from 'types/banners'
-import { BASE_URL } from '__tests__/fixtures'
+import { BASE_URL } from 'fixtures'
 import { Card } from 'components/_shared'
 import useDragScroll from './useDragScroll'
 import styles from './bannerList.module.scss'
