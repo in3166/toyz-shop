@@ -1,0 +1,21 @@
+.commentWrapper {
+  display: flex;
+  flex-direction: column;
+
+  .commentSubmit {
+    width: 100%;
+
+    .submitButtonWrapper {
+      width: 100%;
+      text-align: right;
+
+      .submitButton {
+        padding: 5px 10px;
+        text-align: right;
+        background-color: whitesmoke !important;
+        border: 1px gray solid;
+        border-radius: 7px;
+      }
+    }
+  }
+}

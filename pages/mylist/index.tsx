@@ -19,7 +19,7 @@ const MyListPage = ({ pageProps }: AppProps) => {
   const [status, setStatus] = useState(1)
   const [sort, setSort] = useState(0)
   const [products, setProducts] = useState(initialProducts)
-  console.log('mylist :', userId)
+
   const { setTarget, isEnd, handleChangedFilter } = useIntersectionObserver(
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,

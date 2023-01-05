@@ -6,7 +6,7 @@ import { cx } from 'styles'
 import styles from './inputText.module.scss'
 
 interface IInputFormProps {
-  formTitle: string
+  formTitle?: string
   value: string | number
   onBlur?: () => void
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
@@ -31,9 +31,11 @@ const InputText = (props: IInputFormProps) => {
 
   return (
     <div className={styles.inputForm}>
-      <label htmlFor={formTitle} className={styles.formTitle}>
-        {formTitle}
-      </label>
+      {formTitle && (
+        <label htmlFor={formTitle} className={styles.formTitle}>
+          {formTitle}
+        </label>
+      )}
       {type !== 'textarea' ? (
         <input
           type={type}

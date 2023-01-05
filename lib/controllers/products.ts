@@ -1,6 +1,7 @@
 import { SortOrder } from 'mongoose'
 import Products from 'lib/models/Products'
 import Users from 'lib/models/Users'
+
 /**
  *
  * @param {number} page   가져올 페이지 번호
@@ -8,6 +9,7 @@ import Users from 'lib/models/Users'
  * @param {number} sort   0: 최신순 1: 오래된순 2: 가격높은순 3: 가격낮은순
  * @returns products
  */
+
 interface IGetAllProducts {
   text?: string
   page?: number

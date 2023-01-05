@@ -5,7 +5,6 @@ import { signInUserValue } from 'fixtures/users'
 import LoginForm from 'components/SignInForm'
 import SignInPage from 'pages/signin'
 import { I18nextProvider } from 'react-i18next'
-import i18n from '../i18nForTests'
 
 jest.mock('next/router', () => ({
   useRouter() {

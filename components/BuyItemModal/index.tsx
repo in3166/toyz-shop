@@ -13,11 +13,10 @@ interface IBuyItemModalProps {
   onClose: () => void
   setMessage: (text: string) => void
   product: IProductItem
-  lang: string
   buyer?: string
 }
 
-const BuyItemModal = ({ onClose, product, lang, buyer, setMessage }: IBuyItemModalProps) => {
+const BuyItemModal = ({ onClose, product, buyer, setMessage }: IBuyItemModalProps) => {
   const t = useI18n()
   const buyMenuRef = useOnClickOutside(() => setOpenMenu(false))
   const [openMenu, setOpenMenu] = useState(false)

@@ -1,0 +1,16 @@
+.commentWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  border-bottom: 1px rgb(212, 212, 212) solid;
+
+  div {
+    margin: 10px 0;
+  }
+
+  .commentUser {
+    sub {
+      margin-left: 10px;
+    }
+  }
+}
