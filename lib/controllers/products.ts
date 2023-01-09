@@ -16,10 +16,13 @@ interface IGetAllProducts {
   status?: number
   sort?: number
   owner?: string
+  firstProduct?: string
 }
-export const getAllProducts = ({ text, page, status, sort, owner }: IGetAllProducts) => {
+
+export const getAllProducts = async ({ text, page, status, sort, owner, firstProduct }: IGetAllProducts) => {
   let condition = {}
-  if (status && status > 0) condition = { status }
+  if (firstProduct) condition = { createdAt: { $lte: new Date(firstProduct) } }
+  if (status && status > 0) condition = { ...condition, status }
   if (text) condition = { ...condition, title: { $regex: text, $options: 'i' } }
   if (owner) condition = { ...condition, owner }
 
@@ -45,10 +48,11 @@ export const getAllProducts = ({ text, page, status, sort, owner }: IGetAllProdu
 
   if (!page || page === 0)
     return Products.find(condition).sort(sortCondition).populate({ path: 'owner', model: Users, select: '-password' })
+
   return Products.find(condition)
     .sort(sortCondition)
-    .limit(10)
-    .skip((page - 1) * 10)
+    .limit(8)
+    .skip((page - 1) * 8)
     .populate({ path: 'owner', model: Users, select: '-password' })
 }
 

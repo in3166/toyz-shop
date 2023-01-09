@@ -43,7 +43,8 @@
     "errorMessageDescription": "Enter at least 5 characters.",
     "snackBarValid": "Input is not valid.",
     "snackBarImageNotValid": "No image.",
-    "snackBarSuccess": "The product has been registered."
+    "snackBarSuccess": "The product has been registered.",
+    "snackBarFail": "Product registration failed."
   },
   "signIn": {
     "title": "Sign In",

@@ -28,7 +28,33 @@ const params = {
   Body: {},
 }
 
-export const asyncPares = (req: NextApiRequest): Promise<{ fields: any; files: any; url: string }> =>
+const asyncParse2 = (req: NextApiRequest) =>
+  new Promise((resolve, reject) => {
+    const form = new formidable.IncomingForm({
+      uploadDir: `./public/products`,
+      filter({ name }) {
+        return !!name && (name.includes('img') || name.includes('file'))
+      },
+      filename(name, ext, part) {
+        return `${v1()}-${part.originalFilename}`
+      },
+      maxFileSize: 5 * 1024 * 1024,
+      multiples: true,
+    })
+    form.on('file', (name, file) => {
+      if (!file.mimetype?.includes('image')) {
+        throw new Error('Not image file.')
+      }
+    })
+    form.parse(req, (err, fields, files) => {
+      if (err) return reject(err)
+      // resolve "returns" the promise so you will have a straighforward logic flow
+      resolve({ fields, files })
+      return null
+    })
+  })
+
+export const asyncParse = (req: NextApiRequest): Promise<{ fields: any; files: any; url: string }> =>
   new Promise((resolve, reject) => {
     const form = new formidable.IncomingForm({
       // uploadDir: `./public/products`,
@@ -65,7 +91,6 @@ export const asyncPares = (req: NextApiRequest): Promise<{ fields: any; files: a
               Bucket: string
             }
           ) => {
-            console.log('data: ', data)
             if (error) reject(error)
             else resolve({ files, fields, url: data.Location })
           }

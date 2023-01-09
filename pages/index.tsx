@@ -22,7 +22,7 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,
     setProducts,
-    { status: 1 }
+    { status: 1, firstProduct: products[0].createdAt }
   )
 
   return (

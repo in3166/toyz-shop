@@ -47,7 +47,7 @@ const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,
     setProducts,
-    { searchText, status, sort }
+    { searchText, status, sort, firstProduct: initialProducts[0].createdAt }
   )
 
   return (

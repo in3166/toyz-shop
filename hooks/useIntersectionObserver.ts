@@ -15,9 +15,10 @@ export function useIntersectionObserver(
     status?: number
     sort?: number
     userId?: string
+    firstProduct?: string
   }
 ) {
-  const { userId, status, sort, searchText } = query
+  const { userId, status, sort, searchText, firstProduct } = query
   const [currentPage, setCurrentPage] = useState(1)
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null)
   const [isEnd, setIsEnd] = useState(false)
@@ -28,8 +29,9 @@ export function useIntersectionObserver(
         setIsLoading(true)
         const pageNumber = currentPage + 1
         // TODO: 분리 필요 => 요청, setState, react-query
+
         fetch(
-          `/api/products?user=${userId}&status=${status}&sort=${sort}&searchText=${searchText}&page=${pageNumber}`,
+          `/api/products?user=${userId}&status=${status}&sort=${sort}&searchText=${searchText}&page=${pageNumber}&firstProduct=${firstProduct}`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -51,7 +53,7 @@ export function useIntersectionObserver(
           })
       }
     },
-    [currentPage, searchText, setIsLoading, setProductsList, sort, status, userId]
+    [currentPage, firstProduct, searchText, setIsLoading, setProductsList, sort, status, userId]
   )
 
   useEffect(() => {

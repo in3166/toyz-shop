@@ -7,7 +7,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useEffect, useI18n, useState } from 'hooks'
 import { IOnUploadSubmit, IProductItem } from 'types/product'
-import errorHandler from 'lib/errorHandler'
 import { Container, Loading } from 'components/_shared'
 import UploadImageForm from 'components/UploadProudctForm'
 
@@ -29,16 +28,16 @@ const UpdateProudctPage: NextPage<AppProps> = () => {
 
   if (router?.query?.id && !productInfo) return <Loading />
 
-  const handleSubmit = async (data: IOnUploadSubmit, imageFile?: File) => {
+  const handleSubmit = async (data: IOnUploadSubmit, file?: File) => {
     const formData = new FormData()
-    if (imageFile) {
+    if (file) {
       formData.append(
         'body',
         JSON.stringify({
           data,
         })
       )
-      formData.append('file', imageFile)
+      formData.append('file', file)
       data.changedImage = 'yes'
     }
 
@@ -60,12 +59,7 @@ const UpdateProudctPage: NextPage<AppProps> = () => {
     }
 
     const result = await response.json()
-    if (!result?.success) {
-      const message = !result.error.message ? errorHandler(result.error?.code) : result.error.message
-      return { ...result.error, message }
-    }
-
-    return null
+    return result?.success
   }
 
   return (

@@ -24,7 +24,7 @@ const MyListPage = ({ pageProps }: AppProps) => {
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,
     setProducts,
-    { status, sort, userId }
+    { status, sort, userId, firstProduct: initialProducts[0].createdAt }
   )
 
   return (

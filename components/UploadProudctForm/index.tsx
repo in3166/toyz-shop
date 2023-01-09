@@ -11,7 +11,7 @@ import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
 import styles from './uploadImageForm.module.scss'
 
 interface IUploadImageFormProps {
-  onUploadSubmit: (data: IOnUploadSubmit, file?: File) => Promise<IMongooseError | null>
+  onUploadSubmit: (data: IOnUploadSubmit, file?: File) => Promise<IMongooseError | string | null>
   product?: IProductItem
 }
 
@@ -74,16 +74,13 @@ const UploadImageForm = ({ onUploadSubmit, product }: IUploadImageFormProps) => 
       changedImage: 'no',
     }
 
-    const error = await onUploadSubmit(data, imageFile)
-    if (error) {
-      console.log(error)
+    const success = await onUploadSubmit(data, imageFile)
+    if (!success) {
+      setSnackBarStatus('error')
+      setMessage(`${t('upload.snackBarFail')}`)
     }
 
-    if (product) {
-      router.push(`/product/${product._id}`)
-    }
-
-    if (!error) {
+    if (success) {
       setSnackBarStatus('')
       setMessage(`${t('upload.snackBarSuccess')}`)
       setImageFile(undefined)
@@ -92,6 +89,11 @@ const UploadImageForm = ({ onUploadSubmit, product }: IUploadImageFormProps) => 
       price.reset()
       setImagePreviewUrl(DEFAULT_IMAGE_PATH)
     }
+
+    if (product) {
+      router.push(`/product/${product._id}`)
+    }
+
     setLoading(false)
   }
 

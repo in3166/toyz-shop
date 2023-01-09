@@ -43,7 +43,8 @@
     "errorMessageDescription": "5글자 이상 입력하세요.",
     "snackBarValid": "입력이 올바르지 않습니다.",
     "snackBarImageNotValid": "상품 사진이 없습니다.",
-    "snackBarSuccess": "상품이 등록되었습니다."
+    "snackBarSuccess": "상품이 등록되었습니다.",
+    "snackBarFail": "상품 등록을 실패했습니다."
   },
   "signIn": {
     "title": "로그인",
