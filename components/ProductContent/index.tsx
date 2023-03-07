@@ -70,33 +70,43 @@ const ProductContent = ({ product, user, setMessage }: IProductContentProps) => 
   return (
     <>
       <div className={styles.content}>
-        <dl>
-          <div>
-            <dt>{`${t('price')}`}</dt>
-            <dd>
-              {currencyFormatter(product?.price)} <sub>(원)</sub>
-            </dd>
+        <div className={styles.topContent}>
+          <div className={styles.image}>
+            <img src={product?.image} alt='items' />
           </div>
-          <div>
-            <dt>{`${t('owner')}`}</dt>
-            <dd>{product?.owner.name}</dd>
-          </div>
-          <div>
-            <dt> {`${t('date')}`}</dt>
-            <dd>{dayjs(product?.createdAt).format('YYYY-MM-DD')}</dd>
-          </div>
-          <div>
-            <dt> {`${t('Status')}`}</dt>
-            <dd>{productStatus}</dd>
-          </div>
-        </dl>
+          <dl className={styles.productInfo}>
+            <div>
+              <dt>{`${t('price')}`}</dt>
+              <dd>
+                {currencyFormatter(product?.price)} <sub>(원)</sub>
+              </dd>
+            </div>
+            <div>
+              <dt>{`${t('owner')}`}</dt>
+              <dd>{product?.owner.name}</dd>
+            </div>
+            <div>
+              <dt> {`${t('date')}`}</dt>
+              <dd>{dayjs(product?.createdAt).format('YYYY-MM-DD')}</dd>
+            </div>
+            <div>
+              <dt> {`${t('status')}`}</dt>
+              <dd>{productStatus}</dd>
+            </div>
+            <div className={styles.buttonWrapper}>
+              <button
+                type='button'
+                aria-label='open buy modal'
+                className={styles.buyButton}
+                onClick={handleOpenBuyModal}
+              >
+                {`${t('buyButton')}`}
+              </button>
+            </div>
+          </dl>
+        </div>
         <div className={styles.description}>
           <div>{product?.description}</div>
-        </div>
-        <div className={styles.buttonWrapper}>
-          <button type='button' aria-label='open buy modal' className={styles.buyButton} onClick={handleOpenBuyModal}>
-            구매
-          </button>
         </div>
       </div>
       {openBuyModal && (

@@ -15,8 +15,8 @@ interface ISignInFormProps {
 const SignInForm = ({ onSignIn }: ISignInFormProps) => {
   const t = useI18n()
   const inputFocusRef = useRef(null)
-  const [snackBarStatus, setSnackBarStatus] = useState('')
   const [loading, setLoading] = useState(false)
+  const [snackBarStatus, setSnackBarStatus] = useState('')
   const { message, setMessage } = useSnackbar(5000)
 
   const id = useFormInput({ validateFunction: validateId })

@@ -19,8 +19,10 @@ function validatePhoneNumber(value: string | number) {
 }
 
 function validateEmail(value: string | number) {
-  const temp = value.toString()
-  return /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i.test(temp)
+  const temp = value.toString();
+  return /^[0-9a-zA-Z][0-9a-zA-Z\\_\-\\.\\+]+[0-9a-zA-Z]@[0-9a-zA-Z][0-9a-zA-Z\\_\\-]*[0-9a-zA-Z](\.[a-zA-Z]{2,6}){1,2}$$/i.test(
+    temp
+  );
 }
 
 function validateProductTitle(value: string | number) {

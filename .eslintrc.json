@@ -31,7 +31,7 @@
   "rules": {
     "no-underscore-dangle":  ["error", { "allow": ["_id"] }],
     "arrow-body-style": "off",
-    "semi": ["warn", "never"],
+    "semi": ["2", "always"],
     "react/function-component-definition": ["warn", { "namedComponents": "arrow-function" }],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
@@ -59,7 +59,7 @@
         ]
       }
     ],
-    // "max-lines": ["warn", 150],
+    "max-lines": ["warn", 150],
     "no-param-reassign": ["error", { "props": false }],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],

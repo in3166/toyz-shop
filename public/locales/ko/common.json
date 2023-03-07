@@ -4,6 +4,9 @@
   "owner": "소유자",
   "date": "등록일",
   "status": "상태",
+  "buyButton": "구매",
+  "commentLabel": "댓글",
+  "commentSubmit": "등록",
   "gnb": {
     "signin": "로그인",
     "signup": "회원가입",
@@ -14,18 +17,18 @@
     "first": "한국어",
     "second": "영어"
   },
-  "filter":{
-    "status":{
-      "all":"전체",
-      "onSale":"판매",
-      "reserved":"예약",
-      "sold":"판매 완료"
+  "filter": {
+    "status": {
+      "all": "전체",
+      "onSale": "판매",
+      "reserved": "예약",
+      "sold": "판매 완료"
     },
-    "sort":{
-      "latest":"최신순",
-      "oldest":"오래된순",
-      "highPrice":"높은 가격순",
-      "lowPrice":"낮은 가격순"
+    "sort": {
+      "latest": "최신순",
+      "oldest": "오래된순",
+      "highPrice": "높은 가격순",
+      "lowPrice": "낮은 가격순"
     }
   },
   "upload": {
@@ -109,5 +112,9 @@
   "likes": {
     "admin": "관리자 계정입니다.",
     "notValid": "권한이 없습니다."
+  },
+  "comment": {
+    "notLoggedIn": "로그인하세요.",
+    "notValidContent": "내용을 입력하세요."
   }
 }

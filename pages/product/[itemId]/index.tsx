@@ -84,10 +84,6 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
           {user && headerButton}
         </header>
         <main className={styles.main}>
-          <div className={styles.image}>
-            <img src={product?.image} alt='items' />
-          </div>
-
           <ProductContent product={product} user={user} setMessage={setMessage} />
         </main>
 

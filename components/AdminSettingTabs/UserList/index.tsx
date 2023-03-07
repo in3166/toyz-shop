@@ -30,10 +30,10 @@ const UserList = () => {
           return result.users
         })
         .catch((err) => {
-          console.log(err)
+          console.log('err:', err)
         }),
     {
-      // error , success false 로직 추가
+      // TODO: error , success false 로직 추가
       enabled: true,
       staleTime: 6 * 50 * 1000,
       useErrorBoundary: true,

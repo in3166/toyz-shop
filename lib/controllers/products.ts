@@ -4,9 +4,12 @@ import Users from 'lib/models/Users'
 
 /**
  *
+ * @param {string} text   검색어
  * @param {number} page   가져올 페이지 번호
  * @param {number} status 0: 전체 1: 판매중 2: 예약중 3: 판매완료
  * @param {number} sort   0: 최신순 1: 오래된순 2: 가격높은순 3: 가격낮은순
+ * @param {string} owner   소유자
+ * @param {string} firstProudct   불러올 기준 아이템
  * @returns products
  */
 
@@ -52,7 +55,7 @@ export const getAllProducts = async ({ text, page, status, sort, owner, firstPro
   return Products.find(condition)
     .sort(sortCondition)
     .limit(8)
-    .skip((page - 1) * 8)
+    .skip((page - 1) * 10)
     .populate({ path: 'owner', model: Users, select: '-password' })
 }
 

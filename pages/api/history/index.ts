@@ -14,7 +14,6 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const enteredData = req.body
   const updateProductStatus = await Products.findByIdAndUpdate(enteredData.orderId, { status: 2 })
-  console.log('updateProductStatus: ', updateProductStatus)
   const result = await History.create(enteredData)
   return res.status(201).json({ success: true, data: result })
 })

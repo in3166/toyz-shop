@@ -4,6 +4,9 @@
   "owner": "Owner",
   "date": "Date",
   "status": "Status",
+  "buyButton": "Buy",
+  "commentLabel": "Comment",
+  "commentSubmit": "Submit",
   "gnb": {
     "signin": "Sign In",
     "signup": "Sign Up",
@@ -14,18 +17,18 @@
     "first": "English",
     "second": "Korean"
   },
-  "filter":{
-    "status":{
-      "all":"All",
-      "onSale":"On Sale",
-      "reserved":"Reservation",
-      "sold":"Sold Out"
+  "filter": {
+    "status": {
+      "all": "All",
+      "onSale": "On Sale",
+      "reserved": "Reservation",
+      "sold": "Sold Out"
     },
-    "sort":{
-      "latest":"Latest",
-      "oldest":"Oldest",
-      "highPrice":"Higher Price",
-      "lowPrice":"Lower Price"
+    "sort": {
+      "latest": "Latest",
+      "oldest": "Oldest",
+      "highPrice": "Higher Price",
+      "lowPrice": "Lower Price"
     }
   },
   "upload": {
@@ -109,5 +112,9 @@
   "likes": {
     "admin": "Administrators are not available.",
     "notValid": "You do not have permission."
+  },
+  "comment": {
+    "notLoggedIn": "You must be logged in.",
+    "notValidContent": "Please enter the contents."
   }
 }

@@ -63,41 +63,7 @@
 }
 
 .main {
-  @include position.position(relative, null);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 5px 10px;
-
-  .image {
-    img {
-      width: 100%;
-      min-width: 200px;
-      max-height: 250px;
-      object-fit: contain;
-    }
-    padding-right: 15px;
-  }
-
-  @include responsive.after(MD) {
-    flex-direction: row;
-  }
-
   :root[color-theme='dark'] & {
     color: colors.$HEADER_DARK_FONT_COLOR;
-
-    .buyButton {
-      background-color: colors.$GRAYD;
-      border: 1px solid colors.$GRAY6;
-
-      &:hover {
-        color: colors.$GRAYD;
-        background-color: colors.$GRAY3;
-      }
-
-      &:active {
-        background-color: colors.$GRAYA;
-      }
-    }
   }
 }
