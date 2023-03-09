@@ -1,51 +1,51 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import User from 'lib/models/Users'
-import handlers from 'lib/_handlers'
-import { comparePassword } from 'utils'
-import { getUserIdWithoutPW } from 'lib/controllers'
+import { NextApiRequest, NextApiResponse } from 'next';
+import User from 'lib/models/Users';
+import handlers from 'lib/_handlers';
+import { comparePassword } from 'utils';
+import { getUserIdWithoutPW } from 'lib/controllers';
 
-const handler = handlers()
+const handler = handlers();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { userId },
-  } = req
+  } = req;
 
-  const user = await getUserIdWithoutPW(userId)
+  const user = await getUserIdWithoutPW(userId);
 
   if (!user) {
-    return res.status(400).json({ success: false, error: { code: 10001 } })
+    return res.status(400).json({ success: false, error: { code: 10001 } });
   }
-  return res.status(200).json({ success: true, user })
-})
+  return res.status(200).json({ success: true, user });
+});
 
 handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { userId },
-  } = req
+  } = req;
 
   const user = await User.findOneAndUpdate({ id: userId }, req.body, {
     new: false,
     runValidators: true,
-  })
+  });
   if (!user) {
-    return res.status(400).json({ success: false, error: { code: 10001 } })
+    return res.status(400).json({ success: false, error: { code: 10001 } });
   }
-  return res.status(200).json({ success: true, user })
-})
+  return res.status(200).json({ success: true, user });
+});
 
 // setting/users
 handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { userId },
     body,
-  } = req
+  } = req;
 
-  const user = await User.findOne({ id: userId })
-  if (!user) return res.status(400).json({ success: false, error: { code: 10001 } })
+  const user = await User.findOne({ id: userId });
+  if (!user) return res.status(400).json({ success: false, error: { code: 10001 } });
 
-  const compare = await comparePassword(body.password, user.password)
-  if (!compare) return res.status(400).json({ success: false, error: { code: 10002 } })
+  const compare = await comparePassword(body.password, user.password);
+  if (!compare) return res.status(400).json({ success: false, error: { code: 10002 } });
 
   const updateResult = await User.findOneAndUpdate(
     { id: userId },
@@ -54,24 +54,24 @@ handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
       new: false,
       runValidators: true,
     }
-  )
+  );
 
   if (!updateResult) {
-    return res.status(400).json({ success: false, error: { code: 10001 } })
+    return res.status(400).json({ success: false, error: { code: 10001 } });
   }
-  return res.status(200).json({ success: true, user })
-})
+  return res.status(200).json({ success: true, user });
+});
 
 handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { userId },
-  } = req
+  } = req;
 
-  const deletedUser = await User.deleteOne({ id: userId })
+  const deletedUser = await User.deleteOne({ id: userId });
   if (!deletedUser) {
-    return res.status(400).json({ success: false })
+    return res.status(400).json({ success: false });
   }
-  return res.status(200).json({ success: true, data: {} })
-})
+  return res.status(200).json({ success: true, data: {} });
+});
 
-export default handler
+export default handler;

@@ -1,16 +1,17 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 
 const chatSchema = new mongoose.Schema(
   {
     members: {
       type: [Schema.Types.ObjectId],
-      ref: "User",
+      ref: 'User',
       default: [],
     },
     messages: {
       type: [Schema.Types.ObjectId],
-      ref: "Message",
+      ref: 'Message',
       default: [],
     },
     title: {
@@ -24,5 +25,4 @@ const chatSchema = new mongoose.Schema(
   }
 );
 
-
-export default mongoose.models.Chats || mongoose.model('Comments', chatSchema)
+export default mongoose.models.Chats || mongoose.model('Comments', chatSchema);

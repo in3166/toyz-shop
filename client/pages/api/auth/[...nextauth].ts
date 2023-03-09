@@ -1,13 +1,13 @@
-import NextAuth from 'next-auth'
-import KakaoProvider from 'next-auth/providers/kakao'
-import NaverProvider from 'next-auth/providers/naver'
-import GoogleProvider from 'next-auth/providers/google'
-import CredentialsProvider from 'next-auth/providers/credentials'
+import NextAuth from 'next-auth';
+import KakaoProvider from 'next-auth/providers/kakao';
+import NaverProvider from 'next-auth/providers/naver';
+import GoogleProvider from 'next-auth/providers/google';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { IAuthSession, IAuthToken } from 'types/auth'
-import { dbConnect } from 'lib/dbConnect'
-import { getUserId, getUserEmail } from 'lib/controllers'
-import { comparePassword } from 'utils'
+import { IAuthSession, IAuthToken } from 'types/auth';
+import { dbConnect } from 'lib/dbConnect';
+import { getUserId, getUserEmail } from 'lib/controllers';
+import { comparePassword } from 'utils';
 
 export default NextAuth({
   providers: [
@@ -16,29 +16,29 @@ export default NextAuth({
       credentials: {},
       async authorize(credentials) {
         const { id, password } = credentials as {
-          id: string
-          password: string
-        }
+          id: string;
+          password: string;
+        };
         try {
-          await dbConnect()
+          await dbConnect();
 
-          const data = await getUserId(id)
+          const data = await getUserId(id);
           if (!data) {
-            throw new Error('10001')
+            throw new Error('10001');
           }
 
-          const compare = await comparePassword(password, data.password)
-          if (!compare) throw new Error('10003')
+          const compare = await comparePassword(password, data.password);
+          if (!compare) throw new Error('10003');
 
-          delete data.password
-          return data
+          delete data.password;
+          return data;
         } catch (error) {
           if (typeof error === 'string') {
-            throw new Error(error)
+            throw new Error(error);
           } else if (error instanceof Error) {
-            throw error
+            throw error;
           }
-          return null
+          return null;
         }
       },
     }),
@@ -67,40 +67,40 @@ export default NextAuth({
     async signIn({ user, account }) {
       try {
         if (account?.type === 'credentials') {
-          return true
+          return true;
         }
-        await dbConnect()
-        const response = await getUserEmail(user.email)
+        await dbConnect();
+        const response = await getUserEmail(user.email);
         if (response.length < 1) {
-          return `/signup?email=${user.email}`
+          return `/signup?email=${user.email}`;
         }
-        return true
+        return true;
       } catch (err) {
-        return false
+        return false;
       }
     },
     session: async ({ session, token }: { session: IAuthSession; token: IAuthToken }) => {
       // 조건 주기
-      session.user = { ...session.user, ...token }
-      return session
+      session.user = { ...session.user, ...token };
+      return session;
     },
     jwt: async ({ token, user, account }) => {
       if (user && account?.type === 'oauth') {
-        await dbConnect()
-        const response = await getUserEmail(user.email)
+        await dbConnect();
+        const response = await getUserEmail(user.email);
         if (response?.length > 0) {
-          const newToken = { ...user, ...response[0] }
-          return newToken
+          const newToken = { ...user, ...response[0] };
+          return newToken;
         }
       }
       if (user) {
-        return { ...token, ...user }
+        return { ...token, ...user };
       }
 
-      return token
+      return token;
     },
   },
   pages: {
     signIn: '/',
   },
-})
+});

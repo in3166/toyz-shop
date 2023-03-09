@@ -1,60 +1,60 @@
-import { IProductItem } from 'types/product'
-import { currencyFormatter, fetchToAPI } from 'utils'
-import styles from './productContent.module.scss'
-import { useI18n, useState } from 'hooks'
-import dayjs from 'dayjs'
-import { DropDown } from '@components/_shared'
-import ItemStatusModal from '@components/ItemStatusModal'
-import BuyItemModal from '@components/BuyItemModal'
-import { IAuthToken } from 'types/auth'
-import UserPopover from './UserPopover'
+import { IProductItem } from 'types/product';
+import { currencyFormatter, fetchToAPI } from 'utils';
+import styles from './productContent.module.scss';
+import { useI18n, useState } from 'hooks';
+import dayjs from 'dayjs';
+import { DropDown } from '@components/_shared';
+import ItemStatusModal from '@components/ItemStatusModal';
+import BuyItemModal from '@components/BuyItemModal';
+import { IAuthToken } from 'types/auth';
+import UserPopover from './UserPopover';
 
 interface IProductContentProps {
-  product: IProductItem
-  user: IAuthToken | undefined
-  setMessage: (text: string) => void
+  product: IProductItem;
+  user: IAuthToken | undefined;
+  setMessage: (text: string) => void;
 }
 
 const ProductContent = ({ product, user, setMessage }: IProductContentProps) => {
-  const t = useI18n()
+  const t = useI18n();
   const onsaleStatusList = [
     `${t('common:filter:status:onSale')}`,
     `${t('common:filter:status:reserved')}`,
     `${t('common:filter:status:sold')}`,
-  ]
-  const [openBuyModal, setOpenBuyModal] = useState(false)
-  const [status, setStatus] = useState((product?.status || 1) - 1)
-  const [openStatusModal, setOpenStatusModal] = useState(false)
+  ];
+  const [openBuyModal, setOpenBuyModal] = useState(false);
+  const [status, setStatus] = useState((product?.status || 1) - 1);
+  const [openStatusModal, setOpenStatusModal] = useState(false);
 
   const handleOpenBuyModal = () => {
     if (!user || user?.role !== 1) {
-      setMessage('로그인하세요.')
-      return
+      setMessage('로그인하세요.');
+      return;
     }
-    setOpenBuyModal(true)
-  }
+    setOpenBuyModal(true);
+  };
 
   const handleCloseModal = () => {
-    setOpenBuyModal(false)
-  }
+    setOpenBuyModal(false);
+  };
 
   const handleStatusOnConfirm = async (selectedStatus: number) => {
-    const url = `/api/products/${product?._id}`
-    const response = await fetchToAPI(url, 'PATCH', { status: selectedStatus + 1 })
+    const url = `/api/products/${product?._id}`;
+    const response = await fetchToAPI(url, 'PATCH', { status: selectedStatus + 1 });
     if (!response?.success) {
-      setStatus(product?.status)
+      setStatus(product?.status);
     }
-    setOpenStatusModal(false)
-  }
+    setOpenStatusModal(false);
+  };
 
   const handleChangedStatus = async (selectedStatus: number) => {
-    if (user?._id !== product?.owner?._id) return
+    if (user?._id !== product?.owner?._id) return;
     if (!selectedStatus) {
-      setOpenStatusModal(true)
-      return
+      setOpenStatusModal(true);
+      return;
     }
-    await handleStatusOnConfirm(selectedStatus)
-  }
+    await handleStatusOnConfirm(selectedStatus);
+  };
 
   const productStatus =
     user?.id === product.owner.id ? (
@@ -66,7 +66,7 @@ const ProductContent = ({ product, user, setMessage }: IProductContentProps) => 
       />
     ) : (
       onsaleStatusList[(product?.status || 1) - 1]
-    )
+    );
 
   return (
     <>
@@ -78,7 +78,9 @@ const ProductContent = ({ product, user, setMessage }: IProductContentProps) => 
           <dl className={styles.productInfo}>
             <div>
               <dt>{`${t('owner')}`}</dt>
-              <dd><UserPopover sendTo={product?.owner.name} /></dd>
+              <dd>
+                <UserPopover sendTo={product?.owner.name} />
+              </dd>
             </div>
             <div>
               <dt>{`${t('price')}`}</dt>
@@ -116,14 +118,14 @@ const ProductContent = ({ product, user, setMessage }: IProductContentProps) => 
       {openStatusModal && (
         <ItemStatusModal
           onClose={() => {
-            setOpenStatusModal(false)
-            if (product?.status >= 1) setStatus(product.status - 1)
+            setOpenStatusModal(false);
+            if (product?.status >= 1) setStatus(product.status - 1);
           }}
           onConfirm={() => handleStatusOnConfirm(0)}
         />
       )}
     </>
-  )
-}
+  );
+};
 
-export default ProductContent
+export default ProductContent;

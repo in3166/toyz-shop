@@ -1,10 +1,10 @@
-import userEvent from '@testing-library/user-event'
-import { useFormInput } from 'hooks'
-import { fireEvent, renderWithProviders, screen, act, renderHook } from 'utils/test-utils'
-import { signInUserValue } from 'fixtures/users'
-import LoginForm from 'components/SignInForm'
-import SignInPage from 'pages/signin'
-import { I18nextProvider } from 'react-i18next'
+import userEvent from '@testing-library/user-event';
+import { useFormInput } from 'hooks';
+import { fireEvent, renderWithProviders, screen, act, renderHook } from 'utils/test-utils';
+import { signInUserValue } from 'fixtures/users';
+import LoginForm from 'components/SignInForm';
+import SignInPage from 'pages/signin';
+import { I18nextProvider } from 'react-i18next';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -20,9 +20,9 @@ jest.mock('next/router', () => ({
       },
       beforePopState: jest.fn(() => null),
       prefetch: jest.fn(() => null),
-    }
+    };
   },
-}))
+}));
 
 describe('SignIn Component', () => {
   // test.each(signInUserValue)('The %s field should be in the document', async (fieldText) => {
@@ -83,31 +83,31 @@ describe('SignIn Component', () => {
   //     jest.useRealTimers()
   //   }
   // )
-})
+});
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
-}))
+}));
 
 describe('LoginForm Component', () => {
   test('should be able to submit form', async () => {
-    const mockSubmit = jest.fn((e) => e.preventDefault())
+    const mockSubmit = jest.fn((e) => e.preventDefault());
     jest.mock('react-i18next', () => ({
       useTranslation: () => ({ t: (key) => key }),
-    }))
-    const { result: resultid } = renderHook(() => useFormInput(() => true))
-    const { result: resultpw } = renderHook(() => useFormInput(() => true))
+    }));
+    const { result: resultid } = renderHook(() => useFormInput(() => true));
+    const { result: resultpw } = renderHook(() => useFormInput(() => true));
 
-    renderWithProviders(<LoginForm onSubmit={mockSubmit} id={resultid} password={resultpw} />)
+    renderWithProviders(<LoginForm onSubmit={mockSubmit} id={resultid} password={resultpw} />);
 
-    const field = screen.getByLabelText('signIn.titleID')
-    userEvent.type(field, 'user1')
+    const field = screen.getByLabelText('signIn.titleID');
+    userEvent.type(field, 'user1');
 
-    const passwordInput = screen.getByLabelText('signIn.titlePW')
-    userEvent.type(passwordInput, 'qlqjs12')
-    const submitButton = screen.getAllByRole('button', { name: /s/i })
-    console.log(submitButton)
-    await userEvent.click(submitButton)
-    expect(mockSubmit).toHaveBeenCalled()
-  })
-})
+    const passwordInput = screen.getByLabelText('signIn.titlePW');
+    userEvent.type(passwordInput, 'qlqjs12');
+    const submitButton = screen.getAllByRole('button', { name: /s/i });
+    console.log(submitButton);
+    await userEvent.click(submitButton);
+    expect(mockSubmit).toHaveBeenCalled();
+  });
+});

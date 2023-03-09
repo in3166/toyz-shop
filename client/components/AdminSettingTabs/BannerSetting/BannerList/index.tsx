@@ -1,17 +1,17 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
-import { useQuery } from 'react-query'
-import { throttle } from 'lodash'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { useQuery } from 'react-query';
+import { throttle } from 'lodash';
 
-import { IProductItem } from 'types/product'
-import { IBanner } from 'types/banners'
-import { BASE_URL } from 'fixtures'
-import { Card } from 'components/_shared'
-import useDragScroll from './useDragScroll'
-import styles from './bannerList.module.scss'
+import { IProductItem } from 'types/product';
+import { IBanner } from 'types/banners';
+import { BASE_URL } from 'fixtures';
+import { Card } from 'components/_shared';
+import useDragScroll from './useDragScroll';
+import styles from './bannerList.module.scss';
 
 interface IBannerList {
-  banners: IBanner[]
-  setBanners: Dispatch<SetStateAction<IBanner[]>>
+  banners: IBanner[];
+  setBanners: Dispatch<SetStateAction<IBanner[]>>;
 }
 const BannerList = ({ banners, setBanners }: IBannerList) => {
   const { isLoading, data } = useQuery(
@@ -24,11 +24,11 @@ const BannerList = ({ banners, setBanners }: IBannerList) => {
         },
       })
         .then(async (response) => {
-          const result = await response.json()
-          return result.banners
+          const result = await response.json();
+          return result.banners;
         })
         .catch((err) => {
-          console.log('err:', err)
+          console.log('err:', err);
         }),
     {
       // error , success false 로직 추가
@@ -36,29 +36,29 @@ const BannerList = ({ banners, setBanners }: IBannerList) => {
       staleTime: 6 * 50 * 1000,
       useErrorBoundary: true,
     }
-  )
+  );
 
   useEffect(() => {
     if (!isLoading) {
-      setBanners(data)
+      setBanners(data);
     }
-  }, [data, isLoading, setBanners])
+  }, [data, isLoading, setBanners]);
 
   const handleDeleteBanner = async (id: string) => {
     const response = await fetch(`${BASE_URL}/api/banners`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'apllication/jspn' },
       body: id,
-    })
-    const result = await response.json()
+    });
+    const result = await response.json();
     if (result.success) {
-      setBanners((prev) => prev.filter((value: IBanner) => value?._id !== id))
+      setBanners((prev) => prev.filter((value: IBanner) => value?._id !== id));
     }
-  }
-  const scrollRef = useRef<HTMLUListElement>(null)
-  const { onDragEnd, onDragStart, onDragMove, isDrag } = useDragScroll(scrollRef)
+  };
+  const scrollRef = useRef<HTMLUListElement>(null);
+  const { onDragEnd, onDragStart, onDragMove, isDrag } = useDragScroll(scrollRef);
 
-  const onThrottleDragMove = throttle(onDragMove, 50)
+  const onThrottleDragMove = throttle(onDragMove, 50);
 
   return (
     <>
@@ -93,11 +93,11 @@ const BannerList = ({ banners, setBanners }: IBannerList) => {
                 </div>
               </Card>
             </li>
-          )
+          );
         })}
       </ul>
     </>
-  )
-}
+  );
+};
 
-export default BannerList
+export default BannerList;

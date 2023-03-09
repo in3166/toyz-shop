@@ -1,14 +1,14 @@
-import { MouseEvent, useState } from 'react'
-import Slider from 'react-slick'
-import { useRouter } from 'next/router'
-import dayjs from 'dayjs'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+import { MouseEvent, useState } from 'react';
+import Slider from 'react-slick';
+import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-import { useI18n } from 'hooks'
-import { IBanner } from 'types/banners'
-import { currencyFormatter } from 'utils'
-import styles from './banner.module.scss'
+import { useI18n } from 'hooks';
+import { IBanner } from 'types/banners';
+import { currencyFormatter } from 'utils';
+import styles from './banner.module.scss';
 
 const slideSettings = {
   dots: true,
@@ -19,18 +19,18 @@ const slideSettings = {
   slidesToScroll: 1,
   arrows: false,
   dotsClass: `slick-dots ${styles.dots}`,
-}
+};
 
 const Banner = ({ banners }: { banners: IBanner[] }) => {
-  const t = useI18n()
-  const [mouseMoved, setMouseMoved] = useState(false)
-  const router = useRouter()
+  const t = useI18n();
+  const [mouseMoved, setMouseMoved] = useState(false);
+  const router = useRouter();
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const path = e.currentTarget.value
+    const path = e.currentTarget.value;
     if (!mouseMoved) {
-      router.push(path)
+      router.push(path);
     }
-  }
+  };
 
   return (
     <Slider {...slideSettings} className={styles.slider}>
@@ -68,10 +68,10 @@ const Banner = ({ banners }: { banners: IBanner[] }) => {
               </dl>
             </div>
           </button>
-        )
+        );
       })}
     </Slider>
-  )
-}
+  );
+};
 
-export default Banner
+export default Banner;

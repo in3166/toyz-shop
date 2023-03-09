@@ -1,34 +1,34 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { useUpdateEffect } from 'react-use'
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useUpdateEffect } from 'react-use';
 
 export const useSnackbar = (ms = 5000) => {
-  const [message, setMessage] = useState('')
-  const timer = useRef<null | NodeJS.Timeout>(null)
+  const [message, setMessage] = useState('');
+  const timer = useRef<null | NodeJS.Timeout>(null);
 
   const setSnackbarMessage = useCallback((text: string) => {
-    setMessage(text)
-  }, [])
+    setMessage(text);
+  }, []);
 
   const clearTimer = () => {
-    if (timer.current) clearTimeout(timer.current)
-  }
+    if (timer.current) clearTimeout(timer.current);
+  };
 
   useUpdateEffect(() => {
-    if (timer.current) clearTimer()
+    if (timer.current) clearTimer();
     if (message !== '') {
       timer.current = setTimeout(() => {
-        setMessage('')
-        clearTimer()
-      }, ms + 100)
+        setMessage('');
+        clearTimer();
+      }, ms + 100);
     }
-  }, [message])
+  }, [message]);
 
   useEffect(() => {
     return () => {
-      if (timer.current) clearTimer()
-      setMessage('')
-    }
-  }, [])
+      if (timer.current) clearTimer();
+      setMessage('');
+    };
+  }, []);
 
-  return { message, setMessage: setSnackbarMessage, clearTimer }
-}
+  return { message, setMessage: setSnackbarMessage, clearTimer };
+};

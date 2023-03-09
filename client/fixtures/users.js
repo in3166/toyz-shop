@@ -31,7 +31,7 @@ export const signUpUserValue = [
       notValidInputText: '0120340',
     },
   ],
-]
+];
 
 export const signInUserValue = [
   [
@@ -50,4 +50,4 @@ export const signInUserValue = [
       notValidInputText: 'qlqj',
     },
   ],
-]
+];

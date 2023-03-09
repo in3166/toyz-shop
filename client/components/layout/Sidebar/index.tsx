@@ -1,42 +1,42 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { debounce } from 'lodash'
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { debounce } from 'lodash';
 
-import { useOnClickOutside, useState } from 'hooks'
-import { LogoImage, MenuBar } from 'public/svgs'
-import { cx } from 'styles'
-import styles from './sidebar.module.scss'
+import { useOnClickOutside, useState } from 'hooks';
+import { LogoImage, MenuBar } from 'public/svgs';
+import { cx } from 'styles';
+import styles from './sidebar.module.scss';
 
 const Sidebar = (): JSX.Element => {
-  const router = useRouter()
-  const [visibleSideBar, setVisibleSideBar] = useState(true)
+  const router = useRouter();
+  const [visibleSideBar, setVisibleSideBar] = useState(true);
 
   const handleOpenMenu = () => {
-    setVisibleSideBar((prev) => !prev)
-  }
+    setVisibleSideBar((prev) => !prev);
+  };
 
   const handleResize = debounce(() => {
-    setVisibleSideBar(window.innerWidth > 768)
-  }, 150)
+    setVisibleSideBar(window.innerWidth > 768);
+  }, 150);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.innerWidth < 766) {
-      setVisibleSideBar(false)
+      setVisibleSideBar(false);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [handleResize])
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleResize]);
 
   const handleClickOutsideSidebar = () => {
-    if (visibleSideBar && window.innerWidth < 600) setVisibleSideBar(false)
-  }
-  const asideRef = useOnClickOutside(handleClickOutsideSidebar)
+    if (visibleSideBar && window.innerWidth < 600) setVisibleSideBar(false);
+  };
+  const asideRef = useOnClickOutside(handleClickOutsideSidebar);
 
   return (
     <aside
@@ -89,7 +89,7 @@ const Sidebar = (): JSX.Element => {
         <MenuBar />
       </button>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

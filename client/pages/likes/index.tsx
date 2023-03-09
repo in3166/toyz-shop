@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import Head from 'next/head'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react';
+import Head from 'next/head';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { IProductItem } from 'types/product'
-import ProductList from 'components/ProductList'
+import { IProductItem } from 'types/product';
+import ProductList from 'components/ProductList';
 
 const LikesPage = () => {
-  const [products, setProducts] = useState<IProductItem[]>([])
+  const [products, setProducts] = useState<IProductItem[]>([]);
   return (
     <>
       <Head>
@@ -15,8 +15,8 @@ const LikesPage = () => {
       </Head>
       <ProductList products={products} setProducts={setProducts} />
     </>
-  )
-}
+  );
+};
 
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   return {
@@ -24,7 +24,7 @@ export const getStaticProps = async ({ locale, locales }: { locale: string; loca
       ...(await serverSideTranslations(locale, ['common'])),
       locales,
     },
-  }
-}
+  };
+};
 
-export default LikesPage
+export default LikesPage;

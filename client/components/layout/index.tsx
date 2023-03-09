@@ -1,17 +1,17 @@
-import { ReactNode } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
+import { ReactNode } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
-import Sidebar from './Sidebar'
-import Footer from './Footer'
-import Header from './Header'
-import ErrorFallback from './ErrorFallback'
-import { cx } from 'styles'
-import styles from './layout.module.scss'
+import Sidebar from './Sidebar';
+import Footer from './Footer';
+import Header from './Header';
+import ErrorFallback from './ErrorFallback';
+import { cx } from 'styles';
+import styles from './layout.module.scss';
 
 interface ILayoutPropx {
-  children: ReactNode
-  languageList: string[]
-  isDark: boolean
+  children: ReactNode;
+  languageList: string[];
+  isDark: boolean;
 }
 
 const Layout = ({ children, languageList, isDark }: ILayoutPropx) => {
@@ -26,7 +26,7 @@ const Layout = ({ children, languageList, isDark }: ILayoutPropx) => {
         <Footer />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

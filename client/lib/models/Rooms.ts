@@ -1,18 +1,19 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 
 const messageSchema = new mongoose.Schema(
   {
     author: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
     message: {
       type: String,
     },
     roomId: {
       type: Schema.Types.ObjectId,
-      ref: "Chat",
+      ref: 'Chat',
     },
   },
   {

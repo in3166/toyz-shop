@@ -1,69 +1,69 @@
-import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
-import { useI18n, useFormInput } from 'hooks'
-import { IMongooseError } from 'types/mongo'
-import { IOnUploadSubmit, IProductItem } from 'types/product'
-import { validateProductDescription, validateProductPrice, validateProductTitle } from 'utils'
-import { InputText, SnackBar } from 'components/_shared'
-import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import styles from './uploadImageForm.module.scss'
+import { useI18n, useFormInput } from 'hooks';
+import { IMongooseError } from 'types/mongo';
+import { IOnUploadSubmit, IProductItem } from 'types/product';
+import { validateProductDescription, validateProductPrice, validateProductTitle } from 'utils';
+import { InputText, SnackBar } from 'components/_shared';
+import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar';
+import styles from './uploadImageForm.module.scss';
 
 interface IUploadImageFormProps {
-  onUploadSubmit: (data: IOnUploadSubmit, file?: File) => Promise<IMongooseError | string | null>
-  product?: IProductItem
+  onUploadSubmit: (data: IOnUploadSubmit, file?: File) => Promise<IMongooseError | string | null>;
+  product?: IProductItem;
 }
 
-const DEFAULT_IMAGE_PATH = '/products/default.png'
-const INITIAL_DESCRIPTION = `판매할 상품의 상세 정보를 작성해주세요. \n 품명: \n 가격: \n 사용 기간: \n 거래 방식: (택배/직거래) \n 장소: `
+const DEFAULT_IMAGE_PATH = '/products/default.png';
+const INITIAL_DESCRIPTION = `판매할 상품의 상세 정보를 작성해주세요. \n 품명: \n 가격: \n 사용 기간: \n 거래 방식: (택배/직거래) \n 장소: `;
 
 const UploadImageForm = ({ onUploadSubmit, product }: IUploadImageFormProps) => {
-  const t = useI18n()
-  const router = useRouter()
-  const inputFocusRef = useRef(null)
-  const [snackBarStatus, setSnackBarStatus] = useState('')
-  const [loading, setLoading] = useState(false)
-  const { message, setMessage } = useSnackbar()
-  const [imageFile, setImageFile] = useState<File | undefined>()
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(product?.image || DEFAULT_IMAGE_PATH)
-  const { data: session } = useSession()
+  const t = useI18n();
+  const router = useRouter();
+  const inputFocusRef = useRef(null);
+  const [snackBarStatus, setSnackBarStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { message, setMessage } = useSnackbar();
+  const [imageFile, setImageFile] = useState<File | undefined>();
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(product?.image || DEFAULT_IMAGE_PATH);
+  const { data: session } = useSession();
 
-  const title = useFormInput({ validateFunction: validateProductTitle, initialValue: product?.title })
-  const price = useFormInput({ validateFunction: validateProductPrice, initialValue: product?.price?.toString() })
+  const title = useFormInput({ validateFunction: validateProductTitle, initialValue: product?.title });
+  const price = useFormInput({ validateFunction: validateProductPrice, initialValue: product?.price?.toString() });
   const description = useFormInput({
     validateFunction: validateProductDescription,
     initialValue: product?.description || INITIAL_DESCRIPTION,
-  })
+  });
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const reader = new FileReader()
-    const { files } = e.currentTarget
-    if (!files) return
-    if (files && files?.length < 1) return
+    e.preventDefault();
+    const reader = new FileReader();
+    const { files } = e.currentTarget;
+    if (!files) return;
+    if (files && files?.length < 1) return;
 
     reader.onloadend = () => {
-      setImageFile(files[0])
-      setImagePreviewUrl(reader.result?.toString() || '')
-    }
-    reader.readAsDataURL(files[0])
-  }
+      setImageFile(files[0]);
+      setImagePreviewUrl(reader.result?.toString() || '');
+    };
+    reader.readAsDataURL(files[0]);
+  };
 
   const handleOnSubmit = async (e: FormEvent) => {
-    setLoading(true)
-    e.preventDefault()
+    setLoading(true);
+    e.preventDefault();
     if (!imageFile && !product) {
-      setSnackBarStatus('warning')
-      setMessage(`${t('upload.snackBarImageNotValid')}`)
-      setLoading(false)
-      return
+      setSnackBarStatus('warning');
+      setMessage(`${t('upload.snackBarImageNotValid')}`);
+      setLoading(false);
+      return;
     }
     if (!title.valueIsValid || !price.valueIsValid || !description.valueIsValid) {
-      setSnackBarStatus('warning')
-      setMessage(`${t('upload.snackBarValid')}`)
-      setLoading(false)
-      return
+      setSnackBarStatus('warning');
+      setMessage(`${t('upload.snackBarValid')}`);
+      setLoading(false);
+      return;
     }
 
     const data = {
@@ -72,30 +72,30 @@ const UploadImageForm = ({ onUploadSubmit, product }: IUploadImageFormProps) => 
       title: title.value,
       price: Number(price.value),
       changedImage: 'no',
-    }
+    };
 
-    const success = await onUploadSubmit(data, imageFile)
+    const success = await onUploadSubmit(data, imageFile);
     if (!success) {
-      setSnackBarStatus('error')
-      setMessage(`${t('upload.snackBarFail')}`)
+      setSnackBarStatus('error');
+      setMessage(`${t('upload.snackBarFail')}`);
     }
 
     if (success) {
-      setSnackBarStatus('')
-      setMessage(`${t('upload.snackBarSuccess')}`)
-      setImageFile(undefined)
-      title.reset()
-      description.reset()
-      price.reset()
-      setImagePreviewUrl(DEFAULT_IMAGE_PATH)
+      setSnackBarStatus('');
+      setMessage(`${t('upload.snackBarSuccess')}`);
+      setImageFile(undefined);
+      title.reset();
+      description.reset();
+      price.reset();
+      setImagePreviewUrl(DEFAULT_IMAGE_PATH);
     }
 
     if (product) {
-      router.push(`/product/${product._id}`)
+      router.push(`/product/${product._id}`);
     }
 
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <form onSubmit={handleOnSubmit} className={styles.uploadImageForm}>
@@ -160,7 +160,7 @@ const UploadImageForm = ({ onUploadSubmit, product }: IUploadImageFormProps) => 
       </div>
       {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
     </form>
-  )
-}
+  );
+};
 
-export default UploadImageForm
+export default UploadImageForm;

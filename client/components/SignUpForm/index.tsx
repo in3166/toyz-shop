@@ -1,41 +1,41 @@
-import React, { FormEvent, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
+import React, { FormEvent, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 
-import { useI18n, useFormInput } from 'hooks'
-import { IUser } from 'types/user'
-import { IMongooseError } from 'types/mongo'
-import { validateEmail, validateId, validateName, validatePassword, validatePhoneNumber } from 'utils'
-import { InputText, SnackBar } from 'components/_shared'
-import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import styles from './signUpForm.module.scss'
+import { useI18n, useFormInput } from 'hooks';
+import { IUser } from 'types/user';
+import { IMongooseError } from 'types/mongo';
+import { validateEmail, validateId, validateName, validatePassword, validatePhoneNumber } from 'utils';
+import { InputText, SnackBar } from 'components/_shared';
+import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar';
+import styles from './signUpForm.module.scss';
 
 interface ISignUpFormProps {
-  onAddUser: (user: IUser) => Promise<IMongooseError | null>
+  onAddUser: (user: IUser) => Promise<IMongooseError | null>;
 }
 
 const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
-  const t = useI18n()
-  const inputFocusRef = useRef(null)
-  const router = useRouter()
-  const userEmail = router.query?.email?.toString() ?? ''
-  const [snackBarStatus, setSnackBarStatus] = useState('')
-  const [loading, setLoading] = useState(false)
-  const { message, setMessage } = useSnackbar(5000)
+  const t = useI18n();
+  const inputFocusRef = useRef(null);
+  const router = useRouter();
+  const userEmail = router.query?.email?.toString() ?? '';
+  const [snackBarStatus, setSnackBarStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { message, setMessage } = useSnackbar(5000);
 
-  const id = useFormInput({ validateFunction: validateId, initialValue: '' })
-  const name = useFormInput({ validateFunction: validateName, initialValue: '' })
-  const password = useFormInput({ validateFunction: validatePassword, initialValue: '' })
-  const phone = useFormInput({ validateFunction: validatePhoneNumber, initialValue: '' })
-  const email = useFormInput({ validateFunction: validateEmail, initialValue: userEmail || '' })
+  const id = useFormInput({ validateFunction: validateId, initialValue: '' });
+  const name = useFormInput({ validateFunction: validateName, initialValue: '' });
+  const password = useFormInput({ validateFunction: validatePassword, initialValue: '' });
+  const phone = useFormInput({ validateFunction: validatePhoneNumber, initialValue: '' });
+  const email = useFormInput({ validateFunction: validateEmail, initialValue: userEmail || '' });
 
   const handleOnSubmit = async (e: FormEvent) => {
-    setLoading(true)
-    e.preventDefault()
+    setLoading(true);
+    e.preventDefault();
     if (!id.valueIsValid || !password.valueIsValid || !phone.valueIsValid || !name.valueIsValid) {
-      setSnackBarStatus('warning')
-      setMessage(`${t('common:signUp.snackBar')}`)
-      setLoading(false)
-      return
+      setSnackBarStatus('warning');
+      setMessage(`${t('common:signUp.snackBar')}`);
+      setLoading(false);
+      return;
     }
 
     const newUser = {
@@ -44,15 +44,15 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
       password: password.value,
       email: userEmail || email.value,
       phone: phone.value,
-    }
+    };
 
-    const error = await onAddUser(newUser)
+    const error = await onAddUser(newUser);
     if (error) {
-      setSnackBarStatus('error')
-      setMessage(`[${error.code || 'Error'}]: ${error.message}`)
+      setSnackBarStatus('error');
+      setMessage(`[${error.code || 'Error'}]: ${error.message}`);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <form onSubmit={handleOnSubmit} className={styles.signUpForm}>
@@ -117,7 +117,7 @@ const SignUpForm = ({ onAddUser }: ISignUpFormProps) => {
       </footer>
       {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
     </form>
-  )
-}
+  );
+};
 
-export default SignUpForm
+export default SignUpForm;

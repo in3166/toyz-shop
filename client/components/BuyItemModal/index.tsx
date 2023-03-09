@@ -1,29 +1,29 @@
-import { loadTossPayments } from '@tosspayments/payment-sdk'
+import { loadTossPayments } from '@tosspayments/payment-sdk';
 
-import { useI18n, useOnClickOutside, useState } from 'hooks'
-import { IProductItem } from 'types/product'
-import { BASE_URL } from 'fixtures'
-import { currencyFormatter } from 'utils'
-import { Modal } from 'components/_shared'
-import styles from './buyItemModal.module.scss'
-import { cx } from 'styles'
+import { useI18n, useOnClickOutside, useState } from 'hooks';
+import { IProductItem } from 'types/product';
+import { BASE_URL } from 'fixtures';
+import { currencyFormatter } from 'utils';
+import { Modal } from 'components/_shared';
+import styles from './buyItemModal.module.scss';
+import { cx } from 'styles';
 
-const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY || ''
+const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY || '';
 interface IBuyItemModalProps {
-  onClose: () => void
-  setMessage: (text: string) => void
-  product: IProductItem
-  buyer?: string
+  onClose: () => void;
+  setMessage: (text: string) => void;
+  product: IProductItem;
+  buyer?: string;
 }
 
 const BuyItemModal = ({ onClose, product, buyer, setMessage }: IBuyItemModalProps) => {
-  const t = useI18n()
-  const buyMenuRef = useOnClickOutside(() => setOpenMenu(false))
-  const [openMenu, setOpenMenu] = useState(false)
+  const t = useI18n();
+  const buyMenuRef = useOnClickOutside(() => setOpenMenu(false));
+  const [openMenu, setOpenMenu] = useState(false);
 
   const handleBuyMenuOpen = () => {
-    setOpenMenu((prev) => !prev)
-  }
+    setOpenMenu((prev) => !prev);
+  };
 
   const handleClickBuy = async (type: boolean) => {
     loadTossPayments(clientKey)
@@ -43,15 +43,15 @@ const BuyItemModal = ({ onClose, product, buyer, setMessage }: IBuyItemModalProp
             },
           })
           .catch(() => {
-            setMessage('결제가 취소되었습니다.')
-            onClose()
-          })
+            setMessage('결제가 취소되었습니다.');
+            onClose();
+          });
       })
       .catch(() => {
-        setMessage('결제 페이지 로드를 실패하였습니다.')
-        onClose()
-      })
-  }
+        setMessage('결제 페이지 로드를 실패하였습니다.');
+        onClose();
+      });
+  };
 
   return (
     <Modal onCancel={onClose}>
@@ -104,7 +104,7 @@ const BuyItemModal = ({ onClose, product, buyer, setMessage }: IBuyItemModalProp
         </div>
       </footer>
     </Modal>
-  )
-}
+  );
+};
 
-export default BuyItemModal
+export default BuyItemModal;
