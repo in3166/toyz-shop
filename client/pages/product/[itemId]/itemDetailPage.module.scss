@@ -1,0 +1,69 @@
+@use '/styles/constants/colors';
+@use '/styles/mixins/responsive';
+@use '/styles/mixins/position';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  margin-bottom: 30px;
+  font-size: 17px;
+  font-weight: 500;
+  color: colors.$GRAY2;
+  border-bottom: 1px solid colors.$GRAYA;
+
+  svg {
+    width: 20px;
+    height: auto;
+
+    image {
+      width: 20px;
+      height: auto;
+    }
+  }
+
+  .editButtonWrapper {
+    display: flex;
+    align-items: center;
+    padding: 3px 5px;
+
+    button {
+      padding: 2px 3px;
+    }
+
+    .editButton,
+    .deleteButton {
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        filter: drop-shadow(0 0 0.3px black);
+      }
+    }
+  }
+
+  :root[color-theme='dark'] & {
+    color: colors.$HEADER_DARK_FONT_COLOR;
+
+    .editButtonWrapper {
+      background-color: rgb(202, 201, 201);
+      border-radius: 50px;
+
+      .editButton,
+      .deleteButton {
+        border-radius: 50px;
+
+        &:hover {
+          background-color: rgba(124, 124, 124, 23.3%);
+        }
+      }
+    }
+  }
+}
+
+.main {
+  :root[color-theme='dark'] & {
+    color: colors.$HEADER_DARK_FONT_COLOR;
+  }
+}
