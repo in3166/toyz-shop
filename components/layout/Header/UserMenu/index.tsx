@@ -58,15 +58,9 @@ const UserMenu = ({ lang }: { lang: string }) => {
           {`${t('common:gnb.logout')}`}
         </button>
       </li>
-      <li>
+      <li onMouseEnter={onHover} onMouseLeave={onHoverLeave} className={styles.settingIcon}>
         {session?.user?.name !== 'admin' ? (
-          <button
-            type='button'
-            onMouseEnter={onHover}
-            onMouseLeave={onHoverLeave}
-            className={styles.settingIcon}
-            aria-label='link to User Setting page'
-          >
+          <>
             <ProfileIcon />
             {isHover && (
               <Popover
@@ -78,7 +72,7 @@ const UserMenu = ({ lang }: { lang: string }) => {
                 setPopoverIsOpen={setIsHover}
               />
             )}
-          </button>
+          </>
         ) : (
           <button type='button' className={styles.settingIcon} aria-label='Enter User Setting Page'>
             <Link href='/setting/admin' aria-label='link to Admin Setting page'>

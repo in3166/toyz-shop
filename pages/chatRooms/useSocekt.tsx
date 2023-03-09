@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import io, { Socket } from 'socket.io-client';
-import EVENTS, { SOCKET_URL } from '../../fixtures/confingChat';
+import EVENTS, { SOCKET_URL } from 'fixtures/configChat';
 
 interface Context {
   socket: Socket;
@@ -40,7 +40,6 @@ const SocketsProvider = (props: any) => {
 
   socket.on(EVENTS.SERVER.JOINED_ROOM, (value) => {
     setRoomId(value);
-
     setMessages([]);
   });
 

@@ -12,7 +12,7 @@ import localStore from 'store';
 
 import wrapper from 'stores';
 import Layout from 'components/layout';
-import 'styles/index.scss';
+import '/styles/index.scss';
 import SocketsProvider from './chatRooms/useSocekt';
 
 const queryClient = new QueryClient({
@@ -51,15 +51,13 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }: AppProps) => {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
       <Provider store={store}>
-        <SocketsProvider>
-          <RecoilRoot>
-            <SessionProvider session={props.session}>
-              <Layout languageList={LANGUAGE_LIST} isDark={darkMode}>
-                <Component {...props} />
-              </Layout>
-            </SessionProvider>
-          </RecoilRoot>
-        </SocketsProvider>
+        <RecoilRoot>
+          <SessionProvider session={props.session}>
+            <Layout languageList={LANGUAGE_LIST} isDark={darkMode}>
+              <Component {...props} />
+            </Layout>
+          </SessionProvider>
+        </RecoilRoot>
       </Provider>
     </QueryClientProvider>
   );

@@ -121,6 +121,10 @@ $ASSET_PATH: '/assets/svgs/';
     width: 100%;
     margin: 0 !important;
 
+    > button {
+      width: 100%;
+    }
+
     &:hover {
       background-color: colors.$GRAYD;
     }

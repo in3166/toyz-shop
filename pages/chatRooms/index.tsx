@@ -3,9 +3,9 @@ import { useSession } from 'next-auth/react';
 import nextI18nextConfig from 'next-i18next.config';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useSockets } from './useSocekt';
-import EVENTS from 'fixtures/confingChat';
+import EVENTS from 'fixtures/configChat';
 
-const RealtimeChat = () => {
+const ChatRooms = () => {
   const { socket, username, setUsername } = useSockets();
   const { data: session } = useSession();
   return (
@@ -28,7 +28,7 @@ const RealtimeChat = () => {
   );
 };
 
-export default RealtimeChat;
+export default ChatRooms;
 
 const MessagesContainer = () => {
   const { socket, messages, roomId, username: user, setMessages } = useSockets();
