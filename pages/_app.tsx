@@ -10,10 +10,10 @@ import { appWithTranslation, useTranslation } from 'next-i18next';
 import nextI18nextConfig from 'next-i18next.config';
 import localStore from 'store';
 
+import SocketsProvider from './chatRooms/useSocekt';
 import wrapper from 'stores';
 import Layout from 'components/layout';
-import '/styles/index.scss';
-import SocketsProvider from './chatRooms/useSocekt';
+import 'styles/index.scss';
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnMount: false } },
