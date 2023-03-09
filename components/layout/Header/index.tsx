@@ -1,34 +1,34 @@
-import { useCallback, useEffect, useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { DropDown, SearchBar } from 'components/_shared'
-import UserMenu from './UserMenu'
-import DarkMode from './DarkMode'
-import styles from './header.module.scss'
-import { LogoImage } from 'public/svgs'
+import { DropDown, SearchBar } from 'components/_shared';
+import UserMenu from './UserMenu';
+import DarkMode from './DarkMode';
+import styles from './header.module.scss';
+import { LogoImage } from 'public/svgs';
 
 interface IHeaderProps {
-  languageList: string[]
-  isDark: boolean
+  languageList: string[];
+  isDark: boolean;
 }
 
 const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
-  const router = useRouter()
-  const [currentLanguage, setCurrentLanguage] = useState(0)
+  const router = useRouter();
+  const [currentLanguage, setCurrentLanguage] = useState(0);
 
   const handleChangeLanguage = useCallback(
     (language: string) => {
-      const selectedLanguage = language === 'English' || language === '영어' ? 'en' : 'ko'
-      const { pathname, asPath, query } = router
-      router.push({ pathname, query }, asPath, { locale: selectedLanguage })
+      const selectedLanguage = language === 'English' || language === '영어' ? 'en' : 'ko';
+      const { pathname, asPath, query } = router;
+      router.push({ pathname, query }, asPath, { locale: selectedLanguage });
     },
     [router]
-  )
+  );
 
   useEffect(() => {
-    setCurrentLanguage(0)
-  }, [languageList])
+    setCurrentLanguage(0);
+  }, [languageList]);
 
   return (
     <div className={styles.header}>
@@ -56,7 +56,7 @@ const Header = ({ languageList, isDark }: IHeaderProps): JSX.Element => {
         </ul>
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

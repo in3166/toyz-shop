@@ -1,54 +1,54 @@
-import { useEffect, useState } from 'react'
-import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { AppProps } from 'next/app'
-import Head from 'next/head'
-import nextI18nextConfig from 'next-i18next.config'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useEffect, useState } from 'react';
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import nextI18nextConfig from 'next-i18next.config';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { useIntersectionObserver } from 'hooks'
-import { dbConnect } from 'lib/dbConnect'
-import { getAllProducts } from 'lib/controllers'
-import { fetchToAPI } from 'utils'
-import { ScrollDetecor, SearchBar } from 'components/_shared'
-import ProductList from 'components/ProductList'
-import ProductFilter from 'components/ProductFilter'
-import styles from './marketPlace.module.scss'
+import { useIntersectionObserver } from 'hooks';
+import { dbConnect } from 'lib/dbConnect';
+import { getAllProducts } from 'lib/controllers';
+import { fetchToAPI } from 'utils';
+import { ScrollDetecor, SearchBar } from 'components/_shared';
+import ProductList from 'components/ProductList';
+import ProductFilter from 'components/ProductFilter';
+import styles from './marketPlace.module.scss';
 
 const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
-  const { initialProducts } = pageProps
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
-  const [searchText, setSearchText] = useState('')
-  const [products, setProducts] = useState(initialProducts)
-  const [status, setStatus] = useState(1)
-  const [sort, setSort] = useState(0)
+  const { initialProducts } = pageProps;
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchText, setSearchText] = useState('');
+  const [products, setProducts] = useState(initialProducts);
+  const [status, setStatus] = useState(1);
+  const [sort, setSort] = useState(0);
 
   useEffect(() => {
-    setIsLoading(true)
-    const { query } = router
+    setIsLoading(true);
+    const { query } = router;
     if (query?.text) {
-      setSearchText(query?.text?.toString())
+      setSearchText(query?.text?.toString());
     }
 
     if (query?.text?.toString()) {
       fetchToAPI(`/api/products?text=${query?.text?.toString()}`, 'GET').then((response) => {
         if (response?.success && response.products.length) {
-          setProducts(response?.products)
+          setProducts(response?.products);
         }
-        setIsLoading(false)
-      })
+        setIsLoading(false);
+      });
     } else {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [router])
+  }, [router]);
 
   const { setTarget, isEnd, handleChangedFilter } = useIntersectionObserver(
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,
     setProducts,
     { searchText, status, sort, firstProduct: initialProducts[0].createdAt }
-  )
+  );
 
   return (
     <>
@@ -71,12 +71,12 @@ const MarketPlace: NextPage<AppProps> = ({ pageProps }: AppProps) => {
       <ProductList products={products} isLoading={isLoading} />
       {!isEnd && !isLoading && <ScrollDetecor setTarget={setTarget} />}
     </>
-  )
-}
+  );
+};
 
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
-  await dbConnect()
-  const responseProducts = await getAllProducts({ page: 1, status: 1 })
+  await dbConnect();
+  const responseProducts = await getAllProducts({ page: 1, status: 1 });
 
   return {
     props: {
@@ -85,7 +85,7 @@ export const getStaticProps = async ({ locale, locales }: { locale: string; loca
       initialProducts: JSON.parse(JSON.stringify(responseProducts || [])),
     },
     revalidate: 10,
-  }
-}
+  };
+};
 
-export default MarketPlace
+export default MarketPlace;

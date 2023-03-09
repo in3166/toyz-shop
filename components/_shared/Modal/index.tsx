@@ -1,19 +1,19 @@
-import { MouseEventHandler } from 'react'
-import ReactDOM from 'react-dom'
+import { MouseEventHandler } from 'react';
+import ReactDOM from 'react-dom';
 
-import styles from './modal.module.scss'
+import styles from './modal.module.scss';
 
 interface IBackDropProps {
-  onCancel?: MouseEventHandler<HTMLButtonElement>
+  onCancel?: MouseEventHandler<HTMLButtonElement>;
 }
 
 interface IModalProps {
-  onCancel?: MouseEventHandler<HTMLButtonElement>
-  children: React.ReactNode
+  onCancel?: MouseEventHandler<HTMLButtonElement>;
+  children: React.ReactNode;
 }
 
 interface IModalOverlayProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const BackDrop = ({ onCancel }: IBackDropProps) => {
@@ -26,23 +26,23 @@ const BackDrop = ({ onCancel }: IBackDropProps) => {
     >
       <div className={styles.backDrop} />
     </button>
-  )
-}
+  );
+};
 
 const ModalOverlay = ({ children }: IModalOverlayProps) => {
-  return <div className={styles.modal}>{children}</div>
-}
+  return <div className={styles.modal}>{children}</div>;
+};
 
 const Modal = ({ onCancel, children }: IModalProps) => {
-  const backDropElement = document?.getElementById('backdropRoot')
-  const modalElement = document?.getElementById('modalOverlay')
+  const backDropElement = document?.getElementById('backdropRoot');
+  const modalElement = document?.getElementById('modalOverlay');
 
   return (
     <>
       {backDropElement && ReactDOM.createPortal(<BackDrop onCancel={onCancel} />, backDropElement)}
       {modalElement && ReactDOM.createPortal(<ModalOverlay>{children}</ModalOverlay>, modalElement)}
     </>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

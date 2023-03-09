@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const BannersSchema = new mongoose.Schema(
   {
@@ -9,6 +9,6 @@ const BannersSchema = new mongoose.Schema(
     },
   },
   { timestamps: true }
-)
+);
 
-export default mongoose.models.Banners || mongoose.model('Banners', BannersSchema)
+export default mongoose.models.Banners || mongoose.model('Banners', BannersSchema);

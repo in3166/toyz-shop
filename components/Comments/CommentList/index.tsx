@@ -1,9 +1,9 @@
-import dayjs from 'dayjs'
-import { ICommentItem } from 'types/commnet'
-import styles from './commentList.module.scss'
+import dayjs from 'dayjs';
+import { ICommentItem } from 'types/commnet';
+import styles from './commentList.module.scss';
 
 interface ICommentListProps {
-  commentArray: ICommentItem[]
+  commentArray: ICommentItem[];
 }
 const CommentList = ({ commentArray }: ICommentListProps) => {
   return (
@@ -18,11 +18,11 @@ const CommentList = ({ commentArray }: ICommentListProps) => {
                 </div>
                 <div className={styles.text}>{value.text}</div>
               </li>
-            )
+            );
           })}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default CommentList
+export default CommentList;

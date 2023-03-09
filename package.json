@@ -75,6 +75,7 @@
     "react-use": "^17.4.0",
     "recoil": "^0.7.6",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.6.1",
     "store": "^2.0.12",
     "uuid": "^9.0.0",
     "victory": "^36.6.8",

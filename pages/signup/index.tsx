@@ -1,21 +1,21 @@
-import { NextPage } from 'next'
-import { NextPageContext } from 'next/types'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { signIn } from 'next-auth/react'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextPage } from 'next';
+import { NextPageContext } from 'next/types';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import errorHandler from 'lib/errorHandler'
-import { IUser } from 'types/user'
-import SignUpForm from 'components/SignUpForm'
-import { SignUpIcon } from 'public/svgs'
-import styles from './signUp.module.scss'
+import errorHandler from 'lib/errorHandler';
+import { IUser } from 'types/user';
+import SignUpForm from 'components/SignUpForm';
+import { SignUpIcon } from 'public/svgs';
+import styles from './signUp.module.scss';
 
 const SignUp: NextPage = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const addUserHandler = async (enteredUserData: IUser) => {
-    enteredUserData.likes = []
+    enteredUserData.likes = [];
     try {
       const response = await fetch('/api/users', {
         method: 'POST',
@@ -23,31 +23,31 @@ const SignUp: NextPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-      })
+      });
 
-      const signUpResult = await response.json()
+      const signUpResult = await response.json();
       if (!signUpResult.success) {
-        const field = signUpResult.error?.keyValue?.email !== undefined ? 'Email' : 'ID'
+        const field = signUpResult.error?.keyValue?.email !== undefined ? 'Email' : 'ID';
 
-        let message = !signUpResult.error.message ? errorHandler(signUpResult.error?.code) : signUpResult.error.message
-        message += ` (${field})`
-        return { ...signUpResult.error, message }
+        let message = !signUpResult.error.message ? errorHandler(signUpResult.error?.code) : signUpResult.error.message;
+        message += ` (${field})`;
+        return { ...signUpResult.error, message };
       }
 
       const responseSignin = await signIn('credentials', {
         id: enteredUserData.id,
         password: enteredUserData.password,
         redirect: false,
-      })
+      });
       if (!responseSignin?.ok) {
-        return new Error(responseSignin?.error)
+        return new Error(responseSignin?.error);
       }
-      router.push('/')
-      return null
+      router.push('/');
+      return null;
     } catch (error) {
-      return error
+      return error;
     }
-  }
+  };
 
   return (
     <>
@@ -67,18 +67,18 @@ const SignUp: NextPage = () => {
         </div>
       </main>
     </>
-  )
-}
+  );
+};
 
 export const getStaticProps = async (context: NextPageContext) => {
-  const { locale, locales } = context
+  const { locale, locales } = context;
 
   return {
     props: {
       ...(await serverSideTranslations(locale || 'ko', ['common'])),
       locales,
     },
-  }
-}
+  };
+};
 
-export default SignUp
+export default SignUp;

@@ -1,15 +1,15 @@
-import { Dispatch, SetStateAction } from 'react'
-import dayjs from 'dayjs'
+import { Dispatch, SetStateAction } from 'react';
+import dayjs from 'dayjs';
 
-import { IBanner } from 'types/banners'
-import { IProductItem } from 'types/product'
-import { currencyFormatter } from 'utils'
-import { BASE_URL } from 'fixtures'
-import styles from './productTable.module.scss'
+import { IBanner } from 'types/banners';
+import { IProductItem } from 'types/product';
+import { currencyFormatter } from 'utils';
+import { BASE_URL } from 'fixtures';
+import styles from './productTable.module.scss';
 
 interface IProductTable {
-  products: IProductItem[]
-  setBanners: Dispatch<SetStateAction<IBanner[]>>
+  products: IProductItem[];
+  setBanners: Dispatch<SetStateAction<IBanner[]>>;
 }
 
 const ProductTable = ({ products, setBanners }: IProductTable) => {
@@ -18,13 +18,13 @@ const ProductTable = ({ products, setBanners }: IProductTable) => {
       method: 'POST',
       headers: { 'Content-Type': 'apllication/jspn' },
       body: value._id,
-    })
-    const result = await response.json()
+    });
+    const result = await response.json();
 
     if (result.success) {
-      setBanners((prev) => [...prev, { _id: result.banners._id, item: value }])
+      setBanners((prev) => [...prev, { _id: result.banners._id, item: value }]);
     }
-  }
+  };
 
   return (
     <>
@@ -65,7 +65,7 @@ const ProductTable = ({ products, setBanners }: IProductTable) => {
         </tbody>
       </table>
     </>
-  )
-}
+  );
+};
 
-export default ProductTable
+export default ProductTable;

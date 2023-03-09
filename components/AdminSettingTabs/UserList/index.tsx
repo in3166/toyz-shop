@@ -1,20 +1,20 @@
-import { MouseEvent, useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
+import { MouseEvent, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
-import { useI18n } from 'hooks'
-import { IUser } from 'types/user'
-import { SnackBar } from 'components/_shared'
-import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import RemoveUserModal from './RemoveUserModal'
-import { LoadingSpinner, TrashIcon } from 'public/svgs'
-import styles from './userList.module.scss'
+import { useI18n } from 'hooks';
+import { IUser } from 'types/user';
+import { SnackBar } from 'components/_shared';
+import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar';
+import RemoveUserModal from './RemoveUserModal';
+import { LoadingSpinner, TrashIcon } from 'public/svgs';
+import styles from './userList.module.scss';
 
 const UserList = () => {
-  const t = useI18n()
-  const [openModal, setOpenModal] = useState(false)
-  const [users, setUsers] = useState<IUser[]>([])
-  const [selectedID, setSelectedID] = useState<string>('')
-  const { message, setMessage } = useSnackbar(3000)
+  const t = useI18n();
+  const [openModal, setOpenModal] = useState(false);
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [selectedID, setSelectedID] = useState<string>('');
+  const { message, setMessage } = useSnackbar(3000);
 
   const { isLoading, data } = useQuery(
     ['getAllUserDataDB'],
@@ -26,11 +26,11 @@ const UserList = () => {
         },
       })
         .then(async (response) => {
-          const result = await response.json()
-          return result.users
+          const result = await response.json();
+          return result.users;
         })
         .catch((err) => {
-          console.log('err:', err)
+          console.log('err:', err);
         }),
     {
       // TODO: error , success false 로직 추가
@@ -38,27 +38,27 @@ const UserList = () => {
       staleTime: 6 * 50 * 1000,
       useErrorBoundary: true,
     }
-  )
+  );
 
   useEffect(() => {
-    if (data && data.length > 0) setUsers(data)
-  }, [data])
+    if (data && data.length > 0) setUsers(data);
+  }, [data]);
 
   const loading = isLoading && (
     <div className={styles.loading}>
       <LoadingSpinner />
     </div>
-  )
+  );
 
   const handleCloseModal = () => {
-    setOpenModal(false)
-  }
+    setOpenModal(false);
+  };
 
   const handleRemoveButton = (e: MouseEvent<HTMLButtonElement>) => {
-    const { id } = e.currentTarget.dataset
-    setSelectedID(id ?? '')
-    setOpenModal(true)
-  }
+    const { id } = e.currentTarget.dataset;
+    setSelectedID(id ?? '');
+    setOpenModal(true);
+  };
 
   return (
     <div className={styles.tableWrapper}>
@@ -94,7 +94,7 @@ const UserList = () => {
 
       {message && <SnackBar message={message} setMessage={setMessage} />}
     </div>
-  )
-}
+  );
+};
 
-export default UserList
+export default UserList;

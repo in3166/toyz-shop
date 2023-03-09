@@ -1,43 +1,43 @@
-import { useRef, useState, ChangeEvent, FormEvent } from 'react'
-import { useRouter } from 'next/router'
+import { useRef, useState, ChangeEvent, FormEvent } from 'react';
+import { useRouter } from 'next/router';
 
-import { useOnClickOutside } from 'hooks'
-import { SearchIcon } from 'public/svgs'
-import { cx } from 'styles'
-import styles from './searchBar.module.scss'
-import { BASE_URL } from 'fixtures'
+import { useOnClickOutside } from 'hooks';
+import { SearchIcon } from 'public/svgs';
+import { cx } from 'styles';
+import styles from './searchBar.module.scss';
+import { BASE_URL } from 'fixtures';
 
 const SearchBar = () => {
-  const router = useRouter()
-  const [searchText, setSearchText] = useState('')
-  const [toggleSearchBar, setToggleSearchBar] = useState(false)
+  const router = useRouter();
+  const [searchText, setSearchText] = useState('');
+  const [toggleSearchBar, setToggleSearchBar] = useState(false);
 
-  const focusRef = useRef<HTMLInputElement>(null)
+  const focusRef = useRef<HTMLInputElement>(null);
 
   const handleChangeSearchText = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.currentTarget.value)
-  }
+    setSearchText(e.currentTarget.value);
+  };
 
   const handleOpenSearchBar = () => {
-    setToggleSearchBar(true)
-    focusRef.current?.focus()
-  }
+    setToggleSearchBar(true);
+    focusRef.current?.focus();
+  };
 
   const handleCloseSearchBar = () => {
-    setToggleSearchBar(false)
-    setSearchText('')
-  }
+    setToggleSearchBar(false);
+    setSearchText('');
+  };
 
-  const formRef = useOnClickOutside(handleCloseSearchBar)
+  const formRef = useOnClickOutside(handleCloseSearchBar);
 
   const handleSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!searchText || searchText.trim() === '') {
-      return
+      return;
     }
-    router.push(`${BASE_URL}/marketplace/?text=${searchText}`)
-    handleCloseSearchBar()
-  }
+    router.push(`${BASE_URL}/marketplace/?text=${searchText}`);
+    handleCloseSearchBar();
+  };
 
   return (
     <div className={styles.searchBox} ref={formRef}>
@@ -71,7 +71,7 @@ const SearchBar = () => {
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;

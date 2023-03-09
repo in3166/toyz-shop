@@ -1,53 +1,53 @@
-import { useEffect, useState } from 'react'
-import type { NextPage } from 'next'
-import { AppProps } from 'next/app'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ParsedUrlQuery } from 'querystring'
+import { useEffect, useState } from 'react';
+import type { NextPage } from 'next';
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { ParsedUrlQuery } from 'querystring';
 
-import { useUserLikes } from 'hooks'
-import { dbConnect } from 'lib/dbConnect'
-import { fetchToAPI } from 'utils'
-import { getProductById } from 'lib/controllers'
-import { getCommentsByProductId } from 'lib/controllers/comments'
-import { SnackBar, Container, Loading } from 'components/_shared'
-import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import Comments from 'components/Comments'
-import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs'
-import styles from './itemDetailPage.module.scss'
-import ProductContent from '@components/ProductContent'
+import { useUserLikes } from 'hooks';
+import { dbConnect } from 'lib/dbConnect';
+import { fetchToAPI } from 'utils';
+import { getProductById } from 'lib/controllers';
+import { getCommentsByProductId } from 'lib/controllers/comments';
+import { SnackBar, Container, Loading } from 'components/_shared';
+import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar';
+import Comments from 'components/Comments';
+import { HeartFillIcon, HeartOutlineIcon } from 'public/svgs';
+import styles from './itemDetailPage.module.scss';
+import ProductContent from '@components/ProductContent';
 
 const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
-  const { product, commnets } = pageProps
+  const { product, commnets } = pageProps;
 
-  const { message, setMessage } = useSnackbar(3000)
+  const { message, setMessage } = useSnackbar(3000);
 
-  const router = useRouter()
-  const { likes, user, handleClickLike } = useUserLikes()
-  const [isLiked, setIsLiked] = useState(false)
+  const router = useRouter();
+  const { likes, user, handleClickLike } = useUserLikes();
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     if (likes.some((value: { _id: string }) => value._id === product?._id)) {
-      setIsLiked(true)
+      setIsLiked(true);
     }
-  }, [likes, product?._id])
+  }, [likes, product?._id]);
 
   if (router.isFallback) {
-    return <Loading />
+    return <Loading />;
   }
 
   const handleClickEdit = () => {
-    router.push(`/product?id=${product._id}`)
-  }
+    router.push(`/product?id=${product._id}`);
+  };
 
   const handleClickDelete = async () => {
-    const result = await fetchToAPI(`/api/products/${product?._id}`, 'DELETE')
+    const result = await fetchToAPI(`/api/products/${product?._id}`, 'DELETE');
     if (result.success) {
-      router.push(`/`)
+      router.push(`/`);
     }
-  }
+  };
 
   const editButton = (
     <div className={styles.editButtonWrapper}>
@@ -58,7 +58,7 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
         <Image width={17} height={17} src='/svgs/bin.png' alt='edit product info button' />
       </button>
     </div>
-  )
+  );
 
   const likeButton = (
     <button
@@ -69,9 +69,9 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
     >
       {isLiked ? <HeartFillIcon /> : <HeartOutlineIcon />}
     </button>
-  )
+  );
 
-  const headerButton = user?.id === product.owner.id ? editButton : likeButton
+  const headerButton = user?.id === product.owner.id ? editButton : likeButton;
 
   return (
     <>
@@ -91,20 +91,20 @@ const ItemDetailPage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
         {message && <SnackBar message={message} setMessage={setMessage} status='warning' />}
       </Container>
     </>
-  )
-}
+  );
+};
 
 interface IGetServerSideProps {
-  locale: string
-  locales: string[]
-  params: ParsedUrlQuery
+  locale: string;
+  locales: string[];
+  params: ParsedUrlQuery;
 }
 
 export const getServerSideProps = async (context: IGetServerSideProps) => {
-  const { locale, locales, params } = context
-  await dbConnect()
-  const product = await getProductById(params.itemId)
-  const commnets = await getCommentsByProductId(params.itemId)
+  const { locale, locales, params } = context;
+  await dbConnect();
+  const product = await getProductById(params.itemId);
+  const commnets = await getCommentsByProductId(params.itemId);
 
   return {
     props: {
@@ -114,7 +114,7 @@ export const getServerSideProps = async (context: IGetServerSideProps) => {
       product: JSON.parse(JSON.stringify(product)),
       commnets: JSON.parse(JSON.stringify(commnets)),
     },
-  }
-}
+  };
+};
 
-export default ItemDetailPage
+export default ItemDetailPage;

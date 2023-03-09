@@ -19,17 +19,18 @@ const Comments = ({ productId, commnets }: ICommentsProps) => {
   const comment = useFormInput({ validateFunction: (val) => val.length > 0, initialValue: '' });
   const { data: session } = useSession();
   const [commentList, setCommentList] = useState(commnets);
-  const [snackBarStatus, setSnackBarStatus] = useState('')
-  const { message, setMessage } = useSnackbar(5000)
+  const [snackBarStatus, setSnackBarStatus] = useState('');
+  const { message, setMessage } = useSnackbar(5000);
 
   const handleSubmitComment = () => {
     if (!session?.user._id) {
-      setSnackBarStatus('warning')
-      setMessage(`${t('common:comment.notLoggedIn')}`)
+      setSnackBarStatus('warning');
+      setMessage(`${t('common:comment.notLoggedIn')}`);
       return;
-    } else if (!comment.valueIsValid) {
-      setSnackBarStatus('warning')
-      setMessage(`${t('common:comment.notValidContent')}`)
+    }
+    if (!comment.valueIsValid) {
+      setSnackBarStatus('warning');
+      setMessage(`${t('common:comment.notValidContent')}`);
       return;
     }
 
@@ -50,7 +51,7 @@ const Comments = ({ productId, commnets }: ICommentsProps) => {
         setCommentList((prev) => [...prev, { ...result.comments, user: session?.user }]);
       }
     });
-  }
+  };
 
   return (
     <div className={styles.commentWrapper}>
@@ -75,6 +76,6 @@ const Comments = ({ productId, commnets }: ICommentsProps) => {
       {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
     </div>
   );
-}
+};
 
 export default Comments;

@@ -1,31 +1,31 @@
-import { useState } from 'react'
-import { AppProps } from 'next/app'
-import Head from 'next/head'
-import type { NextRequest } from 'next/server'
-import { getToken } from 'next-auth/jwt'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react';
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { useIntersectionObserver } from 'hooks'
-import { IAuthToken } from 'types/auth'
-import { getProductByUserId } from 'lib/controllers'
-import { ScrollDetecor, SearchBar } from 'components/_shared'
-import ProductList from 'components/ProductList'
-import ProductFilter from 'components/ProductFilter'
-import styles from './marketPlace.module.scss'
+import { useIntersectionObserver } from 'hooks';
+import { IAuthToken } from 'types/auth';
+import { getProductByUserId } from 'lib/controllers';
+import { ScrollDetecor, SearchBar } from 'components/_shared';
+import ProductList from 'components/ProductList';
+import ProductFilter from 'components/ProductFilter';
+import styles from './marketPlace.module.scss';
 
 const MyListPage = ({ pageProps }: AppProps) => {
-  const { initialProducts, userId } = pageProps
-  const [isLoading, setIsLoading] = useState(true)
-  const [status, setStatus] = useState(1)
-  const [sort, setSort] = useState(0)
-  const [products, setProducts] = useState(initialProducts)
+  const { initialProducts, userId } = pageProps;
+  const [isLoading, setIsLoading] = useState(true);
+  const [status, setStatus] = useState(1);
+  const [sort, setSort] = useState(0);
+  const [products, setProducts] = useState(initialProducts);
 
   const { setTarget, isEnd, handleChangedFilter } = useIntersectionObserver(
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,
     setProducts,
     { status, sort, userId, firstProduct: initialProducts[0].createdAt }
-  )
+  );
 
   return (
     <>
@@ -48,21 +48,21 @@ const MyListPage = ({ pageProps }: AppProps) => {
       <ProductList products={products} setProducts={setProducts} />
       {!isEnd && !isLoading && <ScrollDetecor setTarget={setTarget} />}
     </>
-  )
-}
+  );
+};
 interface IGetServerSideProps {
-  locale: string
-  locales: string[]
-  req: NextRequest
+  locale: string;
+  locales: string[];
+  req: NextRequest;
 }
 
 export const getServerSideProps = async (context: IGetServerSideProps) => {
-  const { locale, locales, req } = context
-  const token: IAuthToken | null = await getToken({ req })
-  let initialProducts: Omit<any, never>[] = []
+  const { locale, locales, req } = context;
+  const token: IAuthToken | null = await getToken({ req });
+  let initialProducts: Omit<any, never>[] = [];
 
   if (token) {
-    initialProducts = await getProductByUserId(token?._id || '')
+    initialProducts = await getProductByUserId(token?._id || '');
   }
   return {
     props: {
@@ -72,7 +72,7 @@ export const getServerSideProps = async (context: IGetServerSideProps) => {
       userId: token?._id,
       initialProducts: JSON.parse(JSON.stringify(initialProducts)),
     },
-  }
-}
+  };
+};
 
-export default MyListPage
+export default MyListPage;

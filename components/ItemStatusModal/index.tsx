@@ -1,15 +1,15 @@
-import { useI18n } from 'hooks'
+import { useI18n } from 'hooks';
 
-import { Modal } from 'components/_shared'
-import styles from './itemStatusModal.module.scss'
+import { Modal } from 'components/_shared';
+import styles from './itemStatusModal.module.scss';
 
 interface IItemStatusModalProps {
-  onClose: () => void
-  onConfirm: () => void
+  onClose: () => void;
+  onConfirm: () => void;
 }
 
 const ItemStatusModal = ({ onClose, onConfirm }: IItemStatusModalProps) => {
-  const t = useI18n()
+  const t = useI18n();
 
   return (
     <Modal onCancel={onClose}>
@@ -28,7 +28,7 @@ const ItemStatusModal = ({ onClose, onConfirm }: IItemStatusModalProps) => {
         </div>
       </footer>
     </Modal>
-  )
-}
+  );
+};
 
-export default ItemStatusModal
+export default ItemStatusModal;

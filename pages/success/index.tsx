@@ -1,30 +1,30 @@
-import { useEffect, useState } from 'react'
-import { NextPage } from 'next'
-import { NextPageContext } from 'next/types'
-import { useRouter } from 'next/router'
-import nextI18nextConfig from 'next-i18next.config'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useEffect, useState } from 'react';
+import { NextPage } from 'next';
+import { NextPageContext } from 'next/types';
+import { useRouter } from 'next/router';
+import nextI18nextConfig from 'next-i18next.config';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { currencyFormatter } from 'utils'
-import styles from './success.module.scss'
+import { currencyFormatter } from 'utils';
+import styles from './success.module.scss';
 
 interface IBuyInfo {
-  seller?: string
-  buyer?: string
-  price?: string
-  orderId?: string
-  paymentKey?: string
+  seller?: string;
+  buyer?: string;
+  price?: string;
+  orderId?: string;
+  paymentKey?: string;
 }
 
 const Success: NextPage = () => {
-  const router = useRouter()
-  const [buyInfo, setBuyInfo] = useState<IBuyInfo>({})
+  const router = useRouter();
+  const [buyInfo, setBuyInfo] = useState<IBuyInfo>({});
 
   useEffect(() => {
     if (router) {
-      setBuyInfo(router.query)
+      setBuyInfo(router.query);
     }
-  }, [router, router.query])
+  }, [router, router.query]);
 
   useEffect(() => {
     if (buyInfo.buyer) {
@@ -37,13 +37,13 @@ const Success: NextPage = () => {
         }),
       })
         .then((res) => {
-          console.log('성공:', res)
+          console.log('성공:', res);
         })
         .catch((err) => {
-          console.log('실패: ', err)
-        })
+          console.log('실패: ', err);
+        });
     }
-  }, [buyInfo])
+  }, [buyInfo]);
 
   return (
     <section className={styles.content}>
@@ -82,18 +82,18 @@ const Success: NextPage = () => {
         </button>
       </footer>
     </section>
-  )
-}
+  );
+};
 
 export const getStaticProps = async (context: NextPageContext) => {
-  const { locale, locales } = context
+  const { locale, locales } = context;
   return {
     props: {
       ...(await serverSideTranslations(locale || 'ko', ['app', 'common'], nextI18nextConfig)),
       locales,
     },
     revalidate: 10,
-  }
-}
+  };
+};
 
-export default Success
+export default Success;

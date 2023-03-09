@@ -1,29 +1,29 @@
-import { useState } from 'react'
-import type { NextPage } from 'next'
-import { AppProps } from 'next/app'
-import Head from 'next/head'
-import nextI18nextConfig from 'next-i18next.config'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react';
+import type { NextPage } from 'next';
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import nextI18nextConfig from 'next-i18next.config';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { useIntersectionObserver } from 'hooks'
-import { IProductItem } from 'types/product'
-import { dbConnect } from 'lib/dbConnect'
-import { getAllBanner, getAllProducts } from 'lib/controllers'
-import { ScrollDetecor } from 'components/_shared'
-import Banner from 'components/Banner'
-import ProductList from 'components/ProductList'
+import { useIntersectionObserver } from 'hooks';
+import { IProductItem } from 'types/product';
+import { dbConnect } from 'lib/dbConnect';
+import { getAllBanner, getAllProducts } from 'lib/controllers';
+import { ScrollDetecor } from 'components/_shared';
+import Banner from 'components/Banner';
+import ProductList from 'components/ProductList';
 
 const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
-  const { initialProducts, banners } = pageProps
-  const [isLoading, setIsLoading] = useState(false)
-  const [products, setProducts] = useState<IProductItem[]>(initialProducts)
+  const { initialProducts, banners } = pageProps;
+  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState<IProductItem[]>(initialProducts);
 
   const { setTarget, isEnd } = useIntersectionObserver(
     { rootMargin: '10px', threshold: 0 },
     setIsLoading,
     setProducts,
     { status: 1, firstProduct: products[0].createdAt }
-  )
+  );
 
   return (
     <>
@@ -35,15 +35,15 @@ const HomePage: NextPage<AppProps> = ({ pageProps }: AppProps) => {
       <ProductList products={products} isLoading={isLoading} setProducts={setProducts} />
       {!isEnd && !isLoading && <ScrollDetecor setTarget={setTarget} />}
     </>
-  )
-}
+  );
+};
 
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
-  await dbConnect()
+  await dbConnect();
 
-  const responseProducts = await getAllProducts({ page: 1, status: 1 })
-  const responseBanners = await getAllBanner()
-  const existedBanner = responseBanners.filter((value) => value.item !== null)
+  const responseProducts = await getAllProducts({ page: 1, status: 1 });
+  const responseBanners = await getAllBanner();
+  const existedBanner = responseBanners.filter((value) => value.item !== null);
 
   return {
     props: {
@@ -53,7 +53,7 @@ export const getStaticProps = async ({ locale, locales }: { locale: string; loca
       banners: JSON.parse(JSON.stringify(existedBanner || [])),
     },
     revalidate: 10,
-  }
-}
+  };
+};
 
-export default HomePage
+export default HomePage;

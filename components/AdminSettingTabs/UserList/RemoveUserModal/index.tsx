@@ -1,20 +1,20 @@
-import { Dispatch, SetStateAction, useCallback } from 'react'
-import { useI18n } from 'hooks'
+import { Dispatch, SetStateAction, useCallback } from 'react';
+import { useI18n } from 'hooks';
 
-import { IUser } from 'types/user'
-import { BASE_URL } from 'fixtures'
-import { Modal } from 'components/_shared'
-import styles from './removeUserModal.module.scss'
+import { IUser } from 'types/user';
+import { BASE_URL } from 'fixtures';
+import { Modal } from 'components/_shared';
+import styles from './removeUserModal.module.scss';
 
 interface IRemoveUserModalProps {
-  onClose: () => void
-  setMessage: (text: string) => void
-  setUsers: Dispatch<SetStateAction<IUser[]>>
-  id: string
+  onClose: () => void;
+  setMessage: (text: string) => void;
+  setUsers: Dispatch<SetStateAction<IUser[]>>;
+  id: string;
 }
 
 const RemoveUserModal = ({ onClose, setMessage, setUsers, id }: IRemoveUserModalProps) => {
-  const t = useI18n()
+  const t = useI18n();
   const handleClickBuy = useCallback(async () => {
     fetch(`${BASE_URL}/api/users/${id}`, {
       method: 'DELETE',
@@ -23,17 +23,17 @@ const RemoveUserModal = ({ onClose, setMessage, setUsers, id }: IRemoveUserModal
       },
     })
       .then(async (response) => {
-        setUsers((prev) => prev.filter((user) => user.id !== id))
-        const result = await response.json()
-        if (result.ok) setMessage('삭제 완료!')
+        setUsers((prev) => prev.filter((user) => user.id !== id));
+        const result = await response.json();
+        if (result.ok) setMessage('삭제 완료!');
       })
       .catch((err) => {
-        setMessage(`삭제 실패: ${err}`)
+        setMessage(`삭제 실패: ${err}`);
       })
       .finally(() => {
-        onClose()
-      })
-  }, [id, onClose, setMessage, setUsers])
+        onClose();
+      });
+  }, [id, onClose, setMessage, setUsers]);
 
   return (
     <Modal onCancel={onClose}>
@@ -53,7 +53,7 @@ const RemoveUserModal = ({ onClose, setMessage, setUsers, id }: IRemoveUserModal
         </button>
       </footer>
     </Modal>
-  )
-}
+  );
+};
 
-export default RemoveUserModal
+export default RemoveUserModal;

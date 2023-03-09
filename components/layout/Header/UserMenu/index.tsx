@@ -1,19 +1,20 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { signOut, useSession } from 'next-auth/react'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { signOut, useSession } from 'next-auth/react';
 
-import { useI18n } from 'hooks'
-import { BASE_URL } from 'fixtures'
-import { ProfileIcon, SettingIcon } from 'public/svgs'
-import { cx } from 'styles'
-import styles from '../header.module.scss'
+import { useI18n, useState } from 'hooks';
+import { BASE_URL } from 'fixtures';
+import { ProfileIcon, SettingIcon } from 'public/svgs';
+import { cx } from 'styles';
+import styles from '../header.module.scss';
+import Popover from '@components/_shared/Popover';
 
 const UserMenu = ({ lang }: { lang: string }) => {
-  const t = useI18n()
-  const router = useRouter()
+  const t = useI18n();
+  const router = useRouter();
 
-  const { data: session } = useSession()
-  const language = lang === '한국어' || lang === 'Korean' ? '' : '/en'
+  const { data: session } = useSession();
+  const language = lang === '한국어' || lang === 'Korean' ? '' : '/en';
   const loggedOutMenu = !session && (
     <>
       <li>
@@ -35,7 +36,15 @@ const UserMenu = ({ lang }: { lang: string }) => {
         </Link>
       </li>
     </>
-  )
+  );
+  const [isHover, setIsHover] = useState(false);
+  const onHover = () => {
+    setIsHover(true);
+  };
+
+  const onHoverLeave = () => {
+    setIsHover(false);
+  };
 
   const loggedInMenu = session && (
     <>
@@ -49,28 +58,38 @@ const UserMenu = ({ lang }: { lang: string }) => {
           {`${t('common:gnb.logout')}`}
         </button>
       </li>
-      <li>
-        <button type='button' className={styles.settingIcon} aria-label='Enter User Setting Page'>
-          {session?.user?.name !== 'admin' ? (
-            <Link href='/setting/user' aria-label='link to User Setting page'>
-              <ProfileIcon />
-            </Link>
-          ) : (
+      <li onMouseEnter={onHover} onMouseLeave={onHoverLeave} className={styles.settingIcon}>
+        {session?.user?.name !== 'admin' ? (
+          <>
+            <ProfileIcon />
+            {isHover && (
+              <Popover
+                popoverList={[
+                  { title: '설정', path: '/setting/user' },
+                  { title: '채팅', path: '/chatRooms' },
+                ]}
+                popoverIsOpen={isHover}
+                setPopoverIsOpen={setIsHover}
+              />
+            )}
+          </>
+        ) : (
+          <button type='button' className={styles.settingIcon} aria-label='Enter User Setting Page'>
             <Link href='/setting/admin' aria-label='link to Admin Setting page'>
               <SettingIcon />
             </Link>
-          )}
-        </button>
+          </button>
+        )}
       </li>
     </>
-  )
+  );
 
   return (
     <>
       {loggedOutMenu}
       {loggedInMenu}
     </>
-  )
-}
+  );
+};
 
-export default UserMenu
+export default UserMenu;

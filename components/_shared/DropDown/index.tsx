@@ -1,18 +1,18 @@
-import { Dispatch, MouseEvent, SetStateAction, useState } from 'react'
+import { Dispatch, MouseEvent, SetStateAction, useState } from 'react';
 
-import { useOnClickOutside } from 'hooks'
-import { DownArrow } from 'public/svgs'
-import styles from './dropDown.module.scss'
-import { cx } from 'styles'
+import { useOnClickOutside } from 'hooks';
+import { DownArrow } from 'public/svgs';
+import styles from './dropDown.module.scss';
+import { cx } from 'styles';
 
 interface IDropDownProps {
-  title?: string
-  currentValue: number
-  selectList: string[]
-  setCurrentValue: Dispatch<SetStateAction<number>>
-  size?: 'large' | 'medium' | 'small'
-  handleChangedLanguage?: (language: string) => void // TODO: useeffect로 빼기
-  handleChangedFilter?: (param: number) => void // TODO: useeffect로 빼기
+  title?: string;
+  currentValue: number;
+  selectList: string[];
+  setCurrentValue: Dispatch<SetStateAction<number>>;
+  size?: 'large' | 'medium' | 'small';
+  handleChangedLanguage?: (language: string) => void; // TODO: useeffect로 빼기
+  handleChangedFilter?: (param: number) => void; // TODO: useeffect로 빼기
 }
 
 const DropDown = ({
@@ -24,30 +24,30 @@ const DropDown = ({
   handleChangedLanguage,
   handleChangedFilter,
 }: IDropDownProps) => {
-  const [selectIsOpen, setSelectIsOpen] = useState(false)
+  const [selectIsOpen, setSelectIsOpen] = useState(false);
 
   const handleVisibleOptions = () => {
-    setSelectIsOpen((prev) => !prev)
-  }
+    setSelectIsOpen((prev) => !prev);
+  };
 
   const handleListClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const selectedValue = Number(e.currentTarget.value)
-    setCurrentValue(selectedValue)
-    setSelectIsOpen(false)
+    const selectedValue = Number(e.currentTarget.value);
+    setCurrentValue(selectedValue);
+    setSelectIsOpen(false);
 
     if (handleChangedFilter) {
-      handleChangedFilter(selectedValue)
+      handleChangedFilter(selectedValue);
     }
 
     if (currentValue !== selectedValue && handleChangedLanguage)
-      handleChangedLanguage(selectList[selectedValue] || 'korean')
-  }
+      handleChangedLanguage(selectList[selectedValue] || 'korean');
+  };
 
   const handleOnClose = () => {
-    setSelectIsOpen(false)
-  }
+    setSelectIsOpen(false);
+  };
 
-  const dropDownRef = useOnClickOutside(handleOnClose)
+  const dropDownRef = useOnClickOutside(handleOnClose);
 
   return (
     <div className={cx(styles.select, styles[size], { [styles.selectIsOpen]: selectIsOpen })} ref={dropDownRef}>
@@ -76,11 +76,11 @@ const DropDown = ({
                   {value}
                 </button>
               </li>
-            )
+            );
           })}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default DropDown
+export default DropDown;

@@ -1,30 +1,30 @@
-import { useEffect, useState } from 'react'
-import { NextPage } from 'next'
-import { NextPageContext } from 'next/types'
-import { useRouter } from 'next/router'
-import nextI18nextConfig from 'next-i18next.config'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useEffect, useState } from 'react';
+import { NextPage } from 'next';
+import { NextPageContext } from 'next/types';
+import { useRouter } from 'next/router';
+import nextI18nextConfig from 'next-i18next.config';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { currencyFormatter } from 'utils'
-import styles from './fail.module.scss'
+import { currencyFormatter } from 'utils';
+import styles from './fail.module.scss';
 
 interface IFailedfailedBuyInfo {
-  seller?: string
-  buyer?: string
-  price?: string
-  orderId?: string
-  paymentKey?: string
+  seller?: string;
+  buyer?: string;
+  price?: string;
+  orderId?: string;
+  paymentKey?: string;
 }
 
 const Fail: NextPage = () => {
-  const router = useRouter()
-  const [failedBuyInfo, setFailedBuyInfo] = useState<IFailedfailedBuyInfo>({})
+  const router = useRouter();
+  const [failedBuyInfo, setFailedBuyInfo] = useState<IFailedfailedBuyInfo>({});
 
   useEffect(() => {
     if (router) {
-      setFailedBuyInfo(router.query)
+      setFailedBuyInfo(router.query);
     }
-  }, [router, router.query])
+  }, [router, router.query]);
 
   return (
     <section className={styles.content}>
@@ -63,18 +63,18 @@ const Fail: NextPage = () => {
         </button>
       </footer>
     </section>
-  )
-}
+  );
+};
 
 export const getStaticProps = async (context: NextPageContext) => {
-  const { locale, locales } = context
+  const { locale, locales } = context;
   return {
     props: {
       ...(await serverSideTranslations(locale || 'ko', ['app', 'common'], nextI18nextConfig)),
       locales,
     },
     revalidate: 10,
-  }
-}
+  };
+};
 
-export default Fail
+export default Fail;

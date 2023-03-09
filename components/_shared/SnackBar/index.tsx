@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-import { CloseIcon } from 'public/svgs'
-import styles from './snackBar.module.scss'
-import { cx } from 'styles'
+import { CloseIcon } from 'public/svgs';
+import styles from './snackBar.module.scss';
+import { cx } from 'styles';
 
 interface ISnackBarProps {
-  message: string
-  setMessage: (text: string) => void
-  status?: string
+  message: string;
+  setMessage: (text: string) => void;
+  status?: string;
 }
 
 const SnackBar = ({ message, setMessage, status }: ISnackBarProps) => {
@@ -26,7 +26,7 @@ const SnackBar = ({ message, setMessage, status }: ISnackBarProps) => {
         <CloseIcon />
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default React.memo(SnackBar)
+export default React.memo(SnackBar);

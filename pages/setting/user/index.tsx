@@ -1,28 +1,28 @@
-import { FormEvent, useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { useFormInput, useI18n } from 'hooks'
-import errorHandler from 'lib/errorHandler'
-import { InputText, SnackBar } from 'components/_shared'
-import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar'
-import { validateName, validatePassword, validatePhoneNumber } from 'utils'
-import styles from './userSetting.module.scss'
+import { useFormInput, useI18n } from 'hooks';
+import errorHandler from 'lib/errorHandler';
+import { InputText, SnackBar } from 'components/_shared';
+import { useSnackbar } from 'components/_shared/SnackBar/useSnackBar';
+import { validateName, validatePassword, validatePhoneNumber } from 'utils';
+import styles from './userSetting.module.scss';
 
 const UserSetting = () => {
-  const t = useI18n()
-  const router = useRouter()
-  const { data: session } = useSession()
+  const t = useI18n();
+  const router = useRouter();
+  const { data: session } = useSession();
 
   useEffect(() => {
-    if (!session) router.push('/')
-  }, [router, session])
+    if (!session) router.push('/');
+  }, [router, session]);
 
-  const inputFocusRef = useRef(null)
-  const [snackBarStatus, setSnackBarStatus] = useState('')
-  const { message, setMessage } = useSnackbar(5000)
+  const inputFocusRef = useRef(null);
+  const [snackBarStatus, setSnackBarStatus] = useState('');
+  const { message, setMessage } = useSnackbar(5000);
   const {
     value: name,
     reset: resetName,
@@ -30,7 +30,7 @@ const UserSetting = () => {
     hasError: nameHasError,
     valueChangeHandler: handleNameChange,
     inputBlurHandler: handleNameBlur,
-  } = useFormInput({ validateFunction: validateName, initialValue: session?.user?.name || '' })
+  } = useFormInput({ validateFunction: validateName, initialValue: session?.user?.name || '' });
 
   const {
     value: phone,
@@ -39,7 +39,7 @@ const UserSetting = () => {
     hasError: phoneHasError,
     valueChangeHandler: handlePhoneChange,
     inputBlurHandler: handlePhoneBlur,
-  } = useFormInput({ validateFunction: validatePhoneNumber, initialValue: session?.user?.phone })
+  } = useFormInput({ validateFunction: validatePhoneNumber, initialValue: session?.user?.phone });
 
   const {
     value: password,
@@ -48,17 +48,17 @@ const UserSetting = () => {
     hasError: passwordHasError,
     valueChangeHandler: handlePasswordChange,
     inputBlurHandler: handlePasswordBlur,
-  } = useFormInput({ validateFunction: validatePassword, initialValue: '' })
+  } = useFormInput({ validateFunction: validatePassword, initialValue: '' });
 
   const handleOnSubmit = async (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!nameIsValid || !phoneIsValid || !passwordIsValid) {
-      handlePasswordBlur()
-      handlePhoneBlur()
-      handleNameBlur()
-      setSnackBarStatus('warning')
-      setMessage('입력 정보가 올바르지 않습니다.')
-      return
+      handlePasswordBlur();
+      handlePhoneBlur();
+      handleNameBlur();
+      setSnackBarStatus('warning');
+      setMessage('입력 정보가 올바르지 않습니다.');
+      return;
     }
 
     const response = await fetch(`/api/users/${session?.user?.id}`, {
@@ -67,22 +67,22 @@ const UserSetting = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
+    });
 
-    const data = await response.json()
+    const data = await response.json();
     if (data.success) {
       if (session) {
-        session.user.name = name
-        session.user.phone = phone
+        session.user.name = name;
+        session.user.phone = phone;
       }
-      setSnackBarStatus('')
-      setMessage(`[${data.user?.id}]: 회원 정보 수정 완료`)
-      return
+      setSnackBarStatus('');
+      setMessage(`[${data.user?.id}]: 회원 정보 수정 완료`);
+      return;
     }
 
-    setSnackBarStatus('error')
-    setMessage(`[${data.error?.code}]: ${errorHandler(data.error?.code)}`)
-  }
+    setSnackBarStatus('error');
+    setMessage(`[${data.error?.code}]: ${errorHandler(data.error?.code)}`);
+  };
 
   return (
     <>
@@ -135,8 +135,8 @@ const UserSetting = () => {
         {message && <SnackBar message={message} status={snackBarStatus} setMessage={setMessage} />}
       </article>
     </>
-  )
-}
+  );
+};
 
 export const getStaticProps = async ({ locale, locales }: { locale: string; locales: string[] }) => {
   return {
@@ -144,7 +144,7 @@ export const getStaticProps = async ({ locale, locales }: { locale: string; loca
       ...(await serverSideTranslations(locale, ['common'])),
       locales,
     },
-  }
-}
+  };
+};
 
-export default UserSetting
+export default UserSetting;
